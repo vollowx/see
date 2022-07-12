@@ -229,7 +229,7 @@ export default class Button extends HTMLElement {
   /**
    * @param {FocusEvent} _event 
    */
-  handleFocusOut(_event) {
+  handleMouseOut(_event) {
     if (this.hasAttribute('touched')) {
       this.removeAttribute('touched');
     }
@@ -241,7 +241,7 @@ export default class Button extends HTMLElement {
     this.#attachShadow();
     this.#renderTemplate();
     this.buttonElement.addEventListener('touchstart', this.handleTouchStart, true);
-    this.buttonElement.addEventListener('focusout', this.handleFocusOut, true);
+    this.buttonElement.addEventListener('mouseout', this.handleMouseOut, true);
   }
   disconnectedCallback() {}
   /**

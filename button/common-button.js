@@ -76,7 +76,7 @@ CommonButtonStyle.replaceSync(css`
   [part~='button']:focus-visible [part~='state-layer'] {
     opacity: 0.12;
   }
-  [part~='button']:hover [part~='state-layer'] {
+  [part~='button']:hover:not([touched]) [part~='state-layer'] {
     opacity: 0.08;
   }
   [part~='target'] {
