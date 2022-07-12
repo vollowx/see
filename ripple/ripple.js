@@ -1,4 +1,4 @@
-import { html, css } from '../shared/template';
+import { html, css } from '../shared/template.js';
 
 const RippleStyle = new CSSStyleSheet();
 RippleStyle.replaceSync(css`
