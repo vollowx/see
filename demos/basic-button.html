@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic button</title>
+
+    <script type="module" src="../button/button.js"></script>
+    <link rel="stylesheet" href="../system/color-system.css" />
+    <link rel="stylesheet" href="../system/elevation-system.css" />
+
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body data-md-theme="light">
+    <header class="demo-header">
+      <h1>Basic button, without any more style</h1>
+    </header>
+
+    <h2>ARIA, 无障碍</h2>
+
+    <p>
+      Supported <code>aria-label</code>, <code>aria-haspopup</code>, <code>aria-controls</code>,
+      <code>aria-expanded</code> sync inside
+    </p>
+    <p>
+      支持 <code>aria-label</code>, <code>aria-haspopup</code>, <code>aria-controls</code>,
+      <code>aria-expanded</code> 内部同步
+    </p>
+
+    <h2>Demo, 演示</h2>
+
+    <div class="demo-container">
+      <ty-button>Using slot</ty-button>
+      <ty-button label="Using label attribute"></ty-button>
+      <ty-button label="Custom ARIA label" data-aria-label="This button is using custom ARIA label"></ty-button>
+      <ty-button label="Tab index is -1" tabindex="-1"></ty-button>
+      <ty-button onclick="this.nextElementSibling.focus()">Click to focus next button</ty-button>
+      <ty-button onclick="this.previousElementSibling.focus()">Click to focus previous button</ty-button>
+      <ty-button disabled>Disabled</ty-button>
+      <ty-button label="Try events, result will show in console" id="eEl"></ty-button>
+      <span id="eElShower"></span>
+    </div>
+
+    <script>
+      /** @type {HTMLButtonElement} */
+      const eEl = document.getElementById('eEl');
+      /** @type {HTMLSpanElement} */
+      const eElShow = document.getElementById('eElShow');
+      /**
+       * @param {MouseEvent|TouchEvent|KeyboardEvent} event
+       */
+      function appendEvent(event) {
+        console.log(event);
+      }
+      // That's all eEl I know on a button
+      eEl.addEventListener('click', appendEvent);
+      eEl.addEventListener('keydown', appendEvent);
+      eEl.addEventListener('keyup', appendEvent);
+      eEl.addEventListener('keypress', appendEvent);
+      eEl.addEventListener('mousedown', appendEvent);
+      eEl.addEventListener('mouseup', appendEvent);
+      eEl.addEventListener('mouseenter', appendEvent);
+      eEl.addEventListener('mouseleave', appendEvent);
+      eEl.addEventListener('mousemove', appendEvent);
+      eEl.addEventListener('contextmenu', appendEvent);
+      eEl.addEventListener('auxclick', appendEvent);
+      eEl.addEventListener('focus', appendEvent);
+      eEl.addEventListener('blur', appendEvent);
+      eEl.addEventListener('focusin', appendEvent);
+      eEl.addEventListener('focusout', appendEvent);
+      eEl.addEventListener('pointerdown', appendEvent);
+      eEl.addEventListener('pointerup', appendEvent);
+      eEl.addEventListener('pointermove', appendEvent);
+      eEl.addEventListener('pointerover', appendEvent);
+      eEl.addEventListener('pointerout', appendEvent);
+      eEl.addEventListener('pointerenter', appendEvent);
+      eEl.addEventListener('pointerleave', appendEvent);
+      eEl.addEventListener('touchstart', appendEvent);
+      eEl.addEventListener('touchend', appendEvent);
+      eEl.addEventListener('touchmove', appendEvent);
+      eEl.addEventListener('touchcancel', appendEvent);
+    </script>
+  </body>
+</html>

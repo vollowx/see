@@ -1,0 +1,30 @@
+{
+  "name": "tiny-material",
+  "version": "0.0.0",
+  "description": "Providing accessible components with Web Components & Material You",
+  "author": "huge-pancake",
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "material-you",
+    "material-design",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huge-pancake/tiny-material.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huge-pancake/tiny-material/issues"
+  },
+  "homepage": "https://github.com/huge-pancake/tiny-material#readme",
+  "scripts": {
+    "serve": "web-dev-server --open demos/ --node-resolve --watch --port 3000",
+    "check": "tsc",
+    "check:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.32",
+    "typescript": "^4.7.4"
+  }
+}
