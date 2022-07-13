@@ -1,29 +1,154 @@
 :root {
-  --md-sys-typescale-font-family: 'Roboto';
-  --md-sys-typescale-font-family-global: var(--md-sys-typescale-font-family), system-ui, -apple-system,
+  --md-sys-typescale-font-family-base: 'Roboto';
+  --md-sys-typescale-font-family-global: var(--md-sys-typescale-font-family-base), system-ui, -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --md-sys-typescale-font-family-monospace: Consolas, Menlo, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  box-sizing: border-box;
+  --demo-header-height: 64px;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
 }
 
 body {
-  padding-top: 64px;
   margin: 0;
-  width: 100%;
-  min-height: 100vh;
   font-family: var(--md-sys-typescale-font-family-global);
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
-  overflow-x: hidden;
-  box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+h1 {
+  margin: 10px 0;
+}
+h2 {
+  margin: 40px 0px 4px;
+  scroll-margin-top: calc(var(--demo-header-height) + 16px);
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--md-sys-typescale-font-family-monospace);
+}
+
+table {
   margin-inline: 20px;
+  display: block;
+  word-break: normal;
+  text-align: left;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-spacing: 0px;
+}
+th {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: var(--md-sys-color-on-background);
+  white-space: pre;
+  border-bottom: 1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.16);
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+td {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0px;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-weight: 400;
+  border-bottom: 1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.16);
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: var(--md-sys-color-on-background);
+}
+.name,
+.type,
+.default-val {
+  font-weight: 400;
+  font-family: var(--md-sys-typescale-font-family-monospace);
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-size: 0.8125rem;
+}
+.type {
+  color: var(--md-sys-color-tertiary);
+}
+
+md-fab-set {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+  gap: 8px;
+}
+[dir='rtl'] md-fab-set {
+  left: 16px;
+  right: auto;
+}
+
+main {
+  display: flex;
+  width: 100%;
+}
+.table-of-ctt {
+  display: none;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  padding: calc(64px + 1rem) 32px 16px 0px;
+  width: 240px;
+  height: 100vh;
+  order: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.table-of-ctt ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.table-of-ctt ul li a {
+  padding: 0px 8px 0px 10px;
+  margin: 4px 0px 8px;
+  display: inline-flex;
+  align-items: center;
+  color: rgba(var(--md-sys-color-on-surface-rgb), 0.72);
+  text-decoration: none;
+  border-left: 1px solid transparent;
+}
+[dir="rtl"] .table-of-ctt ul li a {
+  border-left: none;
+  border-right: 1px solid transparent;
+}
+.table-of-ctt ul li a:hover {
+  color: rgba(var(--md-sys-color-on-surface-rgb), 0.8);
+  border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.32);
+}
+.main {
+  margin-inline-start: 0;
+  padding: 64px 24px 48px 24px;
+  max-width: 105ch;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .table-of-ctt {
+    display: block;
+  }
+  .main {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    width: calc(100% -240px);
+  }
 }
 
 .demo-header {
@@ -63,18 +188,24 @@ p {
 }
 
 .demo-container {
-  margin: 16px;
+  margin: 1rem 0;
   padding: 16px;
+  width: 100%;
   display: flex;
+  gap: 4px;
   align-items: center;
   flex-wrap: wrap;
   background-color: var(--md-sys-color-background);
   border-radius: 16px;
   box-shadow: var(--md-sys-elevation-shadow-1);
   color: var(--md-sys-color-on-background);
-  gap: 4px;
+}
+[data-md-theme="dark"] .demo-container {
+  box-shadow: none;
+  border: 1px solid var(--md-sys-color-outline);
 }
 .demo-spacer {
+  margin: -8px;
   width: 100%;
 }
 .hid {

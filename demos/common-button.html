@@ -9,6 +9,7 @@
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
 
     <script type="module" src="../button/common-button.js"></script>
+    <script type="module" src="../button/fab.js"></script>
     <link rel="stylesheet" href="../system/color-system.css" />
     <link rel="stylesheet" href="../system/elevation-system.css" />
     <!-- We recommended to use iconify to reduce network usage -->
@@ -28,246 +29,258 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
-  <body data-md-theme="light">
+  <body data-md-theme="light" dir="ltr">
     <header class="demo-header">
-      <h1>Common button, 常规的按钮</h1>
+      <h1>Demo of <code>tiny-material</code></h1>
     </header>
 
-    <p class="hid">你发现了吗, 这个页面使用的主题色是 <code>#114514</code> (恼</p>
+    <md-fab-set>
+      <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">
+        <iconify-icon icon="material-symbols:brightness-6"></iconify-icon>
+      </md-fab>
+      <md-fab data-aria-label="Toggle demo direction" small secondary class="dir-tgl">
+        <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
+      </md-fab>
+    </md-fab-set>
 
-    <p>
-      Do not forget to read the source of this demo, it can help you to learn this component. Like what should you add
-      to the component when using custom icon source.
-    </p>
-    <p>别忘了在查看该演示的源码, 这可以帮助你了解该组件. 如在使用自定义图标源时应该同时给组件加上什么.</p>
+    <main>
+      <nav class="table-of-ctt" aria-label="Table of contents">
+        <p>Table of contents</p>
+        <ul>
+          <li><a href="#basic-button">Basic button, 基础按钮</a></li>
+          <li><a href="#has-icon">Has icon, 有图标的</a></li>
+          <li><a href="#link">Link, 链接</a></li>
+          <li><a href="#accessibility">Accessibility, 可访问性</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
 
-    <h2>Demo, 演示</h2>
+      <div class="main">
+        <h1>Common button, 常规的按钮</h1>
 
-    <h3>Left-to-Right, 左到右顺序</h3>
+        <p>
+          Design baseline from
+          <a href="https://m3.material.io/components/buttons/specs" target="_blank">m3.material.io</a>
+        </p>
 
-    <div class="demo-container" dir="ltr">
-      <md-button label="Default"></md-button>
-      <md-button label="tabindex=-1" tabindex="-1" outlined></md-button>
+        <h2 id="basic-button">Basic button, 基础按钮</h2>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+        <div class="demo-container">
+          <md-button label="Default"></md-button>
+          <md-button label="tabindex=-1" tabindex="-1" outlined></md-button>
 
-      <md-button label="Filled button"></md-button>
-      <md-button label="Filled tonal button" tonal></md-button>
-      <md-button label="Elevated button" elevated></md-button>
-      <md-button label="Outlined button" outlined></md-button>
-      <md-button label="Text button" text></md-button>
+          <div class="demo-spacer" aria-hidden="true"></div>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+          <md-button label="Filled button"></md-button>
+          <md-button label="Filled tonal button" tonal></md-button>
+          <md-button label="Elevated button" elevated></md-button>
+          <md-button label="Outlined button" outlined></md-button>
+          <md-button label="Text button" text></md-button>
 
-      <md-button disabled label="Filled button"></md-button>
-      <md-button disabled label="Filled tonal button" tonal></md-button>
-      <md-button disabled label="Elevated button" elevated></md-button>
-      <md-button disabled label="Outlined button" outlined></md-button>
-      <md-button disabled label="Text button" text></md-button>
-    </div>
+          <div class="demo-spacer" aria-hidden="true"></div>
 
-    <h3>Right-to-Left, 右到左顺序</h3>
+          <md-button disabled label="Filled button"></md-button>
+          <md-button disabled label="Filled tonal button" tonal></md-button>
+          <md-button disabled label="Elevated button" elevated></md-button>
+          <md-button disabled label="Outlined button" outlined></md-button>
+          <md-button disabled label="Text button" text></md-button>
+        </div>
 
-    <div class="demo-container" dir="rtl">
-      <md-button label="Default"></md-button>
-      <md-button label="tabindex=-1" tabindex="-1" outlined></md-button>
+        <h2 id="has-icon">Has icon, 有图标的</h2>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+        <h3>Way 1, use slot and custom source (recommended), 第一种方式, 使用 slot 和自定义的源 (推荐)</h3>
 
-      <md-button label="Filled button"></md-button>
-      <md-button label="Filled tonal button" tonal></md-button>
-      <md-button label="Elevated button" elevated></md-button>
-      <md-button label="Outlined button" outlined></md-button>
-      <md-button label="Text button" text></md-button>
+        <p>This way can reduce network spending. 该方法可减少网络开销</p>
+        <p>
+          Also, you have more customize on this way, like use another icon set (in iconify), or use image as a icon.
+        </p>
+        <p>同时, 你可以拥有更多的自定义空间, 例如使用另一个图标集 (在 iconify 内), 或是拿图片当作图标使用.</p>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+        <div class="demo-container">
+          <md-button label="Leading icon">
+            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button tonal label="Leading icon">
+            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button elevated label="Leading icon">
+            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button outlined label="Leading icon">
+            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button text leading-icon label="Leading icon">
+            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
 
-      <md-button disabled label="Filled button"></md-button>
-      <md-button disabled label="Filled tonal button" tonal></md-button>
-      <md-button disabled label="Elevated button" elevated></md-button>
-      <md-button disabled label="Outlined button" outlined></md-button>
-      <md-button disabled label="Text button" text></md-button>
-    </div>
+          <div class="demo-spacer" aria-hidden="true"></div>
 
-    <h3>With icon, 带有图标的</h3>
+          <md-button label="Trailing icon">
+            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button tonal label="Trailing icon">
+            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button elevated label="Trailing icon">
+            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button outlined label="Trailing icon">
+            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+          <md-button text trailing-icon label="Trailing icon">
+            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          </md-button>
+        </div>
 
-    <h4>Way 1, use slot and custom source (recommended), 第一种方式, 使用 slot 和自定义的源 (推荐)</h4>
+        <h3>Way 2, use attribute, 第二种方法, 使用属性</h3>
 
-    <p>This way can reduce network spending. 该方法可减少网络开销</p>
-    <p>Also, you have more customize on this way, like use another icon set (in iconify), or use image as a icon.</p>
-    <p>同时, 你可以拥有更多的自定义空间, 例如使用另一个图标集 (在 iconify 内), 或是拿图片当作图标使用.</p>
+        <p>Because of using web font, network spending may be more, 由于使用网络字体, 网络开销较大</p>
 
-    <div class="demo-container" dir="ltr" data-md-theme="light">
-      <md-button label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button tonal label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button elevated label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button outlined label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button text leading-icon label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
+        <div class="demo-container">
+          <md-button label="Leading icon" leading-icon="settings"></md-button>
+          <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
+        </div>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+        <h2>Custom inner element, 自定义内部元素</h2>
 
-      <md-button label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button tonal label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button elevated label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button outlined label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button text trailing-icon label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-    </div>
+        <p>
+          Sometimes, maybe you want to use button component with a <code>&lt;input&gt;</code>, but then you will find
+          that this is not feasible. So we provide function to custom inner element. See the following example(s).
+        </p>
+        <p>
+          有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 button 组件的样式一同使用, 但你将会发现这不可行.
+          所以我们提供自定义内部元素的功能. 见下例子.
+        </p>
 
-    <div class="demo-container" dir="rtl" data-md-theme="light">
-      <md-button label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button tonal label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button elevated label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button outlined label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button text leading-icon label="Leading icon">
-        <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
+        <div class="demo-container">
+          <label for="file-uploader">
+            <input type="file" name="file-uploader" id="file-uploader" multiple style="display: none" />
+            <md-button component="span" label="Upload files"></md-button>
+          </label>
+        </div>
 
-      <div class="demo-spacer" aria-hidden="true"></div>
+        <h2 id="link">Link, 链接</h2>
 
-      <md-button label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button tonal label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button elevated label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button outlined label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-      <md-button text trailing-icon label="Trailing icon">
-        <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
-      </md-button>
-    </div>
+        <p><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></p>
+        <p><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></p>
 
-    <h4>Way 2, use attribute, 第二种方法, 使用属性</h4>
+        <div class="demo-container">
+          <a
+            href="https://github.com/huge-pancake/tiny-material"
+            target="_blank"
+            tabindex="-1"
+            style="text-decoration: none"
+          >
+            <md-button label="Link"></md-button>
+          </a>
+        </div>
 
-    <p>Because of using web font, network spending may be more, 由于使用网络字体, 网络开销较大</p>
+        <h2 id="accessibility">Accessibility, 可访问性</h2>
 
-    <div class="demo-container" dir="ltr" data-md-theme="light">
-      <md-button label="Leading icon" leading-icon="settings"></md-button>
-      <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
-    </div>
+        <p>Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</p>
+        <p>使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</p>
+        <p>Support all the other ARIA attributes for button, see details in source code.</p>
+        <p>其他用于按钮的 ARIA 属性全部支持, 详见源代码.</p>
 
-    <div class="demo-container" dir="rtl" data-md-theme="light">
-      <md-button label="Leading icon" leading-icon="settings"></md-button>
-      <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
-    </div>
+        <div class="demo-container">
+          <md-button
+            label="Button with custom aria-label"
+            data-aria-label="A Button with custom ARIA label"
+          ></md-button>
+        </div>
 
-    <h3>Dark theme, 暗色主题</h3>
+        <h2 id="attributes">Attributes, 属性</h2>
 
-    <p>Control by <code>data-md-theme="light/dark/system"</code>.</p>
-    <p>由 <code>data-md-theme="light/dark/system"</code> 控制.</p>
+        <p>Types:</p>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
 
-    <div class="demo-container" dir="ltr" data-md-theme="dark">
-      <md-button label="Default"></md-button>
-      <md-button label="tabindex=-1" tabindex="-1" outlined></md-button>
-
-      <div class="demo-spacer" aria-hidden="true"></div>
-
-      <md-button label="Filled button"></md-button>
-      <md-button label="Filled tonal button" tonal></md-button>
-      <md-button label="Elevated button" elevated></md-button>
-      <md-button label="Outlined button" outlined></md-button>
-      <md-button label="Text button" text></md-button>
-
-      <div class="demo-spacer" aria-hidden="true"></div>
-
-      <md-button disabled label="Filled button"></md-button>
-      <md-button disabled label="Filled tonal button" tonal></md-button>
-      <md-button disabled label="Elevated button" elevated></md-button>
-      <md-button disabled label="Outlined button" outlined></md-button>
-      <md-button disabled label="Text button" text></md-button>
-    </div>
-
-    <div class="demo-container" dir="rtl" data-md-theme="dark">
-      <md-button label="Default"></md-button>
-      <md-button label="tabindex=-1" tabindex="-1" outlined></md-button>
-
-      <div class="demo-spacer" aria-hidden="true"></div>
-
-      <md-button label="Filled button"></md-button>
-      <md-button label="Filled tonal button" tonal></md-button>
-      <md-button label="Elevated button" elevated></md-button>
-      <md-button label="Outlined button" outlined></md-button>
-      <md-button label="Text button" text></md-button>
-
-      <div class="demo-spacer" aria-hidden="true"></div>
-
-      <md-button disabled label="Filled button"></md-button>
-      <md-button disabled label="Filled tonal button" tonal></md-button>
-      <md-button disabled label="Elevated button" elevated></md-button>
-      <md-button disabled label="Outlined button" outlined></md-button>
-      <md-button disabled label="Text button" text></md-button>
-    </div>
-
-    <h3>Custom inner element, 自定义内部元素</h3>
-
-    <p>
-      Sometimes, maybe you want to use button component with a <code>&lt;input&gt;</code>, but then you will find that
-      this is not feasible. So we provide function to custom inner element. See the following example(s).
-    </p>
-    <p>
-      有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 button 组件的样式一同使用, 但你将会发现这不可行.
-      所以我们提供自定义内部元素的功能. 见下例子.
-    </p>
-
-    <div class="demo-container" dir="ltr" data-md-theme="light">
-      <label for="file-uploader">
-        <input type="file" name="file-uploader" id="file-uploader" multiple style="display: none" />
-        <md-button component="span" label="Upload files"></md-button>
-      </label>
-    </div>
-
-    <h3>Link, 链接</h3>
-
-    <p><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></p>
-    <p><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></p>
-
-    <div class="demo-container" dir="ltr" data-md-theme="light">
-      <a href="https://github.com/huge-pancake/tiny-material" target="_blank" tabindex="-1" style="text-decoration: none">
-        <md-button label="Link"></md-button>
-      </a>
-    </div>
-
-    <h3>Accessibility, 可访问性</h3>
-
-    <p>Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</p>
-    <p>使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</p>
-    <p>Support all the other ARIA attributes for button, see details in source code.</p>
-    <p>其他用于按钮的 ARIA 属性全部支持, 详见源代码.</p>
-
-    <div class="demo-container" dir="ltr" data-md-theme="light">
-      <md-button label="Button with custom aria-label" data-aria-label="A Button with custom ARIA label"></md-button>
-    </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">filled / tonal / elevated / outlined / text</td>
+              <td class="type">single choice</td>
+              <td class="default-val">filled</td>
+              <td>Controls button's style</td>
+            </tr>
+            <tr>
+              <td class="name">disabled</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>If true, button will be disabled. Controls disabled, aria-disabled</td>
+            </tr>
+            <tr>
+              <td class="name">data-rule</td>
+              <td class="type">string</td>
+              <td class="default-val">button</td>
+              <td>Controls role</td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-label</td>
+              <td class="type">string</td>
+              <td class="default-val">value of label</td>
+              <td>
+                Controls aria-label, if not defined and has label, use label, if not defined and has not label, empty
+              </td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-haspopup</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls aria-haspopup</td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-controls</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls aria-controls</td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-expanded</td>
+              <td class="type">boolean</td>
+              <td class="default-val"></td>
+              <td>Controls aria-expanded</td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-selected</td>
+              <td class="type">boolean</td>
+              <td class="default-val"></td>
+              <td>Controls aria-selected</td>
+            </tr>
+            <tr>
+              <td class="name">label</td>
+              <td class="type">string</td>
+              <td></td>
+              <td>Controls label content, the default value of aria-label</td>
+            </tr>
+            <tr>
+              <td class="name">leading-icon</td>
+              <td class="type">string</td>
+              <td></td>
+              <td>Controls leading icon name (web font), not recommended</td>
+            </tr>
+            <tr>
+              <td class="name">trailing-icon</td>
+              <td class="type">string</td>
+              <td></td>
+              <td>Controls trailing icon name (web font), not recommended</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
   </body>
 </html>

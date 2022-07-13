@@ -49,7 +49,7 @@ export const TypeScale = {
       lineHeight: 28,
     },
     M: {
-      fontSize: 26,
+      fontSize: 16,
       fontWeight: 500,
       tracking: 0.15,
       lineHeight: 24,

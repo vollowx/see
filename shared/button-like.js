@@ -36,6 +36,8 @@ export default class Button extends HTMLElement {
   static get observedAttributes() {
     return [
       'disabled',
+      'role',
+      'data-role',
       'aria-label',
       'data-aria-label',
       'aria-haspopup',
@@ -44,6 +46,8 @@ export default class Button extends HTMLElement {
       'data-aria-controls',
       'aria-expanded',
       'data-aria-expanded',
+      'aria-selected',
+      'data-aria-selected',
       'label',
       'leading-icon',
       'trailing-icon',
@@ -62,6 +66,17 @@ export default class Button extends HTMLElement {
     this.toggleAttribute('disabled', value);
   }
 
+  get role() {
+    return this.getAttribute('data-role') || 'button';
+  }
+  set role(value) {
+    if (value) {
+      this.setAttribute('data-role', value);
+    } else {
+      this.removeAttribute('data-role');
+    }
+  }
+
   get ariaLabel() {
     return this.getAttribute('data-aria-label');
   }
@@ -78,9 +93,9 @@ export default class Button extends HTMLElement {
   }
   set ariaHasPopup(value) {
     if (value) {
-      this.setAttribute('aria-haspopup', value);
+      this.setAttribute('data-aria-haspopup', value);
     } else {
-      this.removeAttribute('aria-haspopup');
+      this.removeAttribute('data-aria-haspopup');
     }
   }
 
@@ -89,9 +104,9 @@ export default class Button extends HTMLElement {
   }
   set ariaControls(value) {
     if (value) {
-      this.setAttribute('aria-controls', value);
+      this.setAttribute('data-aria-controls', value);
     } else {
-      this.removeAttribute('aria-controls');
+      this.removeAttribute('data-aria-controls');
     }
   }
 
@@ -100,9 +115,20 @@ export default class Button extends HTMLElement {
   }
   set ariaExpanded(value) {
     if (value) {
-      this.setAttribute('aria-expanded', value);
+      this.setAttribute('data-aria-expanded', value);
     } else {
-      this.removeAttribute('aria-expanded');
+      this.removeAttribute('data-aria-expanded');
+    }
+  }
+
+  get ariaSelected() {
+    return this.getAttribute('data-aria-selected');
+  }
+  set ariaSelected(value) {
+    if (value) {
+      this.setAttribute('data-aria-selected', value);
+    } else {
+      this.removeAttribute('data-aria-selected');
     }
   }
 
@@ -182,14 +208,15 @@ export default class Button extends HTMLElement {
   get #template() {
     return html`
       <${this.getAttribute('component') || 'button'}
-        rule="button" type="button" tabindex="0"
+        role="${this.role ? this.role : 'button'}" type="button" tabindex="0"
         part="inner button focus-controller"
         ${this.disabled ? 'disabled' : ''}
         aria-disabled="${this.disabled ? 'true' : 'false'}"
         aria-label="${this.ariaLabel || this.label || ''}"
         aria-haspopup="${this.ariaHasPopup ? this.ariaHasPopup : ''}"
         aria-controls="${this.ariaControls || ''}"
-        aria-expanded="${this.ariaExpanded ? this.ariaExpanded : ''}">
+        aria-expanded="${this.ariaExpanded ? this.ariaExpanded : ''}"
+        aria-selected="${this.ariaSelected || ''}">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
         ${this._extraContents}
@@ -254,6 +281,12 @@ export default class Button extends HTMLElement {
     // Before render
 
     switch (name) {
+      case 'role':
+        if (!newValue) return;
+        this.role = newValue;
+        this.removeAttribute('role');
+        break;
+
       case 'aria-label':
         if (!newValue) return;
         this.ariaLabel = newValue;
@@ -278,6 +311,12 @@ export default class Button extends HTMLElement {
         this.removeAttribute('aria-expanded');
         break;
 
+      case 'aria-selected':
+        if (!newValue) return;
+        this.ariaSelected = newValue;
+        this.removeAttribute('aria-selected');
+        break;
+
       default:
         break;
     }
@@ -299,6 +338,10 @@ export default class Button extends HTMLElement {
         }
         break;
 
+      case 'data-role':
+        this.buttonElement.setAttribute('role', this.role);
+        break;
+
       case 'data-aria-label':
         this.buttonElement.ariaLabel = this.ariaLabel || this.label;
         break;
@@ -313,6 +356,10 @@ export default class Button extends HTMLElement {
 
       case 'data-aria-expanded':
         this.buttonElement.ariaExpanded = this.ariaExpanded ? this.ariaExpanded : '';
+        break;
+
+      case 'data-aria-selected':
+        this.buttonElement.ariaSelected = this.ariaSelected ? this.ariaSelected : '';
         break;
 
       default:

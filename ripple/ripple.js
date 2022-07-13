@@ -161,18 +161,17 @@ export default class Ripple extends HTMLElement {
    * @param {MouseEvent} e
    */
   handlePointerDown = (e) => {
-    console.log(e);
     const _onUp = () => {
       this.removeAllRipples();
-      this.parent.removeEventListener('mouseleave', _onUp);
-      this.parent.removeEventListener('mouseup', _onUp);
-      this.parent.removeEventListener('touchend', _onUp);
-      this.parent.removeEventListener('touchcancel', _onUp);
+      this.parent.removeEventListener('mouseleave', _onUp, true);
+      this.parent.removeEventListener('mouseup', _onUp, true);
+      this.parent.removeEventListener('touchend', _onUp, true);
+      this.parent.removeEventListener('touchcancel', _onUp, true);
     };
-    this.parent.addEventListener('mouseleave', _onUp);
-    this.parent.addEventListener('mouseup', _onUp);
-    this.parent.addEventListener('touchend', _onUp);
-    this.parent.addEventListener('touchcancel', _onUp);
+    this.parent.addEventListener('mouseleave', _onUp, true);
+    this.parent.addEventListener('mouseup', _onUp, true);
+    this.parent.addEventListener('touchend', _onUp, true);
+    this.parent.addEventListener('touchcancel', _onUp, true);
     this.newRipple(e);
   }
   /**
