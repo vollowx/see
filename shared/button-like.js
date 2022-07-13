@@ -176,7 +176,7 @@ export default class Button extends HTMLElement {
   #attachShadow() {
     this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
-  get _extendContent() {
+  get _extraContents() {
     return ``;
   }
   get #template() {
@@ -192,7 +192,7 @@ export default class Button extends HTMLElement {
         aria-expanded="${this.ariaExpanded ? this.ariaExpanded : ''}">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
-        ${this._extendContent}
+        ${this._extraContents}
         <span part="target"></span>
         <span part="leading-icon-root">
           <span part="leading-icon">${this.leadingIcon}</span>

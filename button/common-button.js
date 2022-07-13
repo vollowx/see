@@ -1,6 +1,7 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import Button from '../shared/button-like.js';
+import StateLayerStyle from '../shared/state-layer-style.js';
 import FocusRingStyle from '../shared/focus-ring-style.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
@@ -12,7 +13,7 @@ CommonButtonStyle.replaceSync(css`
     cursor: pointer;
     border: none;
     outline: none;
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), border 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
     font-family: var(--md-sys-typoscale-font-family-global);
     padding: 0 24px;
@@ -42,16 +43,19 @@ CommonButtonStyle.replaceSync(css`
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
   :host([outlined]) [part~='button'] {
-    padding: 0 23px;
     background-color: transparent;
     color: var(--md-outlined-button-color, var(--md-sys-color-primary));
+  }
+  :host([outlined]) [part~='outline'] {
     border: 1px solid var(--md-outlined-button-border-color, var(--md-sys-color-outline));
   }
-  :host([outlined]) [part~='button']:focus-visible {
+  :host([outlined]) [part~='button']:focus-visible [part~='outline'] {
     border-color: var(--md-outlined-button-focus-color, var(--md-sys-color-primary));
   }
   :host([outlined][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
+  }
+  :host([outlined][disabled]) [part~='outline'] {
     border-color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.12);
   }
   :host([text]) [part~='button'] {
@@ -63,28 +67,20 @@ CommonButtonStyle.replaceSync(css`
   :host([text][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
   }
-  [part~='button'] [part~='state-layer'] {
+  [part~='outline'] {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     border-radius: inherit;
-    background-color: currentColor;
-    opacity: 0;
-  }
-  [part~='button']:focus-visible [part~='state-layer'] {
-    opacity: 0.12;
-  }
-  [part~='button']:hover:not([touched]) [part~='state-layer'] {
-    opacity: 0.08;
   }
   [part~='target'] {
     position: absolute;
     top: 50%;
     left: 0px;
     right: 0px;
-    height: 48px;
+    height: calc(100% + 8px);
     transform: translateY(-50%);
     box-sizing: border-box;
   }
@@ -140,14 +136,19 @@ export default class CommonButton extends Button {
    * @override
    */
   get _styles() {
-    return [...super._styles, CommonButtonStyle, FocusRingStyle];
+    return [
+      ...super._styles,
+      CommonButtonStyle,
+      StateLayerStyle,
+      FocusRingStyle
+    ];
   }
 
   /**
    * @override
    */
-  get _extendContent() {
-    return `<md-ripple></md-ripple>`;
+  get _extraContents() {
+    return /* html */`<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }
 
