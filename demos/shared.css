@@ -20,6 +20,11 @@ body {
   color: var(--md-sys-color-on-background);
 }
 
+.outer-link {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
 h1 {
   margin: 10px 0;
 }
