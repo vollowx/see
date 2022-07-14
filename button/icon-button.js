@@ -22,11 +22,20 @@ IconButtonStyle.replaceSync(css`
     background-color: var(--md-filled-button-background-color, var(--md-sys-color-primary));
     color: var(--md-filled-button-color, var(--md-sys-color-on-primary));
   }
+  :host(:not([tonal]):not([outlined]):not([standard])[toggle]:not([selected])) [part~='button'] {
+    background-color: var(--md-filled-toggle-button-background-color, var(--md-sys-color-surface-variant));
+    color: var(--md-filled-toggle-button-color, var(--md-sys-color-primary));
+  }
   :host([tonal]) [part~='button'] {
     background-color: var(--md-tonal-icon-button-background-color, var(--md-sys-color-secondary));
     color: var(--md-tonal-icon-button-color, var(--md-sys-color-on-secondary));
   }
-  :host(:not([outlined]):not([standard])[disabled]) [part~='button'] {
+  :host([tonal][toggle]:not([selected])) [part~='button'] {
+    background-color: var(--md-tonal-toggle-button-background-color, var(--md-sys-color-surface-variant));
+    color: var(--md-tonal-toggle-button-color, var(--md-sys-color-on-surface-variant));
+  }
+  :host(:not([outlined]):not([standard])[disabled]) [part~='button'],
+  :host([outlined][disabled][selected]) [part~='button'] {
     background-color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.12);
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
   }
@@ -40,6 +49,14 @@ IconButtonStyle.replaceSync(css`
   :host([outlined]) [part~='button']:focus-visible [part~='outline'] {
     border-color: var(--md-outlined-icon-button-focus-color, var(--md-sys-color-primary));
   }
+  :host([outlined][selected]) [part~='button'] {
+    background-color: var(--md-sys-color-inverse-surface);
+    color: var(--md-sys-color-inverse-on-surface);
+  }
+  :host([outlined][selected]) [part~='outline'],
+  :host([outlined][disabled][selected]) [part~='outline'] {
+    border: none;
+  }
   :host([outlined][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
   }
@@ -49,6 +66,9 @@ IconButtonStyle.replaceSync(css`
   :host([standard]) [part~='button'] {
     background-color: transparent;
     color: var(--md-standard-icon-button-color, var(--md-sys-color-on-surface-variant));
+  }
+  :host([standard][selected]) [part~='button'] {
+    color: var(--md-sys-color-primary);
   }
   :host([standard][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
@@ -97,7 +117,7 @@ export default class IconButton extends ActionElement {
   }
 
   static get observedAttributes() {
-    return [...super.observedAttributes, 'icon'];
+    return [...super.observedAttributes, 'icon', 'toggle', 'selected'];
   }
   /** @type {string} */
   get icon() {
@@ -106,6 +126,24 @@ export default class IconButton extends ActionElement {
   set icon(value) {
     this.setAttribute('icon', value);
   }
+  /** @type {boolean} */
+  get toggle() {
+    return this.hasAttribute('toggle');
+  }
+  set toggle(value) {
+    this.toggleAttribute('toggle', value);
+  }
+  /** @type {boolean} */
+  get selected() {
+    return this.hasAttribute('selected');
+  }
+  set selected(value) {
+    if (!this.toggle) {
+      this.removeAttribute('selected');
+      return;
+    }
+    this.toggleAttribute('selected', value);
+  }
 
   /** @type {HTMLSpanElement} */
   get iconElement() {
@@ -113,12 +151,7 @@ export default class IconButton extends ActionElement {
   }
 
   get _styles() {
-    return [
-      ...super._styles,
-      IconButtonStyle,
-      StateLayerStyle,
-      FocusRingStyle,
-    ];
+    return [...super._styles, IconButtonStyle, StateLayerStyle, FocusRingStyle];
   }
 
   get _extraContents() {
@@ -134,6 +167,25 @@ export default class IconButton extends ActionElement {
     `;
   }
 
+  /**
+   * @param {MouseEvent} event
+   */
+  handleClick(event) {
+    if (!this.toggle) return;
+    this.selected = !this.selected;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+    this.addEventListener('click', this.handleClick);
+  }
+
+  /**
+   * @param {string} name
+   * @param {string} oldValue
+   * @param {string} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
 
@@ -142,6 +194,23 @@ export default class IconButton extends ActionElement {
     switch (name) {
       case 'icon':
         this.iconElement.innerHTML = newValue;
+        break;
+
+      case 'toggle':
+        if (newValue === null) {
+          this.buttonElement.removeAttribute('aria-pressed');
+        } else {
+          this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+        }
+        break;
+
+      case 'selected':
+        if (!this.toggle) {
+          this.buttonElement.removeAttribute('aria-pressed');
+          return;
+        } else {
+          this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+        }
         break;
 
       default:
