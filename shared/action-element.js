@@ -1,4 +1,5 @@
 import { html, css } from "./template.js";
+import BaseElement from "./base-element.js";
 
 const BasicButtonStyle = new CSSStyleSheet();
 BasicButtonStyle.replaceSync(css`
@@ -31,7 +32,7 @@ BasicButtonStyle.replaceSync(css`
 /**
  * 'ns' means 'no-style'
  */
-export default class ActionElement extends HTMLElement {
+export default class ActionElement extends BaseElement {
   static get is() {
     return 'ns-action';
   }
@@ -141,15 +142,6 @@ export default class ActionElement extends HTMLElement {
   }
 
   /**
-   * @param {string} value
-   * @returns {any}
-   */
-  getEl(value) {
-    // @ts-ignore
-    return this.shadowRoot.querySelector(value);
-  }
-
-  /**
    * @returns {HTMLButtonElement}
    */
   get buttonElement() {
@@ -162,17 +154,14 @@ export default class ActionElement extends HTMLElement {
   get _styles() {
     return [BasicButtonStyle];
   }
-
-  #attachShadow() {
-    this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
+  
   get _extraContents() {
     return ``;
   }
   get _mainContents() {
     return `<slot></slot>`;
   }
-  get #template() {
+  get _template() {
     return html`
       <${this.getAttribute('component') || 'button'}
         role="${this.role ? this.role : 'button'}" type="button" tabindex="0"
@@ -192,17 +181,6 @@ export default class ActionElement extends HTMLElement {
       </${this.getAttribute('component') || 'button'}>
     `;
   }
-  _rendered = false;
-  _renderTemplate() {
-    const shadowRoot = this.shadowRoot;
-    if (!shadowRoot) {
-      console.error('Can not render template without shadowRoot');
-      return;
-    };
-    shadowRoot.appendChild(this.#template);
-    shadowRoot.adoptedStyleSheets = this._styles;
-    this._rendered = true;
-  }
   /**
    * @param {TouchEvent} _event 
    */
@@ -217,16 +195,10 @@ export default class ActionElement extends HTMLElement {
       this.removeAttribute('touched');
     }
   }
-  constructor() {
-    super();
-  }
   connectedCallback() {
-    this.#attachShadow();
-    this._renderTemplate();
     this.buttonElement.addEventListener('touchstart', this.handleTouchStart, true);
     this.buttonElement.addEventListener('mouseout', this.handleMouseOut, true);
   }
-  disconnectedCallback() {}
   /**
    * @param {string} name
    * @param {string|undefined} _oldValue

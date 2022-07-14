@@ -1,4 +1,5 @@
 import { html, css } from '../shared/template.js';
+import BaseElement from '../shared/base-element.js';
 
 const RippleStyle = new CSSStyleSheet();
 RippleStyle.replaceSync(css`
@@ -27,7 +28,7 @@ RippleStyle.replaceSync(css`
   }
 `);
 
-export default class Ripple extends HTMLElement {
+export default class Ripple extends BaseElement {
   static get is() {
     return 'md-ripple';
   }
@@ -58,36 +59,11 @@ export default class Ripple extends HTMLElement {
     return [RippleStyle];
   }
 
-  #attachShadow() {
-    this.attachShadow({ mode: 'open', delegatesFocus: false });
-  }
-  get #template() {
-    return html``;
-  }
-  // @ts-ignore
-  _rendered = false;
-  _renderTemplate() {
-    const shadowRoot = this.shadowRoot;
-    if (!shadowRoot) {
-      console.error('Can not render template without shadowRoot');
-      return;
-    }
-    shadowRoot.appendChild(this.#template);
-    shadowRoot.adoptedStyleSheets = this._styles;
-    this._rendered = true;
-  }
-
-  constructor() {
-    super();
-  }
   connectedCallback() {
-    this.#attachShadow();
-    this._renderTemplate();
     this.parent.addEventListener('pointerdown', this.handlePointerDown, true);
     this.parent.addEventListener('keydown', this.handleKeyDown, true);
     this.parent.addEventListener('keyup', this.handleKeyUp, true);
   }
-  disconnectedCallback() {}
 
   /** @type {number} */
   radius = 0;
