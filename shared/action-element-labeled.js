@@ -33,21 +33,15 @@ export default class ActionElementLabeled extends ActionElement {
     this.setAttribute('trailing-icon', value);
   }
 
-  /**
-   * @returns {HTMLSpanElement}
-   */
+  /** @type {HTMLSpanElement} */
   get labelElement() {
     return this.getEl('[part~="label"]');
   }
-  /**
-   * @returns {HTMLSpanElement}
-   */
+  /** @type {HTMLSpanElement} */
   get leadingIconElement() {
     return this.getEl('[part~="leading-icon"]');
   }
-  /**
-   * @returns {HTMLSpanElement}
-   */
+  /** @type {HTMLSpanElement} */
   get trailingIconElement() {
     return this.getEl('[part~="trailing-icon"]');
   }

@@ -55,9 +55,7 @@ export default class ActionElement extends BaseElement {
       'data-aria-selected',
     ];
   }
-  /**
-   * @returns {boolean}
-   */
+  /** @type {boolean} */
   get disabled() {
     return this.hasAttribute('disabled');
   }
@@ -141,16 +139,12 @@ export default class ActionElement extends BaseElement {
     this.buttonElement?.blur();
   }
 
-  /**
-   * @returns {HTMLButtonElement}
-   */
+  /** @type {HTMLButtonElement} */
   get buttonElement() {
     return this.getEl('[part~="button"]');
   }
 
-  /**
-   * @type {CSSStyleSheet[]}
-   */
+  /** @type {CSSStyleSheet[]} */
   get _styles() {
     return [BasicButtonStyle];
   }

@@ -4,11 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="The index of all the components" />
-    <title>Floating action fab</title>
+    <title>Floating action button</title>
 
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
 
     <script type="module" src="../button/fab.js"></script>
+    <script type="module" src="../button/icon-button.js"></script>
     <link rel="stylesheet" href="../system/color-system.css" />
     <link rel="stylesheet" href="../system/elevation-system.css" />
     <!-- We recommended to use iconify to reduce network usage -->
@@ -30,7 +31,12 @@
   </head>
   <body data-md-theme="light" dir="ltr">
     <header class="demo-header">
-      <h1>FAB, 浮动操作按钮</h1>
+      <a href="./" tabindex="-1" style="text-decoration: none">
+        <md-icon-button standard data-aria-label="Back to index page">
+          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        </md-icon-button>
+      </a>
+      <span>Demo of <code>tiny-material</code> | FAB, 浮动操作按钮</span>
     </header>
 
     <md-fab-set>
@@ -49,7 +55,7 @@
           <li><a href="#basic-fab">Basic FAB, 基础浮动操作按钮</a></li>
           <li><a href="#custom-inner-element">Custom inner element, 自定义内部元素</a></li>
           <li><a href="#link">Link, 链接</a></li>
-          <li><a href="#accessibility">Accessibility, 可访问性</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
         </ul>
       </nav>
@@ -123,7 +129,7 @@
           所以我们提供自定义内部元素的功能. 见下例子.
         </p>
 
-        <div class="demo-container" dir="ltr" data-md-theme="light">
+        <div class="demo-container" dir="ltr">
           <label for="file-uploader">
             <input type="file" name="file-uploader" id="file-uploader" multiple style="display: none" />
             <md-fab component="span" data-aria-label="Upload files">
@@ -137,7 +143,7 @@
         <p><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></p>
         <p><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></p>
 
-        <div class="demo-container" dir="ltr" data-md-theme="light">
+        <div class="demo-container" dir="ltr">
           <a
             href="https://github.com/huge-pancake/tiny-material"
             target="_blank"
@@ -150,14 +156,14 @@
           </a>
         </div>
 
-        <h2 id="accessibility">Accessibility, 可访问性</h2>
+        <h2 id="accessibility">Accessibility, 无障碍功能</h2>
 
         <p>Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</p>
         <p>使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</p>
         <p>Support all the other ARIA attributes for fab, see details in source code.</p>
         <p>其他用于按钮的 ARIA 属性全部支持, 详见源代码.</p>
 
-        <div class="demo-container" dir="ltr" data-md-theme="light">
+        <div class="demo-container" dir="ltr">
           <md-fab data-aria-label="A fab with custom ARIA label">
             <iconify-icon icon="material-symbols:accessibility"></iconify-icon>
           </md-fab>

@@ -35,6 +35,7 @@ addEventListener('DOMContentLoaded', () => {
   CSSBlock.innerHTML = /* css */ `
     h1 { ${TypographyStylesGenerator('headline', 'L')} }
     h2 { ${TypographyStylesGenerator('headline', 'M')} }
+    .demo-header span { ${TypographyStylesGenerator('headline', 'S')} }
     h3 { ${TypographyStylesGenerator('title', 'M')} }
     p { ${TypographyStylesGenerator('body', 'M')} }
     .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
