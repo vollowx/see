@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Basic button</title>
+    <title>Basic action</title>
 
-    <script type="module" src="../shared/button-like.js"></script>
+    <script type="module" src="../shared/action-element-labeled.js"></script>
     <link rel="stylesheet" href="../system/color-system.css" />
     <link rel="stylesheet" href="../system/elevation-system.css" />
 
@@ -18,7 +18,7 @@
   </head>
   <body data-md-theme="light">
     <header class="demo-header">
-      <h1>Basic button, without any more style</h1>
+      <h1>Basic action, without any more style</h1>
     </header>
 
     <h2>ARIA, 无障碍</h2>
@@ -35,19 +35,19 @@
     <h2>Demo, 演示</h2>
 
     <div class="demo-container">
-      <ty-button>Using slot</ty-button>
-      <ty-button label="Using label attribute"></ty-button>
-      <ty-button label="Custom ARIA label" data-aria-label="This button is using custom ARIA label"></ty-button>
-      <ty-button label="Tab index is -1" tabindex="-1"></ty-button>
-      <ty-button onclick="this.nextElementSibling.focus()">Click to focus next button</ty-button>
-      <ty-button onclick="this.previousElementSibling.focus()">Click to focus previous button</ty-button>
-      <ty-button disabled>Disabled</ty-button>
-      <ty-button label="Try events, result will show in console" id="eEl"></ty-button>
+      <ns-action>Using slot</ns-action>
+      <ns-action label="Using label attribute"></ns-action>
+      <ns-action label="Custom ARIA label" data-aria-label="This action is using custom ARIA label"></ns-action>
+      <ns-action label="Tab index is -1" tabindex="-1"></ns-action>
+      <ns-action onclick="this.nextElementSibling.focus()">Click to focus next action</ns-action>
+      <ns-action onclick="this.previousElementSibling.focus()">Click to focus previous action</ns-action>
+      <ns-action disabled>Disabled</ns-action>
+      <ns-action label="Try events, result will show in console" id="eEl"></ns-action>
       <span id="eElShower"></span>
     </div>
 
     <script>
-      /** @type {HTMLButtonElement} */
+      /** @type {HTMLactionElement} */
       const eEl = document.getElementById('eEl');
       /** @type {HTMLSpanElement} */
       const eElShow = document.getElementById('eElShow');
@@ -57,7 +57,7 @@
       function appendEvent(event) {
         console.log(event);
       }
-      // That's all eEl I know on a button
+      // That's all eEl I know on a action
       eEl.addEventListener('click', appendEvent);
       eEl.addEventListener('keydown', appendEvent);
       eEl.addEventListener('keyup', appendEvent);

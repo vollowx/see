@@ -28,11 +28,15 @@ BasicButtonStyle.replaceSync(css`
   }
 `);
 
-export default class Button extends HTMLElement {
+/**
+ * 'ns' means 'no-style'
+ */
+export default class ActionElement extends HTMLElement {
   static get is() {
-    return 'ty-button';
+    return 'ns-action';
   }
 
+  /** @type {string[]} */
   static get observedAttributes() {
     return [
       'disabled',
@@ -48,9 +52,6 @@ export default class Button extends HTMLElement {
       'data-aria-expanded',
       'aria-selected',
       'data-aria-selected',
-      'label',
-      'leading-icon',
-      'trailing-icon',
     ];
   }
   /**
@@ -132,25 +133,6 @@ export default class Button extends HTMLElement {
     }
   }
 
-  get label() {
-    return this.getAttribute('label') || '';
-  }
-  set label(value) {
-    this.setAttribute('label', value);
-  }
-  get leadingIcon() {
-    return this.getAttribute('leading-icon') || '';
-  }
-  set leadingIcon(value) {
-    this.setAttribute('leading-icon', value);
-  }
-  get trailingIcon() {
-    return this.getAttribute('trailing-icon') || '';
-  }
-  set trailingIcon(value) {
-    this.setAttribute('trailing-icon', value);
-  }
-
   focus() {
     this.buttonElement?.focus();
   }
@@ -173,24 +155,6 @@ export default class Button extends HTMLElement {
   get buttonElement() {
     return this.getEl('[part~="button"]');
   }
-  /**
-   * @returns {HTMLSpanElement}
-   */
-  get labelElement() {
-    return this.getEl('[part~="label"]');
-  }
-  /**
-   * @returns {HTMLSpanElement}
-   */
-  get leadingIconElement() {
-    return this.getEl('[part~="leading-icon"]');
-  }
-  /**
-   * @returns {HTMLSpanElement}
-   */
-  get trailingIconElement() {
-    return this.getEl('[part~="trailing-icon"]');
-  }
 
   /**
    * @type {CSSStyleSheet[]}
@@ -205,6 +169,9 @@ export default class Button extends HTMLElement {
   get _extraContents() {
     return ``;
   }
+  get _mainContents() {
+    return `<slot></slot>`;
+  }
   get #template() {
     return html`
       <${this.getAttribute('component') || 'button'}
@@ -212,32 +179,21 @@ export default class Button extends HTMLElement {
         part="inner button focus-controller"
         ${this.disabled ? 'disabled' : ''}
         aria-disabled="${this.disabled ? 'true' : 'false'}"
-        aria-label="${this.ariaLabel || this.label || ''}"
-        aria-haspopup="${this.ariaHasPopup ? this.ariaHasPopup : ''}"
+        aria-label="${this.ariaLabel || ''}"
+        aria-haspopup="${this.ariaHasPopup || ''}"
         aria-controls="${this.ariaControls || ''}"
-        aria-expanded="${this.ariaExpanded ? this.ariaExpanded : ''}"
+        aria-expanded="${this.ariaExpanded || ''}"
         aria-selected="${this.ariaSelected || ''}">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
         ${this._extraContents}
         <span part="target"></span>
-        <span part="leading-icon-root">
-          <span part="leading-icon">${this.leadingIcon}</span>
-          <slot name="leading-icon"></slot>
-        </span>
-        <span part="label-root">
-          <span part="label">${this.label}</span>
-          <slot></slot>
-        </span>
-        <span part="trailing-icon-root">
-          <span part="trailing-icon">${this.trailingIcon}</span>
-          <slot name="trailing-icon"></slot>
-        </span>
+        ${this._mainContents}
       </${this.getAttribute('component') || 'button'}>
     `;
   }
-  #rendered = false;
-  #renderTemplate() {
+  _rendered = false;
+  _renderTemplate() {
     const shadowRoot = this.shadowRoot;
     if (!shadowRoot) {
       console.error('Can not render template without shadowRoot');
@@ -245,7 +201,7 @@ export default class Button extends HTMLElement {
     };
     shadowRoot.appendChild(this.#template);
     shadowRoot.adoptedStyleSheets = this._styles;
-    this.#rendered = true;
+    this._rendered = true;
   }
   /**
    * @param {TouchEvent} _event 
@@ -266,7 +222,7 @@ export default class Button extends HTMLElement {
   }
   connectedCallback() {
     this.#attachShadow();
-    this.#renderTemplate();
+    this._renderTemplate();
     this.buttonElement.addEventListener('touchstart', this.handleTouchStart, true);
     this.buttonElement.addEventListener('mouseout', this.handleMouseOut, true);
   }
@@ -321,7 +277,7 @@ export default class Button extends HTMLElement {
         break;
     }
 
-    if (!this.#rendered) return;
+    if (!this._rendered) return;
 
     // After render
 
@@ -331,23 +287,16 @@ export default class Button extends HTMLElement {
         this.buttonElement.ariaDisabled = this.disabled ? 'true' : 'false';
         break;
 
-      case 'label':
-        this.labelElement.innerText = this.label;
-        if (!this.ariaLabel) {
-          this.buttonElement.ariaLabel = this.label;
-        }
-        break;
-
       case 'data-role':
         this.buttonElement.setAttribute('role', this.role);
         break;
 
       case 'data-aria-label':
-        this.buttonElement.ariaLabel = this.ariaLabel || this.label;
+        this.buttonElement.ariaLabel = this.ariaLabel || '';
         break;
 
       case 'data-aria-haspopup':
-        this.buttonElement.ariaHasPopup = this.ariaHasPopup ? this.ariaHasPopup : '';
+        this.buttonElement.ariaHasPopup = this.ariaHasPopup || '';
         break;
 
       case 'data-aria-controls':
@@ -355,11 +304,11 @@ export default class Button extends HTMLElement {
         break;
 
       case 'data-aria-expanded':
-        this.buttonElement.ariaExpanded = this.ariaExpanded ? this.ariaExpanded : '';
+        this.buttonElement.ariaExpanded = this.ariaExpanded || '';
         break;
 
       case 'data-aria-selected':
-        this.buttonElement.ariaSelected = this.ariaSelected ? this.ariaSelected : '';
+        this.buttonElement.ariaSelected = this.ariaSelected || '';
         break;
 
       default:
@@ -368,4 +317,4 @@ export default class Button extends HTMLElement {
   }
 }
 
-customElements.define(Button.is, Button);
+customElements.define(ActionElement.is, ActionElement);

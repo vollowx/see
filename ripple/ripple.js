@@ -65,8 +65,8 @@ export default class Ripple extends HTMLElement {
     return html``;
   }
   // @ts-ignore
-  #rendered = false;
-  #renderTemplate() {
+  _rendered = false;
+  _renderTemplate() {
     const shadowRoot = this.shadowRoot;
     if (!shadowRoot) {
       console.error('Can not render template without shadowRoot');
@@ -74,7 +74,7 @@ export default class Ripple extends HTMLElement {
     }
     shadowRoot.appendChild(this.#template);
     shadowRoot.adoptedStyleSheets = this._styles;
-    this.#rendered = true;
+    this._rendered = true;
   }
 
   constructor() {
@@ -82,7 +82,7 @@ export default class Ripple extends HTMLElement {
   }
   connectedCallback() {
     this.#attachShadow();
-    this.#renderTemplate();
+    this._renderTemplate();
     this.parent.addEventListener('pointerdown', this.handlePointerDown, true);
     this.parent.addEventListener('keydown', this.handleKeyDown, true);
     this.parent.addEventListener('keyup', this.handleKeyUp, true);

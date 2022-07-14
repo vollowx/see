@@ -1,6 +1,6 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
-import Button from '../shared/button-like.js';
+import ActionElementLabeled from '../shared/action-element-labeled.js';
 import StateLayerStyle from '../shared/state-layer-style.js';
 import FocusRingStyle from '../shared/focus-ring-style.js';
 // @ts-ignore
@@ -105,7 +105,7 @@ FABStyle.replaceSync(css`
   }
 `);
 
-export default class FAB extends Button {
+export default class FAB extends ActionElementLabeled {
   /**
    * @override
    */
