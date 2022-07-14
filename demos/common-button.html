@@ -49,6 +49,7 @@
         <ul>
           <li><a href="#basic-button">Basic button, 基础按钮</a></li>
           <li><a href="#has-icon">Has icon, 有图标的</a></li>
+          <li><a href="#custom-inner-element">Custom inner element, 自定义内部元素</a></li>
           <li><a href="#link">Link, 链接</a></li>
           <li><a href="#accessibility">Accessibility, 可访问性</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
@@ -141,7 +142,7 @@
           <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
         </div>
 
-        <h2>Custom inner element, 自定义内部元素</h2>
+        <h2 id="custom-inner-element">Custom inner element, 自定义内部元素</h2>
 
         <p>
           Sometimes, maybe you want to use button component with a <code>&lt;input&gt;</code>, but then you will find
@@ -211,9 +212,9 @@
           </thead>
           <tbody>
             <tr>
-              <td class="name">filled / tonal / elevated / outlined / text</td>
+              <td class="name">(filled) / tonal / elevated / outlined / text</td>
               <td class="type">single choice</td>
-              <td class="default-val">filled</td>
+              <td class="default-val">(filled)</td>
               <td>Controls button's style</td>
             </tr>
             <tr>
@@ -223,7 +224,7 @@
               <td>If true, button will be disabled. Controls disabled, aria-disabled</td>
             </tr>
             <tr>
-              <td class="name">data-rule</td>
+              <td class="name">data-role</td>
               <td class="type">string</td>
               <td class="default-val">button</td>
               <td>Controls role</td>
@@ -232,9 +233,7 @@
               <td class="name">data-aria-label</td>
               <td class="type">string</td>
               <td class="default-val"></td>
-              <td>
-                Controls aria-label, if not defined and has label, use label, if not defined and has not label, empty
-              </td>
+              <td>Controls aria-label</td>
             </tr>
             <tr>
               <td class="name">data-aria-haspopup</td>
