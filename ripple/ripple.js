@@ -1,4 +1,4 @@
-import { html, css } from '../shared/template.js';
+import { css } from '../shared/template.js';
 import BaseElement from '../shared/base-element.js';
 
 const RippleStyle = new CSSStyleSheet();
