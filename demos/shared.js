@@ -2,40 +2,29 @@ import ColorSystem from '../system/color-system.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
 function toggleTheme() {
-  const theme = document.body.getAttribute('data-md-theme');
+  const theme = document.documentElement.getAttribute('data-md-theme');
   const newTheme = theme === 'light' ? 'dark' : 'light';
   localStorage.setItem('md-theme', newTheme);
-  document.body.setAttribute('data-md-theme', newTheme);
+  document.documentElement.setAttribute('data-md-theme', newTheme);
 }
 function toggleDir() {
-  const dir = document.body.getAttribute('dir');
+  const dir = document.documentElement.getAttribute('dir');
   const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
   localStorage.setItem('md-dir', newDir);
-  document.body.setAttribute('dir', newDir);
+  document.documentElement.setAttribute('dir', newDir);
 }
 
 addEventListener('DOMContentLoaded', () => {
   const themeTgl = document.querySelector('.theme-tgl');
   const dirTgl = document.querySelector('.dir-tgl');
-  const demoHeader = document.querySelector('.demo-header');
 
-  document.body.setAttribute('data-md-theme', localStorage.getItem('md-theme') || 'dark');
-  document.body.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
+  document.documentElement.setAttribute('data-md-theme', localStorage.getItem('md-theme') || 'dark');
+  document.documentElement.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
 
   themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);
 
-  document.addEventListener('scroll', () => {
-    if (window.scrollY > 0) {
-      // @ts-ignore
-      demoHeader.classList.add('demo-header--scrolled');
-    } else {
-      // @ts-ignore
-      demoHeader.classList.remove('demo-header--scrolled');
-    }
-  });
-
-  ColorSystem.changeTheme(document.body, '#114514');
+  ColorSystem.changeTheme(document.documentElement, '#114514');
   const CSSBlock = document.createElement('style');
   CSSBlock.innerHTML = /* css */ `
     h1 { ${TypographyStylesGenerator('headline', 'L')} }

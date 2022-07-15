@@ -37,6 +37,8 @@ export default class ActionElement extends BaseElement {
     return 'ns-action';
   }
 
+  _delegatesFocus = true;
+
   /** @type {string[]} */
   static get observedAttributes() {
     return [

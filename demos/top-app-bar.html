@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Top app bar</title>
+
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+
+    <script type="module" src="../top-app-bar/top-app-bar.js"></script>
+    <script type="module" src="../button/fab.js"></script>
+    <script type="module" src="../button/icon-button.js"></script>
+    <script type="module" src="../button/common-button.js"></script>
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar centered>
+      <md-icon-button slot="navBtn" standard data-aria-label="Open sidebar">
+        <iconify-icon icon="material-symbols:menu"></iconify-icon>
+      </md-icon-button>
+      <h6 slot="title">Global Today</h6>
+      <md-icon-button slot="actionBtn" standard data-aria-label="Add a new feed">
+        <iconify-icon icon="material-symbols:add"></iconify-icon>
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" standard data-aria-label="Your account">
+        <iconify-icon icon="material-symbols:account-circle"></iconify-icon>
+      </md-icon-button>
+
+      <article style="margin: 0 auto; padding: 0 24px; max-width: 1080px">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum facilisis ipsum dolor, vitae eleifend orci
+          cursus a. Integer efficitur lobortis ultrices. Nam nec odio accumsan, pharetra turpis sit amet, lacinia
+          libero. Donec nec luctus justo. Morbi eu turpis aliquet, vestibulum tellus et, dictum ante. Praesent felis
+          urna, interdum laoreet rhoncus quis, sollicitudin vitae mauris. Quisque mattis risus quis purus tristique
+          pellentesque. Donec condimentum fringilla pellentesque. Fusce et lorem mollis, sollicitudin magna nec,
+          vestibulum eros. Etiam cursus sollicitudin tellus, sagittis facilisis augue accumsan eu. Sed pharetra aliquet
+          semper. Fusce eleifend eros ac neque lobortis, non cursus justo blandit. Aenean lacinia orci non ante
+          convallis congue. Proin dapibus est ut sem interdum, nec ultrices tellus auctor.
+        </p>
+        <p>
+          Donec ligula nisl, scelerisque non odio nec, dignissim elementum arcu. Donec viverra nisl non massa fringilla
+          dignissim. Pellentesque augue nunc, dictum volutpat turpis eget, facilisis pharetra ipsum. Integer nec porta
+          nibh. Mauris ut dictum turpis, eget convallis neque. Nam sed erat lorem. Vivamus vitae urna enim. Duis aliquet
+          sapien metus, et semper turpis rutrum vel. Nam leo tortor, iaculis et aliquet eleifend, dictum sit amet lorem.
+          Pellentesque eu aliquet arcu. Mauris molestie lobortis vestibulum. Morbi quis odio at tellus egestas varius.
+          Quisque at leo fermentum, viverra velit sit amet, ullamcorper lectus. Nullam rhoncus eu erat et semper.
+        </p>
+        <p>
+          Donec sit amet elit tincidunt diam ultricies tempor. Praesent quis magna ut eros pretium vulputate maximus
+          quis elit. Duis posuere mollis maximus. Pellentesque commodo vitae orci quis mattis. Cras id gravida libero.
+          Cras non velit consectetur, posuere felis id, varius tortor. Praesent scelerisque metus in fringilla faucibus.
+          Vestibulum at magna aliquet, vestibulum libero et, placerat velit. Mauris tempus lacus ut nunc aliquet
+          ultricies. Donec sed eleifend nibh, vel laoreet lectus. Donec placerat, dolor at finibus aliquet, purus neque
+          interdum arcu, dapibus mattis elit dui vitae dolor. Fusce congue non dui non maximus. Aliquam ullamcorper
+          bibendum nibh, sit amet tempus odio tempus ut.
+        </p>
+        <p>
+          Vivamus ultricies consequat sem. Praesent a sagittis eros, sed aliquam lorem. Aenean molestie lacus tortor, ac
+          vulputate ipsum aliquam at. Donec ac pulvinar nunc. Duis eros felis, congue ac convallis id, scelerisque in
+          est. Vivamus venenatis orci sed velit elementum sollicitudin. Integer velit odio, volutpat at lobortis ac,
+          rhoncus ut felis. Nulla imperdiet nulla sapien, vitae consectetur libero laoreet nec. Suspendisse sollicitudin
+          id ante sit amet dignissim. Nam nec risus a orci faucibus egestas. Ut nec sem vitae nisl elementum malesuada.
+        </p>
+        <p>
+          Donec porttitor mi in auctor fermentum. Vivamus vehicula aliquam risus nec elementum. Proin sed accumsan
+          purus. Mauris non fringilla dolor. Vestibulum vel aliquet ipsum. Nullam dictum semper risus, sit amet
+          facilisis tortor lacinia sit amet. Sed sed interdum libero, sit amet sollicitudin lectus. Vestibulum eu tellus
+          ornare, facilisis risus ut, tristique ex. Aliquam ante dui, aliquam non ante vel, porttitor luctus lorem.
+          Aliquam eu ipsum facilisis, consequat velit vitae, dictum libero. Praesent luctus purus nec velit aliquam, a
+          dignissim libero ultrices. Sed quis tortor at ex hendrerit dignissim non id tellus. In vulputate sapien quis
+          purus laoreet, ac commodo dui pretium. Donec eget cursus quam. Donec imperdiet massa est, eget iaculis lacus
+          egestas nec. Donec eget tortor quis nisi semper faucibus vitae et purus.
+        </p>
+        <p>
+          Morbi sem lorem, pretium eu lectus id, mattis finibus libero. Integer ac magna vel est tincidunt bibendum. Sed
+          elementum justo eget leo volutpat, id dignissim eros euismod. Nulla facilisi. Donec sollicitudin mauris et
+          quam congue gravida. Sed quam neque, laoreet sit amet leo non, bibendum vestibulum velit. Etiam accumsan neque
+          et sodales vestibulum. Nulla vestibulum mi quam, eget aliquam erat consectetur vel. Vivamus sed ante mauris.
+          Cras eu turpis et dui iaculis rhoncus.
+        </p>
+        <p>
+          Cras aliquet diam sed fermentum ornare. Quisque in viverra arcu. Vestibulum fringilla tincidunt placerat.
+          Integer nec nisl id urna finibus iaculis et sed sapien. Phasellus facilisis quis lorem ut facilisis. Fusce
+          quis aliquam elit. Curabitur nisi felis, dictum vel mi eget, dictum sodales lacus. Curabitur purus felis,
+          molestie ut molestie at, elementum varius elit.
+        </p>
+        <p>
+          Maecenas placerat et diam blandit sagittis. In eu fermentum felis. Duis placerat aliquam nulla quis tempor.
+          Etiam iaculis leo quis fermentum bibendum. Proin eu orci nulla. Vestibulum ante ipsum primis in faucibus orci
+          luctus et ultrices posuere cubilia curae; Praesent mattis tortor nec tristique pharetra.
+        </p>
+        <p>
+          Nulla facilisi. Cras auctor dignissim augue, eget laoreet dolor. Curabitur volutpat rutrum mauris auctor
+          laoreet. Morbi venenatis sem at urna ultricies, vitae lacinia urna tristique. Pellentesque habitant morbi
+          tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam pellentesque risus convallis
+          hendrerit blandit. Sed sit amet fermentum nunc, id varius felis. Class aptent taciti sociosqu ad litora
+          torquent per conubia nostra, per inceptos himenaeos. Integer quis neque purus. Suspendisse iaculis
+          sollicitudin tortor at suscipit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Donec porttitor purus velit, vel venenatis leo consequat tincidunt. Vivamus a sollicitudin
+          odio. Pellentesque porttitor, felis quis fermentum ultricies, neque turpis accumsan purus, ac malesuada metus
+          nisi vel nisl.
+        </p>
+        <p>
+          Sed vitae turpis vel mi suscipit mattis. Phasellus eget neque a orci aliquet varius eget vitae orci. Mauris
+          porta non lacus nec congue. Pellentesque eu vulputate tortor, eget aliquam elit. Nulla facilisi. Sed at
+          pretium felis. Nullam sodales erat eget vehicula tincidunt. In hendrerit tortor nec nibh pretium aliquet. Nunc
+          aliquet dui nec dui dictum, tincidunt dapibus sapien sagittis. Morbi non tempus magna. Sed venenatis elementum
+          justo vel tempor.
+        </p>
+      </article>
+    </md-top-app-bar>
+  </body>
+</html>

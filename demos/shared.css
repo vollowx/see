@@ -108,8 +108,8 @@ main {
   display: none;
   flex-shrink: 0;
   position: sticky;
-  top: 0;
-  padding: calc(64px + 1rem) 32px 16px 0px;
+  top: 64px;
+  padding: 1rem 32px 16px 0px;
   width: 240px;
   height: 100vh;
   order: 1;
@@ -140,7 +140,7 @@ main {
 }
 .main {
   margin-inline-start: 0;
-  padding: 64px 24px 48px 24px;
+  padding: 0 24px 48px 24px;
   max-width: 105ch;
   width: 100%;
   box-sizing: border-box;
@@ -154,44 +154,6 @@ main {
     margin-inline-end: auto;
     width: calc(100% -240px);
   }
-}
-
-.demo-header {
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 64px;
-  padding: 8px 12px;
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  z-index: 10;
-  box-sizing: border-box;
-}
-.demo-header md-icon-button {
-  margin-inline-end: 8px;
-}
-.demo-header::before {
-  content: '';
-  position: absolute;
-  inset: 0px;
-  background-color: var(--md-sys-color-primary);
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-}
-.demo-header--scrolled::before {
-  opacity: 0.08;
-}
-.demo-header h1 {
-  margin: 0;
-  font-size: 1.375rem;
-  font-weight: 400;
-  line-height: 1.75rem;
-  letter-spacing: 0rem;
-  text-overflow: ellipsis;
 }
 
 .demo-container {

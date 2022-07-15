@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="../system/collection.css" />
 
+    <script type="module" src="../top-app-bar/top-app-bar.js"></script>
     <script type="module" src="../button/fab.js"></script>
     <script type="module" src="../button/icon-button.js"></script>
     <!-- We recommended to use iconify to reduce network usage -->
@@ -30,13 +31,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <header class="demo-header">
-      <a href="./" tabindex="-1" class="outer-link">
+    <md-top-app-bar>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
         </md-icon-button>
       </a>
-    </header>
+    </md-top-app-bar>
 
     <md-fab-set>
       <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">

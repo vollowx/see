@@ -26,8 +26,9 @@ export default class BaseElement extends HTMLElement {
     return [];
   }
 
+  _delegatesFocus = false;
   _attachShadow() {
-    this.attachShadow({ mode: 'open', delegatesFocus: true });
+    this.attachShadow({ mode: 'open', delegatesFocus: this._delegatesFocus });
   }
   get _extraContents() {
     return ``;
