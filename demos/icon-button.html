@@ -6,12 +6,15 @@
     <meta name="description" content="The index of all the components" />
     <title>Icon button</title>
 
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
 
-    <script type="module" src="../button/icon-button.js"></script>
+    <link rel="stylesheet" href="../system/collection.css" />
+
     <script type="module" src="../button/fab.js"></script>
-    <link rel="stylesheet" href="../system/color-system.css" />
-    <link rel="stylesheet" href="../system/elevation-system.css" />
+    <script type="module" src="../button/icon-button.js"></script>
     <!-- We recommended to use iconify to reduce network usage -->
     <!-- See https://icon-sets.iconify.design/material-symbols/ -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
@@ -22,14 +25,11 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
     />
 
-    <link rel="stylesheet" href="./shared.css" />
-    <script type="module" src="./shared.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
-  <body data-md-theme="dark" dir="ltr">
+  <body>
     <header class="demo-header">
       <a href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
@@ -51,7 +51,7 @@
       <nav class="table-of-ctt" aria-label="Table of contents">
         <p>Table of contents</p>
         <ul>
-          <li><a href="#basic-fab">Basic icon button, 基础图标按钮</a></li>
+          <li><a href="#basic-icon-button">Basic icon button, 基础图标按钮</a></li>
           <li><a href="#custom-inner-element">Custom inner element, 自定义内部元素</a></li>
           <li><a href="#link">Link, 链接</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
@@ -67,7 +67,7 @@
           <a href="https://m3.material.io/components/icon-buttons/specs" target="_blank">m3.material.io</a>
         </p>
 
-        <h2 id="basic-fab">Basic FAB, 基础图标按钮</h2>
+        <h2 id="basic-icon-button">Basic icon button, 基础图标按钮</h2>
 
         <div class="demo-container">
           <md-icon-button data-aria-label="Open settings">
@@ -132,11 +132,11 @@
         <h2 id="custom-inner-element">Custom inner element, 自定义内部元素</h2>
 
         <p>
-          Sometimes, maybe you want to use FAB component with a <code>&lt;input&gt;</code>, but then you will find that
+          Sometimes, maybe you want to use icon button component with a <code>&lt;input&gt;</code>, but then you will find that
           this is not feasible. So we provide function to custom inner element. See the following example(s).
         </p>
         <p>
-          有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 FAB 组件的样式一同使用, 但你将会发现这不可行.
+          有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 icon button 组件的样式一同使用, 但你将会发现这不可行.
           所以我们提供自定义内部元素的功能. 见下例子.
         </p>
 
@@ -166,11 +166,11 @@
 
         <p>Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</p>
         <p>使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</p>
-        <p>Support all the other ARIA attributes for fab, see details in source code.</p>
+        <p>Support all the other ARIA attributes for icon button, see details in source code.</p>
         <p>其他用于按钮的 ARIA 属性全部支持, 详见源代码.</p>
 
         <div class="demo-container" dir="ltr">
-          <md-icon-button data-aria-label="A fab with custom ARIA label">
+          <md-icon-button data-aria-label="A icon button with custom ARIA label">
             <iconify-icon icon="material-symbols:accessibility"></iconify-icon>
           </md-icon-button>
         </div>

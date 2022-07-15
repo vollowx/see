@@ -6,12 +6,15 @@
     <meta name="description" content="The index of all the components" />
     <title>Floating action button</title>
 
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <link rel="stylesheet" href="../system/collection.css" />
 
     <script type="module" src="../button/fab.js"></script>
     <script type="module" src="../button/icon-button.js"></script>
-    <link rel="stylesheet" href="../system/color-system.css" />
-    <link rel="stylesheet" href="../system/elevation-system.css" />
     <!-- We recommended to use iconify to reduce network usage -->
     <!-- See https://icon-sets.iconify.design/material-symbols/ -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
@@ -22,14 +25,11 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
     />
 
-    <link rel="stylesheet" href="./shared.css" />
-    <script type="module" src="./shared.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
-  <body data-md-theme="dark" dir="ltr">
+  <body>
     <header class="demo-header">
       <a href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">

@@ -4,11 +4,13 @@ import { TypographyStylesGenerator } from '../system/typography-system.js';
 function toggleTheme() {
   const theme = document.body.getAttribute('data-md-theme');
   const newTheme = theme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('md-theme', newTheme);
   document.body.setAttribute('data-md-theme', newTheme);
 }
 function toggleDir() {
   const dir = document.body.getAttribute('dir');
   const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
+  localStorage.setItem('md-dir', newDir);
   document.body.setAttribute('dir', newDir);
 }
 
@@ -16,6 +18,9 @@ addEventListener('DOMContentLoaded', () => {
   const themeTgl = document.querySelector('.theme-tgl');
   const dirTgl = document.querySelector('.dir-tgl');
   const demoHeader = document.querySelector('.demo-header');
+
+  document.body.setAttribute('data-md-theme', localStorage.getItem('md-theme') || 'dark');
+  document.body.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
 
   themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);
