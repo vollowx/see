@@ -118,23 +118,32 @@ main {
   overflow-y: auto;
   box-sizing: border-box;
 }
+.table-of-ctt p {
+  margin-left: 12px;
+}
 .table-of-ctt ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 .table-of-ctt ul li a {
-  padding: 0px 8px 0px 10px;
-  margin: 4px 0px 8px;
+  position: relative;
+  padding: 0px 8px 0px 8px;
+  margin: 4px 0px 8px 4px;
   display: inline-flex;
   align-items: center;
   color: rgba(var(--md-sys-color-on-surface-rgb), 0.72);
   text-decoration: none;
   border-left: 1px solid transparent;
+  outline: none;
 }
 [dir="rtl"] .table-of-ctt ul li a {
   border-left: none;
   border-right: 1px solid transparent;
+}
+.table-of-ctt ul li a:focus-visible {
+  color: rgba(var(--md-sys-color-on-surface-rgb), 0.9);
+  border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.48);
 }
 .table-of-ctt ul li a:hover {
   color: rgba(var(--md-sys-color-on-surface-rgb), 0.8);
