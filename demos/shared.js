@@ -1,5 +1,11 @@
 import ColorSystem from '../system/color-system.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
+import FocusRingStyle from '../shared/focus-ring-style.js';
+
+let FocusRingStyleText = [];
+for (let i = 0; i < FocusRingStyle.cssRules.length; i++) {
+  FocusRingStyleText.push(FocusRingStyle.cssRules[i].cssText);
+}
 
 function toggleTheme() {
   const theme = document.documentElement.getAttribute('data-md-theme');
@@ -29,10 +35,13 @@ addEventListener('DOMContentLoaded', () => {
   CSSBlock.innerHTML = /* css */ `
     h1 { ${TypographyStylesGenerator('headline', 'L')} }
     h2 { ${TypographyStylesGenerator('headline', 'M')} }
+    .index h2 { ${TypographyStylesGenerator('label', 'L')} }
+    .index li { ${TypographyStylesGenerator('label', 'M')} }
     .demo-header span { ${TypographyStylesGenerator('headline', 'S')} }
     h3 { ${TypographyStylesGenerator('title', 'M')} }
     p { ${TypographyStylesGenerator('body', 'M')} }
     .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
+    ${FocusRingStyleText.join('')}
   `;
   document.head.appendChild(CSSBlock);
 });

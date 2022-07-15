@@ -145,7 +145,6 @@ export default class TopAppBar extends BaseElement {
   connectedCallback() {
     super.connectedCallback();
     this.scrollBinder.addEventListener('scroll', this.handleScroll);
-    console.log(document.querySelector(`${this.getAttribute('scroll-binder')}`));
   }
 
   handleScroll = () => {
