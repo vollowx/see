@@ -103,13 +103,15 @@ md-fab-set {
 main {
   display: flex;
   width: 100%;
+  position: absolute;
+  top: 0;
 }
 .table-of-ctt {
   display: none;
   flex-shrink: 0;
   position: sticky;
-  top: 64px;
-  padding: 1rem 32px 16px 0px;
+  top: 0;
+  padding: calc(64px + 1rem) 32px 16px 0px;
   width: 240px;
   height: 100vh;
   order: 1;
@@ -140,7 +142,7 @@ main {
 }
 .main {
   margin-inline-start: 0;
-  padding: 0 24px 48px 24px;
+  padding: 64px 24px 48px 24px;
   max-width: 105ch;
   width: 100%;
   box-sizing: border-box;
@@ -152,11 +154,12 @@ main {
   .main {
     margin-inline-start: auto;
     margin-inline-end: auto;
-    width: calc(100% -240px);
+    width: calc(100% - 240px);
   }
 }
 
 .demo-container {
+  position: relative;
   margin: 1rem 0;
   padding: 16px;
   width: 100%;
@@ -172,6 +175,14 @@ main {
 [data-md-theme="dark"] .demo-container {
   box-shadow: none;
   border: 1px solid var(--md-sys-color-outline);
+}
+.demo-container.bg-change::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentColor;
+  opacity: 0.08;
+  border-radius: inherit;
 }
 .demo-spacer {
   margin: -8px;
