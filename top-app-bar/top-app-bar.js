@@ -30,7 +30,7 @@ TopAppBarStyle.replaceSync(css`
     inset: 0;
     background-color: var(--md-sys-color-primary);
     opacity: 0;
-    transition: 120ms opacity cubic-bezier(.4, 0, .2, 1);
+    transition: 120ms opacity cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
   }
   [scrolled] [part~='tint'] {
@@ -51,16 +51,20 @@ TopAppBarStyle.replaceSync(css`
   :host([no-nav-btn]) [part~='left'] {
     display: none;
   }
-  [part~='middle'],
   [part~='right'] {
-    flex: 1;
+    flex: 1 1 auto;
   }
   [part~='right'] {
     gap: 8px;
     justify-content: flex-end;
   }
-  :host([centered]) [part~='sections'] {
-    flex: 1;
+  [part~='middle'] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :host([centered]) [part~='left'] {
+    flex: 1 1 auto;
   }
   :host([centered]) [part~='middle'] {
     justify-content: center;
@@ -85,8 +89,8 @@ TopAppBarStyle.replaceSync(css`
   :host([large]) [part~='middle'] span {
     margin-bottom: 16px;
   }
-  :host([medium]:not([centered])) [part~='middle'] span,
-  :host([large]:not([centered])) [part~='middle'] span {
+  :host([medium]:not([centered]):not([no-nav-btn])) [part~='middle'] span,
+  :host([large]:not([centered]):not([no-nav-btn])) [part~='middle'] span {
     margin-inline-start: -48px;
   }
   :host([medium]) ::slotted([slot~='title']) {
@@ -156,7 +160,7 @@ export default class TopAppBar extends BaseElement {
     } else {
       this.topAppBarElement.removeAttribute('scrolled');
     }
-  }
+  };
 }
 
 customElements.define(TopAppBar.is, TopAppBar);
