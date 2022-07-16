@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Badge</title>
+
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+
+    <script type="module" src="../top-app-bar/top-app-bar.js"></script>
+    <script type="module" src="../button/fab.js"></script>
+    <script type="module" src="../button/icon-button.js"></script>
+    <script type="module" src="../button/common-button.js"></script>
+    <script type="module" src="../badge/badge.js"></script>
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard data-aria-label="Back to index page">
+          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        </md-icon-button>
+      </a>
+    </md-top-app-bar>
+
+    <md-fab-set>
+      <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">
+        <iconify-icon icon="material-symbols:brightness-6"></iconify-icon>
+      </md-fab>
+      <md-fab data-aria-label="Toggle demo direction" small secondary class="dir-tgl">
+        <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
+      </md-fab>
+    </md-fab-set>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Table of contents">
+        <p>Table of contents</p>
+        <ul>
+          <li><a href="#basic-badge">Basic badge, 基础徽标</a></li>
+          <li><a href="#max-number">Max number, 最大值</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <h1>Badge, 徽标</h1>
+
+        <h2 id="basic-badge">Basic badge, 基础徽标</h2>
+
+        <div class="demo-container" style="gap: 16px;">
+          <md-badge value="7" circle>
+            <md-icon-button data-aria-label="mail, 7 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+          <md-badge value="7" circle left>
+            <md-icon-button data-aria-label="mail, 7 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+          <md-badge value="7" circle bottom>
+            <md-icon-button data-aria-label="mail, 7 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+          <md-badge value="7" circle left bottom>
+            <md-icon-button data-aria-label="mail, 7 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+        </div>
+
+        <h2 id="max-number">Max number, 最大值</h2>
+
+        <p>If the value is very big, maybe show a <code>max+</code> symbol is better</p>
+        <p>如果 value 非常大, 也许使用 <code>max+</code> 会更好</p>
+
+        <div class="demo-container" style="gap: 32px;">
+          <md-badge value="114514" circle>
+            <md-icon-button data-aria-label="114514 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+          <md-badge value="114514" max="99" circle>
+            <md-icon-button data-aria-label="more than 99 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+        </div>
+
+        <h2 id="accessibility">Accessibility, 无障碍功能</h2>
+
+        <p>You can't expect an accessibility tool to read exactly what's on the logo, so you should give the accessibility tool a direct, correct data, like give a <code>aria-label</code></p>
+        <p>你不能指望无障碍工具能准确地阅读出徽标上的内容, 所以你应该给无障碍工具一个直接的正确的数据, 例如直接写一个 <code>aria-label</code></p>
+
+        <div class="demo-container">
+          <md-badge value="1" max="99" circle>
+            <md-icon-button id="n" standard data-aria-label="">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+
+          <md-button id="add-n" data-aria-label="One more notification" label="One more notification" leading-icon>
+            <iconify-icon slot="leading-icon" icon="material-symbols:add"></iconify-icon>
+          </md-button>
+          <md-button id="rm-n" data-aria-label="One less notification" label="One less notification" leading-icon>
+            <iconify-icon slot="leading-icon" icon="material-symbols:remove"></iconify-icon>
+        </div>
+
+        <h2 id="attributes">Attributes, 属性</h2>
+
+        <p>Types:</p>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">(right) / left</td>
+              <td class="type">single choice</td>
+              <td class="default-val">(right)</td>
+              <td>Controls badge's horizontal position</td>
+            </tr>
+            <tr>
+              <td class="name">(top) / bottom</td>
+              <td class="type">single choice</td>
+              <td class="default-val">(top)</td>
+              <td>Controls badge's vertical position</td>
+            </tr>
+            <tr>
+              <td class="name">value</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls badge's inner contents</td>
+            </tr>
+            <tr>
+              <td class="name">max</td>
+              <td class="type">string(number)</td>
+              <td class="default-val"></td>
+              <td>Controls badge's max number</td>
+            </tr>
+            <tr>
+              <td class="name">circle</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>If true, badge will change its align to a circle's border</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      const addN = document.getElementById('add-n');
+      const rmN = document.getElementById('rm-n');
+      const n = document.getElementById('n');
+      const nValue = n.parentElement;
+      function updateN() {
+        let val = parseInt(nValue.getAttribute('value'));
+        if (val == 0) {
+          n.setAttribute('data-aria-label', 'no notification');
+        } else if (val > 99) {
+          n.setAttribute('data-aria-label', 'more than 99 notifications');
+        } else {
+          n.setAttribute('data-aria-label', `${val} notifications`);
+        }
+      }
+      addN.addEventListener('click', () => {
+        let val = parseInt(nValue.getAttribute('value')) + 1;
+        nValue.setAttribute('value', val);
+        updateN();
+      });
+      rmN.addEventListener('click', () => {
+        let val = parseInt(nValue.getAttribute('value')) - 1;
+        if (val < 0) return;
+        nValue.setAttribute('value', val);
+        updateN();
+      });
+      updateN();
+    </script>
+  </body>
+</html>
