@@ -10,5 +10,5 @@
     "strict": true,
     "target": "ES2019"
   },
-  "include": ["**/*.js", "**/*.ts", "shared/constructable-stylesheets-polyfill.ls"]
+  "include": ["**/*.js", "**/*.ts"]
 }
