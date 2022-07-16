@@ -1,0 +1,1 @@
+import{QuantizerWsmeans}from"./quantizer_wsmeans";import{QuantizerWu}from"./quantizer_wu";class QuantizerCelebi{static quantize(e,t){const a=new QuantizerWu;var n=a.quantize(e,t);return QuantizerWsmeans.quantize(e,n,t)}}export{QuantizerCelebi};

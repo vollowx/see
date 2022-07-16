@@ -1,15 +1,24 @@
-import ColorSystem from '../system/color-system.js';
-import { TypographyStylesGenerator } from '../system/typography-system.js';
-import FocusRingStyle from '../shared/focus-ring-style.js';
+import { argbFromHex, themeFromSourceColor, applyTheme } from '../system/color-system.js';
+const theme = themeFromSourceColor(argbFromHex('#114514'), [
+  {
+    name: 'custom-1',
+    value: argbFromHex('#ff0000'),
+    blend: true,
+  },
+]);
+applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
+import { TypographyStylesGenerator } from '../system/typography-system.js';
+
+import FocusRingStyle from '../shared/focus-ring-style.js';
 let FocusRingStyleText = [];
 for (let i = 0; i < FocusRingStyle.cssRules.length; i++) {
   FocusRingStyleText.push(FocusRingStyle.cssRules[i].cssText);
 }
 
 function toggleTheme() {
-  const theme = document.documentElement.getAttribute('data-md-theme');
-  const newTheme = theme === 'light' ? 'dark' : 'light';
+  const themeAttr = document.documentElement.getAttribute('data-md-theme');
+  const newTheme = themeAttr === 'light' ? 'dark' : 'light';
   localStorage.setItem('md-theme', newTheme);
   document.documentElement.setAttribute('data-md-theme', newTheme);
 }
@@ -20,19 +29,8 @@ function toggleDir() {
   document.documentElement.setAttribute('dir', newDir);
 }
 
-addEventListener('DOMContentLoaded', () => {
-  const themeTgl = document.querySelector('.theme-tgl');
-  const dirTgl = document.querySelector('.dir-tgl');
-
-  document.documentElement.setAttribute('data-md-theme', localStorage.getItem('md-theme') || 'dark');
-  document.documentElement.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
-
-  themeTgl?.addEventListener('click', toggleTheme);
-  dirTgl?.addEventListener('click', toggleDir);
-
-  ColorSystem.changeTheme(document.documentElement, '#114514');
-  const CSSBlock = document.createElement('style');
-  CSSBlock.innerHTML = /* css */ `
+const CSSBlock = document.createElement('style');
+CSSBlock.innerHTML = /* css */ `
     h1 { ${TypographyStylesGenerator('headline', 'L')} }
     h2 { ${TypographyStylesGenerator('headline', 'M')} }
     .index h2 { ${TypographyStylesGenerator('label', 'L')} }
@@ -43,5 +41,26 @@ addEventListener('DOMContentLoaded', () => {
     .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
     ${FocusRingStyleText.join('')}
   `;
-  document.head.appendChild(CSSBlock);
+document.head.appendChild(CSSBlock);
+
+addEventListener('DOMContentLoaded', () => {
+  const themeTgl = document.querySelector('.theme-tgl');
+  const dirTgl = document.querySelector('.dir-tgl');
+
+  const localDarkData = localStorage.getItem('md-theme');
+  const systemDarkData = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let finalDarkData;
+  if (localDarkData) {
+    finalDarkData = localDarkData;
+  } else if (systemDarkData) {
+    finalDarkData = 'dark';
+  } else {
+    finalDarkData = 'light';
+  }
+
+  document.documentElement.setAttribute('data-md-theme', finalDarkData);
+  document.documentElement.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
+
+  themeTgl?.addEventListener('click', toggleTheme);
+  dirTgl?.addEventListener('click', toggleDir);
 });

@@ -1,0 +1,1 @@
+import*as utils from"../utils/color_utils";class QuantizerMap{static quantize(a){const r=new Map;for(let t=0;t<a.length;t++){var l=a[t];utils.alphaFromArgb(l)<255||r.set(l,(null!=(l=r.get(l))?l:0)+1)}return r}}export{QuantizerMap};
