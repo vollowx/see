@@ -8,6 +8,14 @@ const theme = themeFromSourceColor(argbFromHex('#114514'), [
 ]);
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
+import '../badge/badge.js';
+import '../button/common-button.js';
+import '../button/fab.js';
+import '../button/icon-button.js';
+import '../ripple/ripple.js';
+import '../top-app-bar/top-app-bar.js';
+import '../typography/typography.js';
+
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
 import FocusRingStyle from '../shared/focus-ring-style.js';
@@ -31,16 +39,11 @@ function toggleDir() {
 
 const CSSBlock = document.createElement('style');
 CSSBlock.innerHTML = /* css */ `
-    h1 { ${TypographyStylesGenerator('headline', 'L')} }
-    h2 { ${TypographyStylesGenerator('headline', 'M')} }
-    .index h2 { ${TypographyStylesGenerator('label', 'L')} }
-    .index li { ${TypographyStylesGenerator('label', 'M')} }
-    .demo-header span { ${TypographyStylesGenerator('headline', 'S')} }
-    h3 { ${TypographyStylesGenerator('title', 'M')} }
-    p { ${TypographyStylesGenerator('body', 'M')} }
-    .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
-    ${FocusRingStyleText.join('')}
-  `;
+  .index h2 { ${TypographyStylesGenerator('label', 'L')} }
+  .index li { ${TypographyStylesGenerator('label', 'M')} }
+  .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
+  ${FocusRingStyleText.join('')}
+`;
 document.head.appendChild(CSSBlock);
 
 addEventListener('DOMContentLoaded', () => {

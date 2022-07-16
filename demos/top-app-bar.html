@@ -4,19 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="The index of all the components" />
-    <title>Docs index</title>
+    <title>Top app bar</title>
 
+    <link rel="stylesheet" href="../system/collection.css" />
     <link rel="stylesheet" href="./shared.css" />
     <script type="module" src="./shared.js"></script>
 
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
 
-    <link rel="stylesheet" href="../system/collection.css" />
-
-    <script type="module" src="../top-app-bar/top-app-bar.js"></script>
-    <script type="module" src="../button/fab.js"></script>
-    <script type="module" src="../button/icon-button.js"></script>
-    <script type="module" src="../button/common-button.js"></script>
     <!-- We recommended to use iconify to reduce network usage -->
     <!-- See https://icon-sets.iconify.design/material-symbols/ -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
@@ -59,14 +54,14 @@
       </nav>
 
       <div class="main">
-        <h1>Top app bar, 顶部应用栏</h1>
+        <md-typography display-s tag="h1">Top app bar, 顶部应用栏</md-typography>
 
-        <p>
+        <md-typography body-m tag="p">
           Design baseline from
           <a href="https://m3.material.io/components/top-app-bars/specs" target="_blank">m3.material.io</a>
-        </p>
+        </md-typography>
 
-        <h2 id="basic-top-app-bar">Basic top app bar, 基础顶部应用栏</h2>
+        <md-typography headline-m tag="h2" id="basic-top-app-bar">Basic top app bar, 基础顶部应用栏</md-typography>
 
         <div class="demo-container bg-change">
           <md-top-app-bar static no-contents>
@@ -119,9 +114,9 @@
           </md-top-app-bar>
         </div>
 
-        <h2 id="attributes">Attributes, 属性</h2>
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
 
-        <p>Types:</p>
+        <md-typography body-m tag="p">Types:</md-typography>
         <ul>
           <li>single choice means choose one of all names</li>
           <li>

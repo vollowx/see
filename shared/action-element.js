@@ -159,7 +159,7 @@ export default class ActionElement extends BaseElement {
   }
   get _template() {
     return html`
-      <${this.getAttribute('component') || 'button'}
+      <${this.getAttribute('tag') || 'button'}
         role="${this.role ? this.role : 'button'}" type="button" tabindex="0"
         part="inner button focus-controller"
         ${this.disabled ? 'disabled' : ''}
@@ -174,7 +174,7 @@ export default class ActionElement extends BaseElement {
         ${this._extraContents}
         <span part="target"></span>
         ${this._mainContents}
-      </${this.getAttribute('component') || 'button'}>
+      </${this.getAttribute('tag') || 'button'}>
     `;
   }
   /**

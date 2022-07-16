@@ -6,17 +6,12 @@
     <meta name="description" content="The index of all the components" />
     <title>Common button</title>
 
+    <link rel="stylesheet" href="../system/collection.css" />
     <link rel="stylesheet" href="./shared.css" />
     <script type="module" src="./shared.js"></script>
 
     <script src="../shared/constructable-stylesheets-polyfill.js"></script>
 
-    <link rel="stylesheet" href="../system/collection.css" />
-
-    <script type="module" src="../top-app-bar/top-app-bar.js"></script>
-    <script type="module" src="../button/fab.js"></script>
-    <script type="module" src="../button/icon-button.js"></script>
-    <script type="module" src="../button/common-button.js"></script>
     <!-- We recommended to use iconify to reduce network usage -->
     <!-- See https://icon-sets.iconify.design/material-symbols/ -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
@@ -63,14 +58,14 @@
       </nav>
 
       <div class="main">
-        <h1>Common button, 常规的按钮</h1>
+        <md-typography display-s tag="h1">Common button, 常规的按钮</md-typography>
 
-        <p>
+        <md-typography body-m tag="p">
           Design baseline from
           <a href="https://m3.material.io/components/buttons/specs" target="_blank">m3.material.io</a>
-        </p>
+        </md-typography>
 
-        <h2 id="basic-common-button">Basic button, 基础按钮</h2>
+        <md-typography headline-m tag="h2" id="basic-common-button">Basic common button, 基础常规按钮</md-typography>
 
         <div class="demo-container">
           <md-button label="Default"></md-button>
@@ -93,15 +88,20 @@
           <md-button disabled label="Text button" text></md-button>
         </div>
 
-        <h2 id="has-icon">Has icon, 有图标的</h2>
+        <md-typography headline-m tag="h2" id="has-icon">Has icon, 有图标的</md-typography>
 
-        <h3>Way 1, use slot and custom source (recommended), 第一种方式, 使用 slot 和自定义的源 (推荐)</h3>
+        <md-typography title-m tag="h3"
+          >Way 1, use slot and custom source (recommended), 第一种方式, 使用 slot 和自定义的源 (推荐)</md-typography
+        >
 
-        <p>This way can reduce network spending. 该方法可减少网络开销</p>
-        <p>
+        <md-typography body-m tag="p">This way can reduce network spending. 该方法可减少网络开销</md-typography>
+        <md-typography body-m tag="p">
           Also, you have more customize on this way, like use another icon set (in iconify), or use image as a icon.
-        </p>
-        <p>同时, 你可以拥有更多的自定义空间, 例如使用另一个图标集 (在 iconify 内), 或是拿图片当作图标使用.</p>
+        </md-typography>
+        <md-typography body-m tag="p"
+          >同时, 你可以拥有更多的自定义空间, 例如使用另一个图标集 (在 iconify 内),
+          或是拿图片当作图标使用.</md-typography
+        >
 
         <div class="demo-container">
           <md-button label="Leading icon">
@@ -139,37 +139,45 @@
           </md-button>
         </div>
 
-        <h3>Way 2, use attribute, 第二种方法, 使用属性</h3>
+        <md-typography title-m tag="h3">Way 2, use attribute, 第二种方法, 使用属性</md-typography>
 
-        <p>Because of using web font, network spending may be more, 由于使用网络字体, 网络开销较大</p>
+        <md-typography body-m tag="p"
+          >Because of using web font, network spending may be more, 由于使用网络字体, 网络开销较大</md-typography
+        >
 
         <div class="demo-container">
           <md-button label="Leading icon" leading-icon="settings"></md-button>
           <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
         </div>
 
-        <h2 id="custom-inner-element">Custom inner element, 自定义内部元素</h2>
+        <md-typography headline-m tag="h2" id="custom-inner-element"
+          >Custom inner element, 自定义内部元素</md-typography
+        >
 
-        <p>
+        <md-typography body-m tag="p">
           Sometimes, maybe you want to use button component with a <code>&lt;input&gt;</code>, but then you will find
           that this is not feasible. So we provide function to custom inner element. See the following example(s).
-        </p>
-        <p>
+        </md-typography>
+        <md-typography body-m tag="p">
           有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 button 组件的样式一同使用, 但你将会发现这不可行.
           所以我们提供自定义内部元素的功能. 见下例子.
-        </p>
+        </md-typography>
 
         <div class="demo-container">
           <label for="file-uploader">
             <input type="file" name="file-uploader" id="file-uploader" multiple style="display: none" />
-            <md-button component="span" label="Upload files"></md-button>
+            <md-button tag="span" label="Upload files"></md-button>
           </label>
         </div>
 
-        <h2 id="link">Link, 链接</h2>
+        <md-typography headline-m tag="h2" id="link">Link, 链接</md-typography>
 
-        <p><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></p>
-        <p><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></p>
+        <md-typography body-m tag="p"
+          ><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+        >
+        <md-typography body-m tag="p"
+          ><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+        >
 
         <div class="demo-container">
           <a href="https://github.com/huge-pancake/tiny-material" target="_blank" tabindex="-1" class="outer-link">
@@ -177,12 +185,18 @@
           </a>
         </div>
 
-        <h2 id="accessibility">Accessibility, 无障碍功能</h2>
+        <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
-        <p>Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</p>
-        <p>使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</p>
-        <p>Support all the other ARIA attributes for button, see details in source code.</p>
-        <p>其他用于按钮的 ARIA 属性全部支持, 详见源代码.</p>
+        <md-typography body-m tag="p"
+          >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >Support all the other ARIA attributes for button, see details at the following table.</md-typography
+        >
+        <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
 
         <div class="demo-container">
           <md-button
@@ -191,9 +205,9 @@
           ></md-button>
         </div>
 
-        <h2 id="attributes">Attributes, 属性</h2>
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
 
-        <p>Types:</p>
+        <md-typography body-m tag="p">Types:</md-typography>
         <ul>
           <li>single choice means choose one of all names</li>
           <li>
@@ -279,6 +293,12 @@
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>Controls trailing icon name (web font), not recommended</td>
+            </tr>
+            <tr>
+              <td class="name">tag</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls custom inner element tag name</td>
             </tr>
           </tbody>
         </table>
