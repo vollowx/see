@@ -27,14 +27,14 @@ body {
   text-decoration: none;
 }
 
-[tag='h1'] {
+.main > [tag='h1'] {
   margin: 10px 0;
 }
-[tag='h2'] {
+.main > [tag='h2'] {
   margin: 40px 0px 10px;
   scroll-margin-top: calc(var(--demo-header-height) + 16px);
 }
-[tag='h3'] {
+.main > [tag='h3'] {
   margin: 10px 0;
 }
 
@@ -142,7 +142,7 @@ main {
   border-left: 1px solid transparent;
   outline: none;
 }
-[dir="rtl"] .table-of-ctt ul li a {
+[dir='rtl'] .table-of-ctt ul li a {
   border-left: none;
   border-right: 1px solid transparent;
 }
@@ -186,7 +186,7 @@ main {
   box-shadow: var(--md-sys-elevation-shadow-1);
   color: var(--md-sys-color-on-background);
 }
-[data-md-theme="dark"] .demo-container {
+[data-md-theme='dark'] .demo-container {
   box-shadow: none;
   border: 1px solid var(--md-sys-color-outline);
 }

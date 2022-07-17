@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Typography</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard data-aria-label="Back to index page">
+          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        </md-icon-button>
+      </a>
+    </md-top-app-bar>
+
+    <md-fab-set>
+      <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">
+        <iconify-icon icon="material-symbols:brightness-6"></iconify-icon>
+      </md-fab>
+      <md-fab data-aria-label="Toggle demo direction" small secondary class="dir-tgl">
+        <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
+      </md-fab>
+    </md-fab-set>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Table of contents">
+        <p>Table of contents</p>
+        <ul>
+          <li><a href="#diff-styles">Different styles</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">Typography, 文字排版</md-typography>
+
+        <md-typography headline-m tag="h2" id="diff-styles">Different styles, 不同样式</md-typography>
+
+        <div class="demo-container" style="flex-direction: column; align-items: unset;">
+          <md-typography display-l>Display large</md-typography>
+          <md-typography display-m>Display medium</md-typography>
+          <md-typography display-s>Display small</md-typography>
+          <md-typography headline-l>Headline large</md-typography>
+          <md-typography headline-m>Headline medium</md-typography>
+          <md-typography headline-s>Headline small</md-typography>
+          <md-typography title-l>Title large</md-typography>
+          <md-typography title-m>Title medium</md-typography>
+          <md-typography title-s>Title small</md-typography>
+          <md-typography label-l>Label large</md-typography>
+          <md-typography label-m>Label medium</md-typography>
+          <md-typography label-s>Label small</md-typography>
+          <md-typography body-l>Body large</md-typography>
+          <md-typography body-m>Body medium</md-typography>
+          <md-typography body-s>Body small</md-typography>
+        </div>
+
+        <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
+
+        <md-typography body-m tag="p">If you do not set <code>tag</code> attribute to custom inner element, when somebody asks accessibility utilities, "Hey bro, what's that texts?", then accessibility utilities will answer, "Oh, that is just a <code>StaticText</code>". But in fact, it is a <code>heading</code> (<code>h1</code>)</md-typography>
+        <md-typography body-m tag="p">如果你不用 <code>tag</code> 属性来自定义内部元素, 当有人问无障碍工具时: "嘿! 那段文字是什么?", 无障碍工具会这样回答: "噢! 那只是一段 <code>StaticText</code> (静态文字) 罢了". 但事实上, 那是一段 <code>heading</code> (标题, h1)</md-typography>
+
+        <div class="demo-container" style="flex-direction: column; align-items: unset;">
+          <md-typography headline-m>No accessibility utilities will think this is <code>heading</code></md-typography>
+          <md-typography headline-m tag="h2">These texts will be <code>heading</code></md-typography>
+          <md-typography body-m tag="p">These texts will be <code>paragraph</code></md-typography>
+        </div>
+
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+        <md-typography body-m tag="p">Types:</md-typography>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">display-l / display-m / display-s / headline-l / headline-m / headline-s / title-l / title-m / title-s / label-l / label-m / label-s / body-l / body-m / body-s</td>
+              <td class="type">single choice</td>
+              <td class="default-val">(nothing)</td>
+              <td>Controls typography's style</td>
+            </tr>
+            <tr>
+              <td class="name">tag</td>
+              <td class="type">string</td>
+              <td class="default-val">span</td>
+              <td>Controls typography's inner element name, for accessibility</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      const links = document.querySelectorAll('.index a');
+      links.forEach((el) => {
+        el.setAttribute('part', 'focus-controller');
+        el.innerHTML += `
+          <span part="focus-ring"></span>
+        `;
+      });
+    </script>
+  </body>
+</html>
