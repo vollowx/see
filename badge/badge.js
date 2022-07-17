@@ -22,7 +22,7 @@ BadgeStyle.replaceSync(css`
     top: var(--md-badge-offset);
     right: var(--md-badge-offset);
     box-sizing: border-box;
-    ${TypographyStylesGenerator('label', 'L')}
+    ${TypographyStylesGenerator('label', 'S')}
     padding: 0px 1px;
     min-width: 16px;
     height: 16px;
