@@ -23,7 +23,7 @@ BadgeStyle.replaceSync(css`
     right: var(--md-badge-offset);
     box-sizing: border-box;
     ${TypographyStylesGenerator('label', 'S')}
-    padding: 0px 1px;
+    padding: 0px 2.5px;
     min-width: 16px;
     height: 16px;
     border-radius: 8px;
@@ -36,7 +36,8 @@ BadgeStyle.replaceSync(css`
   :host([circle]) {
     --md-badge-offset: 14%;
   }
-  :host([left]) [part~='badge'] {
+  :host([left]:not([dir='rtl'])) [part~='badge'],
+  :host(:not([left])[dir='rtl']) [part~='badge'] {
     left: var(--md-badge-offset);
     right: auto;
     transform: scale(1) translate(-50%, -50%);
@@ -48,7 +49,8 @@ BadgeStyle.replaceSync(css`
     transform: scale(1) translate(50%, 50%);
     transform-origin: 100% 100%;
   }
-  :host([left][bottom]) [part~='badge'] {
+  :host([left][bottom]:not([dir='rtl'])) [part~='badge'],
+  :host(:not([left])[dir='rtl'][bottom]) [part~='badge'] {
     transform: scale(1) translate(-50%, 50%);
     transform-origin: 0% 100%;
   }

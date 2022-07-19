@@ -35,6 +35,9 @@ function toggleDir() {
   const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
   localStorage.setItem('md-dir', newDir);
   document.documentElement.setAttribute('dir', newDir);
+  document.querySelectorAll('md-badge').forEach((badge) => {
+    badge.setAttribute('dir', newDir);
+  });
 }
 
 const CSSBlock = document.createElement('style');
@@ -61,8 +64,12 @@ addEventListener('DOMContentLoaded', () => {
     finalDarkData = 'light';
   }
 
+  const newDir = localStorage.getItem('md-dir') || 'ltr';
   document.documentElement.setAttribute('data-md-theme', finalDarkData);
-  document.documentElement.setAttribute('dir', localStorage.getItem('md-dir') || 'ltr');
+  document.documentElement.setAttribute('dir', newDir);
+  document.querySelectorAll('md-badge').forEach((badge) => {
+    badge.setAttribute('dir', newDir);
+  });
 
   themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);

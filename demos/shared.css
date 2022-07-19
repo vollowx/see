@@ -116,7 +116,9 @@ main {
   flex-shrink: 0;
   position: sticky;
   top: 0;
-  padding: calc(64px + 1rem) 32px 16px 0px;
+  padding-block-start: calc(64px + 1rem);
+  padding-inline-start: 16px;
+  padding-inline-end: 32px;
   width: 240px;
   height: 100vh;
   order: 1;
@@ -124,7 +126,7 @@ main {
   box-sizing: border-box;
 }
 .table-of-ctt p {
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 .table-of-ctt ul {
   padding: 0;
@@ -133,8 +135,10 @@ main {
 }
 .table-of-ctt ul li a {
   position: relative;
-  padding: 0px 8px 0px 8px;
-  margin: 4px 0px 8px 4px;
+  padding: 0px 8px;
+  margin-block-start: 4px;
+  margin-block-end: 8px;
+  margin-inline-start: 4px;
   display: inline-flex;
   align-items: center;
   color: rgba(var(--md-sys-color-on-surface-rgb), 0.72);
@@ -156,7 +160,7 @@ main {
 }
 .main {
   margin-inline-start: 0;
-  padding: 64px 24px 48px 24px;
+  padding: 64px 24px 24px 24px;
   max-width: 105ch;
   width: 100%;
   box-sizing: border-box;
