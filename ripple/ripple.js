@@ -156,10 +156,14 @@ export default class Ripple extends BaseElement {
   handleKeyDown = (e) => {
     const fakeEvent = new MouseEvent('pointerdown', {});
     if (e.key === ' ') {
-      if (!this.whitespacePressed) {
-        this.whitespacePressed = true;
-        this.newRipple(fakeEvent, true);
+      if (this.whitespacePressed) return;
+      this.whitespacePressed = true;
+      this.newRipple(fakeEvent, true);
+      const _onDown = () => {
+        this.removeAllRipples();
+        window.removeEventListener('pointerdown', _onDown, true);
       }
+      window.addEventListener('pointerdown', _onDown, true);
     }
     if (e.key === 'Enter') {
       this.removeAllRipples();
