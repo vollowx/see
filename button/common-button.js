@@ -2,7 +2,7 @@ import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import ActionElementLabeled from '../shared/action-element-labeled.js';
 import StateLayerStyle from '../shared/state-layer-style.js';
-import FocusRingStyle from '../shared/focus-ring-style.js';
+import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
 
@@ -140,7 +140,7 @@ export default class CommonButton extends ActionElementLabeled {
       ...super._styles,
       CommonButtonStyle,
       StateLayerStyle,
-      FocusRingStyle
+      FocusRingStyleFAE
     ];
   }
 

@@ -1,7 +1,7 @@
 import { css } from '../shared/template.js';
 import ActionElement from '../shared/action-element.js';
 import StateLayerStyle from '../shared/state-layer-style.js';
-import FocusRingStyle from '../shared/focus-ring-style.js';
+import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
 
@@ -151,7 +151,7 @@ export default class IconButton extends ActionElement {
   }
 
   get _styles() {
-    return [...super._styles, IconButtonStyle, StateLayerStyle, FocusRingStyle];
+    return [...super._styles, IconButtonStyle, StateLayerStyle, FocusRingStyleFAE];
   }
 
   get _extraContents() {
@@ -177,7 +177,7 @@ export default class IconButton extends ActionElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+    this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
     this.addEventListener('click', this.handleClick);
   }
 
@@ -198,18 +198,18 @@ export default class IconButton extends ActionElement {
 
       case 'toggle':
         if (newValue === null) {
-          this.buttonElement.removeAttribute('aria-pressed');
+          this.innerElement.removeAttribute('aria-pressed');
         } else {
-          this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+          this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
         }
         break;
 
       case 'selected':
         if (!this.toggle) {
-          this.buttonElement.removeAttribute('aria-pressed');
+          this.innerElement.removeAttribute('aria-pressed');
           return;
         } else {
-          this.buttonElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+          this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
         }
         break;
 

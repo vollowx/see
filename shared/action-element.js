@@ -1,5 +1,5 @@
-import { html, css } from "./template.js";
-import BaseElement from "./base-element.js";
+import { html, css } from './template.js';
+import BaseElement from './base-element.js';
 
 const BasicButtonStyle = new CSSStyleSheet();
 BasicButtonStyle.replaceSync(css`
@@ -16,7 +16,7 @@ BasicButtonStyle.replaceSync(css`
   :host([disabled]) {
     pointer-events: none;
   }
-  [part~="button"] {
+  [part~='button'] {
     -webkit-tap-highlight-color: transparent;
     display: inline-flex;
     align-items: center;
@@ -28,6 +28,23 @@ BasicButtonStyle.replaceSync(css`
     z-index: 0;
   }
 `);
+
+var fromKeyboard = false;
+
+window.addEventListener(
+  'keydown',
+  (e) => {
+    fromKeyboard = true;
+  },
+  { capture: true }
+);
+window.addEventListener(
+  'mousedown',
+  (e) => {
+    fromKeyboard = false;
+  },
+  { capture: true }
+);
 
 /**
  * 'ns' means 'no-style'
@@ -135,14 +152,14 @@ export default class ActionElement extends BaseElement {
   }
 
   focus() {
-    this.buttonElement?.focus();
+    this.innerElement?.focus();
   }
   blur() {
-    this.buttonElement?.blur();
+    this.innerElement?.blur();
   }
 
   /** @type {HTMLButtonElement} */
-  get buttonElement() {
+  get innerElement() {
     return this.getEl('[part~="button"]');
   }
 
@@ -150,7 +167,7 @@ export default class ActionElement extends BaseElement {
   get _styles() {
     return [BasicButtonStyle];
   }
-  
+
   get _extraContents() {
     return ``;
   }
@@ -178,22 +195,22 @@ export default class ActionElement extends BaseElement {
     `;
   }
   /**
-   * @param {TouchEvent} _event 
+   * @param {FocusEvent} _event
    */
-  handleTouchStart(_event) {
-    this.setAttribute('touched', '');
-  }
+  handleFocusIn = (_event) => {
+    const from = fromKeyboard ? 'keyboard' : null || 'mouse';
+    if (!from) return;
+    this.setAttribute('focus-from', from);
+  };
   /**
-   * @param {FocusEvent} _event 
+   * @param {FocusEvent} _event
    */
-  handleMouseOut(_event) {
-    if (this.hasAttribute('touched')) {
-      this.removeAttribute('touched');
-    }
-  }
+  handleFocusOut = (_event) => {
+    this.removeAttribute('focus-from');
+  };
   connectedCallback() {
-    this.buttonElement.addEventListener('touchstart', this.handleTouchStart, true);
-    this.buttonElement.addEventListener('mouseout', this.handleMouseOut, true);
+    this.innerElement.addEventListener('focusin', this.handleFocusIn);
+    this.innerElement.addEventListener('focusout', this.handleFocusOut);
   }
   /**
    * @param {string} name
@@ -251,32 +268,32 @@ export default class ActionElement extends BaseElement {
 
     switch (name) {
       case 'disabled':
-        this.buttonElement.disabled = this.disabled;
-        this.buttonElement.ariaDisabled = this.disabled ? 'true' : 'false';
+        this.innerElement.disabled = this.disabled;
+        this.innerElement.ariaDisabled = this.disabled ? 'true' : 'false';
         break;
 
       case 'data-role':
-        this.buttonElement.setAttribute('role', this.role);
+        this.innerElement.setAttribute('role', this.role);
         break;
 
       case 'data-aria-label':
-        this.buttonElement.ariaLabel = this.ariaLabel || '';
+        this.innerElement.ariaLabel = this.ariaLabel || '';
         break;
 
       case 'data-aria-haspopup':
-        this.buttonElement.ariaHasPopup = this.ariaHasPopup || '';
+        this.innerElement.ariaHasPopup = this.ariaHasPopup || '';
         break;
 
       case 'data-aria-controls':
-        this.buttonElement.setAttribute('aria-controls', this.ariaControls || '');
+        this.innerElement.setAttribute('aria-controls', this.ariaControls || '');
         break;
 
       case 'data-aria-expanded':
-        this.buttonElement.ariaExpanded = this.ariaExpanded || '';
+        this.innerElement.ariaExpanded = this.ariaExpanded || '';
         break;
 
       case 'data-aria-selected':
-        this.buttonElement.ariaSelected = this.ariaSelected || '';
+        this.innerElement.ariaSelected = this.ariaSelected || '';
         break;
 
       default:

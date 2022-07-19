@@ -32,8 +32,13 @@ StateLayerStyle.replaceSync(css`
   [part~='focus-controller']:focus-visible [part~='state-layer'] {
     opacity: 0.12;
   }
-  [part~='focus-controller']:hover:not([touched]) [part~='state-layer'] {
+  [part~='focus-controller']:hover [part~='state-layer'] {
     opacity: 0.08;
+  }
+  @media (hover: none) {
+    [part~='focus-controller']:hover [part~='state-layer'] {
+      opacity: 0;
+    }
   }
 `);
 
