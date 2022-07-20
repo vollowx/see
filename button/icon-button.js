@@ -1,6 +1,6 @@
 import { css } from '../shared/template.js';
 import ActionElement from '../shared/action-element.js';
-import StateLayerStyle from '../shared/state-layer-style.js';
+import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
@@ -151,7 +151,7 @@ export default class IconButton extends ActionElement {
   }
 
   get _styles() {
-    return [...super._styles, IconButtonStyle, StateLayerStyle, FocusRingStyleFAE];
+    return [...super._styles, IconButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
   get _extraContents() {

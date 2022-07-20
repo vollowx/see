@@ -1,11 +1,5 @@
 import { argbFromHex, themeFromSourceColor, applyTheme } from '../system/color-system.js';
-const theme = themeFromSourceColor(argbFromHex('#114514'), [
-  {
-    name: 'custom-1',
-    value: argbFromHex('#ff0000'),
-    blend: true,
-  },
-]);
+const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color') || '#114514'));
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
 import '../badge/badge.js';
@@ -45,6 +39,7 @@ CSSBlock.innerHTML = /* css */ `
   .index h2 { ${TypographyStylesGenerator('label', 'L')} }
   .index li { ${TypographyStylesGenerator('label', 'M')} }
   .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
+  .color-item { ${TypographyStylesGenerator('label', 'L')} }
   ${FocusRingStyleText.join('')}
 `;
 document.head.appendChild(CSSBlock);

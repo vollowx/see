@@ -1,7 +1,7 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import ActionElementLabeled from '../shared/action-element-labeled.js';
-import StateLayerStyle from '../shared/state-layer-style.js';
+import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
@@ -26,7 +26,7 @@ CommonButtonStyle.replaceSync(css`
     background-color: var(--md-tonal-button-background-color, var(--md-sys-color-secondary));
     color: var(--md-tonal-button-color, var(--md-sys-color-on-secondary));
   }
-  :host(:not([elevated]):not([outlined]):not([text])) [part~='button']:hover:not(:active):not([touched]) {
+  :host(:not([elevated]):not([outlined]):not([text])) [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
   :host(:not([outlined]):not([text])[disabled]) [part~='button'] {
@@ -39,7 +39,7 @@ CommonButtonStyle.replaceSync(css`
     color: var(--md-elevated-button-color, var(--md-sys-color-primary));
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
-  :host([elevated]) [part~='button']:hover:not(:active):not([touched]) {
+  :host([elevated]) [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
   :host([outlined]) [part~='button'] {
@@ -49,7 +49,7 @@ CommonButtonStyle.replaceSync(css`
   :host([outlined]) [part~='outline'] {
     border: 1px solid var(--md-outlined-button-border-color, var(--md-sys-color-outline));
   }
-  :host([outlined]) [part~='button']:focus-visible [part~='outline'] {
+  :host([outlined][focus-from='keyboard']) [part~='outline'] {
     border-color: var(--md-outlined-button-focus-color, var(--md-sys-color-primary));
   }
   :host([outlined][disabled]) [part~='button'] {
@@ -66,6 +66,14 @@ CommonButtonStyle.replaceSync(css`
   }
   :host([text][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
+  }
+  @media (hover: none) {
+    :host(:not([elevated]):not([outlined]):not([text])) [part~='button']:hover:not(:active) {
+      box-shadow: none;
+    }
+    :host([elevated]) [part~='button']:hover:not(:active) {
+      box-shadow: var(--md-sys-elevation-shadow-1);
+    }
   }
   [part~='outline'] {
     position: absolute;
@@ -136,19 +144,14 @@ export default class CommonButton extends ActionElementLabeled {
    * @override
    */
   get _styles() {
-    return [
-      ...super._styles,
-      CommonButtonStyle,
-      StateLayerStyle,
-      FocusRingStyleFAE
-    ];
+    return [...super._styles, CommonButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
   /**
    * @override
    */
   get _extraContents() {
-    return /* html */`<span part="outline"></span><md-ripple></md-ripple>`;
+    return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }
 

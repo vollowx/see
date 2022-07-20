@@ -1,7 +1,7 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import ActionElementLabeled from '../shared/action-element-labeled.js';
-import StateLayerStyle from '../shared/state-layer-style.js';
+import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
@@ -36,13 +36,13 @@ FABStyle.replaceSync(css`
     background-color: var(--md-fab-background-color, var(--md-sys-color-tertiary-container));
     color: var(--md-fab-color, var(--md-sys-color-on-tertiary-container));
   }
-  [part~='button']:hover:not(:active):not([touched]) {
+  [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-4);
   }
   :host([lower]) [part~='button'] {
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
-  :host([lower]) [part~='button']:hover:not(:active):not([touched]) {
+  :host([lower]) [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
   :host([small]) [part~='button'] {
@@ -59,6 +59,14 @@ FABStyle.replaceSync(css`
   }
   :host([large]) ::slotted(iconify-icon) {
     font-size: var(--md-fab-large-icon-size, 2.25rem);
+  }
+  @media (hover: none) {
+    [part~='button']:hover:not(:active) {
+      box-shadow: var(--md-sys-elevation-shadow-3);
+    }
+    :host([lower]) [part~='button']:hover:not(:active) {
+      box-shadow: var(--md-sys-elevation-shadow-1);
+    }
   }
   [part~='button']:disabled {
     background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.12) !important;
@@ -120,7 +128,7 @@ export default class FAB extends ActionElementLabeled {
     return [
       ...super._styles,
       FABStyle,
-      StateLayerStyle,
+      StateLayerStyleFAE,
       FocusRingStyleFAE
     ];
   }
