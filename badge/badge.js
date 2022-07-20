@@ -54,6 +54,9 @@ BadgeStyle.replaceSync(css`
     transform: scale(1) translate(-50%, 50%);
     transform-origin: 0% 100%;
   }
+  :host([no-events]) [part~='badge'] {
+    pointer-events: none;
+  }
 `);
 
 export default class Badge extends BaseElement {

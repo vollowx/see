@@ -61,23 +61,23 @@
         <md-typography headline-m tag="h2" id="basic-badge">Basic badge, 基础徽标</md-typography>
 
         <div class="demo-container" style="gap: 16px;">
-          <md-badge value="7" circle>
-            <md-icon-button data-aria-label="mail, 7 notifications">
+          <md-badge no-events value="7" circle>
+            <md-icon-button standard data-aria-label="mail, 7 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
-          <md-badge value="7" circle left>
-            <md-icon-button data-aria-label="mail, 7 notifications">
+          <md-badge no-events value="7" circle left>
+            <md-icon-button standard data-aria-label="mail, 7 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
-          <md-badge value="7" circle bottom>
-            <md-icon-button data-aria-label="mail, 7 notifications">
+          <md-badge no-events value="7" circle bottom>
+            <md-icon-button standard data-aria-label="mail, 7 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
-          <md-badge value="7" circle left bottom>
-            <md-icon-button data-aria-label="mail, 7 notifications">
+          <md-badge no-events value="7" circle left bottom>
+            <md-icon-button standard data-aria-label="mail, 7 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
@@ -89,13 +89,13 @@
         <md-typography body-m tag="p">如果 value 非常大, 也许使用 <code>max+</code> 会更好</md-typography>
 
         <div class="demo-container" style="gap: 32px;">
-          <md-badge value="114514" circle>
-            <md-icon-button data-aria-label="114514 notifications">
+          <md-badge no-events value="114514" circle>
+            <md-icon-button standard data-aria-label="114514 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
-          <md-badge value="114514" max="99" circle>
-            <md-icon-button data-aria-label="more than 99 notifications">
+          <md-badge no-events value="114514" max="99" circle>
+            <md-icon-button standard data-aria-label="more than 99 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
             </md-icon-button>
           </md-badge>
@@ -130,6 +130,20 @@ function toggleDirForBadges() {
     badge.dir = document.documentElement.dir === 'ltr' ? 'rtl' : 'ltr';
   });
 }</code></pre>
+
+        <md-typography body-m tag="p">As usual, badge element can get pointer events, and if user want to click a button but clicked the badge, nothing in anticipation will happen. (Because the badge element is the <code>parentNode</code> of the button</md-typography>
+        <md-typography body-m tag="p">通常, 徽标元素可以获得鼠标事件, 而若用户想点击一个按钮却点到了徽标元素, 任何意料之中的事都不会发生. (因为徽标是按钮的 <code>parentNode</code>, 悲</md-typography>
+
+        <md-typography body-m tag="p">So just add attribute <code>no-events</code>.</md-typography>
+        <md-typography body-m tag="p">所以加上 <code>no-events</code> 属性吧.</md-typography>
+
+        <div class="demo-container">
+          <md-badge no-events circle value="7">
+            <md-icon-button standard data-aria-label="mail, 7 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+        </div>
 
         <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
 
@@ -181,6 +195,12 @@ function toggleDirForBadges() {
               <td class="type">toggle</td>
               <td class="default-val">false</td>
               <td>If true, badge will change its align to a circle's border</td>
+            </tr>
+            <tr>
+              <td class="name">no-events</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>If true, badge will not has any pointer event</td>
             </tr>
           </tbody>
         </table>
