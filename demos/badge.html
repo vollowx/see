@@ -123,7 +123,8 @@
         <md-typography body-m tag="p">由于 <code>ShadowRoot</code> 的限制, 内部的 <code>badge</code> 元素无法获得外部的 <code>dir</code> 属性信息, 你需要在 <code>md-badge</code> 组件上加上 <code>dir</code> 属性 (抱歉</md-typography>
         <md-typography body-m tag="p">Due to the limitation of <code>ShadowRoot</code>, the internal <code>badge</code> element cannot obtain the external <code>dir</code> attribute information, you need to add the <code>dir</code> attribute to the <code>md-badge</code> component (sorry</md-typography>
 
-        <pre><code>function toggleDirForBadges() {
+        <pre><code>// demo code
+function toggleDirForBadges() {
   const badges = document.querySelectorAll('md-badge');
   badges.forEach(badge => {
     badge.dir = document.documentElement.dir === 'ltr' ? 'rtl' : 'ltr';
