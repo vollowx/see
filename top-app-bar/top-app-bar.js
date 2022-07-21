@@ -18,6 +18,11 @@ TopAppBarStyle.replaceSync(css`
     background-color: var(--md-sys-color-surface);
     box-sizing: border-box;
   }
+  @media (hover: hover) {
+    :host([highest-lv]) [part~='header'] {
+      padding-right: var(--md-global-padding-right);
+    }
+  }
   :host(:not([static])) [part~='header'] {
     position: fixed;
     top: 0;
@@ -30,7 +35,7 @@ TopAppBarStyle.replaceSync(css`
     inset: 0;
     background-color: var(--md-sys-color-primary);
     opacity: 0;
-    transition: 120ms opacity cubic-bezier(.4, 0, .2, 1);
+    transition: 120ms opacity cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
   }
   [scrolled] [part~='tint'] {
@@ -135,7 +140,9 @@ export default class TopAppBar extends BaseElement {
   }
 
   /** @type {Window|Element} */
-  scrollBinder = document.querySelector(`${this.getAttribute('scroll-binder')}`) || window;
+  get bindElement() {
+    return document.querySelector(`${this.getAttribute('bind-el')}`) || window;
+  }
 
   /** @type {HTMLElement} */
   get topAppBarElement() {
@@ -144,18 +151,18 @@ export default class TopAppBar extends BaseElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.scrollBinder.addEventListener('scroll', this.handleScroll);
+    this.bindElement.addEventListener('scroll', this.handleScroll);
   }
 
   handleScroll = () => {
     // scrollY for window, scrollTop for HTMLElement, but Typescript doesn't know this, so
     // @ts-ignore
-    if (this.scrollBinder.scrollY || this.scrollBinder.scrollTop > 0) {
+    if (this.bindElement.scrollY || this.bindElement.scrollTop > 0) {
       this.topAppBarElement.setAttribute('scrolled', '');
     } else {
       this.topAppBarElement.removeAttribute('scrolled');
     }
-  }
+  };
 }
 
 customElements.define(TopAppBar.is, TopAppBar);

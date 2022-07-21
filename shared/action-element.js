@@ -60,8 +60,6 @@ export default class ActionElement extends BaseElement {
   static get observedAttributes() {
     return [
       'disabled',
-      'role',
-      'data-role',
       'aria-label',
       'data-aria-label',
       'aria-haspopup',
@@ -83,17 +81,6 @@ export default class ActionElement extends BaseElement {
    */
   set disabled(value) {
     this.toggleAttribute('disabled', value);
-  }
-
-  get role() {
-    return this.getAttribute('data-role') || 'button';
-  }
-  set role(value) {
-    if (value) {
-      this.setAttribute('data-role', value);
-    } else {
-      this.removeAttribute('data-role');
-    }
   }
 
   get ariaLabel() {
@@ -168,6 +155,16 @@ export default class ActionElement extends BaseElement {
     return [BasicButtonStyle];
   }
 
+  get _defaultTag() {
+    return 'button';
+  }
+  get _defaultRole() {
+    return 'button';
+  }
+  get _defaultTabIndex() {
+    return '0';
+  };
+
   get _extraContents() {
     return ``;
   }
@@ -176,8 +173,8 @@ export default class ActionElement extends BaseElement {
   }
   get _template() {
     return html`
-      <${this.getAttribute('tag') || 'button'}
-        role="${this.role ? this.role : 'button'}" type="button" tabindex="0"
+      <${this.getAttribute('tag') || this._defaultTag}
+        role="${this.getAttribute('data-role') || this._defaultRole}" tabindex="${this._defaultTabIndex}"
         part="inner button focus-controller"
         ${this.disabled ? 'disabled' : ''}
         aria-disabled="${this.disabled ? 'true' : 'false'}"
@@ -191,13 +188,18 @@ export default class ActionElement extends BaseElement {
         ${this._extraContents}
         <span part="target"></span>
         ${this._mainContents}
-      </${this.getAttribute('tag') || 'button'}>
+      </${this.getAttribute('tag') || this._defaultTag}>
     `;
+  }
+  /** @type {boolean} */
+  get _noFocusCtrl() {
+    return false;
   }
   /**
    * @param {FocusEvent} _event
    */
   handleFocusIn = (_event) => {
+    if (this._noFocusCtrl) return;
     const from = fromKeyboard ? 'keyboard' : null || 'mouse';
     if (!from) return;
     this.setAttribute('focus-from', from);
@@ -206,6 +208,7 @@ export default class ActionElement extends BaseElement {
    * @param {FocusEvent} _event
    */
   handleFocusOut = (_event) => {
+    if (this._noFocusCtrl) return;
     this.removeAttribute('focus-from');
   };
   connectedCallback() {
@@ -222,12 +225,6 @@ export default class ActionElement extends BaseElement {
     // Before render
 
     switch (name) {
-      case 'role':
-        if (!newValue) return;
-        this.role = newValue;
-        this.removeAttribute('role');
-        break;
-
       case 'aria-label':
         if (!newValue) return;
         this.ariaLabel = newValue;
@@ -270,10 +267,6 @@ export default class ActionElement extends BaseElement {
       case 'disabled':
         this.innerElement.disabled = this.disabled;
         this.innerElement.ariaDisabled = this.disabled ? 'true' : 'false';
-        break;
-
-      case 'data-role':
-        this.innerElement.setAttribute('role', this.role);
         break;
 
       case 'data-aria-label':

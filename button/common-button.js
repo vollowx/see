@@ -92,8 +92,8 @@ CommonButtonStyle.replaceSync(css`
     transform: translateY(-50%);
     box-sizing: border-box;
   }
-  [part='leading-icon'],
-  [part='trailing-icon'] {
+  [part='leading'],
+  [part='trailing'] {
     font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
     font-weight: normal;
     font-style: normal;
@@ -107,23 +107,23 @@ CommonButtonStyle.replaceSync(css`
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
-  [part='leading-icon-root'],
-  [part='trailing-icon-root'] {
+  [part='leading-root'],
+  [part='trailing-root'] {
     display: inline-flex;
   }
-  [part='leading-icon-root'] {
+  [part='leading-root'] {
     margin-inline-start: -8px;
     margin-inline-end: 8px;
   }
-  [part='trailing-icon-root'] {
+  [part='trailing-root'] {
     margin-inline-start: 8px;
     margin-inline-end: -8px;
   }
-  :host([text][leading-icon]) [part~='button'] {
+  :host([text][leading]) [part~='button'] {
     padding-inline-start: 20px;
     padding-inline-end: 16px;
   }
-  :host([text][trailing-icon]) [part~='button'] {
+  :host([text][trailing]) [part~='button'] {
     padding-inline-start: 16px;
     padding-inline-end: 20px;
   }

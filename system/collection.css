@@ -1,3 +1,14 @@
 /* This file is for import all systems in one go */
 @import url(./color-system.css);
 @import url(./elevation-system.css);
+
+html,
+body {
+  position: relative;
+}
+
+@media (hover: hover) {
+  html {
+    padding-right: var(--md-global-padding-right);
+  }
+}

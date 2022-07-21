@@ -139,13 +139,13 @@ export default class Ripple extends BaseElement {
   handlePointerDown = (e) => {
     const _onUp = () => {
       this.removeAllRipples();
+      window.addEventListener('mouseup', _onUp);
       this.parent.removeEventListener('mouseleave', _onUp, true);
-      this.parent.removeEventListener('mouseup', _onUp, true);
       this.parent.removeEventListener('touchend', _onUp, true);
       this.parent.removeEventListener('touchcancel', _onUp, true);
     };
+    window.addEventListener('mouseup', _onUp);
     this.parent.addEventListener('mouseleave', _onUp, true);
-    this.parent.addEventListener('mouseup', _onUp, true);
     this.parent.addEventListener('touchend', _onUp, true);
     this.parent.addEventListener('touchcancel', _onUp, true);
     this.newRipple(e);
@@ -166,8 +166,8 @@ export default class Ripple extends BaseElement {
       window.addEventListener('pointerdown', _onDown, true);
     }
     if (e.key === 'Enter') {
-      this.removeAllRipples();
       this.newRipple(fakeEvent, true);
+      this.removeAllRipples();
     }
   }
   /**

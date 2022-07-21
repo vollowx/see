@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <md-top-app-bar>
+    <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
@@ -45,8 +45,8 @@
     </md-fab-set>
 
     <main>
-      <nav class="table-of-ctt" aria-label="Table of contents">
-        <p>Table of contents</p>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
         <ul>
           <li><a href="#basic-common-button">Basic common button, 基础常规按钮</a></li>
           <li><a href="#has-icon">Has icon, 有图标的</a></li>
@@ -105,37 +105,37 @@
 
         <div class="demo-container">
           <md-button label="Leading icon">
-            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="leading" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button tonal label="Leading icon">
-            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="leading" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button elevated label="Leading icon">
-            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="leading" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button outlined label="Leading icon">
-            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="leading" icon="material-symbols:settings"></iconify-icon>
           </md-button>
-          <md-button text leading-icon label="Leading icon">
-            <iconify-icon slot="leading-icon" icon="material-symbols:settings"></iconify-icon>
+          <md-button text leading label="Leading icon">
+            <iconify-icon slot="leading" icon="material-symbols:settings"></iconify-icon>
           </md-button>
 
           <div class="demo-spacer" aria-hidden="true"></div>
 
           <md-button label="Trailing icon">
-            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="trailing" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button tonal label="Trailing icon">
-            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="trailing" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button elevated label="Trailing icon">
-            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="trailing" icon="material-symbols:settings"></iconify-icon>
           </md-button>
           <md-button outlined label="Trailing icon">
-            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+            <iconify-icon slot="trailing" icon="material-symbols:settings"></iconify-icon>
           </md-button>
-          <md-button text trailing-icon label="Trailing icon">
-            <iconify-icon slot="trailing-icon" icon="material-symbols:settings"></iconify-icon>
+          <md-button text trailing label="Trailing icon">
+            <iconify-icon slot="trailing" icon="material-symbols:settings"></iconify-icon>
           </md-button>
         </div>
 
@@ -146,8 +146,8 @@
         >
 
         <div class="demo-container">
-          <md-button label="Leading icon" leading-icon="settings"></md-button>
-          <md-button text label="Trailing icon" trailing-icon="settings"></md-button>
+          <md-button label="Leading icon" leading="settings"></md-button>
+          <md-button text label="Trailing icon" trailing="settings"></md-button>
         </div>
 
         <md-typography headline-m tag="h2" id="custom-inner-element"
@@ -283,13 +283,13 @@
               <td>Controls label content, the default value of aria-label</td>
             </tr>
             <tr>
-              <td class="name">leading-icon</td>
+              <td class="name">leading</td>
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>Controls leading icon name (web font), not recommended</td>
             </tr>
             <tr>
-              <td class="name">trailing-icon</td>
+              <td class="name">trailing</td>
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>Controls trailing icon name (web font), not recommended</td>

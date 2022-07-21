@@ -5,6 +5,7 @@ applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 import '../badge/badge.js';
 import '../button/common-button.js';
 import '../button/fab.js';
+import '../menu/menu.js';
 import '../button/icon-button.js';
 import '../ripple/ripple.js';
 import '../top-app-bar/top-app-bar.js';

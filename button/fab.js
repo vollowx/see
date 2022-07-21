@@ -82,8 +82,8 @@ FABStyle.replaceSync(css`
     transform: translateY(-50%);
     box-sizing: border-box;
   }
-  [part='leading-icon'],
-  [part='trailing-icon'] {
+  [part='leading'],
+  [part='trailing'] {
     font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
     font-weight: normal;
     font-style: normal;
@@ -98,14 +98,14 @@ FABStyle.replaceSync(css`
     -webkit-font-smoothing: antialiased;
   }
   [part="label-root"],
-  [part='leading-icon-root'],
-  [part='trailing-icon-root'] {
+  [part='leading-root'],
+  [part='trailing-root'] {
     display: inline-flex;
   }
-  :host([leading-icon]) [part~="leading-icon-root"] {
+  :host([leading]) [part~="leading-root"] {
     margin-inline-end: 8px;
   }
-  :host([trailing-icon]) [part~="trailing-icon-root"] {
+  :host([trailing]) [part~="trailing-root"] {
     margin-inline-start: 8px;
   }
   ::slotted(iconify-icon) {

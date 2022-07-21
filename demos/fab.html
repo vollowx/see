@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <md-top-app-bar>
+    <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
@@ -45,8 +45,8 @@
     </md-fab-set>
 
     <main>
-      <nav class="table-of-ctt" aria-label="Table of contents">
-        <p>Table of contents</p>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
         <ul>
           <li><a href="#basic-fab">Basic FAB, 基础浮动操作按钮</a></li>
           <li><a href="#custom-inner-element">Custom inner element, 自定义内部元素</a></li>
@@ -70,8 +70,8 @@
           <md-fab>
             <iconify-icon icon="material-symbols:settings"></iconify-icon>
           </md-fab>
-          <md-fab label="Extended" leading-icon>
-            <iconify-icon slot="leading-icon" icon="material-symbols:add"></iconify-icon>
+          <md-fab label="Extended" leading>
+            <iconify-icon slot="leading" icon="material-symbols:add"></iconify-icon>
           </md-fab>
           <md-fab label="Extended without icon"></md-fab>
 
@@ -242,13 +242,13 @@
               <td>Controls aria-selected</td>
             </tr>
             <tr>
-              <td class="name">leading-icon</td>
+              <td class="name">leading</td>
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>Controls leading icon name (web font), not recommended</td>
             </tr>
             <tr>
-              <td class="name">trailing-icon</td>
+              <td class="name">trailing</td>
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>Controls trailing icon name (web font), not recommended</td>

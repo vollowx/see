@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Menu</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar highest-lv>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard data-aria-label="Back to index page">
+          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        </md-icon-button>
+      </a>
+    </md-top-app-bar>
+
+    <md-fab-set>
+      <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">
+        <iconify-icon icon="material-symbols:brightness-6"></iconify-icon>
+      </md-fab>
+      <md-fab data-aria-label="Toggle demo direction" small secondary class="dir-tgl">
+        <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
+      </md-fab>
+    </md-fab-set>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
+        <ul>
+          <li><a href="#basic-menu">Basic menu, 基础菜单</a></li>
+          <li><a href="#align">Align, 对齐</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">Menu, 菜单</md-typography>
+
+        <md-typography body-m tag="p">
+          Design baseline from
+          <a href="https://m3.material.io/components/menus/specs" target="_blank">m3.material.io</a>
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="problem">Problem, 问题</md-typography>
+
+        <md-typography body-m style="color: var(--md-sys-color-error);" tag="p">On the first opening, <code>transform-origin</code> WILL NOT work</md-typography>
+        <md-typography body-m style="color: var(--md-sys-color-error);" tag="p">第一次打开时, <code>transform-origin</code> 无效</md-typography>
+
+        <md-typography headline-m tag="h2" id="basic-menu">Basic menu, 基础菜单</md-typography>
+
+        <div class="demo-container">
+          <md-button label="Menu" data-aria-label="menu" id="menu-binder-1"></md-button>
+          <md-menu bind-el="menu-binder-1">
+            <md-menu-item data-aria-label="all projects" leading key-char="a">
+              <iconify-icon slot="leading" icon="material-symbols:dashboard"></iconify-icon>
+              All projects
+            </md-menu-item>
+            <md-menu-item data-aria-label="community" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:add-comment"></iconify-icon>
+              Community
+            </md-menu-item>
+            <md-menu-item data-aria-label="contact us" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:add-call"></iconify-icon>
+              Contact us
+            </md-menu-item>
+          </md-menu>
+          <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-binder-2"></md-button>
+          <md-menu bind-el="menu-binder-2" dense style="--md-menu-height: 216px"></md-menu>
+          <md-button label="Countries" data-aria-label="countries" id="menu-binder-3"></md-button>
+          <md-menu bind-el="menu-binder-3" dense style="--md-menu-height: 216px"></md-menu>
+        </div>
+
+        <md-typography headline-m tag="h2" id="align">Align, 对齐</md-typography>
+
+        <div class="demo-container">
+          <md-button label="bottom, left" id="bn"></md-button>
+          <md-menu bind-el="bn">
+            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
+            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
+            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
+          </md-menu>
+          <md-button label="bottom, right" id="br"></md-button>
+          <md-menu bind-el="br" horizontal="right">
+            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
+            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
+            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
+          </md-menu>
+          <md-button label="top, left" id="tl"></md-button>
+          <md-menu bind-el="tl" vertical="top">
+            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
+            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
+            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
+          </md-menu>
+          <md-button label="top, right" id="tr"></md-button>
+          <md-menu bind-el="tr" vertical="top" horizontal="right">
+            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
+            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
+            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
+          </md-menu>
+        </div>
+
+        <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
+
+        <md-typography body-m tag="p">Supported keys</md-typography>
+        <md-typography body-m tag="p">支持的按键</md-typography>
+
+        <md-typography body-m tag="p">
+          <kbd>a-z / A-Z</kbd> for focusing menuitem by first char,<br />
+          <kbd>ArrowUp</kbd> for focusing previous menuitem,<br />
+          <kbd>ArrowDown</kbd> for focusing next menuitem,<br />
+          <kbd>PageUp / Home</kbd> for focusing first menuitem,<br />
+          <kbd>PageDown / End</kbd> for focusing last menuitem,<br />
+          <kbd>Enter / Whitespace (' ')</kbd> for activating menuitem,<br />
+          <kbd>Esc</kbd> for closing menu,<br />
+        </md-typography>
+        
+        <md-typography body-m tag="p">The rtl/ltr order can be automatically adapted, the premise is the <code>dir</code> attribute must add to <code>html</code> node</md-typography>
+        <md-typography body-m tag="p">可以自动适应 rtl / ltr 顺序, 前提是 <code>rtl</code> 属性必须加在 <code>html</code> 元素上</md-typography>
+
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+        <md-typography body-m tag="p">Types:</md-typography>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">bind-el</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>(id name) Controls menu's controller, must have value</td>
+            </tr>
+            <tr>
+              <td class="name">(normal) / dense</td>
+              <td class="type">toggle</td>
+              <td class="default-val">(normal)</td>
+              <td>Controls menu's size</td>
+            </tr>
+            <tr>
+              <td class="name">vertical</td>
+              <td class="type">string</td>
+              <td class="default-val">(bottom) / top</td>
+              <td>Controls menu's vertical position</td>
+            </tr>
+            <tr>
+              <td class="name">horizontal</td>
+              <td class="type">string</td>
+              <td class="default-val">(left) / right</td>
+              <td>Controls menu's horizontal position</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      const aToZ = Array.from(Array(26).keys()).map((i) => String.fromCharCode(i + 97));
+
+      const menu2 = document.querySelector('[bind-el="menu-binder-2"]');
+      var menuitems2 = [];
+      for (let i = 0; i < aToZ.length; i++) {
+        menuitems2.push(`
+          <md-menu-item data-aria-label="${aToZ[i]}" key-char="${aToZ[i]}">
+            ${aToZ[i]}${aToZ[i]}${aToZ[i]}
+          </md-menu-item>
+        `);
+      }
+      menu2.innerHTML = menuitems2.join('');
+
+      const countryList = [
+        ['Australia', 'flag-australia'],
+        ['Brazil', 'flag-brazil'],
+        ['Canada', 'flag-canada'],
+        ['China', 'flag-china'],
+        ['Cuba', 'flag-cuba'],
+        ['Ecuador', 'flag-ecuador'],
+        ['India', 'flag-india'],
+        ['Japan', 'flag-japan'],
+        ['Mexico', 'flag-mexico'],
+        ['Russia', 'flag-russia'],
+        ['United States', 'flag-united-states'],
+        ['United Kingdom', 'flag-united-kingdom'],
+        ['Venezuela', 'flag-venezuela'],
+        ['Vietnam', 'flag-vietnam'],
+        ['Zimbabwe', 'flag-zimbabwe'],
+      ];
+
+      const menu3 = document.querySelector('[bind-el="menu-binder-3"]');
+      var menuitems3 = [];
+      for (let i = 0; i < countryList.length; i++) {
+        const [name, icon] = countryList[i];
+        menuitems3.push(
+          `<md-menu-item data-aria-label="${name}" key-char="${name.charAt(0).toLowerCase()}" leading>
+            <iconify-icon slot="leading" icon="twemoji:${icon}"></iconify-icon>
+            <span>${name}</span>
+          </md-menu-item>`
+        );
+      }
+      menu3.innerHTML = menuitems3.join('');
+    </script>
+  </body>
+</html>

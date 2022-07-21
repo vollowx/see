@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <md-top-app-bar>
+    <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
@@ -45,8 +45,8 @@
     </md-fab-set>
 
     <main>
-      <nav class="table-of-ctt" aria-label="Table of contents">
-        <p>Table of contents</p>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
         <ul>
           <li><a href="#basic-badge">Basic badge, 基础徽标</a></li>
           <li><a href="#max-number">Max number, 最大值</a></li>
@@ -113,11 +113,11 @@
             </md-icon-button>
           </md-badge>
 
-          <md-button id="add-n" data-aria-label="One more notification" label="One more notification" leading-icon>
-            <iconify-icon slot="leading-icon" icon="material-symbols:add"></iconify-icon>
+          <md-button id="add-n" data-aria-label="One more notification" label="One more notification" leading>
+            <iconify-icon slot="leading" icon="material-symbols:add"></iconify-icon>
           </md-button>
-          <md-button id="rm-n" data-aria-label="One less notification" label="One less notification" leading-icon>
-            <iconify-icon slot="leading-icon" icon="material-symbols:remove"></iconify-icon>
+          <md-button id="rm-n" data-aria-label="One less notification" label="One less notification" leading>
+            <iconify-icon slot="leading" icon="material-symbols:remove"></iconify-icon>
         </div>
 
         <md-typography body-m tag="p">由于 <code>ShadowRoot</code> 的限制, 内部的 <code>badge</code> 元素无法获得外部的 <code>dir</code> 属性信息, 你需要在 <code>md-badge</code> 组件上加上 <code>dir</code> 属性 (抱歉</md-typography>
