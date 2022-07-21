@@ -50,6 +50,9 @@
         <ul>
           <li><a href="#basic-badge">Basic badge, 基础徽标</a></li>
           <li><a href="#max-number">Max number, 最大值</a></li>
+          <li><a href="#small">Small, 小的</a></li>
+          <li><a href="#show-zero">Show zero, 显示0</a></li>
+          <li><a href="#hidden">Hidden, 隐藏</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
         </ul>
@@ -60,7 +63,7 @@
 
         <md-typography headline-m tag="h2" id="basic-badge">Basic badge, 基础徽标</md-typography>
 
-        <div class="demo-container" style="gap: 16px;">
+        <div class="demo-container" style="gap: 16px">
           <md-badge no-events value="7" circle>
             <md-icon-button standard data-aria-label="mail, 7 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
@@ -85,10 +88,12 @@
 
         <md-typography headline-m tag="h2" id="max-number">Max number, 最大值</md-typography>
 
-        <md-typography body-m tag="p">If the value is very big, maybe show a <code>max+</code> symbol is better</md-typography>
+        <md-typography body-m tag="p"
+          >If the value is very big, maybe show a <code>max+</code> symbol is better</md-typography
+        >
         <md-typography body-m tag="p">如果 value 非常大, 也许使用 <code>max+</code> 会更好</md-typography>
 
-        <div class="demo-container" style="gap: 32px;">
+        <div class="demo-container" style="gap: 32px">
           <md-badge no-events value="114514" circle>
             <md-icon-button standard data-aria-label="114514 notifications">
               <iconify-icon icon="material-symbols:mail"></iconify-icon>
@@ -101,10 +106,47 @@
           </md-badge>
         </div>
 
+        <md-typography headline-m tag="h2" id="small">Small, 小的</md-typography>
+
+        <div class="demo-container">
+          <md-badge no-events value="7" circle small id="small-badge">
+            <md-icon-button standard data-aria-label="mail">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+          <md-button label="Toggle small" data-aria-label="toggle small" id="toggle-small"></md-button>
+        </div>
+
+        <md-typography headline-m tag="h2" id="show-zero">Show zero, 显示0</md-typography>
+
+        <div class="demo-container">
+          <md-badge no-events value="0" circle show-zero>
+            <md-icon-button standard data-aria-label="mail, no notification">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+        </div>
+
+        <md-typography headline-m tag="h2" id="hidden">Hidden, 隐藏</md-typography>
+
+        <div class="demo-container">
+          <md-badge no-events value="114514" circle hidden>
+            <md-icon-button standard data-aria-label="mail, 114514 notifications">
+              <iconify-icon icon="material-symbols:mail"></iconify-icon>
+            </md-icon-button>
+          </md-badge>
+        </div>
+
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
-        <md-typography body-m tag="p">You can't expect an accessibility tool to read exactly what's on the logo, so you should give the accessibility tool a direct, correct data, like give a <code>aria-label</code></md-typography>
-        <md-typography body-m tag="p">你不能指望无障碍工具能准确地阅读出徽标上的内容, 所以你应该给无障碍工具一个直接的正确的数据, 例如直接写一个 <code>aria-label</code></md-typography>
+        <md-typography body-m tag="p"
+          >You can't expect an accessibility tool to read exactly what's on the logo, so you should give the
+          accessibility tool a direct, correct data, like give a <code>aria-label</code></md-typography
+        >
+        <md-typography body-m tag="p"
+          >你不能指望无障碍工具能准确地阅读出徽标上的内容, 所以你应该给无障碍工具一个直接的正确的数据, 例如直接写一个
+          <code>aria-label</code></md-typography
+        >
 
         <div class="demo-container">
           <md-badge value="1" max="99" circle>
@@ -113,15 +155,23 @@
             </md-icon-button>
           </md-badge>
 
+          <md-button id="rm-n" data-aria-label="One less notification" label="One less notification" leading>
+            <iconify-icon slot="leading" icon="material-symbols:remove"></iconify-icon>
+          </md-button>
           <md-button id="add-n" data-aria-label="One more notification" label="One more notification" leading>
             <iconify-icon slot="leading" icon="material-symbols:add"></iconify-icon>
           </md-button>
-          <md-button id="rm-n" data-aria-label="One less notification" label="One less notification" leading>
-            <iconify-icon slot="leading" icon="material-symbols:remove"></iconify-icon>
         </div>
 
-        <md-typography body-m tag="p">由于 <code>ShadowRoot</code> 的限制, 内部的 <code>badge</code> 元素无法获得外部的 <code>dir</code> 属性信息, 你需要在 <code>md-badge</code> 组件上加上 <code>dir</code> 属性 (抱歉</md-typography>
-        <md-typography body-m tag="p">Due to the limitation of <code>ShadowRoot</code>, the internal <code>badge</code> element cannot obtain the external <code>dir</code> attribute information, you need to add the <code>dir</code> attribute to the <code>md-badge</code> component (sorry</md-typography>
+        <md-typography body-m tag="p"
+          >由于 <code>ShadowRoot</code> 的限制, 内部的 <code>badge</code> 元素无法获得外部的 <code>dir</code> 属性信息,
+          你需要在 <code>md-badge</code> 组件上加上 <code>dir</code> 属性 (抱歉</md-typography
+        >
+        <md-typography body-m tag="p"
+          >Due to the limitation of <code>ShadowRoot</code>, the internal <code>badge</code> element cannot obtain the
+          external <code>dir</code> attribute information, you need to add the <code>dir</code> attribute to the
+          <code>md-badge</code> component (sorry</md-typography
+        >
 
         <pre><code>// demo code
 function toggleDirForBadges() {
@@ -131,8 +181,15 @@ function toggleDirForBadges() {
   });
 }</code></pre>
 
-        <md-typography body-m tag="p">As usual, badge element can get pointer events, and if user want to click a button but clicked the badge, nothing in anticipation will happen. (Because the badge element is the <code>parentNode</code> of the button</md-typography>
-        <md-typography body-m tag="p">通常, 徽标元素可以获得鼠标事件, 而若用户想点击一个按钮却点到了徽标元素, 任何意料之中的事都不会发生. (因为徽标是按钮的 <code>parentNode</code>, 悲</md-typography>
+        <md-typography body-m tag="p"
+          >As usual, badge element can get pointer events, and if user want to click a button but clicked the badge,
+          nothing in anticipation will happen. (Because the badge element is the <code>parentNode</code> of the
+          button</md-typography
+        >
+        <md-typography body-m tag="p"
+          >通常, 徽标元素可以获得鼠标事件, 而若用户想点击一个按钮却点到了徽标元素, 任何意料之中的事都不会发生.
+          (因为徽标是按钮的 <code>parentNode</code>, 悲</md-typography
+        >
 
         <md-typography body-m tag="p">So just add attribute <code>no-events</code>.</md-typography>
         <md-typography body-m tag="p">所以加上 <code>no-events</code> 属性吧.</md-typography>
@@ -167,6 +224,12 @@ function toggleDirForBadges() {
           </thead>
           <tbody>
             <tr>
+              <td class="name">(large) / small</td>
+              <td class="type">single choice</td>
+              <td class="default-val">(large)</td>
+              <td>Controls badge's style</td>
+            </tr>
+            <tr>
               <td class="name">(right) / left</td>
               <td class="type">single choice</td>
               <td class="default-val">(right)</td>
@@ -195,6 +258,18 @@ function toggleDirForBadges() {
               <td class="type">toggle</td>
               <td class="default-val">false</td>
               <td>If true, badge will change its align to a circle's border</td>
+            </tr>
+            <tr>
+              <td class="name">show-zero</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>If true, badge keep showing when value is 0</td>
+            </tr>
+            <tr>
+              <td class="name">hidden</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>Hide badge or not</td>
             </tr>
             <tr>
               <td class="name">no-events</td>
@@ -234,6 +309,12 @@ function toggleDirForBadges() {
         updateN();
       });
       updateN();
+
+      const toggleSmall = document.querySelector('#toggle-small');
+      const smallBadge = document.querySelector('#small-badge');
+      toggleSmall.addEventListener('click', () => {
+        smallBadge.toggleAttribute('small', !smallBadge.hasAttribute('small'));
+      });
     </script>
   </body>
 </html>

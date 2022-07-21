@@ -14,6 +14,7 @@ BadgeStyle.replaceSync(css`
     flex-shrink: 0;
   }
   [part~='badge'] {
+    --md-badge-scale: 1;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -30,28 +31,40 @@ BadgeStyle.replaceSync(css`
     z-index: 1;
     background-color: var(--md-sys-color-error);
     color: var(--md-sys-color-on-error);
-    transform: scale(1) translate(50%, -50%);
+    transform: scale(var(--md-badge-scale)) translate(50%, -50%);
     transform-origin: 100% 0%;
+    transition: 120ms transform cubic-bezier(0.4, 0, 0.2, 1), 120ms color cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  :host([small]) [part~='badge'] {
+    --md-badge-scale: 0.375;
+    color: transparent;
+  }
+  :host([hidden]) {
+    display: unset;
+  }
+  :host([value='0']:not([show-zero])) [part~='badge'],
+  :host([hidden]) [part~='badge'] {
+    --md-badge-scale: 0;
   }
   :host([circle]) {
     --md-badge-offset: 14%;
   }
   :host([left]:not([dir='rtl'])) [part~='badge'],
   :host(:not([left])[dir='rtl']) [part~='badge'] {
-    left: var(--md-badge-offset);
     right: auto;
-    transform: scale(1) translate(-50%, -50%);
+    left: var(--md-badge-offset);
+    transform: scale(var(--md-badge-scale)) translate(-50%, -50%);
     transform-origin: 0% 0%;
   }
   :host([bottom]) [part~='badge'] {
     top: auto;
     bottom: var(--md-badge-offset);
-    transform: scale(1) translate(50%, 50%);
+    transform: scale(var(--md-badge-scale)) translate(50%, 50%);
     transform-origin: 100% 100%;
   }
   :host([left][bottom]:not([dir='rtl'])) [part~='badge'],
   :host(:not([left])[dir='rtl'][bottom]) [part~='badge'] {
-    transform: scale(1) translate(-50%, 50%);
+    transform: scale(var(--md-badge-scale)) translate(-50%, 50%);
     transform-origin: 0% 100%;
   }
   :host([no-events]) [part~='badge'] {
