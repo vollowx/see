@@ -69,6 +69,7 @@ function isRTL() {
   return document.documentElement.getAttribute('dir') === 'rtl';
 }
 
+// TODO: use popover
 export default class Menu extends BaseElement {
   static get is() {
     return 'md-menu';
@@ -85,6 +86,12 @@ export default class Menu extends BaseElement {
   }
   set horizontal(value) {
     this.setAttribute('horizontal', value || 'left');
+  }
+  get dense() {
+    return this.hasAttribute('dense');
+  }
+  set dense(value) {
+    this.toggleAttribute('dense', value);
   }
 
   get _styles() {
@@ -149,10 +156,11 @@ export default class Menu extends BaseElement {
     let left = binderRect.left - menuTransformOrigin.h;
     const right = left + menuRect.width;
     const bottom = top + menuRect.height;
-    const heightThreshold = window.innerHeight - 48;
-    const widthThreshold = window.innerWidth - 48;
-    if (top < 48) {
-      const diff = top - 48;
+    const itemHeight = this.dense ? 36 : 48;
+    const heightThreshold = window.innerHeight - itemHeight;
+    const widthThreshold = window.innerWidth - itemHeight;
+    if (top < itemHeight) {
+      const diff = top - itemHeight;
       top -= diff;
       menuTransformOrigin.v += diff;
     } else if (bottom > heightThreshold) {
@@ -160,8 +168,8 @@ export default class Menu extends BaseElement {
       top -= diff;
       menuTransformOrigin.v += diff;
     }
-    if (left < 48) {
-      const diff = left - 48;
+    if (left < itemHeight) {
+      const diff = left - itemHeight;
       left -= diff;
       menuTransformOrigin.h += diff;
     } else if (right > widthThreshold) {
