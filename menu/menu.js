@@ -16,6 +16,7 @@ MenuStyle.replaceSync(css`
     height: var(--md-menu-height, auto);
     overflow-y: auto;
     background: var(--md-sys-color-surface);
+    background-image: linear-gradient(rgba(var(--md-sys-color-primary-rgb), 0.08), rgba(var(--md-sys-color-primary-rgb), 0.08));
     box-shadow: var(--md-sys-elevation-shadow-2);
     transform: scale(0.9);
     opacity: 0;
@@ -52,7 +53,6 @@ MenuStyle.replaceSync(css`
     margin: 0px;
     padding: 8px 0;
     list-style: none;
-    background-color: rgba(var(--md-sys-color-primary-rgb), 0.08);
     outline: 0;
   }
 `);
