@@ -34,7 +34,7 @@ MenuStyle.replaceSync(css`
   :host([open]) [part~='overlay'] {
     visibility: visible;
   }
-  :host(:not([fast])) [part~='menu'] {
+  :host(:not([fast])[animate]) [part~='menu'] {
     transition: 120ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   :host([open]) [part~='menu'] {
@@ -134,15 +134,16 @@ export default class Menu extends BaseElement {
   get isOpen() {
     return this.hasAttribute('open');
   }
-  // FIXME: the first open has no transform-origin
-  updatePosition() {
-    this.menuElement.setAttribute('style', '');
-    if (!this.bindElement) return;
+  /**
+   * @returns {{top: number, left: number, transformOrigin: {h: number, v: number}}}
+   */
+  getPosition() {
+    if (!this.bindElement) return { top: 0, left: 0, transformOrigin: { h: 0, v: 0 } };
     const binderRect = this.bindElement.getBoundingClientRect();
     const menuRect = this.menuElement.getBoundingClientRect();
     const menuTransformOrigin = {
       v: this.vertical === 'top' ? menuRect.height + 16 : -binderRect.height,
-      h: (this.horizontal === 'right') !== isRTL() ? menuRect.width / 9 * 10 - binderRect.width : 0,
+      h: (this.horizontal === 'right') !== isRTL() ? (menuRect.width / 9) * 10 - binderRect.width : 0,
     };
     let top = binderRect.top - menuTransformOrigin.v;
     let left = binderRect.left - menuTransformOrigin.h;
@@ -168,18 +169,23 @@ export default class Menu extends BaseElement {
       left -= diff;
       menuTransformOrigin.h += diff;
     }
-    this.menuElement.style.transformOrigin = `
-    ${Math.round(menuTransformOrigin.h)}px
-      ${Math.round(menuTransformOrigin.v)}px`;
-    this.menuElement.style.top = `${top}px`;
-    this.menuElement.style.left = `${left}px`;
+
+    return { top: top, left: left, transformOrigin: menuTransformOrigin };
+  }
+  updatePosition() {
+    if (!this.bindElement) return;
+
+    const { top, left, transformOrigin } = this.getPosition();
+    this.menuElement.style.cssText = `top: ${top}px; left: ${left}px; transform-origin: ${transformOrigin.h}px ${transformOrigin.v}px;`;
   }
   openMenu = () => {
+    this.updatePosition();
     // binder
     this.bindElement?.setAttribute('aria-expanded', 'true');
     // this
     this.setAttribute('aria-hidden', 'false');
     this.setAttribute('open', '');
+    this.setAttribute('animate', '');
     this.updateFocus(this.itemElements[0], true);
     // document
     document.documentElement.style.overflow = 'hidden';
@@ -193,6 +199,9 @@ export default class Menu extends BaseElement {
     // this
     this.setAttribute('aria-hidden', 'true');
     this.removeAttribute('open');
+    setTimeout(() => {
+      this.removeAttribute('animate');
+    }, 120);
     this.itemElements.forEach((item) => {
       item.removeAttribute('focus-from');
     });
@@ -231,14 +240,12 @@ export default class Menu extends BaseElement {
       case 'ArrowDown':
       case 'Down':
         flag = true;
-        this.updatePosition();
         this.openMenu();
         break;
 
       case 'ArrowUp':
       case 'Up':
         flag = true;
-        this.updatePosition();
         this.openMenu();
         this.focusLast();
         break;
