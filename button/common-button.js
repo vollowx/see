@@ -35,7 +35,7 @@ CommonButtonStyle.replaceSync(css`
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
   }
   :host([elevated]) [part~='button'] {
-    background-color: var(--md-elevated-button-background-color, var(--md-sys-color-surface));
+    background: var(--md-elevated-button-background-color, var(--md-sys-elevation-surface-1));
     color: var(--md-elevated-button-color, var(--md-sys-color-primary));
     box-shadow: var(--md-sys-elevation-shadow-1);
   }

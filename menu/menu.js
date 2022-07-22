@@ -12,11 +12,9 @@ MenuStyle.replaceSync(css`
     position: fixed;
     min-width: 112px;
     max-width: 280px;
-    max-height: calc(100vh - 96px);
-    height: var(--md-menu-height, auto);
+    max-height: var(--md-menu-max-height, calc(100vh - 96px));
     overflow-y: auto;
-    background: var(--md-sys-color-surface);
-    background-image: linear-gradient(rgba(var(--md-sys-color-primary-rgb), 0.08), rgba(var(--md-sys-color-primary-rgb), 0.08));
+    background: var(--md-sys-elevation-surface-2);
     box-shadow: var(--md-sys-elevation-shadow-2);
     transform: scale(0.9);
     opacity: 0;
@@ -36,12 +34,13 @@ MenuStyle.replaceSync(css`
     visibility: visible;
   }
   :host(:not([fast])[animate]) [part~='menu'] {
-    transition: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 120ms transform cubic-bezier(0.4, 0, 0.2, 1) 120ms, 120ms opacity cubic-bezier(0.4, 0, 0.2, 1);
   }
   :host([open]) [part~='menu'] {
     transform: scale(1);
     opacity: 1;
     pointer-events: auto;
+    transition-delay: 0ms, 0ms !important;
   }
   :host([dense]) {
     --md-menu-item-height: 36px;

@@ -13,6 +13,7 @@ MenuItemStyle.replaceSync(css`
     display: flex;
     align-items: center;
     height: var(--md-menu-item-height, 48px);
+    color: var(--md-sys-color-on-surface);
     cursor: pointer;
     user-select: none;
     outline: none;
@@ -33,6 +34,10 @@ MenuItemStyle.replaceSync(css`
   [part~='trailing-root'] {
     margin-inline-start: auto;
     margin-inline-end: 12px;
+  }
+  [part~='leading-root'],
+  [part~='trailing-root'] {
+    color: var(--md-sys-color-on-surface-variant);
   }
   ::slotted(iconify-icon) {
     font-size: 1.5rem;

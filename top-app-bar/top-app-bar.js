@@ -10,6 +10,7 @@ TopAppBarStyle.replaceSync(css`
     --md-top-app-bar-height: 64px;
     height: min-content;
   }
+  /* FIXME: background no animation */
   [part~='header'] {
     position: relative;
     display: flex;
@@ -30,19 +31,8 @@ TopAppBarStyle.replaceSync(css`
     right: 0;
     z-index: 2;
   }
-  [part~='tint'] {
-    position: absolute;
-    inset: 0;
-    background-color: var(--md-sys-color-primary);
-    opacity: 0;
-    transition: 120ms opacity cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-  }
-  [scrolled] [part~='tint'] {
-    opacity: 0.08;
-  }
-  :host([static]) [part~='tint'] {
-    display: none;
+  :host(:not([static])) [scrolled] {
+    background: var(--md-sys-elevation-surface-2);
   }
   ::slotted([slot~='title']) {
     margin: 0;
@@ -120,7 +110,6 @@ export default class TopAppBar extends BaseElement {
   get _template() {
     return html`
       <header part="inner header">
-        <span part="tint"></span>
         <section part="sections left">
           <slot name="navBtn"></slot>
         </section>

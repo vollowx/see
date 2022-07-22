@@ -50,6 +50,7 @@
         <ul>
           <li><a href="#basic-menu">Basic menu, 基础菜单</a></li>
           <li><a href="#align">Align, 对齐</a></li>
+          <li><a href="#max-height">Max height, 高度限制</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
         </ul>
@@ -69,24 +70,23 @@
 
         <div class="demo-container">
           <md-button label="Menu" data-aria-label="menu" id="menu-binder-1"></md-button>
-          <md-menu bind-el="menu-binder-1">
-            <md-menu-item data-aria-label="all projects" leading key-char="a">
-              <iconify-icon slot="leading" icon="material-symbols:dashboard"></iconify-icon>
-              All projects
+          <md-menu bind-el="menu-binder-1" dense>
+            <md-menu-item data-aria-label="cut" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
+              Cut
+              <span slot="trailing">⌘X</span>
             </md-menu-item>
-            <md-menu-item data-aria-label="community" leading key-char="c">
-              <iconify-icon slot="leading" icon="material-symbols:add-comment"></iconify-icon>
-              Community
+            <md-menu-item data-aria-label="copy" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:content-copy"></iconify-icon>
+              Copy
+              <span slot="trailing">⌘C</span>
             </md-menu-item>
-            <md-menu-item data-aria-label="contact us" leading key-char="c">
-              <iconify-icon slot="leading" icon="material-symbols:add-call"></iconify-icon>
-              Contact us
+            <md-menu-item data-aria-label="paste" leading key-char="p">
+              <iconify-icon slot="leading" icon="material-symbols:content-paste"></iconify-icon>
+              Paste
+              <span slot="trailing">⌘P</span>
             </md-menu-item>
           </md-menu>
-          <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-binder-2"></md-button>
-          <md-menu bind-el="menu-binder-2" dense style="--md-menu-height: 216px"></md-menu>
-          <md-button label="Countries" data-aria-label="countries" id="menu-binder-3"></md-button>
-          <md-menu bind-el="menu-binder-3" dense style="--md-menu-height: 216px"></md-menu>
         </div>
 
         <md-typography headline-m tag="h2" id="align">Align, 对齐</md-typography>
@@ -116,6 +116,18 @@
             <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
             <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
           </md-menu>
+        </div>
+
+        <md-typography headline-m tag="h2" id="max-height">Max height, 高度限制</md-typography>
+
+        <md-typography body-m tag="p">Use <code>--md-menu-max-height</code> to give a max height</md-typography>
+        <md-typography body-m tag="p">使用 <code>--md-menu-max-height</code> 来添加高度限制</md-typography>
+
+        <div class="demo-container">
+          <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-binder-2"></md-button>
+          <md-menu bind-el="menu-binder-2" dense style="--md-menu-max-height: 216px"></md-menu>
+          <md-button label="Countries" data-aria-label="countries" id="menu-binder-3"></md-button>
+          <md-menu bind-el="menu-binder-3" dense style="--md-menu-max-height: 216px"></md-menu>
         </div>
 
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
