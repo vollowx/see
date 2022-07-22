@@ -211,6 +211,7 @@ main {
 }
 .demo-container .fieldsets {
   display: flex;
+  overflow-x: auto;
 }
 .demo-container fieldset {
   border: none;
