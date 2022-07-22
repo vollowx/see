@@ -1,5 +1,6 @@
 import { html, css } from '../shared/template.js';
 import BaseElement from '../shared/base-element.js';
+import Popover from '../popover/popover.js';
 
 import MenuItem from './menu-item.js';
 
@@ -43,7 +44,7 @@ MenuStyle.replaceSync(css`
     transition-delay: 0ms, 0ms !important;
   }
   :host([dense]) {
-    --md-menu-item-height: 36px;
+    --md-list-item-height: 36px;
   }
   [part~='list'] {
     display: flex;
@@ -60,63 +61,27 @@ MenuStyle.replaceSync(css`
 var allMenus = [];
 window.addEventListener('resize', () => {
   allMenus.forEach((menu) => {
-    menu.updatePosition();
+    menu.setPosition();
   });
 });
 
-function isRTL() {
-  return document.documentElement.getAttribute('dir') === 'rtl';
-}
-
-// TODO: use popover
-export default class Menu extends BaseElement {
+export default class Menu extends Popover {
   static get is() {
     return 'md-menu';
   }
 
-  get vertical() {
-    return this.getAttribute('vertical') || 'bottom';
-  }
-  set vertical(value) {
-    this.setAttribute('vertical', value || 'bottom');
-  }
-  get horizontal() {
-    return this.getAttribute('horizontal') || 'left';
-  }
-  set horizontal(value) {
-    this.setAttribute('horizontal', value || 'left');
-  }
-  get dense() {
-    return this.hasAttribute('dense');
-  }
-  set dense(value) {
-    this.toggleAttribute('dense', value);
-  }
-
   get _styles() {
-    return [MenuStyle];
+    return [...super._styles, MenuStyle];
   }
 
-  get _template() {
-    return html`
-      <div part="overlay"></div>
-      <div part="menu">
-        <ul part="list" role="menu" tabindex="-1">
-          <slot part="items"></slot>
-        </ul>
-      </div>
+  get _content() {
+    return /* html */ `
+      <ul part="list" role="menu" tabindex="-1">
+        <slot part="items"></slot>
+      </ul>
     `;
   }
 
-  /** @type {HTMLElement|null} */
-  get bindElement() {
-    const id = this.getAttribute('bind-el');
-    return this.parentElement?.querySelector(`#${id}`) || document.querySelector(`#${id}`);
-  }
-  /** @type {HTMLDivElement} */
-  get menuElement() {
-    return this.getEl('[part~="menu"]');
-  }
   /** @type {HTMLDivElement} */
   get overlayElement() {
     return this.getEl('[part~="overlay"]');
@@ -137,99 +102,36 @@ export default class Menu extends BaseElement {
   get itemKeyChars() {
     return [...this.itemElements].map((item) => item.keyChar);
   }
-  get isOpen() {
-    return this.hasAttribute('open');
-  }
+
   /**
-   * @returns {{top: number, left: number, transformOrigin: {h: number, v: number}}}
+   * @override
    */
-  getPosition() {
-    if (!this.bindElement) return { top: 0, left: 0, transformOrigin: { h: 0, v: 0 } };
-    const binderRect = this.bindElement.getBoundingClientRect();
-    const menuRect = this.menuElement.getBoundingClientRect();
-    const menuTransformOrigin = {
-      v: this.vertical === 'top' ? menuRect.height + 16 : -binderRect.height,
-      h: (this.horizontal === 'right') !== isRTL() ? (menuRect.width / 9) * 10 - binderRect.width : 0,
-    };
-    let top = binderRect.top - menuTransformOrigin.v;
-    let left = binderRect.left - menuTransformOrigin.h;
-    const right = left + menuRect.width;
-    const bottom = top + menuRect.height;
-    const itemHeight = this.dense ? 36 : 48;
-    const heightThreshold = window.innerHeight - itemHeight;
-    const widthThreshold = window.innerWidth - itemHeight;
-    if (top < itemHeight) {
-      const diff = top - itemHeight;
-      top -= diff;
-      menuTransformOrigin.v += diff;
-    } else if (bottom > heightThreshold) {
-      const diff = bottom - heightThreshold;
-      top -= diff;
-      menuTransformOrigin.v += diff;
-    }
-    if (left < itemHeight) {
-      const diff = left - itemHeight;
-      left -= diff;
-      menuTransformOrigin.h += diff;
-    } else if (right > widthThreshold) {
-      const diff = right - widthThreshold;
-      left -= diff;
-      menuTransformOrigin.h += diff;
-    }
-
-    return { top: top, left: left, transformOrigin: menuTransformOrigin };
+  focus() {
+    this.listElement.focus();
   }
-  updatePosition() {
-    if (!this.bindElement) return;
 
-    const { top, left, transformOrigin } = this.getPosition();
-    this.menuElement.style.cssText = `top: ${top}px; left: ${left}px; transform-origin: ${transformOrigin.h}px ${transformOrigin.v}px;`;
-  }
-  openMenu = () => {
-    this.updatePosition();
-    // binder
-    this.bindElement?.setAttribute('aria-expanded', 'true');
-    // this
-    this.setAttribute('aria-hidden', 'false');
-    this.setAttribute('open', '');
-    this.setAttribute('animate', '');
+  open() {
+    super.open();
     this.updateFocus(this.itemElements[0], true);
-    // document
-    document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.setProperty('--md-global-padding-right', '15px');
-    // final
-    this.focus();
-  };
-  closeMenu = () => {
-    // binder
-    this.bindElement?.setAttribute('aria-expanded', 'false');
-    // this
-    this.setAttribute('aria-hidden', 'true');
-    this.removeAttribute('open');
-    setTimeout(() => {
-      this.removeAttribute('animate');
-    }, 120);
+  }
+  close() {
+    super.close();
     this.itemElements.forEach((item) => {
       item.removeAttribute('focus-from');
     });
-    // document
-    document.documentElement.style.overflow = '';
-    document.documentElement.style.removeProperty('--md-global-padding-right');
-    // final
-    this.bindElement?.focus();
-  };
+  }
   /**
    * @param {MenuItem} item
    * @param {boolean} autoScroll
    */
-  updateFocus = (item, autoScroll = false) => {
+  updateFocus(item, autoScroll = false) {
     if (autoScroll) {
       const { top, bottom } = item.getBoundingClientRect();
-      const { top: listTop, bottom: listBottom } = this.menuElement.getBoundingClientRect();
+      const { top: listTop, bottom: listBottom } = this.popoverElement.getBoundingClientRect();
       if (top < listTop) {
-        this.menuElement.scrollTop -= listTop - top;
+        this.popoverElement.scrollTop -= listTop - top;
       } else if (bottom > listBottom) {
-        this.menuElement.scrollTop += bottom - listBottom;
+        this.popoverElement.scrollTop += bottom - listBottom;
       }
     }
     this.activeItem.removeAttribute('focus-from');
@@ -239,7 +141,7 @@ export default class Menu extends BaseElement {
   /**
    * @param {KeyboardEvent} e
    */
-  handleBinderKeyDown = (e) => {
+  handleAnchorKeyDown(e) {
     let flag = false;
 
     const { key } = e;
@@ -247,13 +149,13 @@ export default class Menu extends BaseElement {
       case 'ArrowDown':
       case 'Down':
         flag = true;
-        this.openMenu();
+        this.open();
         break;
 
       case 'ArrowUp':
       case 'Up':
         flag = true;
-        this.openMenu();
+        this.open();
         this.focusLast();
         break;
 
@@ -269,14 +171,7 @@ export default class Menu extends BaseElement {
   /**
    * @param {MouseEvent} e
    */
-  handleBinderClick = (e) => {
-    this.updatePosition();
-    this.openMenu();
-  };
-  /**
-   * @param {MouseEvent} e
-   */
-  handleClick = (e) => {
+  handleClick(e) {
     /** @type {MenuItem} */
     // @ts-ignore non-null
     const target = e.target;
@@ -286,13 +181,13 @@ export default class Menu extends BaseElement {
     if (active.disabled) closeFlag = false;
     if (active.hasAttribute('no-closing-on-click')) closeFlag = false;
     if (closeFlag) {
-      this.closeMenu();
+      this.close();
     }
   };
   /**
    * @param {KeyboardEvent} e
    */
-  handleKeyDown = (e) => {
+  handleKeyDown(e) {
     let flag = false;
 
     if (e.ctrlKey || e.altKey || e.metaKey) {
@@ -337,16 +232,6 @@ export default class Menu extends BaseElement {
         this.focusLast();
         break;
 
-      case 'Escape':
-      case 'Esc':
-        flag = true;
-        this.closeMenu();
-        break;
-
-      case 'Tab':
-        this.closeMenu();
-        break;
-
       case 'Enter':
         flag = true;
         this.activeItem.click();
@@ -364,14 +249,16 @@ export default class Menu extends BaseElement {
       e.preventDefault();
       e.stopPropagation();
     }
+
+    super.handleKeyDown(e);
   };
   /**
    * @param {KeyboardEvent} e
    */
-  handleKeyUp = (e) => {
+  handleKeyUp(e) {
     let flag = false;
 
-    const key = e.key;
+    const { key } = e;
     switch (key) {
       case ' ':
         flag = true;
@@ -387,9 +274,6 @@ export default class Menu extends BaseElement {
       e.stopPropagation();
     }
   };
-  focus() {
-    this.listElement.focus();
-  }
   /**
    * @param {string} char
    */
@@ -446,38 +330,31 @@ export default class Menu extends BaseElement {
     this.focusByIndex(this.itemElements.length - 1, true);
   }
 
-  initARIAAttributes() {
-    if (!this.bindElement) return;
+  initARIA() {
+    if (!this.anchorElement) {
+      this.anchorErr();
+      return;
+    }
 
-    // This
-    this.setAttribute('aria-hidden', 'true');
-
-    this.listElement.id = `${this.bindElement.id}-menu`;
-    this.listElement.setAttribute('aria-labelby', this.bindElement.id);
-
+    super.initARIA();
+    this.listElement.id = `${this.anchorElement.id}-menu`;
+    this.listElement.setAttribute('aria-labelby', this.anchorElement.id);
     this.itemElements.forEach((item) => {
-      item.innerElement.id = `${this.bindElement?.id}-item-${[...this.itemElements].indexOf(item)}`;
+      item.innerElement.id = `${this.anchorElement?.id}-item-${[...this.itemElements].indexOf(item)}`;
     });
-    this.listElement.setAttribute('aria-activedecendant', this.itemElements[0].innerElement.id);
 
-    // Binder
-    this.bindElement.setAttribute('aria-controls', this.listElement.id);
-    this.bindElement.setAttribute('aria-haspopup', 'true');
+    this.anchorElement.setAttribute('aria-controls', this.listElement.id);
   }
 
   connectedCallback() {
-    if (!this.bindElement) {
-      console.error(this, '`bind-el` is not defined');
+    if (!this.anchorElement) {
+      this.anchorErr();
       return;
     }
-    this.bindElement.addEventListener('keydown', this.handleBinderKeyDown);
-    this.bindElement.addEventListener('click', this.handleBinderClick);
-    this.listElement.addEventListener('keydown', this.handleKeyDown);
-    this.listElement.addEventListener('keyup', this.handleKeyUp);
-    this.listElement.addEventListener('click', this.handleClick);
-    this.overlayElement.addEventListener('click', this.closeMenu);
-
-    this.initARIAAttributes();
+    super.connectedCallback();
+    this.anchorElement.addEventListener('keydown', this.handleAnchorKeyDown.bind(this));
+    this.listElement.addEventListener('keyup', this.handleKeyUp.bind(this));
+    this.listElement.addEventListener('click', this.handleClick.bind(this));
 
     allMenus.push(this);
   }

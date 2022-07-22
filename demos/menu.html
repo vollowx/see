@@ -28,7 +28,7 @@
   </head>
   <body>
     <md-top-app-bar highest-lv>
-      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+      <a slot="navBtn" href="./" taanchorex="-1" class="outer-link">
         <md-icon-button standard data-aria-label="Back to index page">
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
         </md-icon-button>
@@ -69,8 +69,8 @@
         <md-typography headline-m tag="h2" id="basic-menu">Basic menu, 基础菜单</md-typography>
 
         <div class="demo-container">
-          <md-button label="Menu" data-aria-label="menu" id="menu-binder-1"></md-button>
-          <md-menu bind-el="menu-binder-1" dense>
+          <md-button label="Menu" data-aria-label="menu" id="menu-anchor-1"></md-button>
+          <md-menu anchor-el="menu-anchor-1" dense>
             <md-menu-item data-aria-label="cut" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
               Cut
@@ -92,42 +92,103 @@
         <md-typography headline-m tag="h2" id="align">Align, 对齐</md-typography>
 
         <div class="demo-container">
-          <md-button label="bottom, left" id="bn"></md-button>
-          <md-menu bind-el="bn">
-            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
-            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
-            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
+          <md-button
+            label="Open menu with custom anchor"
+            id="custom"
+            data-aria-label="open menu with custom anchor"
+          ></md-button>
+          <md-menu dense anchor-el="custom">
+            <md-menu-item data-aria-label="cut" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
+              Cut
+              <span slot="trailing">⌘X</span>
+            </md-menu-item>
+            <md-menu-item data-aria-label="copy" leading key-char="c">
+              <iconify-icon slot="leading" icon="material-symbols:content-copy"></iconify-icon>
+              Copy
+              <span slot="trailing">⌘C</span>
+            </md-menu-item>
+            <md-menu-item data-aria-label="paste" leading key-char="p">
+              <iconify-icon slot="leading" icon="material-symbols:content-paste"></iconify-icon>
+              Paste
+              <span slot="trailing">⌘P</span>
+            </md-menu-item>
           </md-menu>
-          <md-button label="bottom, right" id="br"></md-button>
-          <md-menu bind-el="br" horizontal="right">
-            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
-            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
-            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
-          </md-menu>
-          <md-button label="top, left" id="tl"></md-button>
-          <md-menu bind-el="tl" vertical="top">
-            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
-            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
-            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
-          </md-menu>
-          <md-button label="top, right" id="tr"></md-button>
-          <md-menu bind-el="tr" vertical="top" horizontal="right">
-            <md-menu-item data-aria-label="item 1">Item 1</md-menu-item>
-            <md-menu-item data-aria-label="item 2">Item 2</md-menu-item>
-            <md-menu-item data-aria-label="item 3">Item 3</md-menu-item>
-          </md-menu>
+          <div class="demo-spacer"></div>
+          <div class="fieldsets">
+            <fieldset>
+              <legend>anchor-origin.v</legend>
+              <div>
+                <input type="radio" id="ao-v-top" name="ao-v" value="top" />
+                <label for="ao-v-top">top</label>
+              </div>
+              <div>
+                <input type="radio" id="ao-v-center" name="ao-v" value="center" />
+                <label for="ao-v-center">center</label>
+              </div>
+              <div>
+                <input type="radio" id="ao-v-bottom" name="ao-v" value="bottom" checked />
+                <label for="ao-v-bottom">bottom</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>anchor-origin.h</legend>
+              <div>
+                <input type="radio" id="ao-h-top" name="ao-h" value="left" checked />
+                <label for="ao-h-left">left</label>
+              </div>
+              <div>
+                <input type="radio" id="ao-h-center" name="ao-h" value="center" />
+                <label for="ao-h-center">center</label>
+              </div>
+              <div>
+                <input type="radio" id="ao-h-right" name="ao-h" value="right" />
+                <label for="ao-h-right">right</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>transform-origin.v</legend>
+              <div>
+                <input type="radio" id="to-v-top" name="to-v" value="top" checked />
+                <label for="to-v-top">top</label>
+              </div>
+              <div>
+                <input type="radio" id="to-v-center" name="to-v" value="center" />
+                <label for="to-v-center">center</label>
+              </div>
+              <div>
+                <input type="radio" id="to-v-bottom" name="to-v" value="bottom" />
+                <label for="to-v-bottom">bottom</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>transform-origin.h</legend>
+              <div>
+                <input type="radio" id="to-h-top" name="to-h" value="left" checked />
+                <label for="to-h-left">left</label>
+              </div>
+              <div>
+                <input type="radio" id="to-h-center" name="to-h" value="center" />
+                <label for="to-h-center">center</label>
+              </div>
+              <div>
+                <input type="radio" id="to-h-right" name="to-h" value="right" />
+                <label for="to-h-right">right</label>
+              </div>
+            </fieldset>
+          </div>
         </div>
 
         <md-typography headline-m tag="h2" id="max-height">Max height, 高度限制</md-typography>
 
-        <md-typography body-m tag="p">Use <code>--md-menu-max-height</code> to give a max height</md-typography>
-        <md-typography body-m tag="p">使用 <code>--md-menu-max-height</code> 来添加高度限制</md-typography>
+        <md-typography body-m tag="p">Use <code>--md-popover-max-height</code> to give a max height</md-typography>
+        <md-typography body-m tag="p">使用 <code>--md-popover-max-height</code> 来添加高度限制</md-typography>
 
         <div class="demo-container">
-          <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-binder-2"></md-button>
-          <md-menu bind-el="menu-binder-2" dense style="--md-menu-max-height: 216px"></md-menu>
-          <md-button label="Countries" data-aria-label="countries" id="menu-binder-3"></md-button>
-          <md-menu bind-el="menu-binder-3" dense style="--md-menu-max-height: 216px"></md-menu>
+          <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-anchor-2"></md-button>
+          <md-menu anchor-el="menu-anchor-2" id="a-to-z-render" dense style="--md-popover-max-height: 216px"></md-menu>
+          <md-button label="Countries" data-aria-label="countries" id="menu-anchor-3"></md-button>
+          <md-menu anchor-el="menu-anchor-3" dense style="--md-popover-max-height: 216px"></md-menu>
         </div>
 
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
@@ -175,7 +236,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class="name">bind-el</td>
+              <td class="name">anchor-el</td>
               <td class="type">string</td>
               <td class="default-val"></td>
               <td>(id name) Controls menu's controller, must have value</td>
@@ -187,16 +248,16 @@
               <td>Controls menu's size</td>
             </tr>
             <tr>
-              <td class="name">vertical</td>
-              <td class="type">string</td>
-              <td class="default-val">(bottom) / top</td>
-              <td>Controls menu's vertical position</td>
+              <td class="name">anchor-origin</td>
+              <td class="type">{"v": string, "h": string}</td>
+              <td class="default-val">({"v": "bottom", "h": "left"})</td>
+              <td>Controls menu's anchor origin, <a href="#align">demo</a></td>
             </tr>
             <tr>
-              <td class="name">horizontal</td>
-              <td class="type">string</td>
-              <td class="default-val">(left) / right</td>
-              <td>Controls menu's horizontal position</td>
+              <td class="name">transform-origin</td>
+              <td class="type">{"v": string, "h": string}</td>
+              <td class="default-val">({"v": "top", "h": "left"})</td>
+              <td>Controls menu's transform origin, <a href="#align">demo</a></td>
             </tr>
           </tbody>
         </table>
@@ -204,9 +265,34 @@
     </main>
 
     <script>
+      const radios = document.querySelectorAll('input[type="radio"]');
+      const customMenu = document.querySelector('[anchor-el="custom"');
+      radios.forEach((radio) => {
+        radio.addEventListener('change', updateOrigin.bind(this));
+      });
+      function updateOrigin(e) {
+        const name = e.target.name;
+        switch (name) {
+          case 'ao-v':
+            customMenu.anchorOrigin = { v: e.target.value, h: customMenu.anchorOrigin.h };
+            break;
+          case 'ao-h':
+            customMenu.anchorOrigin = { v: customMenu.anchorOrigin.v, h: e.target.value };
+            break;
+          case 'to-v':
+            customMenu.transformOrigin = { v: e.target.value, h: customMenu.transformOrigin.h };
+            break;
+          case 'to-h':
+            customMenu.transformOrigin = { v: customMenu.transformOrigin.v, h: e.target.value };
+            break;
+          default:
+            break;
+        }
+      }
+
       const aToZ = Array.from(Array(26).keys()).map((i) => String.fromCharCode(i + 97));
 
-      const menu2 = document.querySelector('[bind-el="menu-binder-2"]');
+      const menu2 = document.querySelectorAll('#a-to-z-render');
       var menuitems2 = [];
       for (let i = 0; i < aToZ.length; i++) {
         menuitems2.push(`
@@ -215,7 +301,9 @@
           </md-menu-item>
         `);
       }
-      menu2.innerHTML = menuitems2.join('');
+      menu2.forEach((menu) => {
+        menu.innerHTML = menuitems2.join('');
+      });
 
       const countryList = [
         ['Australia', 'flag-australia'],
@@ -235,7 +323,7 @@
         ['Zimbabwe', 'flag-zimbabwe'],
       ];
 
-      const menu3 = document.querySelector('[bind-el="menu-binder-3"]');
+      const menu3 = document.querySelector('[anchor-el="menu-anchor-3"]');
       var menuitems3 = [];
       for (let i = 0; i < countryList.length; i++) {
         const [name, icon] = countryList[i];

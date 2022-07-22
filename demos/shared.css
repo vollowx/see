@@ -12,7 +12,6 @@
 ::before {
   box-sizing: inherit;
   -webkit-tap-highlight-color: transparent;
-  appearance: none;
 }
 
 body {
@@ -209,6 +208,12 @@ main {
 .demo-spacer {
   margin: -8px;
   width: 100%;
+}
+.demo-container .fieldsets {
+  display: flex;
+}
+.demo-container fieldset {
+  border: none;
 }
 
 .index {
