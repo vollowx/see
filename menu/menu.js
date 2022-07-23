@@ -98,6 +98,10 @@ export default class Menu extends Popover {
   get activeItem() {
     return this.querySelector('[focus-from]') || this.itemElements[0];
   }
+  /** @type {MenuItem|null} */
+  get selectedItem() {
+    return this.querySelector('[selected]');
+  }
 
   get itemKeyChars() {
     return [...this.itemElements].map((item) => item.keyChar);
@@ -110,9 +114,12 @@ export default class Menu extends Popover {
     this.listElement.focus();
   }
 
-  open() {
+  /**
+   * @param {boolean} assigned if user assigned a menuitem, ignore selected menuitem
+   */
+  open(assigned = false) {
     super.open();
-    this.updateFocus(this.itemElements[0], true);
+    assigned ? null : this.updateFocus(this.selectedItem || this.activeItem);
   }
   close() {
     super.close();
@@ -148,13 +155,14 @@ export default class Menu extends Popover {
       case 'ArrowDown':
       case 'Down':
         flag = true;
-        this.open();
+        this.open(true);
+        this.focusFirst();
         break;
 
       case 'ArrowUp':
       case 'Up':
         flag = true;
-        this.open();
+        this.open(true);
         this.focusLast();
         break;
 
@@ -232,6 +240,7 @@ export default class Menu extends Popover {
         break;
 
       case 'Enter':
+      case ' ':
         flag = true;
         this.activeItem.click();
         break;
