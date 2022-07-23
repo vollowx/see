@@ -185,6 +185,7 @@ main {
   padding: 16px;
   width: 100%;
   display: flex;
+  justify-content: center;
   gap: 4px;
   align-items: center;
   flex-wrap: wrap;

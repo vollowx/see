@@ -12,10 +12,6 @@ export default class MenuItem extends ListItem {
   get _defaultRole() {
     return 'menuitem';
   }
-
-  get _noFocusCtrl() {
-    return true;
-  }
 }
 
 customElements.define(MenuItem.is, MenuItem);

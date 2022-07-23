@@ -134,8 +134,7 @@ export default class Menu extends Popover {
         this.popoverElement.scrollTop += bottom - listBottom;
       }
     }
-    this.activeItem.removeAttribute('focus-from');
-    item.setAttribute('focus-from', 'keyboard');
+    item.focus();
     this.listElement.setAttribute('aria-activedecendant', item.innerElement.id);
   };
   /**
