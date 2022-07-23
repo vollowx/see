@@ -33,16 +33,14 @@
           <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
         </md-icon-button>
       </a>
-    </md-top-app-bar>
 
-    <md-fab-set>
-      <md-fab data-aria-label="Toggle demo theme" class="theme-tgl">
-        <iconify-icon icon="material-symbols:brightness-6"></iconify-icon>
-      </md-fab>
-      <md-fab data-aria-label="Toggle demo direction" small secondary class="dir-tgl">
-        <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
-      </md-fab>
-    </md-fab-set>
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard>
+        <iconify-icon></iconify-icon>
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard>
+        <iconify-icon></iconify-icon>
+      </md-icon-button>
+    </md-top-app-bar>
 
     <main>
       <nav class="table-of-ctt" aria-label="Contents">
@@ -58,7 +56,9 @@
 
         <md-typography body-m tag="p">
           Design baseline from
-          <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_blank">m3.material.io</a>
+          <a href="https://m3.material.io/styles/color/the-color-system/key-colors-tones" target="_blank"
+            >m3.material.io</a
+          >
           <br />
           Color generator from
           <a href="https://github.com/material-foundation/material-color-utilities">material-color-utilities</a>
@@ -69,44 +69,191 @@
         <div class="overflow-box">
           <div class="color-map">
             <div class="color-row">
-              <div class="color-item" style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary);">Primary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-primary); color: var(--md-sys-color-primary);">On Primary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container);">Primary Container</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-primary-container); color: var(--md-sys-color-primary-container);">On Primary Container</div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary)"
+              >
+                Primary
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-primary); color: var(--md-sys-color-primary)"
+              >
+                On Primary
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-primary-container);
+                  color: var(--md-sys-color-on-primary-container);
+                "
+              >
+                Primary Container
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-on-primary-container);
+                  color: var(--md-sys-color-primary-container);
+                "
+              >
+                On Primary Container
+              </div>
             </div>
             <div class="color-row">
-              <div class="color-item" style="background-color: var(--md-sys-color-secondary); color: var(--md-sys-color-on-secondary);">Secondary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-secondary); color: var(--md-sys-color-secondary);">On Secondary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container);">Secondary Container</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-secondary-container); color: var(--md-sys-color-secondary-container);">On Secondary Container</div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-secondary); color: var(--md-sys-color-on-secondary)"
+              >
+                Secondary
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-secondary); color: var(--md-sys-color-secondary)"
+              >
+                On Secondary
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-secondary-container);
+                  color: var(--md-sys-color-on-secondary-container);
+                "
+              >
+                Secondary Container
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-on-secondary-container);
+                  color: var(--md-sys-color-secondary-container);
+                "
+              >
+                On Secondary Container
+              </div>
             </div>
             <div class="color-row">
-              <div class="color-item" style="background-color: var(--md-sys-color-tertiary); color: var(--md-sys-color-on-tertiary);">Tertiary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-tertiary); color: var(--md-sys-color-tertiary);">On Tertiary</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container);">Tertiary Container</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-tertiary-container); color: var(--md-sys-color-tertiary-container);">On Tertiary Container</div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-tertiary); color: var(--md-sys-color-on-tertiary)"
+              >
+                Tertiary
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-tertiary); color: var(--md-sys-color-tertiary)"
+              >
+                On Tertiary
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-tertiary-container);
+                  color: var(--md-sys-color-on-tertiary-container);
+                "
+              >
+                Tertiary Container
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-on-tertiary-container);
+                  color: var(--md-sys-color-tertiary-container);
+                "
+              >
+                On Tertiary Container
+              </div>
             </div>
             <div class="color-row">
-              <div class="color-item" style="background-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error);">Error</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-error); color: var(--md-sys-color-error);">On Error</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container);">Error Container</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-error-container); color: var(--md-sys-color-error-container);">On Error Container</div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error)"
+              >
+                Error
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-error); color: var(--md-sys-color-error)"
+              >
+                On Error
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-error-container);
+                  color: var(--md-sys-color-on-error-container);
+                "
+              >
+                Error Container
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-on-error-container);
+                  color: var(--md-sys-color-error-container);
+                "
+              >
+                On Error Container
+              </div>
             </div>
             <div class="color-row">
-              <div class="color-item" style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background);">Background</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-background); color: var(--md-sys-color-background);">On Background</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface);">Surface</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-surface); color: var(--md-sys-color-surface);">On Surface</div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background)"
+              >
+                Background
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-background); color: var(--md-sys-color-background)"
+              >
+                On Background
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface)"
+              >
+                Surface
+              </div>
+              <div
+                class="color-item"
+                style="background-color: var(--md-sys-color-on-surface); color: var(--md-sys-color-surface)"
+              >
+                On Surface
+              </div>
             </div>
             <div class="color-row">
-              <div class="color-item outline-color" style="background-color: var(--md-sys-color-outline); color: var(--md-sys-color-background);">Outline</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant);">Surface Variant</div>
-              <div class="color-item" style="background-color: var(--md-sys-color-on-surface-variant); color: var(--md-sys-color-surface-variant);">On Surface Variant</div>
+              <div
+                class="color-item outline-color"
+                style="background-color: var(--md-sys-color-outline); color: var(--md-sys-color-background)"
+              >
+                Outline
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-surface-variant);
+                  color: var(--md-sys-color-on-surface-variant);
+                "
+              >
+                Surface Variant
+              </div>
+              <div
+                class="color-item"
+                style="
+                  background-color: var(--md-sys-color-on-surface-variant);
+                  color: var(--md-sys-color-surface-variant);
+                "
+              >
+                On Surface Variant
+              </div>
             </div>
           </div>
         </div>
 
-        <md-typography headline-m tag="h2" id="color-choosing">Custom color of this docs, 自定义该文档的颜色</md-typography>
+        <md-typography headline-m tag="h2" id="color-choosing"
+          >Custom color of this docs, 自定义该文档的颜色</md-typography
+        >
 
         <div class="demo-container">
           <input type="color" name="color-scheme-ctrl" id="color-scheme-ctrl" />
@@ -123,7 +270,7 @@
         let theme = themeFromSourceColor(argbFromHex(value));
         applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
         localStorage.setItem('key-color', value);
-      })
+      });
     </script>
   </body>
 </html>
