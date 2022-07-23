@@ -111,7 +111,7 @@ export default class Menu extends Popover {
    * @override
    */
   focus() {
-    this.listElement.focus();
+    (this.selectedItem || this.activeItem).focus();
   }
 
   /**
@@ -143,7 +143,7 @@ export default class Menu extends Popover {
     }
     item.focus();
     this.listElement.setAttribute('aria-activedecendant', item.innerElement.id);
-  };
+  }
   /**
    * @param {KeyboardEvent} e
    */
@@ -174,7 +174,7 @@ export default class Menu extends Popover {
       e.preventDefault();
       e.stopPropagation();
     }
-  };
+  }
   /**
    * @param {MouseEvent} e
    */
@@ -190,7 +190,7 @@ export default class Menu extends Popover {
     if (closeFlag) {
       this.close();
     }
-  };
+  }
   /**
    * @param {KeyboardEvent} e
    */
@@ -259,7 +259,7 @@ export default class Menu extends Popover {
     }
 
     super.handleKeyDown(e);
-  };
+  }
   /**
    * @param {KeyboardEvent} e
    */
@@ -281,7 +281,7 @@ export default class Menu extends Popover {
       e.preventDefault();
       e.stopPropagation();
     }
-  };
+  }
   /**
    * @param {string} char
    */

@@ -292,7 +292,7 @@
       var menuitems2 = [];
       for (let i = 0; i < aToZ.length; i++) {
         menuitems2.push(`
-          <md-menu-item data-aria-label="${aToZ[i]}" key-char="${aToZ[i]}">
+          <md-menu-item data-aria-label="${aToZ[i]}" key-char="${aToZ[i]}" ${aToZ[i] === 'o' ? 'selected' : ''}>
             ${aToZ[i]}${aToZ[i]}${aToZ[i]}
           </md-menu-item>
         `);
