@@ -179,15 +179,17 @@ export default class Menu extends Popover {
    * @param {MouseEvent} e
    */
   handleClick(e) {
-    /** @type {MenuItem} */
-    // @ts-ignore non-null
+    let close = false;
+    /** @type {HTMLUListElement|MenuItem} */
+    // @ts-ignore
     const target = e.target;
-    const active = this.activeItem;
-    let closeFlag = true;
-    if (target.tagName !== 'MD-MENU' && target.tagName !== 'MD-MENU-ITEM') closeFlag = false;
-    if (active.disabled) closeFlag = false;
-    if (active.hasAttribute('no-closing-on-click')) closeFlag = false;
-    if (closeFlag) {
+    if (target.tagName === 'MD-MENU-ITEM' && !target.hasAttribute('disabled')) {
+      close = true;
+    }
+    if (target.tagName === 'UL') { // For ARIA menu closing
+      close = true;
+    }
+    if (close) {
       this.close();
     }
   }

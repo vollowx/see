@@ -83,3 +83,5 @@ addEventListener('DOMContentLoaded', () => {
   themeTgl?.addEventListener('click', toggleTheme.bind(this));
   dirTgl?.addEventListener('click', toggleDir);
 });
+
+import './prism.js';

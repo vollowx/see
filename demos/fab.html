@@ -112,6 +112,45 @@
           </md-fab>
         </div>
 
+        <pre class="language-html"><code>&lt;md-fab&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab label=&quot;Extended&quot; leading&gt;
+  &lt;iconify-icon slot=&quot;leading&quot; icon=&quot;material-symbols:add&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab label=&quot;Extended without icon&quot;&gt;&lt;/md-fab&gt;
+
+&lt;md-fab&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab surface&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab secondary&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab tertiary&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+
+&lt;md-fab label=&quot;Normal elevation&quot;&gt;&lt;/md-fab&gt;
+&lt;md-fab lower label=&quot;Lower&quot;&gt;&lt;/md-fab&gt;
+
+&lt;md-fab&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab small&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:remove&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+&lt;md-fab large&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:add&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+
+&lt;md-fab disabled&gt;
+  &lt;iconify-icon icon=&quot;material-symbols:settings&quot;&gt;&lt;/iconify-icon&gt;
+&lt;/md-fab&gt;
+</code></pre>
+
         <md-typography headline-m tag="h2" id="custom-inner-element">Custom inner element, 自定义内部元素</md-typography>
 
         <md-typography body-m tag="p">
@@ -132,6 +171,13 @@
           </label>
         </div>
 
+        <pre class="language-html"><code>&lt;label for=&quot;file-uploader&quot;&gt;
+  &lt;input type=&quot;file&quot; name=&quot;file-uploader&quot; id=&quot;file-uploader&quot; multiple style=&quot;display: none&quot;&gt;
+  &lt;md-fab tag=&quot;span&quot; data-aria-label=&quot;Upload files&quot;&gt;
+    &lt;iconify-icon icon=&quot;material-symbols:upload&quot;&gt;&lt;/iconify-icon&gt;
+  &lt;/md-fab&gt;
+&lt;/label&gt;</code></pre>
+
         <md-typography headline-m tag="h2" id="link">Link, 链接</md-typography>
 
         <md-typography body-m tag="p"><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></md-typography>
@@ -145,11 +191,28 @@
           </a>
         </div>
 
+        <pre class="language-html"><code>&lt;a href=&quot;https://github.com/huge-pancake/tiny-material&quot; target=&quot;_blank&quot; tabindex=&quot;-1&quot; class=&quot;outer-link&quot;&gt;
+  &lt;md-fab data-aria-label=&quot;Jump to Github&quot;&gt;
+    &lt;iconify-icon icon=&quot;material-symbols:north-east&quot;&gt;&lt;/iconify-icon&gt;
+  &lt;/md-fab&gt;
+&lt;/a&gt;</code></pre>
+
+        <pre class="language-css"><code>.outer-link {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}</code></pre>
+
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
-        <md-typography body-m tag="p">Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography>
-        <md-typography body-m tag="p">使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography>
-        <md-typography body-m tag="p">Support all the other ARIA attributes for fab, see details at the following table.</md-typography>
+        <md-typography body-m tag="p"
+          >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >Support all the other ARIA attributes for fab, see details at the following table.</md-typography
+        >
         <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
 
         <div class="demo-container" dir="ltr">
