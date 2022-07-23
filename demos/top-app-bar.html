@@ -117,7 +117,12 @@
             </md-icon-button>
           </md-top-app-bar>
 
-          <md-menu bind-el="menu-binder-4" horizontal="right">
+          <md-menu
+            dense
+            anchor-el="menu-binder-4"
+            anchor-origin='{"v": "bottom", "h": "right"}'
+            transform-origin='{"v": "top", "h": "right"}'
+          >
             <md-menu-item data-aria-label="all projects" leading key-char="a">
               <iconify-icon slot="leading" icon="material-symbols:dashboard"></iconify-icon>
               All projects
