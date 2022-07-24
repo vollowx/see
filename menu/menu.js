@@ -152,6 +152,8 @@ export default class Menu extends Popover {
 
     const { key } = e;
     switch (key) {
+      case 'Enter':
+      case ' ':
       case 'ArrowDown':
       case 'Down':
         flag = true;
@@ -247,10 +249,6 @@ export default class Menu extends Popover {
         this.activeItem.click();
         break;
 
-      case ' ':
-        flag = true;
-        break;
-
       default:
         break;
     }
@@ -261,28 +259,6 @@ export default class Menu extends Popover {
     }
 
     super.handleKeyDown(e);
-  }
-  /**
-   * @param {KeyboardEvent} e
-   */
-  handleKeyUp(e) {
-    let flag = false;
-
-    const { key } = e;
-    switch (key) {
-      case ' ':
-        flag = true;
-        this.activeItem.click();
-        break;
-
-      default:
-        break;
-    }
-
-    if (flag) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
   }
   /**
    * @param {string} char
@@ -363,8 +339,8 @@ export default class Menu extends Popover {
     }
     super.connectedCallback();
     this.anchorElement.addEventListener('keydown', this.handleAnchorKeyDown.bind(this));
-    this.listElement.addEventListener('keyup', this.handleKeyUp.bind(this));
     this.listElement.addEventListener('click', this.handleClick.bind(this));
+    this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
 
     allMenus.push(this);
   }

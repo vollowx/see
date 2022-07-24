@@ -177,7 +177,7 @@ export default class IconButton extends ActionElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
+    this.toggle ? this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false') : null;
     this.addEventListener('click', this.handleClick);
   }
 
