@@ -12,13 +12,18 @@ ListItemStyle.replaceSync(css`
     position: relative;
     display: flex;
     align-items: center;
-    height: var(--md-list-item-height, 48px);
+    height: var(--md-list-item-height, 36px);
     color: var(--md-sys-color-on-surface);
     text-decoration: none;
     cursor: pointer;
     user-select: none;
     outline: none;
     ${TypographyStylesGenerator('label', 'L')}
+  }
+  @media (hover: none) {
+    [part~='button'] {
+      height: var(--md-list-item-height, 48px);
+    }
   }
   :host([selected]) [part~='button'] {
     background-color: rgba(var(--md-sys-color-primary-rgb), 0.16);

@@ -66,7 +66,7 @@
 
         <div class="demo-container">
           <md-button label="Menu" data-aria-label="menu" id="menu-anchor-1"></md-button>
-          <md-menu anchor-el="menu-anchor-1" dense>
+          <md-menu anchor-el="menu-anchor-1">
             <md-menu-item data-aria-label="cut" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
               Cut
@@ -93,7 +93,7 @@
             id="custom"
             data-aria-label="open menu with custom anchor"
           ></md-button>
-          <md-menu dense anchor-el="custom">
+          <md-menu anchor-el="custom">
             <md-menu-item data-aria-label="cut" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
               Cut
@@ -182,9 +182,9 @@
 
         <div class="demo-container">
           <md-button label="A-Z Menu" data-aria-label="a to z menu" id="menu-anchor-2"></md-button>
-          <md-menu anchor-el="menu-anchor-2" id="a-to-z-render" dense style="--md-popover-max-height: 216px"></md-menu>
+          <md-menu anchor-el="menu-anchor-2" id="a-to-z-render" style="--md-popover-max-height: 216px"></md-menu>
           <md-button label="Countries" data-aria-label="countries" id="menu-anchor-3"></md-button>
-          <md-menu anchor-el="menu-anchor-3" dense style="--md-popover-max-height: 216px"></md-menu>
+          <md-menu anchor-el="menu-anchor-3" style="--md-popover-max-height: 216px"></md-menu>
         </div>
 
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
@@ -241,7 +241,7 @@
               <td class="name">(normal) / dense</td>
               <td class="type">toggle</td>
               <td class="default-val">(normal)</td>
-              <td>Controls menu's size</td>
+              <td>Controls menu's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
             </tr>
             <tr>
               <td class="name">anchor-origin</td>
