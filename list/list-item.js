@@ -48,6 +48,21 @@ ListItemStyle.replaceSync(css`
   [part~='trailing-root'] {
     color: var(--md-sys-color-on-surface-variant);
   }
+  [part='leading'],
+  [part='trailing'] {
+    font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.125rem;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
   ::slotted(iconify-icon) {
     font-size: 1.5rem;
   }

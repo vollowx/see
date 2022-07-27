@@ -74,10 +74,10 @@ PopoverStyle.replaceSync(css`
     pointer-events: none;
   }
   :host(:not([fast])[animate]) [part~='popover'] {
-    transition: 120ms transform cubic-bezier(0.4, 0, 0.2, 1) 120ms, 120ms opacity cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 120ms transform cubic-bezier(0, 0, 0.2, 1) 120ms, 120ms opacity cubic-bezier(0, 0, 0.2, 1);
   }
   :host([open]) [part~='popover'] {
-    transform: scale(1);
+    transform: scaleY(1);
     opacity: 1;
     pointer-events: auto;
     transition-delay: 0ms, 0ms !important;
