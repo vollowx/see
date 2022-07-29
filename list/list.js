@@ -4,6 +4,9 @@ import ListItem from "./list-item.js";
 
 const ListStyle = new CSSStyleSheet();
 ListStyle.replaceSync(css`
+  :host() {
+    display: block;
+  }
   :host([dense]) {
     --md-list-item-height: 36px;
   }
