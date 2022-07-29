@@ -77,10 +77,15 @@ export default class ListItem extends ActionElementLabeled {
     return 'li';
   }
   get _defaultRole() {
-    return 'option';
+    // @ts-ignore
+    return this.parentNode.tagName === 'MD-MENU' ? 'menuitem' : 'option';
   }
   get _defaultTabIndex() {
     return '-1';
+  }
+  
+  get keyChar() {
+    return this.getAttribute('key-char');
   }
 
   get _styles() {

@@ -1,8 +1,7 @@
-import { html, css } from '../shared/template.js';
-import BaseElement from '../shared/base-element.js';
+import { css } from '../shared/template.js';
 import Popover from '../popover/popover.js';
-
-import MenuItem from './menu-item.js';
+import List from '../list/list.js';
+import ListItem from '../list/list-item.js';
 
 const MenuStyle = new CSSStyleSheet();
 MenuStyle.replaceSync(css`
@@ -46,15 +45,6 @@ MenuStyle.replaceSync(css`
   :host([dense]) {
     --md-list-item-height: 36px;
   }
-  [part~='list'] {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 8px 0;
-    list-style: none;
-    outline: 0;
-  }
 `);
 
 /** @type {Menu[]} */
@@ -75,43 +65,24 @@ export default class Menu extends Popover {
   }
 
   get _content() {
-    return /* html */ `
-      <ul part="list" role="menu" tabindex="-1">
-        <slot part="items"></slot>
-      </ul>
-    `;
+    return /* html */ `<md-list data-role="menu" tabindex="-1" part="list"><slot></slot></md-list>`;
   }
 
-  /** @type {HTMLDivElement} */
-  get overlayElement() {
-    return this.getEl('[part~="overlay"]');
-  }
-  /** @type {HTMLUListElement} */
+  /** @type {List} */
   get listElement() {
     return this.getEl('[part~="list"]');
   }
-  /** @type {NodeListOf<MenuItem>} */
+  /** @type {ListItem[]} */
   get itemElements() {
-    return this.querySelectorAll('md-menu-item');
-  }
-  /** @type {MenuItem} */
-  get activeItem() {
-    return this.querySelector('[focus-from]') || this.itemElements[0];
-  }
-  /** @type {MenuItem|null} */
-  get selectedItem() {
-    return this.querySelector('[selected]');
-  }
-
-  get itemKeyChars() {
-    return [...this.itemElements].map((item) => item.keyChar);
+    // @ts-ignore
+    return [...this.querySelectorAll('md-list-item')];
   }
 
   /**
    * @override
    */
   focus() {
-    (this.selectedItem || this.activeItem).focus();
+    this.listElement.focus();
   }
 
   /**
@@ -119,7 +90,7 @@ export default class Menu extends Popover {
    */
   open(assigned = false) {
     super.open();
-    assigned ? null : this.updateFocus(this.selectedItem || this.activeItem);
+    assigned ? null : this.listElement.updateFocus();
   }
   close() {
     super.close();
@@ -127,23 +98,7 @@ export default class Menu extends Popover {
       item.removeAttribute('focus-from');
     });
   }
-  /**
-   * @param {MenuItem} item
-   * @param {boolean} autoScroll
-   */
-  updateFocus(item, autoScroll = false) {
-    if (autoScroll) {
-      const { top, bottom } = item.getBoundingClientRect();
-      const { top: listTop, bottom: listBottom } = this.popoverElement.getBoundingClientRect();
-      if (top < listTop) {
-        this.popoverElement.scrollTop -= listTop - top;
-      } else if (bottom > listBottom) {
-        this.popoverElement.scrollTop += bottom - listBottom;
-      }
-    }
-    item.focus();
-    this.listElement.setAttribute('aria-activedecendant', item.innerElement.id);
-  }
+  
   /**
    * @param {KeyboardEvent} e
    */
@@ -154,18 +109,22 @@ export default class Menu extends Popover {
     switch (key) {
       case 'Enter':
       case ' ':
+        flag = true;
+        this.open(false);
+        break;
+
       case 'ArrowDown':
       case 'Down':
         flag = true;
         this.open(true);
-        this.focusFirst();
+        this.listElement.focusFirst();
         break;
 
       case 'ArrowUp':
       case 'Up':
         flag = true;
         this.open(true);
-        this.focusLast();
+        this.listElement.focusLast();
         break;
 
       default:
@@ -182,138 +141,18 @@ export default class Menu extends Popover {
    */
   handleClick(e) {
     let close = false;
-    /** @type {HTMLUListElement|MenuItem} */
+    /** @type {List|ListItem} */
     // @ts-ignore
     const target = e.target;
-    if (target.tagName === 'MD-MENU-ITEM' && !target.hasAttribute('disabled')) {
+    if (target.tagName === 'MD-LIST-ITEM' && !target.hasAttribute('disabled')) {
       close = true;
     }
-    if (target.tagName === 'UL') { // For ARIA menu closing
+    if (target.tagName === 'MD-LIST') { // For ARIA menu closing
       close = true;
     }
     if (close) {
       this.close();
     }
-  }
-  /**
-   * @param {KeyboardEvent} e
-   */
-  handleKeyDown(e) {
-    let flag = false;
-
-    if (e.ctrlKey || e.altKey || e.metaKey) {
-      return;
-    }
-
-    const { key } = e;
-
-    /**
-     * @param {string} c
-     */
-    function isCharacterCanBeIndex(c) {
-      return c.length === 1 && c.match(/\S/);
-    }
-    if (isCharacterCanBeIndex(key)) {
-      flag = true;
-      this.focusNextByChar(key);
-    }
-
-    switch (key) {
-      case 'ArrowUp':
-      case 'Up':
-        flag = true;
-        this.focusPrevious();
-        break;
-
-      case 'ArrowDown':
-      case 'Down':
-        flag = true;
-        this.focusNext();
-        break;
-
-      case 'PageUp':
-      case 'Home':
-        flag = true;
-        this.focusFirst();
-        break;
-
-      case 'PageDown':
-      case 'End':
-        flag = true;
-        this.focusLast();
-        break;
-
-      case 'Enter':
-      case ' ':
-        flag = true;
-        this.activeItem.click();
-        break;
-
-      default:
-        break;
-    }
-
-    if (flag) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    super.handleKeyDown(e);
-  }
-  /**
-   * @param {string} char
-   */
-  focusNextByChar(char) {
-    char = char.toLowerCase();
-    let start = [...this.itemElements].indexOf(this.activeItem) + 1;
-    if (start >= this.itemElements.length) {
-      start = 0;
-    }
-
-    let index = this.itemKeyChars.indexOf(char, start);
-    // Not found
-    if (index === -1) {
-      index = this.itemKeyChars.indexOf(char, 0);
-    }
-
-    // Found
-    if (index > -1) {
-      this.focusByIndex(index, true);
-    }
-  }
-  /**
-   * @param {number} index
-   * @param {boolean} autoScroll
-   */
-  focusByIndex(index, autoScroll = false) {
-    const item = this.itemElements[index];
-    if (item) {
-      this.updateFocus(item, autoScroll);
-    }
-  }
-  focusPrevious() {
-    const active = this.activeItem;
-    let i = [...this.itemElements].indexOf(active);
-    i--;
-    if (i < 0) {
-      i = this.itemElements.length - 1;
-    }
-    this.focusByIndex(i, true);
-  }
-  focusNext() {
-    const active = this.activeItem;
-    let i = [...this.itemElements].indexOf(active);
-    i++;
-    if (i >= this.itemElements.length) {
-      i = 0;
-    }
-    this.focusByIndex(i, true);
-  }
-  focusFirst() {
-    this.focusByIndex(0, true);
-  }
-  focusLast() {
-    this.focusByIndex(this.itemElements.length - 1, true);
   }
 
   initARIA() {
@@ -340,7 +179,8 @@ export default class Menu extends Popover {
     super.connectedCallback();
     this.anchorElement.addEventListener('keydown', this.handleAnchorKeyDown.bind(this));
     this.listElement.addEventListener('click', this.handleClick.bind(this));
-    this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.listElement.itemsContainer = () => { return this; }
+    this.listElement.scrollContainer = () => { return this.popoverElement }
 
     allMenus.push(this);
   }

@@ -67,21 +67,21 @@
         <div class="demo-container">
           <md-button label="Menu" data-aria-label="menu" id="menu-anchor-1"></md-button>
           <md-menu anchor-el="menu-anchor-1">
-            <md-menu-item data-aria-label="cut" leading key-char="c">
+            <md-list-item data-aria-label="cut" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
               Cut
               <span slot="trailing">⌘X</span>
-            </md-menu-item>
-            <md-menu-item data-aria-label="copy" leading key-char="c">
+            </md-list-item>
+            <md-list-item data-aria-label="copy" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:content-copy"></iconify-icon>
               Copy
               <span slot="trailing">⌘C</span>
-            </md-menu-item>
-            <md-menu-item data-aria-label="paste" leading key-char="p">
+            </md-list-item>
+            <md-list-item data-aria-label="paste" leading key-char="p">
               <iconify-icon slot="leading" icon="material-symbols:content-paste"></iconify-icon>
               Paste
               <span slot="trailing">⌘P</span>
-            </md-menu-item>
+            </md-list-item>
           </md-menu>
         </div>
 
@@ -94,21 +94,21 @@
             data-aria-label="open menu with custom anchor"
           ></md-button>
           <md-menu anchor-el="custom">
-            <md-menu-item data-aria-label="cut" leading key-char="c">
+            <md-list-item data-aria-label="cut" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:cut"></iconify-icon>
               Cut
               <span slot="trailing">⌘X</span>
-            </md-menu-item>
-            <md-menu-item data-aria-label="copy" leading key-char="c">
+            </md-list-item>
+            <md-list-item data-aria-label="copy" leading key-char="c">
               <iconify-icon slot="leading" icon="material-symbols:content-copy"></iconify-icon>
               Copy
               <span slot="trailing">⌘C</span>
-            </md-menu-item>
-            <md-menu-item data-aria-label="paste" leading key-char="p">
+            </md-list-item>
+            <md-list-item data-aria-label="paste" leading key-char="p">
               <iconify-icon slot="leading" icon="material-symbols:content-paste"></iconify-icon>
               Paste
               <span slot="trailing">⌘P</span>
-            </md-menu-item>
+            </md-list-item>
           </md-menu>
           <div class="demo-spacer"></div>
           <div class="fieldsets">
@@ -292,9 +292,9 @@
       var menuitems2 = [];
       for (let i = 0; i < aToZ.length; i++) {
         menuitems2.push(`
-          <md-menu-item data-aria-label="${aToZ[i]}" key-char="${aToZ[i]}" ${aToZ[i] === 'o' ? 'selected' : ''}>
+          <md-list-item data-aria-label="${aToZ[i]}" key-char="${aToZ[i]}" ${aToZ[i] === 'o' ? 'selected' : ''}>
             ${aToZ[i]}${aToZ[i]}${aToZ[i]}
-          </md-menu-item>
+          </md-list-item>
         `);
       }
       menu2.forEach((menu) => {
@@ -324,10 +324,10 @@
       for (let i = 0; i < countryList.length; i++) {
         const [name, icon] = countryList[i];
         menuitems3.push(
-          `<md-menu-item data-aria-label="${name}" key-char="${name.charAt(0).toLowerCase()}" leading>
+          `<md-list-item data-aria-label="${name}" key-char="${name.charAt(0).toLowerCase()}" leading>
             <iconify-icon slot="leading" icon="twemoji:${icon}"></iconify-icon>
             <span>${name}</span>
-          </md-menu-item>`
+          </md-list-item>`
         );
       }
       menu3.innerHTML = menuitems3.join('');
