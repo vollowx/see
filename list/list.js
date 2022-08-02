@@ -7,6 +7,9 @@ ListStyle.replaceSync(css`
   :host() {
     display: block;
   }
+  :host([normal]) {
+    --md-list-item-height: 48px;
+  }
   :host([dense]) {
     --md-list-item-height: 36px;
   }
@@ -214,6 +217,7 @@ export default class List extends BaseElement {
   }
 
   connectedCallback() {
+    this.itemElements[0].innerElement.tabIndex = 0;
     this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 }

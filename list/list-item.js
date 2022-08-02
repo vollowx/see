@@ -6,17 +6,19 @@ import { TypographyStylesGenerator } from '../system/typography-system.js';
 import Ripple from '../ripple/ripple.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 
+// TODO: 2-line, 3-line styles
 const ListItemStyle = new CSSStyleSheet();
 ListItemStyle.replaceSync(css`
+  :host {
+    display: block;
+  }
   [part~='button'] {
     position: relative;
     display: flex;
     align-items: center;
     height: var(--md-list-item-height, 36px);
     color: var(--md-sys-color-on-surface);
-    text-decoration: none;
     cursor: pointer;
-    user-select: none;
     outline: none;
     ${TypographyStylesGenerator('label', 'L')}
   }
@@ -68,6 +70,7 @@ ListItemStyle.replaceSync(css`
   }
 `);
 
+// TODO: inner checkbox, radio
 export default class ListItem extends ActionElementLabeled {
   static get is() {
     return 'md-list-item';
@@ -89,11 +92,22 @@ export default class ListItem extends ActionElementLabeled {
   }
 
   get _styles() {
-    return [ListItemStyle, StateLayerStyleFAE];
+    return [...super._styles, ListItemStyle, StateLayerStyleFAE];
   }
 
   get _extraContents() {
     return `<md-ripple></md-ripple>`;
+  }
+
+  /**
+  * @param {FocusEvent} _event
+  */
+  handleFocusIn(_event) {
+    super.handleFocusIn(_event);
+    this.parentNode?.querySelectorAll('md-list-item').forEach(item => {
+      item.innerElement.tabIndex = -1;
+    });
+    this.innerElement.tabIndex = 0;
   }
 }
 

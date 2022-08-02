@@ -42,6 +42,9 @@ MenuStyle.replaceSync(css`
     pointer-events: auto;
     transition-delay: 0ms, 0ms !important;
   }
+  :host([normal]) {
+    --md-list-item-height: 48px;
+  }
   :host([dense]) {
     --md-list-item-height: 36px;
   }

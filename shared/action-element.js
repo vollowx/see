@@ -21,6 +21,7 @@ BasicButtonStyle.replaceSync(css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
     position: relative;
     vertical-align: middle;
     user-select: none;
@@ -33,14 +34,14 @@ var fromKeyboard = false;
 
 window.addEventListener(
   'keydown',
-  (e) => {
+  () => {
     fromKeyboard = true;
   },
   { capture: true }
 );
 window.addEventListener(
   'mousedown',
-  (e) => {
+  () => {
     fromKeyboard = false;
   },
   { capture: true }
@@ -198,7 +199,7 @@ export default class ActionElement extends BaseElement {
   /**
    * @param {FocusEvent} _event
    */
-  handleFocusIn = (_event) => {
+  handleFocusIn(_event) {
     if (this._noFocusCtrl) return;
     const from = fromKeyboard ? 'keyboard' : null || 'mouse';
     if (!from) return;
@@ -207,13 +208,13 @@ export default class ActionElement extends BaseElement {
   /**
    * @param {FocusEvent} _event
    */
-  handleFocusOut = (_event) => {
+  handleFocusOut(_event) {
     if (this._noFocusCtrl) return;
     this.removeAttribute('focus-from');
   };
   connectedCallback() {
-    this.innerElement.addEventListener('focusin', this.handleFocusIn);
-    this.innerElement.addEventListener('focusout', this.handleFocusOut);
+    this.innerElement.addEventListener('focusin', this.handleFocusIn.bind(this));
+    this.innerElement.addEventListener('focusout', this.handleFocusOut.bind(this));
   }
   /**
    * @param {string} name

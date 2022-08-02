@@ -193,22 +193,13 @@
         <md-typography body-m tag="p">支持的按键</md-typography>
 
         <md-typography body-m tag="p">
-          <kbd>a-z / A-Z</kbd> for focusing menuitem by first char,<br />
-          <kbd>ArrowUp</kbd> for focusing previous menuitem,<br />
-          <kbd>ArrowDown</kbd> for focusing next menuitem,<br />
-          <kbd>PageUp / Home</kbd> for focusing first menuitem,<br />
-          <kbd>PageDown / End</kbd> for focusing last menuitem,<br />
-          <kbd>Enter / Whitespace (' ')</kbd> for activating menuitem,<br />
-          <kbd>Esc</kbd> for closing menu,<br />
+          <kbd>a-z / A-Z</kbd> for focusing listitem by first char,<br />
+          <kbd>ArrowUp</kbd> for focusing previous listitem,<br />
+          <kbd>ArrowDown</kbd> for focusing next listitem,<br />
+          <kbd>PageUp / Home</kbd> for focusing first listitem,<br />
+          <kbd>PageDown / End</kbd> for focusing last listitem,<br />
+          <kbd>Enter / Whitespace (' ')</kbd> for activating listitem,<br />
         </md-typography>
-
-        <md-typography body-m tag="p"
-          >The rtl/ltr order can be automatically adapted, the premise is the <code>dir</code> attribute must add to
-          <code>html</code> node</md-typography
-        >
-        <md-typography body-m tag="p"
-          >可以自动适应 rtl / ltr 顺序, 前提是 <code>rtl</code> 属性必须加在 <code>html</code> 元素上</md-typography
-        >
 
         <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
 
@@ -238,10 +229,10 @@
               <td>(id name) Controls menu's controller, must have value</td>
             </tr>
             <tr>
-              <td class="name">(normal) / dense</td>
+              <td class="name">(auto) / normal / dense</td>
               <td class="type">toggle</td>
               <td class="default-val">(normal)</td>
-              <td>Controls menu's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
+              <td>Controls menuitem's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
             </tr>
             <tr>
               <td class="name">anchor-origin</td>

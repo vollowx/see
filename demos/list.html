@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>List</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar highest-lv>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard data-aria-label="Back to index page">
+          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        </md-icon-button>
+      </a>
+
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
+        <iconify-icon></iconify-icon>
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
+        <iconify-icon></iconify-icon>
+      </md-icon-button>
+    </md-top-app-bar>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
+        <ul>
+          <li><a href="#basic-list">Basic list, 基础列表</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">List, 列表</md-typography>
+
+        <md-typography headline-m tag="h2" id="basic-list">Basic list, 基础列表</md-typography>
+
+        <div class="demo-container">
+          <md-list>
+            <md-list-item label="Item 1" data-aria-label="Item 1" key-char="i"></md-list-item>
+            <md-list-item label="Item 2" data-aria-label="Item 2" key-char="i"></md-list-item>
+            <md-list-item label="Item 3" data-aria-label="Item 3" key-char="i"></md-list-item>
+          </md-list>
+          <md-list normal>
+            <md-list-item label="Normal item 1" data-aria-label="Item 1" key-char="n"></md-list-item>
+            <md-list-item label="Normal item 2" data-aria-label="Item 2" key-char="n"></md-list-item>
+            <md-list-item label="Normal item 3" data-aria-label="Item 3" key-char="n"></md-list-item>
+          </md-list>
+          <md-list dense>
+            <md-list-item label="Dense item 1" data-aria-label="Item 1" key-char="d"></md-list-item>
+            <md-list-item label="Dense item 2" data-aria-label="Item 2" key-char="d"></md-list-item>
+            <md-list-item label="Dense item 3" data-aria-label="Item 3" key-char="d"></md-list-item>
+          </md-list>
+        </div>
+
+        <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
+
+        <md-typography body-m tag="p">Supported keys</md-typography>
+        <md-typography body-m tag="p">支持的按键</md-typography>
+
+        <md-typography body-m tag="p">
+          <kbd>a-z / A-Z</kbd> for focusing menuitem by first char,<br />
+          <kbd>ArrowUp</kbd> for focusing previous menuitem,<br />
+          <kbd>ArrowDown</kbd> for focusing next menuitem,<br />
+          <kbd>PageUp / Home</kbd> for focusing first menuitem,<br />
+          <kbd>PageDown / End</kbd> for focusing last menuitem,<br />
+          <kbd>Enter / Whitespace (' ')</kbd> for activating menuitem,<br />
+          <kbd>Esc</kbd> for closing menu,<br />
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+        <md-typography body-m tag="p">Types:</md-typography>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">(auto) / normal / dense</td>
+              <td class="type">toggle</td>
+              <td class="default-val">(normal)</td>
+              <td>Controls listitem's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
