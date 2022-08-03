@@ -217,7 +217,7 @@ export default class List extends BaseElement {
   }
 
   connectedCallback() {
-    this.itemElements[0].innerElement.tabIndex = 0;
+    this.itemElements[0] ? this.itemElements[0].innerElement.tabIndex = 0 : null;
     this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 }
