@@ -99,6 +99,7 @@ export default class Menu extends Popover {
     super.close();
     this.itemElements.forEach((item) => {
       item.removeAttribute('focus-from');
+      item.rippleElement.removeAllRipples();
     });
   }
   

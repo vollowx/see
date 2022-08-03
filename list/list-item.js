@@ -99,6 +99,11 @@ export default class ListItem extends ActionElementLabeled {
     return `<md-ripple></md-ripple>`;
   }
 
+  /** @type {Ripple} */
+  get rippleElement() {
+    return this.getEl('md-ripple');
+  }
+
   /**
   * @param {FocusEvent} _event
   */
