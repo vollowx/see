@@ -80,8 +80,8 @@ addEventListener('DOMContentLoaded', () => {
     badge.setAttribute('dir', newDir);
   });
 
-  themeTgl?.addEventListener('click', toggleTheme.bind(this));
+  themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);
 });
 
-import './prism.js';
+import './lib/prism.js';

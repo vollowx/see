@@ -98,10 +98,10 @@ export default class Ripple extends BaseElement {
         left: ${this.centered ? rect.width / 2 - this.centerRadius : x - this.radius}px;
         width: ${this.centered ? this.centerRadius * 2 : this.radius * 2}px;
         height: ${this.centered ? this.centerRadius * 2 : this.radius * 2}px;
-        transition-duration: 260ms;
+        transition-duration: 270ms;
         transform: scale3d(1.3, 1.3, 1.3);
         opacity: 0.12;`;
-    }, 20);
+    }, 10);
   }
   /**
    * @param {HTMLSpanElement} ripple
@@ -139,14 +139,14 @@ export default class Ripple extends BaseElement {
   handlePointerDown = (e) => {
     const _onUp = () => {
       this.removeAllRipples();
-      window.addEventListener('mouseup', _onUp);
-      this.parent.removeEventListener('mouseleave', _onUp, true);
-      this.parent.removeEventListener('touchend', _onUp, true);
+      window.removeEventListener('mouseup', _onUp, true);
+      window.removeEventListener('pointercancel', _onUp, true);
+      this.parent.removeEventListener('touchmove', _onUp, true);
       this.parent.removeEventListener('touchcancel', _onUp, true);
     };
-    window.addEventListener('mouseup', _onUp);
-    this.parent.addEventListener('mouseleave', _onUp, true);
-    this.parent.addEventListener('touchend', _onUp, true);
+    window.addEventListener('mouseup', _onUp, true);
+    this.parent.addEventListener('pointercancel', _onUp, true);
+    this.parent.addEventListener('touchmove', _onUp, true);
     this.parent.addEventListener('touchcancel', _onUp, true);
     this.newRipple(e);
   }

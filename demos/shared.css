@@ -23,6 +23,13 @@ body {
   color: var(--md-sys-color-on-background);
 }
 
+a {
+  color: var(--md-sys-color-primary);
+}
+a:not(:hover) {
+  text-decoration: none;
+}
+
 pre {
   overflow: auto;
 }

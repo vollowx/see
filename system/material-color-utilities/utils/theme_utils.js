@@ -129,7 +129,7 @@ function setSchemeProperties(target, scheme, suffix = '') {
     const r = parseInt(color.slice(1, 3), 16),
       g = parseInt(color.slice(3, 5), 16),
       b = parseInt(color.slice(5, 7), 16);
-    target.style.setProperty(`--md-sys-color-${token}-rgb${suffix}`, `${r}, ${g}, ${b}`);
-    target.style.setProperty(`--md-sys-color-${token}${suffix}`, `rgb(var(--md-sys-color-${token}-rgb${suffix}))`);
+    target.style.setProperty(`--md-sys-color-${token}-rgb${suffix}`, `${r},${g},${b}`);
+    target.style.setProperty(`--md-sys-color-${token}${suffix}`, color);
   }
 }
