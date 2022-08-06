@@ -6,12 +6,7 @@ export default class ActionElementLabeled extends ActionElement {
   }
 
   static get observedAttributes() {
-    return [
-      ...super.observedAttributes,
-      'label',
-      'leading',
-      'trailing',
-    ];
+    return [...super.observedAttributes, 'label', 'leading', 'trailing'];
   }
 
   get label() {
@@ -66,22 +61,8 @@ export default class ActionElementLabeled extends ActionElement {
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
 
-    if (!this._rendered) return;
-
-    switch(name) {
-      case 'label':
-        this.labelElement.innerText = this.label;
-        break;
-
-      case 'leading':
-        this.leadingIconElement.innerText = this.leadingIcon;
-        break;
-
-      case 'trailing':
-        this.trailingIconElement.innerText = this.trailingIcon;
-
-      default:
-        break;
-    }
+    if (name === 'label') this.fillNonDataAttr(name, this.labelElement);
+    if (name === 'leading') this.fillNonDataAttr(name, this.leadingIconElement, false);
+    if (name === 'trailing') this.fillNonDataAttr(name, this.trailingIconElement, false);
   }
 }

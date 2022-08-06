@@ -187,10 +187,6 @@ export default class IconButton extends ActionElement {
    * @param {string} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    if (!this._rendered) return;
-
     switch (name) {
       case 'icon':
         this.iconElement.innerHTML = newValue;

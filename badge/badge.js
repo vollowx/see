@@ -125,8 +125,6 @@ export default class Badge extends BaseElement {
    * @param {string} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
     switch (name) {
       case 'value':
         this.badgeElement.textContent = this.getOKValue();

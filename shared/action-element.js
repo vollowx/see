@@ -176,14 +176,7 @@ export default class ActionElement extends BaseElement {
     return html`
       <${this.getAttribute('tag') || this._defaultTag}
         role="${this.getAttribute('data-role') || this._defaultRole}" tabindex="${this._defaultTabIndex}"
-        part="inner button focus-controller"
-        ${this.disabled ? 'disabled' : ''}
-        aria-disabled="${this.disabled ? 'true' : 'false'}"
-        aria-label="${this.ariaLabel || ''}"
-        aria-haspopup="${this.ariaHasPopup || ''}"
-        aria-controls="${this.ariaControls || ''}"
-        aria-expanded="${this.ariaExpanded || ''}"
-        aria-selected="${this.ariaSelected || ''}">
+        part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
         ${this._extraContents}
@@ -216,82 +209,28 @@ export default class ActionElement extends BaseElement {
     this.innerElement.addEventListener('focusin', this.handleFocusIn.bind(this));
     this.innerElement.addEventListener('focusout', this.handleFocusOut.bind(this));
   }
+  get booleanAttributes() {
+    return ['disabled'];
+  }
   /**
    * @param {string} name
-   * @param {string|undefined} _oldValue
+   * @param {string|undefined} oldValue
    * @param {string|undefined} newValue
    * @returns {void}
    */
-  attributeChangedCallback(name, _oldValue, newValue) {
-    // Before render
-
-    switch (name) {
-      case 'aria-label':
-        if (!newValue) return;
-        this.ariaLabel = newValue;
-        this.removeAttribute('aria-label');
-        break;
-
-      case 'aria-haspopup':
-        if (!newValue) return;
-        this.ariaHasPopup = newValue;
-        this.removeAttribute('aria-haspopup');
-        break;
-
-      case 'aria-controls':
-        if (!newValue) return;
-        this.ariaControls = newValue;
-        this.removeAttribute('aria-controls');
-        break;
-
-      case 'aria-expanded':
-        if (!newValue) return;
-        this.ariaExpanded = newValue;
-        this.removeAttribute('aria-expanded');
-        break;
-
-      case 'aria-selected':
-        if (!newValue) return;
-        this.ariaSelected = newValue;
-        this.removeAttribute('aria-selected');
-        break;
-
-      default:
-        break;
+  attributeChangedCallback(name, oldValue, newValue) {
+    if ([
+      'aria-label', 'data-aria-label',
+      'aria-haspopup', 'data-aria-haspopup',
+      'aria-controls', 'data-aria-controls',
+      'aria-expanded', 'data-aria-expanded',
+      'aria-selected', 'data-aria-selected',
+    ].includes(name)) {
+      this.syncDataAttrByEmpty(name);
     }
-
-    if (!this._rendered) return;
-
-    // After render
-
-    switch (name) {
-      case 'disabled':
-        this.innerElement.disabled = this.disabled;
-        this.innerElement.ariaDisabled = this.disabled ? 'true' : 'false';
-        break;
-
-      case 'data-aria-label':
-        this.innerElement.ariaLabel = this.ariaLabel || '';
-        break;
-
-      case 'data-aria-haspopup':
-        this.innerElement.ariaHasPopup = this.ariaHasPopup || '';
-        break;
-
-      case 'data-aria-controls':
-        this.innerElement.setAttribute('aria-controls', this.ariaControls || '');
-        break;
-
-      case 'data-aria-expanded':
-        this.innerElement.ariaExpanded = this.ariaExpanded || '';
-        break;
-
-      case 'data-aria-selected':
-        this.innerElement.ariaSelected = this.ariaSelected || '';
-        break;
-
-      default:
-        break;
+    if (name === 'disabled') {
+      let tf = this.syncNonDataAttrByBoolean(name, this.innerElement);
+      this.innerElement.ariaDisabled = tf ? 'true' : 'false';
     }
   }
 }

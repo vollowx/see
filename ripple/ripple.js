@@ -102,7 +102,7 @@ export default class Ripple extends BaseElement {
         transform: scale3d(1.3, 1.3, 1.3);
         opacity: 0.12;`;
     }, 10);
-  }
+  };
   /**
    * @param {HTMLSpanElement} ripple
    */
@@ -111,7 +111,7 @@ export default class Ripple extends BaseElement {
     setTimeout(() => {
       ripple.remove();
     }, 280);
-  }
+  };
   /**
    * @param {HTMLElement} ripple
    */
@@ -125,14 +125,14 @@ export default class Ripple extends BaseElement {
     } else {
       ripple.addEventListener('transitionend', () => this.killRipple(ripple));
     }
-  }
+  };
   removeAllRipples = () => {
     if (!this.shadowRoot) return;
 
     /** @type {NodeListOf<HTMLSpanElement>} */
     let ripples = this.shadowRoot.querySelectorAll('.md-ripple');
     ripples.forEach((ripple) => this.removeRipple(ripple));
-  }
+  };
   /**
    * @param {MouseEvent} e
    */
@@ -141,17 +141,21 @@ export default class Ripple extends BaseElement {
       this.removeAllRipples();
       window.removeEventListener('mouseup', _onUp, true);
       window.removeEventListener('pointercancel', _onUp, true);
+      this.parent.removeEventListener('touchend', _onUp, true);
       this.parent.removeEventListener('touchmove', _onUp, true);
       this.parent.removeEventListener('touchcancel', _onUp, true);
     };
+    // For cursor
     window.addEventListener('mouseup', _onUp, true);
-    this.parent.addEventListener('pointercancel', _onUp, true);
+    window.addEventListener('pointercancel', _onUp, true);
+    // For touch
+    this.parent.addEventListener('touchend', _onUp, true);
     this.parent.addEventListener('touchmove', _onUp, true);
     this.parent.addEventListener('touchcancel', _onUp, true);
     this.newRipple(e);
-  }
+  };
   /**
-   * @param {KeyboardEvent} e 
+   * @param {KeyboardEvent} e
    */
   handleKeyDown = (e) => {
     const fakeEvent = new MouseEvent('pointerdown', {});
@@ -162,14 +166,14 @@ export default class Ripple extends BaseElement {
       const _onDown = () => {
         this.removeAllRipples();
         window.removeEventListener('pointerdown', _onDown, true);
-      }
+      };
       window.addEventListener('pointerdown', _onDown, true);
     }
     if (e.key === 'Enter') {
       this.newRipple(fakeEvent, true);
       this.removeAllRipples();
     }
-  }
+  };
   /**
    * @param {KeyboardEvent} e
    */
@@ -177,7 +181,7 @@ export default class Ripple extends BaseElement {
     if (e.key !== ' ' && e.key !== 'Enter') return;
     this.whitespacePressed = false;
     this.removeAllRipples();
-  }
+  };
 }
 
 customElements.define(Ripple.is, Ripple);
