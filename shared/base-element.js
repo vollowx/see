@@ -1,3 +1,4 @@
+import Env from './env.js';
 import { html } from './template.js';
 
 export default class BaseElement extends HTMLElement {
@@ -47,8 +48,7 @@ export default class BaseElement extends HTMLElement {
   _renderTemplate() {
     const shadowRoot = this.shadowRoot;
     if (!shadowRoot) {
-      console.error('Can not render template without shadowRoot');
-      return;
+      throw new Error('shadowRoot is null');
     }
     try {
       shadowRoot.adoptedStyleSheets = this._styles;
@@ -82,11 +82,13 @@ export default class BaseElement extends HTMLElement {
    */
   syncDataAttrByEmpty(attribute, target = this.innerElement) {
     if (!target) {
-      new Error('need target');
-      return;
+      throw new Error('need target');
     }
     if (this._doNothingTimesOnAttrCg > 0) {
       this._doNothingTimesOnAttrCg--;
+      if (Env.isDev) {
+        console.log(`${this.tagName} syncDataAttrByEmpty: ${attribute}, do nothing`);
+      }
       return;
     }
 
@@ -113,7 +115,10 @@ export default class BaseElement extends HTMLElement {
       target.setAttribute(innerAttrName, outerAttrVal);
     } else {
       // to remove
-      if (hasOuterAttr) this.removeAttribute(outerAttrName);
+      if (hasOuterAttr)  {
+        this._doNothingTimesOnAttrCg++;
+        this.removeAttribute(outerAttrName);
+      }
       if (hasInnerAttr) target.removeAttribute(innerAttrName);
     }
   }
@@ -124,8 +129,7 @@ export default class BaseElement extends HTMLElement {
    */
   syncNonDataAttrByBoolean(attribute, target = this.innerElement) {
     if (!target) {
-      new Error('need target');
-      return;
+      throw new Error('need target');
     }
     let trueFalse = this.hasAttribute(attribute);
     target.toggleAttribute(attribute, trueFalse);
@@ -138,8 +142,7 @@ export default class BaseElement extends HTMLElement {
    */
   fillNonDataAttr(attribute, target = this.innerElement, autoRemove = true) {
     if (!target) {
-      new Error('need target');
-      return;
+      throw new Error('need target');
     }
     let outerAttrName = attribute;
     let outerAttrVal = this.getAttribute(outerAttrName);
