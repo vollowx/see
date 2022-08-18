@@ -16,7 +16,7 @@ IconStyle.replaceSync(css`
     display: none;
   }
   [part~='font'] {
-    font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
+    font-family: var(--md-icon-font, 'Material Symbols Outlined');
     font-weight: normal;
     font-style: normal;
     font-size: inherit;
