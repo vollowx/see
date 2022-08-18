@@ -3,6 +3,7 @@ const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color')
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
 import * as TM from '../shared/everything.js';
+TM;
 
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
