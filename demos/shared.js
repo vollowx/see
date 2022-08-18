@@ -2,14 +2,7 @@ import { argbFromHex, themeFromSourceColor, applyTheme } from '../system/color-s
 const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color') || '#114514'));
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
-import '../badge/badge.js';
-import '../button/common-button.js';
-import '../button/fab.js';
-import '../menu/menu.js';
-import '../button/icon-button.js';
-import '../ripple/ripple.js';
-import '../top-app-bar/top-app-bar.js';
-import '../typography/typography.js';
+import * as TM from '../shared/everything.js';
 
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
@@ -20,7 +13,7 @@ for (let i = 0; i < FocusRingStyle.cssRules.length; i++) {
 }
 
 /**
- * @param {Event} e 
+ * @param {Event} e
  */
 function toggleTheme(e) {
   const themeAttr = document.documentElement.getAttribute('data-md-theme');
@@ -28,10 +21,10 @@ function toggleTheme(e) {
   localStorage.setItem('md-theme', newTheme);
   document.documentElement.setAttribute('data-md-theme', newTheme);
   // @ts-ignore
-  e.target.children[0].setAttribute('icon', newTheme === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny');
+  e.target.setAttribute('icon', newTheme === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny');
 }
 /**
- * @param {Event} e 
+ * @param {Event} e
  */
 function toggleDir(e) {
   const dir = document.documentElement.getAttribute('dir');
@@ -42,7 +35,12 @@ function toggleDir(e) {
     badge.setAttribute('dir', newDir);
   });
   // @ts-ignore
-  e.target.children[0].setAttribute('icon', localStorage.getItem('md-dir') === 'ltr' ? 'material-symbols:format-textdirection-r-to-l' : 'material-symbols:format-textdirection-l-to-r');
+  e.target.setAttribute(
+    'icon',
+    localStorage.getItem('md-dir') === 'ltr'
+      ? 'material-symbols:format-textdirection-r-to-l'
+      : 'material-symbols:format-textdirection-l-to-r'
+  );
 }
 
 const CSSBlock = document.createElement('style');
@@ -59,8 +57,16 @@ addEventListener('DOMContentLoaded', () => {
   const themeTgl = document.querySelector('#theme-tgl');
   const dirTgl = document.querySelector('#dir-tgl');
 
-  themeTgl?.children[0].setAttribute('icon', localStorage.getItem('md-theme') === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny');
-  dirTgl?.children[0].setAttribute('icon', localStorage.getItem('md-dir') === 'ltr' ? 'material-symbols:format-textdirection-r-to-l' : 'material-symbols:format-textdirection-l-to-r');
+  themeTgl?.setAttribute(
+    'icon',
+    localStorage.getItem('md-theme') === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny'
+  );
+  dirTgl?.setAttribute(
+    'icon',
+    localStorage.getItem('md-dir') === 'ltr'
+      ? 'material-symbols:format-textdirection-r-to-l'
+      : 'material-symbols:format-textdirection-l-to-r'
+  );
 
   const localDarkData = localStorage.getItem('md-theme');
   const systemDarkData = window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -163,7 +163,7 @@ pre {
   border-radius: 16px;
   outline: none;
 }
-pre:focus-visible { 
+pre:focus-visible {
   outline: 2px solid var(--md-sys-color-tertiary);
   box-shadow: 0 0 0 4px var(--md-sys-color-tertiary-container);
 }

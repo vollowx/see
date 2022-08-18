@@ -36,11 +36,9 @@ var final = [];
 //   final.push(`${before}${color}-rgb: var(${before}${color}-rgb${after[0]});`);
 // });
 
-
 // colors.forEach((color) => {
 //   final.push(`${before}${color}-rgb: var(${before}${color}-rgb${after[1]});`);
 // });
-
 
 colors.forEach((color) => {
   final.push(`${before}${color}: rgb(var(${before}${color}-rgb));`);

@@ -1,6 +1,6 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
-import ActionElementLabeled from '../shared/action-element-labeled.js';
+import Button from './shared.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
@@ -10,8 +10,6 @@ const CommonButtonStyle = new CSSStyleSheet();
 CommonButtonStyle.replaceSync(css`
   [part~='button'] {
     height: 40px;
-    cursor: pointer;
-    border: none;
     outline: none;
     transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -77,10 +75,7 @@ CommonButtonStyle.replaceSync(css`
   }
   [part~='outline'] {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     border-radius: inherit;
   }
   [part~='target'] {
@@ -91,21 +86,6 @@ CommonButtonStyle.replaceSync(css`
     height: calc(100% + 8px);
     transform: translateY(-50%);
     box-sizing: border-box;
-  }
-  [part='leading'],
-  [part='trailing'] {
-    font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 1.125rem;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
   }
   [part='leading-root'],
   [part='trailing-root'] {
@@ -127,12 +107,13 @@ CommonButtonStyle.replaceSync(css`
     padding-inline-start: 16px;
     padding-inline-end: 20px;
   }
+  md-icon,
   ::slotted(iconify-icon) {
-    font-size: 1.125rem;
+    font-size: var(--md-fab-icon-size, 1.125rem);
   }
 `);
 
-export default class CommonButton extends ActionElementLabeled {
+export default class CommonButton extends Button {
   /**
    * @override
    */
@@ -150,7 +131,7 @@ export default class CommonButton extends ActionElementLabeled {
   /**
    * @override
    */
-  get _extraContents() {
+  renderAccessibility() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }

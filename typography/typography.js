@@ -1,24 +1,54 @@
-import { html, css } from "../shared/template.js";
-import BaseElement from "../shared/base-element.js";
-import { TypographyStylesGenerator } from "../system/typography-system.js";
+import { html, css } from '../shared/template.js';
+import BaseElement from '../shared/base-element.js';
+import { TypographyStylesGenerator } from '../system/typography-system.js';
 
 const TypographyStyle = new CSSStyleSheet();
 TypographyStyle.replaceSync(css`
-  :host([display-l]) { ${TypographyStylesGenerator('display', 'L')} }
-  :host([display-m]) { ${TypographyStylesGenerator('display', 'M')} }
-  :host([display-s]) { ${TypographyStylesGenerator('display', 'S')} }
-  :host([headline-l]) { ${TypographyStylesGenerator('headline', 'L')} }
-  :host([headline-m]) { ${TypographyStylesGenerator('headline', 'M')} }
-  :host([headline-s]) { ${TypographyStylesGenerator('headline', 'S')} }
-  :host([title-l]) { ${TypographyStylesGenerator('title', 'L')} }
-  :host([title-m]) { ${TypographyStylesGenerator('title', 'M')} }
-  :host([title-s]) { ${TypographyStylesGenerator('title', 'S')} }
-  :host([label-l]) { ${TypographyStylesGenerator('label', 'L')} }
-  :host([label-m]) { ${TypographyStylesGenerator('label', 'M')} }
-  :host([label-s]) { ${TypographyStylesGenerator('label', 'S')} }
-  :host([body-l]) { ${TypographyStylesGenerator('body', 'L')} }
-  :host([body-m]) { ${TypographyStylesGenerator('body', 'M')} }
-  :host([body-s]) { ${TypographyStylesGenerator('body', 'S')} }
+  :host([display-l]) {
+    ${TypographyStylesGenerator('display', 'L')}
+  }
+  :host([display-m]) {
+    ${TypographyStylesGenerator('display', 'M')}
+  }
+  :host([display-s]) {
+    ${TypographyStylesGenerator('display', 'S')}
+  }
+  :host([headline-l]) {
+    ${TypographyStylesGenerator('headline', 'L')}
+  }
+  :host([headline-m]) {
+    ${TypographyStylesGenerator('headline', 'M')}
+  }
+  :host([headline-s]) {
+    ${TypographyStylesGenerator('headline', 'S')}
+  }
+  :host([title-l]) {
+    ${TypographyStylesGenerator('title', 'L')}
+  }
+  :host([title-m]) {
+    ${TypographyStylesGenerator('title', 'M')}
+  }
+  :host([title-s]) {
+    ${TypographyStylesGenerator('title', 'S')}
+  }
+  :host([label-l]) {
+    ${TypographyStylesGenerator('label', 'L')}
+  }
+  :host([label-m]) {
+    ${TypographyStylesGenerator('label', 'M')}
+  }
+  :host([label-s]) {
+    ${TypographyStylesGenerator('label', 'S')}
+  }
+  :host([body-l]) {
+    ${TypographyStylesGenerator('body', 'L')}
+  }
+  :host([body-m]) {
+    ${TypographyStylesGenerator('body', 'M')}
+  }
+  :host([body-s]) {
+    ${TypographyStylesGenerator('body', 'S')}
+  }
   *:not(style) {
     font: unset;
     margin: unset;

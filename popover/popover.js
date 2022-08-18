@@ -15,7 +15,12 @@ export function changeHorizontal(originalValue) {
     return originalValue;
   }
 }
-
+/**
+ * @returns {number}
+ */
+export function getScrollbarWidth() {
+  return window.innerWidth - document.documentElement.clientWidth;
+}
 /**
  * @param {{height: number}} rect
  * @param {string|number} v vertical
@@ -267,8 +272,8 @@ export default class Popover extends BaseElement {
     this.setAttribute('open', '');
     this.setAttribute('animate', '');
     this.focus();
+    document.documentElement.style.setProperty('--md-global-padding-right', `${getScrollbarWidth()}px`);
     document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.setProperty('--md-global-padding-right', '15px');
   }
   close() {
     this.anchorElement?.setAttribute('aria-expanded', 'false');

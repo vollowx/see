@@ -4,6 +4,7 @@ import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
+import Icon from '../icon/icon.js';
 
 const IconButtonStyle = new CSSStyleSheet();
 IconButtonStyle.replaceSync(css`
@@ -12,12 +13,7 @@ IconButtonStyle.replaceSync(css`
     height: 40px;
     font-size: 1.5rem;
     border-radius: 50%;
-    cursor: pointer;
-    border: none;
     outline: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
 
     background-color: var(--md-filled-button-background-color, var(--md-sys-color-primary));
     color: var(--md-filled-button-color, var(--md-sys-color-on-primary));
@@ -92,20 +88,7 @@ IconButtonStyle.replaceSync(css`
   [part='icon-root'] {
     display: inline-flex;
   }
-  [part='icon'] {
-    font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 1.125rem;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
-  }
+  md-icon,
   ::slotted(iconify-icon) {
     font-size: 1.5rem;
   }
@@ -145,7 +128,7 @@ export default class IconButton extends ActionElement {
     this.toggleAttribute('selected', value);
   }
 
-  /** @type {HTMLSpanElement} */
+  /** @type {Icon} */
   get iconElement() {
     return this.getEl('[part~="icon"]');
   }
@@ -154,14 +137,14 @@ export default class IconButton extends ActionElement {
     return [...super._styles, IconButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
-  get _extraContents() {
+  renderAccessibility() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 
-  get _mainContents() {
+  _renderContents() {
     return /* html */ `
       <span part="icon-root">
-        <span part="icon">${this.icon}</span>
+        <md-icon part="icon"></md-icon>
         <slot></slot>
       </span>
     `;
@@ -189,7 +172,7 @@ export default class IconButton extends ActionElement {
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'icon':
-        this.iconElement.innerHTML = newValue;
+        this.syncNonDataAttrByEmpty(name, this.iconElement);
         break;
 
       case 'toggle':

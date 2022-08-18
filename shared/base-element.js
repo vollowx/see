@@ -21,7 +21,7 @@ export default class BaseElement extends HTMLElement {
   }
   /** @type {HTMLElement|null} */
   get innerElement() {
-    return this.getEl('[part="inner"]');
+    return this.getEl('[part~="inner"]');
   }
 
   /**
@@ -35,12 +35,13 @@ export default class BaseElement extends HTMLElement {
   _attachShadow() {
     this.attachShadow({ mode: 'open', delegatesFocus: this._delegatesFocus });
   }
-  get _extraContents() {
+  renderAccessibility() {
     return ``;
   }
-  get _mainContents() {
+  _renderContents() {
     return `<slot></slot>`;
   }
+  /** @type {DocumentFragment|string} */
   get _template() {
     return html``;
   }
@@ -50,12 +51,17 @@ export default class BaseElement extends HTMLElement {
     if (!shadowRoot) {
       throw new Error('shadowRoot is null');
     }
-    try {
-      shadowRoot.adoptedStyleSheets = this._styles;
-      shadowRoot.appendChild(this._template.cloneNode(true));
-    } catch (error) {
-      console.error(error);
-      return;
+    shadowRoot.innerHTML = '';
+    if (typeof this._template === 'string') {
+      shadowRoot.innerHTML = this._template;
+    } else {
+      try {
+        shadowRoot.adoptedStyleSheets = this._styles;
+        shadowRoot.appendChild(this._template.cloneNode(true));
+      } catch (error) {
+        console.error(error);
+        return;
+      }
     }
     this._rendered = true;
   }
@@ -115,11 +121,46 @@ export default class BaseElement extends HTMLElement {
       target.setAttribute(innerAttrName, outerAttrVal);
     } else {
       // to remove
-      if (hasOuterAttr)  {
+      if (hasOuterAttr) {
         this._doNothingTimesOnAttrCg++;
         this.removeAttribute(outerAttrName);
       }
       if (hasInnerAttr) target.removeAttribute(innerAttrName);
+    }
+  }
+  /**
+   * @param {string} attribute
+   * @param {HTMLElement|null} target
+   * @param {string} inner
+   */
+  syncNonDataAttrByEmpty(attribute, target = this.innerElement, inner = attribute) {
+    if (!target) {
+      throw new Error('need target');
+    }
+    if (this._doNothingTimesOnAttrCg > 0) {
+      this._doNothingTimesOnAttrCg--;
+      if (Env.isDev) {
+        console.log(`${this.tagName} syncDataAttrByEmpty: ${attribute}, do nothing`);
+      }
+      return;
+    }
+    if (attribute.includes('data-')) {
+      throw new Error('non-data attribute should not include data-');
+    }
+
+    let hasOuterAttr = this.hasAttribute(attribute);
+    let hasInnerAttr = target.hasAttribute(inner);
+    let outerAttrVal = this.getAttribute(attribute);
+    // to sync
+    if (outerAttrVal) {
+      target.setAttribute(inner, outerAttrVal);
+    } else {
+      // to remove
+      if (hasOuterAttr) {
+        this._doNothingTimesOnAttrCg++;
+        this.removeAttribute(attribute);
+      }
+      if (hasInnerAttr) target.removeAttribute(inner);
     }
   }
   /**

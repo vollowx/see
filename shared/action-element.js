@@ -7,7 +7,6 @@ BasicButtonStyle.replaceSync(css`
     flex-shrink: 0;
     display: inline-flex;
     outline: none;
-    appearance: none;
   }
   :host([hidden]) {
     display: none;
@@ -15,14 +14,24 @@ BasicButtonStyle.replaceSync(css`
   }
   :host([disabled]) {
     pointer-events: none;
+    cursor: default;
   }
   [part~='button'] {
     -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    color: inherit;
     text-decoration: none;
-    position: relative;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
     vertical-align: middle;
     user-select: none;
     box-sizing: border-box;
@@ -164,13 +173,22 @@ export default class ActionElement extends BaseElement {
   }
   get _defaultTabIndex() {
     return '0';
-  };
+  }
 
-  get _extraContents() {
+  /**
+   * Extra contents for accessibility
+   */
+  renderAccessibility() {
     return ``;
   }
-  get _mainContents() {
+  /**
+   * Extra contents
+   */
+  _renderContents() {
     return `<slot></slot>`;
+  }
+  _renderAppends() {
+    return ``;
   }
   get _template() {
     return html`
@@ -179,10 +197,11 @@ export default class ActionElement extends BaseElement {
         part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
-        ${this._extraContents}
+        ${this.renderAccessibility()}
         <span part="target"></span>
-        ${this._mainContents}
+        ${this._renderContents()}
       </${this.getAttribute('tag') || this._defaultTag}>
+      ${this._renderAppends()}
     `;
   }
   /** @type {boolean} */
@@ -197,14 +216,14 @@ export default class ActionElement extends BaseElement {
     const from = fromKeyboard ? 'keyboard' : null || 'mouse';
     if (!from) return;
     this.setAttribute('focus-from', from);
-  };
+  }
   /**
    * @param {FocusEvent} _event
    */
   handleFocusOut(_event) {
     if (this._noFocusCtrl) return;
     this.removeAttribute('focus-from');
-  };
+  }
   connectedCallback() {
     this.innerElement.addEventListener('focusin', this.handleFocusIn.bind(this));
     this.innerElement.addEventListener('focusout', this.handleFocusOut.bind(this));
@@ -219,13 +238,20 @@ export default class ActionElement extends BaseElement {
    * @returns {void}
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    if ([
-      'aria-label', 'data-aria-label',
-      'aria-haspopup', 'data-aria-haspopup',
-      'aria-controls', 'data-aria-controls',
-      'aria-expanded', 'data-aria-expanded',
-      'aria-selected', 'data-aria-selected',
-    ].includes(name)) {
+    if (
+      [
+        'aria-label',
+        'data-aria-label',
+        'aria-haspopup',
+        'data-aria-haspopup',
+        'aria-controls',
+        'data-aria-controls',
+        'aria-expanded',
+        'data-aria-expanded',
+        'aria-selected',
+        'data-aria-selected',
+      ].includes(name)
+    ) {
       this.syncDataAttrByEmpty(name);
     }
     if (name === 'disabled') {

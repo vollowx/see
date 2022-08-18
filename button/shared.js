@@ -1,10 +1,7 @@
-import ActionElement from './action-element.js';
+import ActionElement from '../shared/action-element.js';
+import Icon from '../icon/icon.js';
 
-export default class ActionElementLabeled extends ActionElement {
-  static get is() {
-    return 'ns-action-labeled';
-  }
-
+export default class Button extends ActionElement {
   static get observedAttributes() {
     return [...super.observedAttributes, 'label', 'leading', 'trailing'];
   }
@@ -32,28 +29,33 @@ export default class ActionElementLabeled extends ActionElement {
   get labelElement() {
     return this.getEl('[part~="label"]');
   }
-  /** @type {HTMLSpanElement} */
+  /** @type {Icon} */
   get leadingIconElement() {
     return this.getEl('[part~="leading"]');
   }
-  /** @type {HTMLSpanElement} */
+  /** @type {Icon} */
   get trailingIconElement() {
     return this.getEl('[part~="trailing"]');
   }
 
-  get _mainContents() {
+  /**
+   * Extra contents in `label-root`
+   */
+  _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        <span part="leading">${this.leadingIcon}</span>
-        <slot name="leading"></slot>
+        <slot name="leading">
+          <md-icon part="leading"></md-icon>
+        </slot>
       </span>
       <span part="label-root">
-        <span part="label">${this.label}</span>
+        <span part="label"></span>
         <slot></slot>
       </span>
       <span part="trailing-root">
-        <span part="trailing">${this.trailingIcon}</span>
-        <slot name="trailing"></slot>
+        <slot name="trailing">
+          <md-icon part="trailing"></md-icon>
+        </slot>
       </span>
     `;
   }
@@ -62,7 +64,7 @@ export default class ActionElementLabeled extends ActionElement {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'label') this.fillNonDataAttr(name, this.labelElement);
-    if (name === 'leading') this.fillNonDataAttr(name, this.leadingIconElement, false);
-    if (name === 'trailing') this.fillNonDataAttr(name, this.trailingIconElement, false);
+    if (name === 'leading') this.syncNonDataAttrByEmpty(name, this.leadingIconElement, 'icon');
+    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingIconElement, 'icon');
   }
 }

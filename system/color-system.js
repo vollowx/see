@@ -1,7 +1,7 @@
 export * from './material-color-utilities/index.js';
 
 /**
- * @param {string} _color 
+ * @param {string} _color
  */
 export function setCrTitleBarColor(_color) {
   let crTitleBarColor = document.querySelector('meta[name="theme-color"]');
@@ -19,7 +19,7 @@ export function setCrTitleBarColor(_color) {
  * @param {HTMLElement} el
  */
 export function listenThemeChange(el) {
-  let options = { 'attributes': true, };
+  let options = { attributes: true };
   /** @type {MutationCallback} */
   let callback = (records) => {
     for (let i = 0; i < records.length; i++) {
@@ -27,7 +27,7 @@ export function listenThemeChange(el) {
         setCrTitleBarColor(el.style.getPropertyValue('--md-sys-color-background-' + el.getAttribute('data-md-theme')));
       }
     }
-  }
+  };
   const mutationObserver = new MutationObserver(callback);
   mutationObserver.observe(el, options);
   return mutationObserver;

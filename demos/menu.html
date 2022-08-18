@@ -28,17 +28,14 @@
   </head>
   <body>
     <md-top-app-bar highest-lv>
-      <a slot="navBtn" href="./" taanchorex="-1" class="outer-link">
-        <md-icon-button standard data-aria-label="Back to index page">
-          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
       </a>
 
       <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
       <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
     </md-top-app-bar>
 
@@ -232,7 +229,10 @@
               <td class="name">(auto) / normal / dense</td>
               <td class="type">toggle</td>
               <td class="default-val">(normal)</td>
-              <td>Controls menuitem's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
+              <td>
+                Controls menuitem's size. As usual, height = 48px on touch device, height = 36px on others, this
+                attribute override it
+              </td>
             </tr>
             <tr>
               <td class="name">anchor-origin</td>
@@ -261,16 +261,28 @@
         const name = e.target.name;
         switch (name) {
           case 'ao-v':
-            customMenu.anchorOrigin = { v: e.target.value, h: customMenu.anchorOrigin.h };
+            customMenu.anchorOrigin = {
+              v: e.target.value,
+              h: customMenu.anchorOrigin.h,
+            };
             break;
           case 'ao-h':
-            customMenu.anchorOrigin = { v: customMenu.anchorOrigin.v, h: e.target.value };
+            customMenu.anchorOrigin = {
+              v: customMenu.anchorOrigin.v,
+              h: e.target.value,
+            };
             break;
           case 'to-v':
-            customMenu.transformOrigin = { v: e.target.value, h: customMenu.transformOrigin.h };
+            customMenu.transformOrigin = {
+              v: e.target.value,
+              h: customMenu.transformOrigin.h,
+            };
             break;
           case 'to-h':
-            customMenu.transformOrigin = { v: customMenu.transformOrigin.v, h: e.target.value };
+            customMenu.transformOrigin = {
+              v: customMenu.transformOrigin.v,
+              h: e.target.value,
+            };
             break;
           default:
             break;

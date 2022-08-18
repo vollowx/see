@@ -29,16 +29,13 @@
   <body>
     <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
-        <md-icon-button standard data-aria-label="Back to index page">
-          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
       </a>
 
       <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
       <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
     </md-top-app-bar>
 
@@ -46,8 +43,12 @@
       <nav class="table-of-ctt" aria-label="Contents">
         <p>Contents</p>
         <ul>
-          <li><a href="#basic-icon-button">Basic icon button, 基础图标按钮</a></li>
-          <li><a href="#custom-inner-element">Custom inner element, 自定义内部元素</a></li>
+          <li>
+            <a href="#basic-icon-button">Basic icon button, 基础图标按钮</a>
+          </li>
+          <li>
+            <a href="#custom-inner-element">Custom inner element, 自定义内部元素</a>
+          </li>
           <li><a href="#link">Link, 链接</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
@@ -124,11 +125,14 @@
           </md-icon-button>
         </div>
 
-        <md-typography headline-m tag="h2" id="custom-inner-element">Custom inner element, 自定义内部元素</md-typography>
+        <md-typography headline-m tag="h2" id="custom-inner-element"
+          >Custom inner element, 自定义内部元素</md-typography
+        >
 
         <md-typography body-m tag="p">
-          Sometimes, maybe you want to use icon button component with a <code>&lt;input&gt;</code>, but then you will find that
-          this is not feasible. So we provide function to custom inner element. See the following example(s).
+          Sometimes, maybe you want to use icon button component with a
+          <code>&lt;input&gt;</code>, but then you will find that this is not feasible. So we provide function to custom
+          inner element. See the following example(s).
         </md-typography>
         <md-typography body-m tag="p">
           有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 icon button 组件的样式一同使用, 但你将会发现这不可行.
@@ -146,8 +150,12 @@
 
         <md-typography headline-m tag="h2" id="link">Link, 链接</md-typography>
 
-        <md-typography body-m tag="p"><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></md-typography>
-        <md-typography body-m tag="p"><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></md-typography>
+        <md-typography body-m tag="p"
+          ><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+        >
+        <md-typography body-m tag="p"
+          ><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+        >
 
         <div class="demo-container" dir="ltr">
           <a href="https://github.com/huge-pancake/tiny-material" target="_blank" tabindex="-1" class="outer-link">
@@ -159,9 +167,15 @@
 
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
-        <md-typography body-m tag="p">Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography>
-        <md-typography body-m tag="p">使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography>
-        <md-typography body-m tag="p">Support all the other ARIA attributes for icon button, see details at the following table.</md-typography>
+        <md-typography body-m tag="p"
+          >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+        >
+        <md-typography body-m tag="p"
+          >Support all the other ARIA attributes for icon button, see details at the following table.</md-typography
+        >
         <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
 
         <div class="demo-container" dir="ltr">
@@ -201,7 +215,10 @@
               <td class="name">disabled</td>
               <td class="type">toggle</td>
               <td class="default-val">false</td>
-              <td>If true, icon button will be disabled. Controls <code>disabled</code>, <code>aria-disabled</code></td>
+              <td>
+                If true, icon button will be disabled. Controls
+                <code>disabled</code>, <code>aria-disabled</code>
+              </td>
             </tr>
             <tr>
               <td class="name">data-role</td>

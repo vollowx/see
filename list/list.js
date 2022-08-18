@@ -1,6 +1,6 @@
-import { html, css } from "../shared/template.js";
-import BaseElement from "../shared/base-element.js";
-import ListItem from "./list-item.js";
+import { html, css } from '../shared/template.js';
+import BaseElement from '../shared/base-element.js';
+import ListItem from './list-item.js';
 
 const ListStyle = new CSSStyleSheet();
 ListStyle.replaceSync(css`
@@ -26,12 +26,11 @@ ListStyle.replaceSync(css`
 
 export default class List extends BaseElement {
   static get is() {
-    return "md-list";
+    return 'md-list';
   }
 
   static get observedAttributes() {
-    return [
-    ]
+    return [];
   }
 
   get _styles() {
@@ -49,7 +48,7 @@ export default class List extends BaseElement {
   /** @returns {HTMLElement|null} */
   itemsContainer() {
     return null;
-  };
+  }
   /** @returns {HTMLElement|null} */
   scrollContainer() {
     return null;
@@ -83,7 +82,7 @@ export default class List extends BaseElement {
    * @param {ListItem} item
    * @param {boolean} autoScroll
    */
-  updateFocus(item = (this.selectedItem || this.activeItem), autoScroll = false) {
+  updateFocus(item = this.selectedItem || this.activeItem, autoScroll = false) {
     const scrollContainer = this.scrollContainer();
     if (autoScroll && scrollContainer) {
       const { top, bottom } = item.getBoundingClientRect();
@@ -217,10 +216,9 @@ export default class List extends BaseElement {
   }
 
   connectedCallback() {
-    this.itemElements[0] ? this.itemElements[0].innerElement.tabIndex = 0 : null;
+    this.itemElements[0] ? (this.itemElements[0].innerElement.tabIndex = 0) : null;
     this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 }
 
 customElements.define(List.is, List);
-

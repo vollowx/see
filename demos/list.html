@@ -29,16 +29,13 @@
   <body>
     <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
-        <md-icon-button standard data-aria-label="Back to index page">
-          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
       </a>
 
       <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
       <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
     </md-top-app-bar>
 
@@ -59,19 +56,42 @@
 
         <div class="demo-container">
           <md-list>
-            <md-list-item label="Item 1" data-aria-label="Item 1" key-char="i"></md-list-item>
-            <md-list-item label="Item 2" data-aria-label="Item 2" key-char="i"></md-list-item>
-            <md-list-item label="Item 3" data-aria-label="Item 3" key-char="i"></md-list-item>
+            <md-list-item key-char="i">Item 1</md-list-item>
+            <md-list-item key-char="i">Item 2</md-list-item>
+            <md-list-item key-char="i">Item 3</md-list-item>
           </md-list>
           <md-list normal>
-            <md-list-item label="Normal item 1" data-aria-label="Item 1" key-char="n"></md-list-item>
-            <md-list-item label="Normal item 2" data-aria-label="Item 2" key-char="n"></md-list-item>
-            <md-list-item label="Normal item 3" data-aria-label="Item 3" key-char="n"></md-list-item>
+            <md-list-item key-char="n">Normal Item 1</md-list-item>
+            <md-list-item key-char="n">Normal Item 2</md-list-item>
+            <md-list-item key-char="n">Normal Item 3</md-list-item>
           </md-list>
           <md-list dense>
-            <md-list-item label="Dense item 1" data-aria-label="Item 1" key-char="d"></md-list-item>
-            <md-list-item label="Dense item 2" data-aria-label="Item 2" key-char="d"></md-list-item>
-            <md-list-item label="Dense item 3" data-aria-label="Item 3" key-char="d"></md-list-item>
+            <md-list-item key-char="d">Dense Item 1</md-list-item>
+            <md-list-item key-char="d">Dense Item 2</md-list-item>
+            <md-list-item key-char="d">Dense Item 3</md-list-item>
+          </md-list>
+
+          <span aria-hidden="true" class="demo-spacer"></span>
+
+          <md-list style="max-width: 400px">
+            <md-list-item key-char="d" leading sec-action>
+              <md-icon slot="leading" icon="material-symbols:desktop-mac"></md-icon>
+              <span>Desktop</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+              <md-icon-button slot="secAction" icon="material-symbols:arrow-right" standard></md-icon-button>
+            </md-list-item>
+            <md-list-item key-char="p" leading sec-action>
+              <md-icon slot="leading" icon="material-symbols:image"></md-icon>
+              <span>Picture</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+              <md-icon-button slot="secAction" icon="material-symbols:arrow-right" standard></md-icon-button>
+            </md-list-item>
+            <md-list-item key-char="v" leading sec-action>
+              <md-icon slot="leading" icon="material-symbols:video-camera-back"></md-icon>
+              <span>Video</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+              <md-icon-button slot="secAction" icon="material-symbols:arrow-right" standard></md-icon-button>
+            </md-list-item>
           </md-list>
         </div>
 
@@ -115,7 +135,10 @@
               <td class="name">(auto) / normal / dense</td>
               <td class="type">toggle</td>
               <td class="default-val">(normal)</td>
-              <td>Controls listitem's size. As usual, height = 48px on touch device, height = 36px on others, this attribute override it</td>
+              <td>
+                Controls listitem's size. As usual, height = 48px on touch device, height = 36px on others, this
+                attribute override it
+              </td>
             </tr>
           </tbody>
         </table>

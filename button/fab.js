@@ -1,6 +1,6 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
-import ActionElementLabeled from '../shared/action-element-labeled.js';
+import Button from './shared.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
@@ -11,8 +11,6 @@ FABStyle.replaceSync(css`
   [part~='button'] {
     min-width: 56px;
     height: 56px;
-    cursor: pointer;
-    border: none;
     outline: none;
     transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -97,23 +95,24 @@ FABStyle.replaceSync(css`
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
-  [part="label-root"],
+  [part='label-root'],
   [part='leading-root'],
   [part='trailing-root'] {
     display: inline-flex;
   }
-  :host([leading]) [part~="leading-root"] {
+  :host([leading]) [part~='leading-root'] {
     margin-inline-end: 8px;
   }
-  :host([trailing]) [part~="trailing-root"] {
+  :host([trailing]) [part~='trailing-root'] {
     margin-inline-start: 8px;
   }
+  md-icon,
   ::slotted(iconify-icon) {
     font-size: var(--md-fab-icon-size, 1.5rem);
   }
 `);
 
-export default class FAB extends ActionElementLabeled {
+export default class FAB extends Button {
   /**
    * @override
    */
@@ -125,19 +124,14 @@ export default class FAB extends ActionElementLabeled {
    * @override
    */
   get _styles() {
-    return [
-      ...super._styles,
-      FABStyle,
-      StateLayerStyleFAE,
-      FocusRingStyleFAE
-    ];
+    return [...super._styles, FABStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
   /**
    * @override
    */
-  get _extraContents() {
-    return /* html */`<md-ripple></md-ripple>`;
+  renderAccessibility() {
+    return /* html */ `<md-ripple></md-ripple>`;
   }
 }
 

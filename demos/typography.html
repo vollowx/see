@@ -29,16 +29,13 @@
   <body>
     <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
-        <md-icon-button standard data-aria-label="Back to index page">
-          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
       </a>
 
       <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
       <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
     </md-top-app-bar>
 
@@ -57,7 +54,7 @@
 
         <md-typography headline-m tag="h2" id="diff-styles">Different styles, 不同样式</md-typography>
 
-        <div class="demo-container" style="flex-direction: column; align-items: unset;">
+        <div class="demo-container" style="flex-direction: column; align-items: unset">
           <md-typography display-l>Display large</md-typography>
           <md-typography display-m>Display medium</md-typography>
           <md-typography display-s>Display small</md-typography>
@@ -77,10 +74,18 @@
 
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
-        <md-typography body-m tag="p">If you do not set <code>tag</code> attribute to custom inner element, when somebody asks accessibility utilities, "Hey bro, what's that texts?", then accessibility utilities will answer, "Oh, that is just a <code>StaticText</code>". But in fact, it is a <code>heading</code> (<code>h1</code>)</md-typography>
-        <md-typography body-m tag="p">如果你不用 <code>tag</code> 属性来自定义内部元素, 当有人问无障碍工具时: "嘿! 那段文字是什么?", 无障碍工具会这样回答: "噢! 那只是一段 <code>StaticText</code> (静态文字) 罢了". 但事实上, 那是一段 <code>heading</code> (标题, h1)</md-typography>
+        <md-typography body-m tag="p"
+          >If you do not set <code>tag</code> attribute to custom inner element, when somebody asks accessibility
+          utilities, "Hey bro, what's that texts?", then accessibility utilities will answer, "Oh, that is just a
+          <code>StaticText</code>". But in fact, it is a <code>heading</code> (<code>h1</code>)</md-typography
+        >
+        <md-typography body-m tag="p"
+          >如果你不用 <code>tag</code> 属性来自定义内部元素, 当有人问无障碍工具时: "嘿! 那段文字是什么?",
+          无障碍工具会这样回答: "噢! 那只是一段 <code>StaticText</code> (静态文字) 罢了". 但事实上, 那是一段
+          <code>heading</code> (标题, h1)</md-typography
+        >
 
-        <div class="demo-container" style="flex-direction: column; align-items: unset;">
+        <div class="demo-container" style="flex-direction: column; align-items: unset">
           <md-typography headline-m>No accessibility utilities will think this is <code>heading</code></md-typography>
           <md-typography headline-m tag="h2">These texts will be <code>heading</code></md-typography>
           <md-typography body-m tag="p">These texts will be <code>paragraph</code></md-typography>
@@ -108,7 +113,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="name">display-l / display-m / display-s / headline-l / headline-m / headline-s / title-l / title-m / title-s / label-l / label-m / label-s / body-l / body-m / body-s</td>
+              <td class="name">
+                display-l / display-m / display-s / headline-l / headline-m / headline-s / title-l / title-m / title-s /
+                label-l / label-m / label-s / body-l / body-m / body-s
+              </td>
               <td class="type">single choice</td>
               <td class="default-val">(nothing)</td>
               <td>Controls typography's style</td>

@@ -29,16 +29,13 @@
   <body>
     <md-top-app-bar highest-lv>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
-        <md-icon-button standard data-aria-label="Back to index page">
-          <iconify-icon icon="material-symbols:arrow-back"></iconify-icon>
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
       </a>
 
       <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
       <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
-        <iconify-icon></iconify-icon>
       </md-icon-button>
     </md-top-app-bar>
 
@@ -47,7 +44,9 @@
         <p>Contents</p>
         <ul>
           <li><a href="#final-color-map">Final color map, 最终的颜色表</a></li>
-          <li><a href="#color-choosing">Custom color of this docs, 自定义该文档的颜色</a></li>
+          <li>
+            <a href="#color-choosing">Custom color of this docs, 自定义该文档的颜色</a>
+          </li>
         </ul>
       </nav>
 
@@ -268,7 +267,10 @@
       colorSchemeCtrl.addEventListener('input', () => {
         let value = colorSchemeCtrl.value;
         let theme = themeFromSourceColor(argbFromHex(value));
-        applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
+        applyTheme(theme, {
+          target: document.documentElement,
+          brightnessSuffix: true,
+        });
         localStorage.setItem('key-color', value);
       });
     </script>

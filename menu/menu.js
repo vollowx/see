@@ -102,7 +102,7 @@ export default class Menu extends Popover {
       item.rippleElement.removeAllRipples();
     });
   }
-  
+
   /**
    * @param {KeyboardEvent} e
    */
@@ -151,7 +151,8 @@ export default class Menu extends Popover {
     if (target.tagName === 'MD-LIST-ITEM' && !target.hasAttribute('disabled')) {
       close = true;
     }
-    if (target.tagName === 'MD-LIST') { // For ARIA menu closing
+    if (target.tagName === 'MD-LIST') {
+      // For ARIA menu closing
       close = true;
     }
     if (close) {
@@ -183,8 +184,12 @@ export default class Menu extends Popover {
     super.connectedCallback();
     this.anchorElement.addEventListener('keydown', this.handleAnchorKeyDown.bind(this));
     this.listElement.addEventListener('click', this.handleClick.bind(this));
-    this.listElement.itemsContainer = () => { return this; }
-    this.listElement.scrollContainer = () => { return this.popoverElement }
+    this.listElement.itemsContainer = () => {
+      return this;
+    };
+    this.listElement.scrollContainer = () => {
+      return this.popoverElement;
+    };
 
     allMenus.push(this);
   }
