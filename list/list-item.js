@@ -67,12 +67,12 @@ ListItemStyle.replaceSync(css`
   }
   [part~='secondary-action'] {
     position: absolute;
-    right: 16px;
     top: 50%;
+    margin-inline-start: calc(100% - 40px - 16px);
     transform: translateY(-50%);
   }
   :host([sec-action]) [part~='button'] {
-    padding-right: 48px;
+    padding-inline-end: 48px;
   }
 `);
 
@@ -104,14 +104,16 @@ export default class ListItem extends ActionElement {
     return [...super._styles, ListItemStyle, StateLayerStyleFAE];
   }
 
-  _unUseableLeading = false;
+  _renderLeading() {
+    return ``;
+  }
   renderAccessibility() {
     return `<md-ripple></md-ripple>`;
   }
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        ${this._unUseableLeading ? '' : /* html */ `<slot name="leading"></slot>`}
+        ${this._renderLeading() ? this._renderLeading() : /* html */ `<slot name="leading"></slot>`}
       </span>
       <span part="label-root">
         <slot></slot>

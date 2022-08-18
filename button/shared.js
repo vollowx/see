@@ -64,7 +64,7 @@ export default class Button extends ActionElement {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'label') this.fillNonDataAttr(name, this.labelElement);
-    if (name === 'leading') this.syncNonDataAttrByEmpty(name, this.leadingIconElement, 'icon');
-    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingIconElement, 'icon');
+    if (name === 'leading') this.syncNonDataAttrByEmpty(name, this.leadingIconElement, false, 'icon');
+    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingIconElement, false, 'icon');
   }
 }

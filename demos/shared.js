@@ -2,7 +2,7 @@ import { argbFromHex, themeFromSourceColor, applyTheme } from '../system/color-s
 const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color') || '#114514'));
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
-import * as TM from '../shared/everything.js';
+import * as TM from '../index.js';
 TM;
 
 import { TypographyStylesGenerator } from '../system/typography-system.js';

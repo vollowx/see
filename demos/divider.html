@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Divider</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <!-- We recommended to use iconify to reduce network usage -->
+    <!-- See https://icon-sets.iconify.design/material-symbols/ -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <!-- But for icon demo, we still import web font... -->
+    <!-- See https://fonts.google.com/icons?icon.set=Material+Symbols -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar highest-lv>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
+        </md-icon-button>
+      </a>
+
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
+      </md-icon-button>
+    </md-top-app-bar>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
+        <ul>
+          <li><a href="#basic-divider">Basic divider</a></li>
+          <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">Divider, 分割符</md-typography>
+
+        <md-typography headline-m tag="h2" id="basic-divider">Basic divider, 基础分隔符</md-typography>
+
+        <div class="demo-container">
+          <md-list style="max-width: 400px">
+            <md-list-item key-char="d" leading>
+              <md-icon slot="leading" icon="material-symbols:desktop-mac"></md-icon>
+              <span>Full</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item key-char="v">
+              <span>Inset</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+            </md-list-item>
+            <md-divider inset></md-divider>
+            <md-list-item key-char="p" leading>
+              <md-icon slot="leading" icon="material-symbols:image"></md-icon>
+              <span>Inset for Icon</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+            </md-list-item>
+            <md-divider inset="icon"></md-divider>
+            <md-list-item key-char="v" leading>
+              <md-icon slot="leading" icon="material-symbols:video-camera-back"></md-icon>
+              <span>Inset for Avatar and Subtitle</span>
+              <p secondary>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nullam placerat pretium ante.</p>
+            </md-list-item>
+            <md-divider inset="avatar"></md-divider>
+            <md-list-item key-char="v" leading>
+              <div slot="leading" style="width: 40px; height: 40px; background-color: var(--md-sys-color-tertiary); border-radius: 9999px;"></div>
+              <span>About Avatar</span>
+              <p secondary>Avatar component are not planned yet :(. Lorem ipsum dolor sit amet.</p>
+            </md-list-item>
+          </md-list>
+        </div>
+
+        <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
+
+        <md-typography body-m tag="p">Can not be focused.</md-typography>
+        <md-typography body-m tag="p"><code>li</code> in List and <code>hr</code> by default.</md-typography>
+
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+        <md-typography body-m tag="p">Types:</md-typography>
+        <ul>
+          <li>single choice means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+          <li>multi values means write one or more values</li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">inset</td>
+              <td class="type">multi choice</td>
+              <td class="default-val">(none)</td>
+              <td>Controls divider's margin, with values can be selected: <code>(empty) end icon avatar subtitle</code></td>
+            </tr>
+            <tr>
+              <td class="name">vert-margin</td>
+              <td class="type">boolean</td>
+              <td class="default-val">false</td>
+              <td>Controls divider's vertical margin</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

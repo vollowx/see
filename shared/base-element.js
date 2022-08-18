@@ -131,9 +131,10 @@ export default class BaseElement extends HTMLElement {
   /**
    * @param {string} attribute
    * @param {HTMLElement|null} target
+   * @param {boolean|null} autoRemove
    * @param {string} inner
    */
-  syncNonDataAttrByEmpty(attribute, target = this.innerElement, inner = attribute) {
+  syncNonDataAttrByEmpty(attribute, target = this.innerElement, autoRemove = true, inner = attribute) {
     if (!target) {
       throw new Error('need target');
     }
@@ -156,7 +157,7 @@ export default class BaseElement extends HTMLElement {
       target.setAttribute(inner, outerAttrVal);
     } else {
       // to remove
-      if (hasOuterAttr) {
+      if (hasOuterAttr && autoRemove) {
         this._doNothingTimesOnAttrCg++;
         this.removeAttribute(attribute);
       }
