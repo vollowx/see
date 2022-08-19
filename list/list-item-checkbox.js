@@ -19,16 +19,10 @@ export default class ListItemCheckbox extends ListItem {
   handleClick(_event) {
     this.checkboxElement.checked = !this.checkboxElement.checked;
   }
-  handleKeyUp(_event) {
-    if (_event.key === ' ') {
-      this.checkboxElement.checked = !this.checkboxElement.checked;
-    }
-  }
 
   connectedCallback() {
     super.connectedCallback();
-    this.innerElement.addEventListener('click', this.handleClick.bind(this));
-    this.innerElement.addEventListener('keyup', this.handleKeyUp.bind(this));
+    this.addEventListener('click', this.handleClick.bind(this));
   }
 }
 

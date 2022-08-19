@@ -111,7 +111,6 @@ export default class Checkbox extends BaseElement {
     return this.hasAttribute('checked');
   }
   set checked(value) {
-    console.log(this, 'checked', value);
     this.toggleAttribute('checked', value);
   }
 

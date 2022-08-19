@@ -170,6 +170,8 @@ export default class IconButton extends ActionElement {
    * @param {string} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
     switch (name) {
       case 'icon':
         this.syncNonDataAttrByEmpty(name, this.iconElement);

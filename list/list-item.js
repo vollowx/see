@@ -11,7 +11,10 @@ const ListItemStyle = new CSSStyleSheet();
 ListItemStyle.replaceSync(css`
   :host {
     position: relative;
-    display: block;
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+    box-sizing: border-box;
   }
   [part~='button'] {
     position: relative;
@@ -26,7 +29,7 @@ ListItemStyle.replaceSync(css`
   }
   @media (hover: none) {
     [part~='button'] {
-      height: var(--md-list-item-height, 48px);
+      min-height: var(--md-list-item-height, 48px);
     }
   }
   :host([selected]) [part~='button'] {
@@ -74,6 +77,11 @@ ListItemStyle.replaceSync(css`
   :host([sec-action]) [part~='button'] {
     padding-inline-end: 48px;
   }
+  md-checkbox {
+    margin-inline-start: -9px;
+    margin-inline-end: -11px;
+    pointer-events: none;
+  }
 `);
 
 export default class ListItem extends ActionElement {
@@ -90,7 +98,7 @@ export default class ListItem extends ActionElement {
   }
   get _defaultRole() {
     // @ts-ignore
-    return this.parentNode.tagName === 'MD-MENU' ? 'menuitem' : 'option';
+    return this.parentNode.tagName === 'MD-MENU' ? 'menuitem' : '';
   }
   get _defaultTabIndex() {
     return '-1';
