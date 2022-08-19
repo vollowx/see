@@ -1,7 +1,7 @@
 import ListItem from './list-item.js';
 import Checkbox from '../checkbox/checkbox.js';
 
-// TODO: sync data
+// TODO: sync data, now you can only use javascript to set data
 export default class ListItemCheckbox extends ListItem {
   static get is() {
     return 'md-list-item-checkbox';
