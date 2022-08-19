@@ -38,9 +38,9 @@ function toggleDir(e) {
   // @ts-ignore
   e.target.setAttribute(
     'icon',
-    localStorage.getItem('md-dir') === 'ltr'
-      ? 'material-symbols:format-textdirection-r-to-l'
-      : 'material-symbols:format-textdirection-l-to-r'
+    localStorage.getItem('md-dir') === 'rtl'
+      ? 'material-symbols:format-textdirection-l-to-r'
+      : 'material-symbols:format-textdirection-r-to-l'
   );
 }
 
@@ -64,9 +64,9 @@ addEventListener('DOMContentLoaded', () => {
   );
   dirTgl?.setAttribute(
     'icon',
-    localStorage.getItem('md-dir') === 'ltr'
-      ? 'material-symbols:format-textdirection-r-to-l'
-      : 'material-symbols:format-textdirection-l-to-r'
+    localStorage.getItem('md-dir') === 'rtl'
+      ? 'material-symbols:format-textdirection-l-to-r'
+      : 'material-symbols:format-textdirection-r-to-l'
   );
 
   const localDarkData = localStorage.getItem('md-theme');
