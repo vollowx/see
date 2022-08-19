@@ -82,13 +82,9 @@ export default class ActionElement extends BaseElement {
       'data-aria-selected',
     ];
   }
-  /** @type {boolean} */
   get disabled() {
     return this.hasAttribute('disabled');
   }
-  /**
-   * @param {boolean} value
-   */
   set disabled(value) {
     this.toggleAttribute('disabled', value);
   }
@@ -253,6 +249,7 @@ export default class ActionElement extends BaseElement {
       ].includes(name)
     ) {
       this.syncDataAttrByEmpty(name);
+      return;
     }
     if (name === 'disabled') {
       let tf = this.syncNonDataAttrByBoolean(name, this.innerElement);

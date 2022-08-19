@@ -3,7 +3,7 @@ import ListItem from './list-item.js';
 // TODO: nothing is done
 export default class ListItemRadio extends ListItem {
   static get is() {
-    return 'list-item-radio';
+    return 'md-list-item-radio';
   }
 
   _renderLeading() {

@@ -1,13 +1,34 @@
 import ListItem from './list-item.js';
+import Checkbox from '../checkbox/checkbox.js';
 
-// TODO: nothing is done
+// TODO: sync data
 export default class ListItemCheckbox extends ListItem {
   static get is() {
-    return 'list-item-checkbox';
+    return 'md-list-item-checkbox';
+  }
+
+  /** @type {Checkbox} */
+  get checkboxElement() {
+    return this.getEl('md-checkbox');
   }
 
   _renderLeading() {
-    return /* html */ `<md-checkbox></md-checkbox>`;
+    return /* html */ `<md-checkbox tabindex="-1"></md-checkbox>`;
+  }
+
+  handleClick(_event) {
+    this.checkboxElement.checked = !this.checkboxElement.checked;
+  }
+  handleKeyUp(_event) {
+    if (_event.key === ' ') {
+      this.checkboxElement.checked = !this.checkboxElement.checked;
+    }
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.innerElement.addEventListener('click', this.handleClick.bind(this));
+    this.innerElement.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
 }
 

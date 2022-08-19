@@ -174,6 +174,7 @@ export default class BaseElement extends HTMLElement {
       throw new Error('need target');
     }
     let trueFalse = this.hasAttribute(attribute);
+    if (target.hasAttribute(attribute) === trueFalse) return trueFalse;
     target.toggleAttribute(attribute, trueFalse);
     return trueFalse;
   }

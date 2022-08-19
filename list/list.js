@@ -1,6 +1,8 @@
 import { html, css } from '../shared/template.js';
 import BaseElement from '../shared/base-element.js';
 import ListItem from './list-item.js';
+import ListItemCheckbox from './list-item-checkbox.js';
+import ListItemRadio from './list-item-radio.js';
 
 const ListStyle = new CSSStyleSheet();
 ListStyle.replaceSync(css`
@@ -57,10 +59,10 @@ export default class List extends BaseElement {
   get listElement() {
     return this.getEl('[part~="list"]');
   }
-  /** @type {ListItem[]} */
+  /** @type {(ListItem|ListItemCheckbox|ListItemRadio)[]} */
   get itemElements() {
     // @ts-ignore
-    return [...(this.itemsContainer() || this).querySelectorAll('md-list-item')];
+    return [...(this.itemsContainer() || this).querySelectorAll('md-list-item, md-list-item-checkbox')];
   }
   /** @type {ListItem} */
   get activeItem() {
