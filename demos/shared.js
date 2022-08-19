@@ -13,36 +13,45 @@ for (let i = 0; i < FocusRingStyle.cssRules.length; i++) {
   FocusRingStyleText.push(FocusRingStyle.cssRules[i].cssText);
 }
 
+const iconNames = {
+  theme: {
+    light: 'material-symbols:sunny',
+    dark: 'material-symbols:mode-night',
+  },
+  dir: {
+    ltr: 'material-symbols:format-textdirection-l-to-r',
+    rtl: 'material-symbols:format-textdirection-r-to-l',
+  },
+};
+const updateThemeIcon = (on, theme) => {
+  on.setAttribute('icon', iconNames.theme[theme !== 'light' ? 'light' : 'dark']);
+};
+const updateDirIcon = (on, dir) => {
+  on.setAttribute('icon', iconNames.dir[dir !== 'ltr' ? 'ltr' : 'rtl']);
+};
 /**
  * @param {Event} e
  */
-function toggleTheme(e) {
-  const themeAttr = document.documentElement.getAttribute('data-md-theme');
-  const newTheme = themeAttr === 'light' ? 'dark' : 'light';
+const toggleTheme = (e) => {
+  const oldTheme = document.documentElement.getAttribute('data-md-theme');
+  const newTheme = oldTheme === 'light' ? 'dark' : 'light';
   localStorage.setItem('md-theme', newTheme);
   document.documentElement.setAttribute('data-md-theme', newTheme);
   // @ts-ignore
-  e.target.setAttribute('icon', newTheme === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny');
-}
+  updateThemeIcon(e.target, newTheme);
+};
 /**
  * @param {Event} e
  */
-function toggleDir(e) {
-  const dir = document.documentElement.getAttribute('dir');
-  const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
+const toggleDir = (e) => {
+  const oldDir = document.documentElement.getAttribute('dir');
+  const newDir = oldDir === 'rtl' ? 'ltr' : 'rtl';
   localStorage.setItem('md-dir', newDir);
   document.documentElement.setAttribute('dir', newDir);
-  document.querySelectorAll('md-badge').forEach((badge) => {
-    badge.setAttribute('dir', newDir);
-  });
+  document.querySelectorAll('md-badge').forEach((badge) => badge.setAttribute('dir', newDir));
   // @ts-ignore
-  e.target.setAttribute(
-    'icon',
-    localStorage.getItem('md-dir') === 'rtl'
-      ? 'material-symbols:format-textdirection-l-to-r'
-      : 'material-symbols:format-textdirection-r-to-l'
-  );
-}
+  updateDirIcon(e.target, newDir);
+};
 
 const CSSBlock = document.createElement('style');
 CSSBlock.innerHTML = /* css */ `
@@ -58,34 +67,28 @@ addEventListener('DOMContentLoaded', () => {
   const themeTgl = document.querySelector('#theme-tgl');
   const dirTgl = document.querySelector('#dir-tgl');
 
-  themeTgl?.setAttribute(
-    'icon',
-    localStorage.getItem('md-theme') === 'light' ? 'material-symbols:mode-night' : 'material-symbols:sunny'
-  );
-  dirTgl?.setAttribute(
-    'icon',
-    localStorage.getItem('md-dir') === 'rtl'
-      ? 'material-symbols:format-textdirection-l-to-r'
-      : 'material-symbols:format-textdirection-r-to-l'
-  );
-
+  // Init
   const localDarkData = localStorage.getItem('md-theme');
   const systemDarkData = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let finalDarkData;
+  let theme;
   if (localDarkData) {
-    finalDarkData = localDarkData;
+    theme = localDarkData;
   } else if (systemDarkData) {
-    finalDarkData = 'dark';
+    theme = 'dark';
   } else {
-    finalDarkData = 'light';
+    theme = 'light';
   }
+  const dir = localStorage.getItem('md-dir') || 'ltr';
 
-  const newDir = localStorage.getItem('md-dir') || 'ltr';
-  document.documentElement.setAttribute('data-md-theme', finalDarkData);
-  document.documentElement.setAttribute('dir', newDir);
+  // Applying
+  document.documentElement.setAttribute('data-md-theme', theme);
+  document.documentElement.setAttribute('dir', dir);
   document.querySelectorAll('md-badge').forEach((badge) => {
-    badge.setAttribute('dir', newDir);
+    badge.setAttribute('dir', dir);
   });
+
+  updateThemeIcon(themeTgl, theme);
+  updateDirIcon(dirTgl, dir);
 
   themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);
