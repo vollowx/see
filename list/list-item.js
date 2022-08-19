@@ -18,6 +18,7 @@ ListItemStyle.replaceSync(css`
   [part~='button'] {
     position: relative;
     padding: 8px 16px;
+    width: 100%;
     display: flex;
     align-items: center;
     min-height: var(--md-list-item-height, 36px);
