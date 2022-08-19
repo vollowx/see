@@ -6,7 +6,6 @@ import ActionElement from '../shared/action-element.js';
 import Ripple from '../ripple/ripple.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 
-// TODO: 2-line, 3-line styles
 const ListItemStyle = new CSSStyleSheet();
 ListItemStyle.replaceSync(css`
   :host {
