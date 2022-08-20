@@ -106,7 +106,6 @@ export default class TopAppBar extends BaseElement {
   get _styles() {
     return [...super._styles, TopAppBarStyle];
   }
-
   get _template() {
     return html`
       <header part="inner header">
@@ -140,7 +139,7 @@ export default class TopAppBar extends BaseElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.bindElement.addEventListener('scroll', this.handleScroll);
+    this.bindElement.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
   handleScroll = () => {

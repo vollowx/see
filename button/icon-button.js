@@ -151,9 +151,9 @@ export default class IconButton extends ActionElement {
   }
 
   /**
-   * @param {MouseEvent} event
+   * @param {MouseEvent} _event
    */
-  handleClick(event) {
+  handleClick(_event) {
     if (!this.toggle) return;
     this.selected = !this.selected;
   }
@@ -166,8 +166,8 @@ export default class IconButton extends ActionElement {
 
   /**
    * @param {string} name
-   * @param {string} oldValue
-   * @param {string} newValue
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);

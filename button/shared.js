@@ -60,6 +60,11 @@ export default class Button extends ActionElement {
     `;
   }
 
+  /**
+     * @param {string} name
+     * @param {string|undefined} oldValue
+     * @param {string|undefined} newValue
+     */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
 

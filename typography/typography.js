@@ -72,7 +72,6 @@ export default class Typography extends BaseElement {
   get _styles() {
     return [TypographyStyle];
   }
-
   get _template() {
     return html`<${this.getAttribute('tag') || 'span'}><slot></slot></${this.getAttribute('tag') || 'span'}>`;
   }

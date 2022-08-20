@@ -113,23 +113,13 @@ FABStyle.replaceSync(css`
 `);
 
 export default class FAB extends Button {
-  /**
-   * @override
-   */
   static get is() {
     return 'md-fab';
   }
 
-  /**
-   * @override
-   */
   get _styles() {
     return [...super._styles, FABStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-
-  /**
-   * @override
-   */
   renderAccessibility() {
     return /* html */ `<md-ripple></md-ripple>`;
   }

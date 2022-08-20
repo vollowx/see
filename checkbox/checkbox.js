@@ -313,10 +313,10 @@ export default class Checkbox extends BaseElement {
     this.updateNativeState();
   }
   /**
-   * @param {string} name
-   * @param {string} oldValue
-   * @param {string} newValue
-   */
+     * @param {string} name
+     * @param {string|undefined} oldValue
+     * @param {string|undefined} newValue
+     */
   attributeChangedCallback(name, oldValue, newValue) {
     if (this._doNothingTimesOnAttrCg > 0) {
       this._doNothingTimesOnAttrCg--;

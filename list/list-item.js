@@ -155,6 +155,11 @@ export default class ListItem extends ActionElement {
     this.innerElement.tabIndex = 0;
   }
 
+  /**
+     * @param {string} name
+     * @param {string|undefined} oldValue
+     * @param {string|undefined} newValue
+     */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
   }

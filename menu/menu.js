@@ -66,7 +66,6 @@ export default class Menu extends Popover {
   get _styles() {
     return [...super._styles, MenuStyle];
   }
-
   get _content() {
     return /* html */ `<md-list data-role="menu" tabindex="-1" part="list"><slot></slot></md-list>`;
   }

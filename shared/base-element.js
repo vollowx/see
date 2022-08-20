@@ -76,7 +76,6 @@ export default class BaseElement extends HTMLElement {
    * @param {string} name
    * @param {string|undefined} oldValue
    * @param {string|undefined} newValue
-   * @returns {void}
    */
   attributeChangedCallback(name, oldValue, newValue) {}
 

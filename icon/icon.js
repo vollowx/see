@@ -81,6 +81,11 @@ export default class Icon extends BaseElement {
     `;
   }
 
+  /**
+     * @param {string} name
+     * @param {string|undefined} oldValue
+     * @param {string|undefined} newValue
+     */
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'icon') {
       if (this.useIconify) {

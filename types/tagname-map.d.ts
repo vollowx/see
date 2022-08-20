@@ -1,5 +1,6 @@
 import Badge from '../badge/badge';
 import CommonButton from '../button/common-button';
+import Checkbox from '../checkbox/checkbox';
 import Divider from '../divider/divider';
 import FAB from '../button/fab';
 import Icon from '../icon/icon';
@@ -18,6 +19,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'md-badge': Badge;
     'md-button': CommonButton;
+    'md-checkbox': Checkbox;
     'md-divider': Divider;
     'md-fab': FAB;
     'md-icon': Icon;

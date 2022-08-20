@@ -120,10 +120,10 @@ export default class Badge extends BaseElement {
   }
 
   /**
-   * @param {string} name
-   * @param {string} oldValue
-   * @param {string} newValue
-   */
+     * @param {string} name
+     * @param {string|undefined} oldValue
+     * @param {string|undefined} newValue
+     */
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'value':

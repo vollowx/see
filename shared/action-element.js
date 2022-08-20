@@ -224,14 +224,10 @@ export default class ActionElement extends BaseElement {
     this.innerElement.addEventListener('focusin', this.handleFocusIn.bind(this));
     this.innerElement.addEventListener('focusout', this.handleFocusOut.bind(this));
   }
-  get booleanAttributes() {
-    return ['disabled'];
-  }
   /**
    * @param {string} name
    * @param {string|undefined} oldValue
    * @param {string|undefined} newValue
-   * @returns {void}
    */
   attributeChangedCallback(name, oldValue, newValue) {
     if (

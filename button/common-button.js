@@ -114,23 +114,13 @@ CommonButtonStyle.replaceSync(css`
 `);
 
 export default class CommonButton extends Button {
-  /**
-   * @override
-   */
   static get is() {
     return 'md-button';
   }
 
-  /**
-   * @override
-   */
   get _styles() {
     return [...super._styles, CommonButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-
-  /**
-   * @override
-   */
   renderAccessibility() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }

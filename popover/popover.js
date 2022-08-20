@@ -189,7 +189,6 @@ export default class Popover extends BaseElement {
   get _styles() {
     return [PopoverStyle];
   }
-
   get _content() {
     return `<slot></slot>`;
   }
