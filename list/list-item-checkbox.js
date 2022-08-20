@@ -22,7 +22,7 @@ export default class ListItemCheckbox extends ListItem {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('click', this.handleClick.bind(this));
+    this.innerElement.addEventListener('click', this.handleClick.bind(this));
   }
 }
 
