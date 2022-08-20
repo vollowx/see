@@ -43,22 +43,79 @@ CheckboxStyle.replaceSync(css`
     opacity: 0;
     z-index: 1;
   }
-  [part='mark-root'] {
-    width: 1em;
-    height: 1em;
-    font-size: 1.5rem;
-    color: var(--md-sys-color-on-surface-variant);
-    fill: currentColor;
+  [part='background'] {
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    border: 2px solid;
+    border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.54);
+    border-radius: 2px;
+    background-color: transparent;
+    will-change: background-color, border-color;
+    transition: 90ms cubic-bezier(0.14, 0, 0, 1);
+    pointer-events: none;
   }
-  :host([checked]) [part='mark-root'],
-  :host([indeterminate]) [part='mark-root'] {
-    color: var(--md-sys-color-primary);
+  [part~='check-mark'] {
+    position: absolute;
+    inset: 0px;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 90ms cubic-bezier(0.14, 0, 0, 1);
+  }
+  [part='check-mark'] path {
+    inset: 0;
+    stroke: currentColor;
+    stroke-width: 4px;
+    stroke-dashoffset: 29.7833385;
+    stroke-dasharray: 29.7833385;
+    transition: 90ms cubic-bezier(0.14, 0, 0, 1);
+  }
+  [part='mixed-mark'] {
+    margin: 5.6px;
+    width: 100%;
+    height: 0;
+    transform: scaleX(0) rotate(0deg);
+    border-width: 4px;
+    border-style: solid;
+    background-color: currentColor;
+    border-color: currentColor;
+    opacity: 0;
+    transition: 90ms opacity cubic-bezier(0.14, 0, 0, 1), 90ms transform cubic-bezier(0.14, 0, 0, 1);
+  }
+  :host([checked]) [part='background'],
+  :host([indeterminate]) [part='background'] {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+  }
+  :host([checked]) [part='check-mark'] {
+    opacity: 1;
+  }
+  :host([checked]) [part='check-mark'] path {
+    color: var(--md-sys-color-surface);
+    stroke-dashoffset: 0;
+  }
+  :host([checked]) [part='mixed-mark'] {
+    transform: scaleX(1) rotate(-45deg);
+  }
+  :host([indeterminate]) [part='mixed-mark'] {
+    color: var(--md-sys-color-surface);
+    transform: scaleX(1) rotate(0deg);
+    opacity: 1;
   }
   :host([disabled]) {
     color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
   }
-  :host([disabled]) [part='mark-root'] {
-    color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
+  :host([disabled]) [part='background'] {
+    border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
+  }
+  :host([checked][disabled]) [part='background'],
+  :host([indeterminate][disabled]) [part='background'] {
+    background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
+    border-color: transparent;
   }
 `);
 
@@ -197,9 +254,12 @@ export default class Checkbox extends BaseElement {
       <label part="inner root">
         <span part="native-root focus-controller">
           <input part="native" type="checkbox" />
-          <svg part="mark-root" viewBox="0 0 24 24" aria-hidden="true">
-            <path part="mark"></path>
-          </svg>
+          <div part="background">
+            <svg part="check-mark" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+            </svg>
+            <div part="mixed-mark"></div>
+          </div>
           <span part="state-layer"></span>
           <span part="focus-ring"></span>
           <md-ripple></md-ripple>
@@ -210,13 +270,6 @@ export default class Checkbox extends BaseElement {
       </label>
     `;
   }
-
-  // svg paths
-  _uncheckedMarkPath = 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z';
-  _checkedMarkPath =
-    'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z';
-  _indeterminateMarkPath =
-    'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z';
 
   /**
    * @param {FocusEvent} _event
@@ -245,10 +298,10 @@ export default class Checkbox extends BaseElement {
     );
   }
   updateNativeState() {
-    let paths = [this._uncheckedMarkPath, this._checkedMarkPath, this._indeterminateMarkPath];
+    // let paths = [this._uncheckedMarkPath, this._checkedMarkPath, this._indeterminateMarkPath];
     let ariaChecked = ['false', 'true', 'mixed'];
     let which = this.indeterminate ? 2 : this.checked ? 1 : 0;
-    this.markElement.setAttribute('d', paths[which]);
+    // this.markElement.setAttribute('d', paths[which]);
     this.nativeElement.ariaChecked = ariaChecked[which];
   }
 
