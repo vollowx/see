@@ -96,7 +96,35 @@
               <th>Description, 描述</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td class="name">disabled</td>
+              <td class="type">boolean</td>
+              <td class="default-val">false</td>
+              <td>
+                If true, checkbox will be disabled. Controls
+                <code>disabled</code>, <code>aria-disabled</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="name">checked</td>
+              <td class="type">boolean</td>
+              <td class="default-val">false</td>
+              <td>
+                <code>nativeElement.checked</code>, 2-way binding. when changing, <code>indeterminate</code> will be
+                false. Controls <code>checked</code>, <code>aria-checked</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="name">indeterminate</td>
+              <td class="type">boolean</td>
+              <td class="default-val">false</td>
+              <td>
+                <code>nativeElement.indeterminate</code>, 2-way binding. if true, <code>checked</code> will be false.
+                Controls <code>checked</code>, <code>aria-checked</code>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </main>

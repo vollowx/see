@@ -17,7 +17,7 @@ export default class ListItemCheckbox extends ListItem {
   }
 
   /**
-   * @param {MouseEvent} _event 
+   * @param {MouseEvent} _event
    */
   handleClick(_event) {
     if (_event.target !== this) return;

@@ -90,7 +90,7 @@ CheckboxStyle.replaceSync(css`
   :host([checked]) [part='background'],
   :host([indeterminate]) [part='background'] {
     background-color: var(--md-sys-color-primary);
-    border-color: var(--md-sys-color-primary);
+    border-color: transparent;
   }
   :host([checked]) [part='check-mark'] {
     opacity: 1;
