@@ -81,6 +81,7 @@ CheckboxStyle.replaceSync(css`
     transform: scaleX(0) rotate(0deg);
     border-width: 4px;
     border-style: solid;
+    color: var(--md-sys-color-surface);
     background-color: currentColor;
     border-color: currentColor;
     opacity: 0;
@@ -102,7 +103,6 @@ CheckboxStyle.replaceSync(css`
     transform: scaleX(1) rotate(-45deg);
   }
   :host([indeterminate]) [part='mixed-mark'] {
-    color: var(--md-sys-color-surface);
     transform: scaleX(1) rotate(0deg);
     opacity: 1;
   }
