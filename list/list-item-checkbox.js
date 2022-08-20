@@ -16,13 +16,17 @@ export default class ListItemCheckbox extends ListItem {
     return /* html */ `<md-checkbox tabindex="-1"></md-checkbox>`;
   }
 
+  /**
+   * @param {MouseEvent} _event 
+   */
   handleClick(_event) {
+    if (_event.target !== this) return;
     this.checkboxElement.checked = !this.checkboxElement.checked;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.innerElement.addEventListener('click', this.handleClick.bind(this));
+    this.addEventListener('click', this.handleClick.bind(this));
   }
 }
 
