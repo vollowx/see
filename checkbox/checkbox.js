@@ -10,7 +10,7 @@ CheckboxStyle.replaceSync(css`
   :host {
     display: inline-flex;
     align-items: center;
-    ${TypographyStylesGenerator('label', 'L')}
+    vertical-align: middle;
   }
   :host([disabled]) {
     pointer-events: none;
@@ -19,6 +19,16 @@ CheckboxStyle.replaceSync(css`
   [part~='root'] {
     display: inline-flex;
     align-items: center;
+    ${TypographyStylesGenerator('label', 'L')}
+  }
+  :host([top]) [part~='root'] {
+    flex-direction: column-reverse;
+  }
+  :host([bottom]) [part~='root'] {
+    flex-direction: column;
+  }
+  :host([start]) [part~='root'] {
+    flex-direction: row-reverse;
   }
   [part='target'] {
     position: absolute;
