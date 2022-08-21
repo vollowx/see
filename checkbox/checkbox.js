@@ -20,6 +20,15 @@ CheckboxStyle.replaceSync(css`
     display: inline-flex;
     align-items: center;
   }
+  [part='target'] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+  }
   [part~='native-root'] {
     position: relative;
     display: inline-flex;
@@ -262,6 +271,7 @@ export default class Checkbox extends BaseElement {
           </div>
           <span part="state-layer"></span>
           <span part="focus-ring"></span>
+          <span part="target"></span>
           <md-ripple></md-ripple>
         </span>
         <span part="label-root">
