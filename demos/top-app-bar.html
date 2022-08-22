@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <md-top-app-bar highest-lv>
+    <md-top-app-bar auto-padding>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
@@ -223,10 +223,10 @@
               <td>Controls top app bar has or has no contents container, always for demo</td>
             </tr>
             <tr>
-              <td class="name">highest-lv</td>
+              <td class="name">auto-padding</td>
               <td class="type">toggle</td>
               <td class="default-val">false</td>
-              <td>If true, when a menu opened, its right padding will be 15px</td>
+              <td>If true, when a menu/dialog/popover opened, its right padding will be changes for the hidden scrollbar</td>
             </tr>
           </tbody>
         </table>

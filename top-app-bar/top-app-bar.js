@@ -20,7 +20,7 @@ TopAppBarStyle.replaceSync(css`
     box-sizing: border-box;
   }
   @media (hover: hover) {
-    :host([highest-lv]) [part~='header'] {
+    :host([auto-padding]) [part~='header'] {
       padding-right: var(--md-global-padding-right);
     }
   }

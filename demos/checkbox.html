@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="./shared.css" />
     <script type="module" src="./shared.js"></script>
 
-    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+    <!-- <script src="../shared/constructable-stylesheets-polyfill.js"></script> -->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@%5E2/"></script>
+    <script src="https://unpkg.com/@webcomponents/custom-elements"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
     <link
@@ -23,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <md-top-app-bar highest-lv>
+    <md-top-app-bar auto-padding>
       <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
         <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
         </md-icon-button>
