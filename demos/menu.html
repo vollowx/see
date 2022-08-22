@@ -277,31 +277,31 @@
       radios.forEach((radio) => {
         radio.addEventListener('change', updateOrigin);
       });
-      function updateOrigin(e) {
-        const name = e.target.name;
+      function updateOrigin(_ev) {
+        const name = _ev.target.name;
         switch (name) {
           case 'ao-v':
             customMenu.anchorOrigin = {
-              v: e.target.value,
+              v: _ev.target.value,
               h: customMenu.anchorOrigin.h,
             };
             break;
           case 'ao-h':
             customMenu.anchorOrigin = {
               v: customMenu.anchorOrigin.v,
-              h: e.target.value,
+              h: _ev.target.value,
             };
             break;
           case 'to-v':
             customMenu.transformOrigin = {
-              v: e.target.value,
+              v: _ev.target.value,
               h: customMenu.transformOrigin.h,
             };
             break;
           case 'to-h':
             customMenu.transformOrigin = {
               v: customMenu.transformOrigin.v,
-              h: e.target.value,
+              h: _ev.target.value,
             };
             break;
           default:

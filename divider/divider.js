@@ -1,8 +1,7 @@
 import BaseElement from '../shared/base-element.js';
 import { html, css } from '../shared/template.js';
 
-const DividerStyle = new CSSStyleSheet();
-DividerStyle.replaceSync(css`
+const DividerStyle = css`
   :host {
     display: block;
     flex-shrink: 0;
@@ -31,7 +30,7 @@ DividerStyle.replaceSync(css`
   :host([inset~='subtitle']) [part~='divider'] {
     margin-inline-start: 72px;
   }
-`);
+`;
 
 export default class Divider extends BaseElement {
   static get is() {

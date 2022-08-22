@@ -223,19 +223,19 @@ export function whitePointD65() {
   return WHITE_POINT_D65;
 }
 function labF(t) {
-  const e = 216.0 / 24389.0;
+  const _ev = 216.0 / 24389.0;
   const kappa = 24389.0 / 27.0;
-  if (t > e) {
+  if (t > _ev) {
     return Math.pow(t, 1.0 / 3.0);
   } else {
     return (kappa * t + 16) / 116;
   }
 }
 function labInvf(ft) {
-  const e = 216.0 / 24389.0;
+  const _ev = 216.0 / 24389.0;
   const kappa = 24389.0 / 27.0;
   const ft3 = ft * ft * ft;
-  if (ft3 > e) {
+  if (ft3 > _ev) {
     return ft3;
   } else {
     return (116 * ft - 16) / kappa;

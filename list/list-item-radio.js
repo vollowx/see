@@ -6,7 +6,7 @@ export default class ListItemRadio extends ListItem {
     return 'md-list-item-radio';
   }
 
-  _renderLeading() {
+  get _renderLeading() {
     return /* html */ `<md-radio></md-radio>`;
   }
 }

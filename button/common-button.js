@@ -6,8 +6,7 @@ import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
 
-const CommonButtonStyle = new CSSStyleSheet();
-CommonButtonStyle.replaceSync(css`
+const CommonButtonStyle = css`
   [part~='button'] {
     height: 40px;
     outline: none;
@@ -111,7 +110,7 @@ CommonButtonStyle.replaceSync(css`
   ::slotted(iconify-icon) {
     font-size: var(--md-fab-icon-size, 1.125rem);
   }
-`);
+`;
 
 export default class CommonButton extends Button {
   static get is() {
@@ -121,7 +120,7 @@ export default class CommonButton extends Button {
   get _styles() {
     return [...super._styles, CommonButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-  renderAccessibility() {
+  get _renderAccessability() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }

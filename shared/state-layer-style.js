@@ -17,8 +17,7 @@ import { css } from './template.js';
  * so if you need more customization, just do
  * not use this.
  */
-const StateLayerStyle = new CSSStyleSheet();
-StateLayerStyle.replaceSync(css`
+const StateLayerStyle = css`
   [part~='focus-controller'] [part~='state-layer'] {
     position: absolute;
     top: 0;
@@ -40,6 +39,6 @@ StateLayerStyle.replaceSync(css`
       opacity: 0;
     }
   }
-`);
+`;
 
 export default StateLayerStyle;

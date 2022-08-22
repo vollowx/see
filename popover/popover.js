@@ -58,8 +58,7 @@ export function getOffsetLeft(rect, h) {
   return offset;
 }
 
-const PopoverStyle = new CSSStyleSheet();
-PopoverStyle.replaceSync(css`
+const PopoverStyle = css`
   :host {
     z-index: 1000;
   }
@@ -98,7 +97,7 @@ PopoverStyle.replaceSync(css`
   :host([open]) [part~='overlay'] {
     visibility: visible;
   }
-`);
+`;
 
 export default class Popover extends BaseElement {
   static get is() {
@@ -110,6 +109,14 @@ export default class Popover extends BaseElement {
   }
   set fixed(value) {
     this.toggleAttribute('fixed-position', value);
+  }
+
+  /** @type {{top: number, left: number}} */
+  get fixedPosition() {
+    return JSON.parse(this.getAttribute('fixed-position') || '{"top": 0, "left": 0}');
+  }
+  set fixedPosition(value) {
+    this.setAttribute('fixed-position', JSON.stringify(value));
   }
 
   /** @type {{v: string, h: string}} */
@@ -128,6 +135,42 @@ export default class Popover extends BaseElement {
     this.setAttribute('transform-origin', JSON.stringify(value));
   }
 
+  focus() {
+    this.popoverElement.focus();
+  }
+
+  /** @type {HTMLElement|null} */
+  get anchorElement() {
+    const id = this.getAttribute('anchor-el');
+    return this.parentElement?.querySelector(`#${id}`) || document.querySelector(`#${id}`);
+  }
+  /** @type {HTMLDivElement} */
+  get overlayElement() {
+    return this.getEl('[part~="overlay"]');
+  }
+  /** @type {HTMLDivElement} */
+  get popoverElement() {
+    return this.getEl('[part~="inner"]');
+  }
+
+  get isOpen() {
+    return this.hasAttribute('open');
+  }
+
+  get _styles() {
+    return [PopoverStyle];
+  }
+  get _renderContents() {
+    return `<slot></slot>`;
+  }
+  get _template() {
+    return html`
+      <div part="overlay" aria-hidden="true"></div>
+      <div part="inner popover" tabindex="-1">${this._renderContents}</div>
+    `;
+  }
+
+  marginThreshold = 16;
   anchorErr() {
     console.error(this, `requires an anchor element.`);
   }
@@ -154,53 +197,6 @@ export default class Popover extends BaseElement {
       v: getOffsetTop(rect, this.transformOrigin.v),
       h: getOffsetLeft(rect, this.transformOrigin.h),
     };
-  }
-
-  /** @type {{top: number, left: number}} */
-  get fixedPosition() {
-    return JSON.parse(this.getAttribute('fixed-position') || '{"top": 0, "left": 0}');
-  }
-  set fixedPosition(value) {
-    this.setAttribute('fixed-position', JSON.stringify(value));
-  }
-
-  /** @type {HTMLElement|null} */
-  get anchorElement() {
-    const id = this.getAttribute('anchor-el');
-    return this.parentElement?.querySelector(`#${id}`) || document.querySelector(`#${id}`);
-  }
-  /** @type {HTMLDivElement} */
-  get overlayElement() {
-    return this.getEl('[part~="overlay"]');
-  }
-  /** @type {HTMLDivElement} */
-  get popoverElement() {
-    return this.getEl('[part~="inner"]');
-  }
-
-  focus() {
-    this.popoverElement.focus();
-  }
-
-  get isOpen() {
-    return this.hasAttribute('open');
-  }
-
-  get _styles() {
-    return [PopoverStyle];
-  }
-  get _content() {
-    return `<slot></slot>`;
-  }
-  get _template() {
-    return html`
-      <div part="overlay" aria-hidden="true"></div>
-      <div part="inner popover" tabindex="-1">${this._content}</div>
-    `;
-  }
-
-  get marginThreshold() {
-    return 16;
   }
   /**
    * @returns {{top: number, left: number, transformOrigin: {v: number|string, h: number|string}}}
@@ -263,7 +259,6 @@ export default class Popover extends BaseElement {
     this.popoverElement.style.left = `${left}px`;
     this.popoverElement.style.transformOrigin = `${transformOrigin.h}px ${transformOrigin.v}px`;
   }
-
   open() {
     if (!this.anchorElement) {
       this.anchorErr();
@@ -293,25 +288,24 @@ export default class Popover extends BaseElement {
     document.documentElement.style.removeProperty('--md-global-padding-right');
     this.anchorElement?.focus();
   }
-
   /**
-   * @param {Event} e
+   * @param {Event} _ev
    */
-  handleTrigger(e) {
+  handleTrigger(_ev) {
     this.open();
   }
-  handleOverlayClick(e) {
+  handleOverlayClick(_ev) {
     this.close();
   }
   /**
-   * @param {KeyboardEvent} e
+   * @param {KeyboardEvent} _ev
    */
-  handleKeyDown(e) {
-    if (e.ctrlKey || e.altKey || e.metaKey) {
+  handleKeyDown(_ev) {
+    if (_ev.ctrlKey || _ev.altKey || _ev.metaKey) {
       return;
     }
     let flag = false;
-    switch (e.key) {
+    switch (_ev.key) {
       case 'Escape':
       case 'Esc':
         flag = true;
@@ -326,11 +320,10 @@ export default class Popover extends BaseElement {
         break;
     }
     if (flag) {
-      e.preventDefault();
-      e.stopPropagation();
+      _ev.preventDefault();
+      _ev.stopPropagation();
     }
   }
-
   initARIA() {
     if (!this.anchorElement) return;
     this.setAttribute('aria-hidden', 'true');

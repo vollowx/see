@@ -17,8 +17,7 @@ import { css } from './template.js';
  * so if you need more customization, just do
  * not use this.
  */
-const FocusRingStyle = new CSSStyleSheet();
-FocusRingStyle.replaceSync(css`
+const FocusRingStyle = css`
   [part~='focus-ring'] {
     display: none;
     position: absolute;
@@ -45,6 +44,6 @@ FocusRingStyle.replaceSync(css`
   [part~='focus-controller']:focus:focus-visible [part~='focus-ring'] {
     display: block;
   }
-`);
+`;
 
 export default FocusRingStyle;

@@ -4,8 +4,7 @@ import ListItem from './list-item.js';
 import ListItemCheckbox from './list-item-checkbox.js';
 import ListItemRadio from './list-item-radio.js';
 
-const ListStyle = new CSSStyleSheet();
-ListStyle.replaceSync(css`
+const ListStyle = css`
   :host() {
     display: block;
   }
@@ -24,7 +23,7 @@ ListStyle.replaceSync(css`
     list-style: none;
     outline: 0;
   }
-`);
+`;
 
 export default class List extends BaseElement {
   static get is() {
@@ -64,7 +63,7 @@ export default class List extends BaseElement {
     // @ts-ignore
     return [...(this.itemsContainer() || this).querySelectorAll('md-list-item, md-list-item-checkbox')];
   }
-  /** @type {ListItem} */
+  /** @type {ListItem|ListItemCheckbox|ListItemRadio} */
   get activeItem() {
     return (this.itemsContainer() || this).querySelector('[focus-from]') || this.itemElements[0];
   }
@@ -81,7 +80,7 @@ export default class List extends BaseElement {
     (this.selectedItem || this.activeItem).focus();
   }
   /**
-   * @param {ListItem} item
+   * @param {ListItem|ListItemCheckbox|ListItemRadio} item
    * @param {boolean} autoScroll
    */
   updateFocus(item = this.selectedItem || this.activeItem, autoScroll = false) {
@@ -99,16 +98,16 @@ export default class List extends BaseElement {
     this.listElement.setAttribute('aria-activedecendant', item.innerElement.id);
   }
   /**
-   * @param {KeyboardEvent} e
+   * @param {KeyboardEvent} _ev
    */
-  handleKeyDown(e) {
+  handleKeyDown(_ev) {
     let flag = false;
 
-    if (e.ctrlKey || e.altKey || e.metaKey) {
+    if (_ev.ctrlKey || _ev.altKey || _ev.metaKey) {
       return;
     }
 
-    const { key } = e;
+    const { key } = _ev;
 
     /**
      * @param {string} c
@@ -157,8 +156,8 @@ export default class List extends BaseElement {
     }
 
     if (flag) {
-      e.preventDefault();
-      e.stopPropagation();
+      _ev.preventDefault();
+      _ev.stopPropagation();
     }
   }
   /**

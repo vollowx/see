@@ -14,13 +14,13 @@
 
 ### get elementName
 
-### get _defaultXXX
+### get \_defaultXXX
 
-### get _styles
+### get \_styles
 
-### get _renderXXX
+### get \_renderXXX
 
-### get _template
+### get \_template
 
 ### handleEventName
 

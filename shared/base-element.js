@@ -35,10 +35,10 @@ export default class BaseElement extends HTMLElement {
   _attachShadow() {
     this.attachShadow({ mode: 'open', delegatesFocus: this._delegatesFocus });
   }
-  renderAccessibility() {
+  get _renderAccessability() {
     return ``;
   }
-  _renderContents() {
+  get _renderContents() {
     return `<slot></slot>`;
   }
   /** @type {DocumentFragment|string} */

@@ -2,8 +2,7 @@ import { html, css } from '../shared/template.js';
 import BaseElement from '../shared/base-element.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
-const TypographyStyle = new CSSStyleSheet();
-TypographyStyle.replaceSync(css`
+const TypographyStyle = css`
   :host([display-l]) {
     ${TypographyStylesGenerator('display', 'L')}
   }
@@ -62,7 +61,7 @@ TypographyStyle.replaceSync(css`
   :host([tag='p']) {
     display: block;
   }
-`);
+`;
 
 export default class Typography extends BaseElement {
   static get is() {

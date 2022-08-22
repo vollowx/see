@@ -1,8 +1,7 @@
 import { css } from '../shared/template.js';
 import BaseElement from '../shared/base-element.js';
 
-const RippleStyle = new CSSStyleSheet();
-RippleStyle.replaceSync(css`
+const RippleStyle = css`
   :host {
     position: absolute;
     top: 0;
@@ -26,17 +25,11 @@ RippleStyle.replaceSync(css`
     opacity: 0;
     will-change: transform, opacity;
   }
-`);
+`;
 
 export default class Ripple extends BaseElement {
   static get is() {
     return 'md-ripple';
-  }
-
-  /** @type {HTMLElement} */
-  get parent() {
-    // @ts-ignore
-    return this.parentNode.host ? this.parentNode.host : this.parentNode;
   }
 
   get centered() {
@@ -52,17 +45,14 @@ export default class Ripple extends BaseElement {
     this.toggleAttribute('unbounded', value);
   }
 
-  /**
-   * @type {CSSStyleSheet[]}
-   */
-  get _styles() {
-    return [RippleStyle];
+  /** @type {HTMLElement} */
+  get parent() {
+    // @ts-ignore
+    return this.parentNode.host ? this.parentNode.host : this.parentNode;
   }
 
-  connectedCallback() {
-    this.parent.addEventListener('pointerdown', this.handlePointerDown, true);
-    this.parent.addEventListener('keydown', this.handleKeyDown, true);
-    this.parent.addEventListener('keyup', this.handleKeyUp, true);
+  get _styles() {
+    return [RippleStyle];
   }
 
   /** @type {number} */
@@ -73,15 +63,15 @@ export default class Ripple extends BaseElement {
   whitespacePressed = false;
 
   /**
-   * @param {MouseEvent} e
+   * @param {MouseEvent} _ev
    */
-  newRipple = (e, fromKeyboard = false) => {
+  newRipple = (_ev, fromKeyboard = false) => {
     let ripple = document.createElement('span');
     ripple.classList.add('md-ripple');
 
     let rect = this.parent.getBoundingClientRect();
-    let x = fromKeyboard ? rect.width / 2 : e.clientX - rect.left,
-      y = fromKeyboard ? rect.height / 2 : e.clientY - rect.top;
+    let x = fromKeyboard ? rect.width / 2 : _ev.clientX - rect.left,
+      y = fromKeyboard ? rect.height / 2 : _ev.clientY - rect.top;
     this.radius = Math.max(
       Math.sqrt(x ** 2 + y ** 2),
       Math.sqrt((rect.width - x) ** 2 + y ** 2),
@@ -134,9 +124,9 @@ export default class Ripple extends BaseElement {
     ripples.forEach((ripple) => this.removeRipple(ripple));
   };
   /**
-   * @param {MouseEvent} e
+   * @param {MouseEvent} _ev
    */
-  handlePointerDown = (e) => {
+  handlePointerDown = (_ev) => {
     const _onUp = () => {
       this.removeAllRipples();
       window.removeEventListener('mouseup', _onUp, true);
@@ -152,14 +142,14 @@ export default class Ripple extends BaseElement {
     this.parent.addEventListener('touchend', _onUp, true);
     this.parent.addEventListener('touchmove', _onUp, true);
     this.parent.addEventListener('touchcancel', _onUp, true);
-    this.newRipple(e);
+    this.newRipple(_ev);
   };
   /**
-   * @param {KeyboardEvent} e
+   * @param {KeyboardEvent} _ev
    */
-  handleKeyDown = (e) => {
+  handleKeyDown = (_ev) => {
     const fakeEvent = new MouseEvent('pointerdown', {});
-    if (e.key === ' ') {
+    if (_ev.key === ' ') {
       if (this.whitespacePressed) return;
       this.whitespacePressed = true;
       this.newRipple(fakeEvent, true);
@@ -169,19 +159,25 @@ export default class Ripple extends BaseElement {
       };
       window.addEventListener('pointerdown', _onDown, true);
     }
-    if (e.key === 'Enter') {
+    if (_ev.key === 'Enter') {
       this.newRipple(fakeEvent, true);
       this.removeAllRipples();
     }
   };
   /**
-   * @param {KeyboardEvent} e
+   * @param {KeyboardEvent} _ev
    */
-  handleKeyUp = (e) => {
-    if (e.key !== ' ' && e.key !== 'Enter') return;
+  handleKeyUp = (_ev) => {
+    if (_ev.key !== ' ' && _ev.key !== 'Enter') return;
     this.whitespacePressed = false;
     this.removeAllRipples();
   };
+
+  connectedCallback() {
+    this.parent.addEventListener('pointerdown', this.handlePointerDown, true);
+    this.parent.addEventListener('keydown', this.handleKeyDown, true);
+    this.parent.addEventListener('keyup', this.handleKeyUp, true);
+  }
 }
 
 customElements.define(Ripple.is, Ripple);

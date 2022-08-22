@@ -1,8 +1,7 @@
 import { html, css } from './template.js';
 import BaseElement from './base-element.js';
 
-const BasicButtonStyle = new CSSStyleSheet();
-BasicButtonStyle.replaceSync(css`
+const BasicButtonStyle = css`
   :host {
     flex-shrink: 0;
     display: inline-flex;
@@ -37,7 +36,7 @@ BasicButtonStyle.replaceSync(css`
     box-sizing: border-box;
     z-index: 0;
   }
-`);
+`;
 
 var fromKeyboard = false;
 
@@ -145,20 +144,15 @@ export default class ActionElement extends BaseElement {
   }
 
   focus() {
-    this.innerElement?.focus();
+    this.innerElement.focus();
   }
   blur() {
-    this.innerElement?.blur();
+    this.innerElement.blur();
   }
 
   /** @type {HTMLButtonElement} */
   get innerElement() {
     return this.getEl('[part~="button"]');
-  }
-
-  /** @type {CSSStyleSheet[]} */
-  get _styles() {
-    return [BasicButtonStyle];
   }
 
   get _defaultTag() {
@@ -171,19 +165,16 @@ export default class ActionElement extends BaseElement {
     return '0';
   }
 
-  /**
-   * Extra contents for accessibility
-   */
-  renderAccessibility() {
+  get _styles() {
+    return [BasicButtonStyle];
+  }
+  get _renderAccessability() {
     return ``;
   }
-  /**
-   * Extra contents
-   */
-  _renderContents() {
+  get _renderContents() {
     return `<slot></slot>`;
   }
-  _renderAppends() {
+  get _renderAppends() {
     return ``;
   }
   get _template() {
@@ -193,33 +184,29 @@ export default class ActionElement extends BaseElement {
         part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
-        ${this.renderAccessibility()}
+        ${this._renderAccessability}
         <span part="target"></span>
-        ${this._renderContents()}
+        ${this._renderContents}
       </${this.getAttribute('tag') || this._defaultTag}>
-      ${this._renderAppends()}
+      ${this._renderAppends}
     `;
   }
-  /** @type {boolean} */
-  get _noFocusCtrl() {
-    return false;
-  }
+
   /**
-   * @param {FocusEvent} _event
+   * @param {FocusEvent} _ev
    */
-  handleFocusIn(_event) {
-    if (this._noFocusCtrl) return;
+  handleFocusIn(_ev) {
     const from = fromKeyboard ? 'keyboard' : null || 'mouse';
     if (!from) return;
     this.setAttribute('focus-from', from);
   }
   /**
-   * @param {FocusEvent} _event
+   * @param {FocusEvent} _ev
    */
-  handleFocusOut(_event) {
-    if (this._noFocusCtrl) return;
+  handleFocusOut(_ev) {
     this.removeAttribute('focus-from');
   }
+
   connectedCallback() {
     this.innerElement.addEventListener('focusin', this.handleFocusIn.bind(this));
     this.innerElement.addEventListener('focusout', this.handleFocusOut.bind(this));

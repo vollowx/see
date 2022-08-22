@@ -30,27 +30,27 @@ const updateDirIcon = (on, dir) => {
   on.setAttribute('icon', iconNames.dir[dir !== 'ltr' ? 'ltr' : 'rtl']);
 };
 /**
- * @param {Event} e
+ * @param {Event} _ev
  */
-const toggleTheme = (e) => {
+const toggleTheme = (_ev) => {
   const oldTheme = document.documentElement.getAttribute('data-md-theme');
   const newTheme = oldTheme === 'light' ? 'dark' : 'light';
   localStorage.setItem('md-theme', newTheme);
   document.documentElement.setAttribute('data-md-theme', newTheme);
   // @ts-ignore
-  updateThemeIcon(e.target, newTheme);
+  updateThemeIcon(_ev.target, newTheme);
 };
 /**
- * @param {Event} e
+ * @param {Event} _ev
  */
-const toggleDir = (e) => {
+const toggleDir = (_ev) => {
   const oldDir = document.documentElement.getAttribute('dir');
   const newDir = oldDir === 'rtl' ? 'ltr' : 'rtl';
   localStorage.setItem('md-dir', newDir);
   document.documentElement.setAttribute('dir', newDir);
   document.querySelectorAll('md-badge').forEach((badge) => badge.setAttribute('dir', newDir));
   // @ts-ignore
-  updateDirIcon(e.target, newDir);
+  updateDirIcon(_ev.target, newDir);
 };
 
 const CSSBlock = document.createElement('style');

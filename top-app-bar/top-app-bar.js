@@ -2,8 +2,7 @@ import BaseElement from '../shared/base-element.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import { html, css } from '../shared/template.js';
 
-const TopAppBarStyle = new CSSStyleSheet();
-TopAppBarStyle.replaceSync(css`
+const TopAppBarStyle = css`
   :host {
     display: block;
     width: 100%;
@@ -96,7 +95,7 @@ TopAppBarStyle.replaceSync(css`
   :host([no-contents]) [part~='contents'] {
     display: none;
   }
-`);
+`;
 
 export default class TopAppBar extends BaseElement {
   static get is() {
@@ -131,18 +130,15 @@ export default class TopAppBar extends BaseElement {
   get bindElement() {
     return document.querySelector(`${this.getAttribute('bind-el')}`) || window;
   }
-
   /** @type {HTMLElement} */
   get topAppBarElement() {
     return this.getEl('header');
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.bindElement.addEventListener('scroll', this.handleScroll.bind(this));
-  }
-
-  handleScroll = () => {
+  /**
+   * @param {Event} _ev
+   */
+  handleScroll = (_ev) => {
     // scrollY for window, scrollTop for HTMLElement, but Typescript doesn't know this, so
     // @ts-ignore
     if (this.bindElement.scrollY || this.bindElement.scrollTop > 0) {
@@ -151,6 +147,11 @@ export default class TopAppBar extends BaseElement {
       this.topAppBarElement.removeAttribute('scrolled');
     }
   };
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.bindElement.addEventListener('scroll', this.handleScroll.bind(this));
+  }
 }
 
 customElements.define(TopAppBar.is, TopAppBar);

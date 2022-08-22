@@ -41,7 +41,7 @@ export default class Button extends ActionElement {
   /**
    * Extra contents in `label-root`
    */
-  _renderContents() {
+  get _renderContents() {
     return /* html */ `
       <span part="leading-root">
         <slot name="leading">
@@ -61,10 +61,10 @@ export default class Button extends ActionElement {
   }
 
   /**
-     * @param {string} name
-     * @param {string|undefined} oldValue
-     * @param {string|undefined} newValue
-     */
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
 

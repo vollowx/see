@@ -4,7 +4,7 @@
   try {
     new window.CSSStyleSheet('a{}');
     return;
-  } catch (e) {}
+  } catch (_ev) {}
 
   // TODO: this could really just by a dunderprop to keep the polyfill light.
   const INTERNAL = typeof Symbol !== 'undefined' ? Symbol('__s') : '__s';

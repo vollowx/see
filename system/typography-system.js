@@ -1,5 +1,3 @@
-import { css } from '../shared/template.js';
-
 export const TypeScale = {
   display: {
     L: {
@@ -109,7 +107,7 @@ export const TypeScale = {
  * @returns {string}
  */
 export function TypographyStylesGenerator(type, size) {
-  return css`
+  return `
     font-size: ${(TypeScale[type][size].fontSize / 16).toString()}rem;
     font-weight: ${TypeScale[type][size].fontWeight.toString()};
     line-height: ${(TypeScale[type][size].lineHeight / 16).toString()}rem;

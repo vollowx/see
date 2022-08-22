@@ -5,8 +5,7 @@ import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 import Ripple from '../ripple/ripple.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 
-const CheckboxStyle = new CSSStyleSheet();
-CheckboxStyle.replaceSync(css`
+const CheckboxStyle = css`
   :host {
     display: inline-flex;
     align-items: center;
@@ -136,7 +135,7 @@ CheckboxStyle.replaceSync(css`
     background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
     border-color: transparent;
   }
-`);
+`;
 
 var fromKeyboard = false;
 
@@ -292,17 +291,17 @@ export default class Checkbox extends BaseElement {
   }
 
   /**
-   * @param {FocusEvent} _event
+   * @param {FocusEvent} _ev
    */
-  handleFocusIn(_event) {
+  handleFocusIn(_ev) {
     const from = fromKeyboard ? 'keyboard' : null || 'mouse';
     if (!from) return;
     this.setAttribute('focus-from', from);
   }
   /**
-   * @param {FocusEvent} _event
+   * @param {FocusEvent} _ev
    */
-  handleFocusOut(_event) {
+  handleFocusOut(_ev) {
     this.removeAttribute('focus-from');
   }
   handleChange() {
@@ -333,10 +332,10 @@ export default class Checkbox extends BaseElement {
     this.updateNativeState();
   }
   /**
-     * @param {string} name
-     * @param {string|undefined} oldValue
-     * @param {string|undefined} newValue
-     */
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     if (this._doNothingTimesOnAttrCg > 0) {
       this._doNothingTimesOnAttrCg--;

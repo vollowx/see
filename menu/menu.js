@@ -3,8 +3,7 @@ import Popover from '../popover/popover.js';
 import List from '../list/list.js';
 import ListItem from '../list/list-item.js';
 
-const MenuStyle = new CSSStyleSheet();
-MenuStyle.replaceSync(css`
+const MenuStyle = css`
   :host {
     z-index: 1000;
   }
@@ -48,7 +47,7 @@ MenuStyle.replaceSync(css`
   :host([dense]) {
     --md-list-item-height: 36px;
   }
-`);
+`;
 
 /** @type {Menu[]} */
 var allMenus = [];
@@ -63,11 +62,9 @@ export default class Menu extends Popover {
     return 'md-menu';
   }
 
-  get _styles() {
-    return [...super._styles, MenuStyle];
-  }
-  get _content() {
-    return /* html */ `<md-list data-role="menu" tabindex="-1" part="list"><slot></slot></md-list>`;
+  /** @override */
+  focus() {
+    this.listElement.focus();
   }
 
   /** @type {List} */
@@ -80,11 +77,11 @@ export default class Menu extends Popover {
     return [...this.querySelectorAll('md-list-item')];
   }
 
-  /**
-   * @override
-   */
-  focus() {
-    this.listElement.focus();
+  get _styles() {
+    return [...super._styles, MenuStyle];
+  }
+  get _renderContents() {
+    return /* html */ `<md-list data-role="menu" tabindex="-1" part="list"><slot></slot></md-list>`;
   }
 
   /**
@@ -111,14 +108,13 @@ export default class Menu extends Popover {
       item.rippleElement.removeAllRipples();
     });
   }
-
   /**
-   * @param {KeyboardEvent} e
+   * @param {KeyboardEvent} _ev
    */
-  handleAnchorKeyDown(e) {
+  handleAnchorKeyDown(_ev) {
     let flag = false;
 
-    const { key } = e;
+    const { key } = _ev;
     switch (key) {
       case 'Enter':
       case ' ':
@@ -145,18 +141,18 @@ export default class Menu extends Popover {
     }
 
     if (flag) {
-      e.preventDefault();
-      e.stopPropagation();
+      _ev.preventDefault();
+      _ev.stopPropagation();
     }
   }
   /**
-   * @param {MouseEvent} e
+   * @param {MouseEvent} _ev
    */
-  handleClick(e) {
+  handleClick(_ev) {
     let close = false;
     /** @type {List|ListItem} */
     // @ts-ignore
-    const target = e.target;
+    const target = _ev.target;
     if (target.tagName === 'MD-LIST-ITEM' && !target.hasAttribute('disabled')) {
       close = true;
     }
@@ -181,7 +177,6 @@ export default class Menu extends Popover {
     this.itemElements.forEach((item) => {
       item.innerElement.id = `${this.anchorElement?.id}-item-${[...this.itemElements].indexOf(item)}`;
     });
-
   }
 
   connectedCallback() {

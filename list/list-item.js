@@ -6,8 +6,7 @@ import ActionElement from '../shared/action-element.js';
 import Ripple from '../ripple/ripple.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 
-const ListItemStyle = new CSSStyleSheet();
-ListItemStyle.replaceSync(css`
+const ListItemStyle = css`
   :host {
     position: relative;
     display: flex;
@@ -82,15 +81,15 @@ ListItemStyle.replaceSync(css`
     margin-inline-end: -11px;
     pointer-events: none;
   }
-`);
+`;
 
 export default class ListItem extends ActionElement {
   static get is() {
     return 'md-list-item';
   }
 
-  static get observedAttributes() {
-    return [...super.observedAttributes];
+  get keyChar() {
+    return this.getAttribute('key-char');
   }
 
   get _defaultTag() {
@@ -104,24 +103,19 @@ export default class ListItem extends ActionElement {
     return '-1';
   }
 
-  get keyChar() {
-    return this.getAttribute('key-char');
-  }
-
   get _styles() {
     return [...super._styles, ListItemStyle, StateLayerStyleFAE];
   }
-
-  _renderLeading() {
+  get _renderLeading() {
     return ``;
   }
-  renderAccessibility() {
+  get _renderAccessability() {
     return `<md-ripple></md-ripple>`;
   }
-  _renderContents() {
+  get _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        ${this._renderLeading() ? this._renderLeading() : /* html */ `<slot name="leading"></slot>`}
+        ${this._renderLeading ? this._renderLeading : /* html */ `<slot name="leading"></slot>`}
       </span>
       <span part="label-root">
         <slot></slot>
@@ -131,7 +125,7 @@ export default class ListItem extends ActionElement {
       </span>
     `;
   }
-  _renderAppends() {
+  get _renderAppends() {
     return /* html */ `
       <span part="secondary-action">
         <slot name="secAction"></slot>
@@ -145,10 +139,10 @@ export default class ListItem extends ActionElement {
   }
 
   /**
-   * @param {FocusEvent} _event
+   * @param {FocusEvent} _ev
    */
-  handleFocusIn(_event) {
-    super.handleFocusIn(_event);
+  handleFocusIn(_ev) {
+    super.handleFocusIn(_ev);
     this.parentNode?.querySelectorAll('md-list-item').forEach((item) => {
       item.innerElement.tabIndex = -1;
     });
@@ -156,10 +150,10 @@ export default class ListItem extends ActionElement {
   }
 
   /**
-     * @param {string} name
-     * @param {string|undefined} oldValue
-     * @param {string|undefined} newValue
-     */
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
   }

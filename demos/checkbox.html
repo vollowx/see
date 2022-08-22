@@ -147,11 +147,11 @@
       const parent = document.querySelector('[data-id="parent"]');
       const child1 = document.querySelector('[data-id="child1"]');
       const child2 = document.querySelector('[data-id="child2"]');
-      const handleChangeParent = (e) => {
-        child1.checked = e.target.checked;
-        child2.checked = e.target.checked;
+      const handleChangeParent = (_ev) => {
+        child1.checked = _ev.target.checked;
+        child2.checked = _ev.target.checked;
       };
-      const handleChangeChild = (e) => {
+      const handleChangeChild = (_ev) => {
         parent.checked = child1.checked && child2.checked;
         parent.indeterminate = child1.checked !== child2.checked;
       };

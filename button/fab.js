@@ -6,8 +6,7 @@ import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
 
-const FABStyle = new CSSStyleSheet();
-FABStyle.replaceSync(css`
+const FABStyle = css`
   [part~='button'] {
     min-width: 56px;
     height: 56px;
@@ -110,7 +109,7 @@ FABStyle.replaceSync(css`
   ::slotted(iconify-icon) {
     font-size: var(--md-fab-icon-size, 1.5rem);
   }
-`);
+`;
 
 export default class FAB extends Button {
   static get is() {
@@ -120,7 +119,7 @@ export default class FAB extends Button {
   get _styles() {
     return [...super._styles, FABStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-  renderAccessibility() {
+  get _renderAccessability() {
     return /* html */ `<md-ripple></md-ripple>`;
   }
 }

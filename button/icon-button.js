@@ -6,8 +6,7 @@ import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 import Ripple from '../ripple/ripple.js';
 import Icon from '../icon/icon.js';
 
-const IconButtonStyle = new CSSStyleSheet();
-IconButtonStyle.replaceSync(css`
+const IconButtonStyle = css`
   [part~='button'] {
     width: 40px;
     height: 40px;
@@ -92,7 +91,7 @@ IconButtonStyle.replaceSync(css`
   ::slotted(iconify-icon) {
     font-size: 1.5rem;
   }
-`);
+`;
 
 export default class IconButton extends ActionElement {
   static get is() {
@@ -137,11 +136,11 @@ export default class IconButton extends ActionElement {
     return [...super._styles, IconButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
-  renderAccessibility() {
+  get _renderAccessability() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 
-  _renderContents() {
+  get _renderContents() {
     return /* html */ `
       <span part="icon-root">
         <md-icon part="icon"></md-icon>
@@ -151,9 +150,9 @@ export default class IconButton extends ActionElement {
   }
 
   /**
-   * @param {MouseEvent} _event
+   * @param {MouseEvent} _ev
    */
-  handleClick(_event) {
+  handleClick(_ev) {
     if (!this.toggle) return;
     this.selected = !this.selected;
   }

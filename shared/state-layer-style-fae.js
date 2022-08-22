@@ -5,8 +5,7 @@ import { css } from './template.js';
  * includes only the styles of the focus ring.
  * FOR ACTION ELEMENT ONLY.
  */
-const StateLayerStyleFAE = new CSSStyleSheet();
-StateLayerStyleFAE.replaceSync(css`
+const StateLayerStyleFAE = css`
   [part~='focus-controller'] [part~='state-layer'] {
     position: absolute;
     top: 0;
@@ -28,6 +27,6 @@ StateLayerStyleFAE.replaceSync(css`
       opacity: 0;
     }
   }
-`);
+`;
 
 export default StateLayerStyleFAE;

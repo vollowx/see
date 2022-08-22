@@ -5,8 +5,7 @@ import { css } from './template.js';
  * includes only the styles of the focus ring.
  * FOR ACTION ELEMENT ONLY.
  */
-const FocusRingStyleFAE = new CSSStyleSheet();
-FocusRingStyleFAE.replaceSync(css`
+const FocusRingStyleFAE = css`
   [part~='focus-ring'] {
     display: none;
     position: absolute;
@@ -33,6 +32,6 @@ FocusRingStyleFAE.replaceSync(css`
   :host([focus-from='keyboard']) [part~='focus-ring'] {
     display: block;
   }
-`);
+`;
 
 export default FocusRingStyleFAE;

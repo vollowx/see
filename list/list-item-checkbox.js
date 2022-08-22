@@ -12,15 +12,15 @@ export default class ListItemCheckbox extends ListItem {
     return this.getEl('md-checkbox');
   }
 
-  _renderLeading() {
+  get _renderLeading() {
     return /* html */ `<md-checkbox tabindex="-1"></md-checkbox>`;
   }
 
   /**
-   * @param {MouseEvent} _event
+   * @param {MouseEvent} _ev
    */
-  handleClick(_event) {
-    if (_event.target !== this) return;
+  handleClick(_ev) {
+    if (_ev.target !== this) return;
     this.checkboxElement.checked = !this.checkboxElement.checked;
   }
 

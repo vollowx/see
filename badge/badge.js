@@ -2,8 +2,7 @@ import { html, css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
 import BaseElement from '../shared/base-element.js';
 
-const BadgeStyle = new CSSStyleSheet();
-BadgeStyle.replaceSync(css`
+const BadgeStyle = css`
   :host {
     --md-badge-offset: 0;
   }
@@ -70,7 +69,7 @@ BadgeStyle.replaceSync(css`
   :host([no-events]) [part~='badge'] {
     pointer-events: none;
   }
-`);
+`;
 
 export default class Badge extends BaseElement {
   static get is() {
@@ -120,10 +119,10 @@ export default class Badge extends BaseElement {
   }
 
   /**
-     * @param {string} name
-     * @param {string|undefined} oldValue
-     * @param {string|undefined} newValue
-     */
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'value':
