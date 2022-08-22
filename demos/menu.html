@@ -108,61 +108,85 @@
             <fieldset>
               <legend>anchor-origin.v</legend>
               <div>
-                <input type="radio" id="ao-v-top" name="ao-v" value="top" />
-                <label for="ao-v-top">top</label>
+                <label>
+                  <input type="radio" name="ao-v" value="top" />
+                  top
+                </label>
               </div>
               <div>
-                <input type="radio" id="ao-v-center" name="ao-v" value="center" />
-                <label for="ao-v-center">center</label>
+                <label>
+                  <input type="radio" name="ao-v" value="center" />
+                  center
+                </label>
               </div>
               <div>
-                <input type="radio" id="ao-v-bottom" name="ao-v" value="bottom" checked />
-                <label for="ao-v-bottom">bottom</label>
+                <label>
+                  <input type="radio" name="ao-v" value="bottom" checked />
+                  bottom
+                </label>
               </div>
             </fieldset>
             <fieldset>
               <legend>anchor-origin.h</legend>
               <div>
-                <input type="radio" id="ao-h-top" name="ao-h" value="left" checked />
-                <label for="ao-h-left">left</label>
+                <label>
+                  <input type="radio" name="ao-h" value="left" checked />
+                  left
+                </label>
               </div>
               <div>
-                <input type="radio" id="ao-h-center" name="ao-h" value="center" />
-                <label for="ao-h-center">center</label>
+                <label>
+                  <input type="radio" name="ao-h" value="center" />
+                  center
+                </label>
               </div>
               <div>
-                <input type="radio" id="ao-h-right" name="ao-h" value="right" />
-                <label for="ao-h-right">right</label>
+                <label>
+                  <input type="radio" name="ao-h" value="right" />
+                  right
+                </label>
               </div>
             </fieldset>
             <fieldset>
               <legend>transform-origin.v</legend>
               <div>
-                <input type="radio" id="to-v-top" name="to-v" value="top" checked />
-                <label for="to-v-top">top</label>
+                <label>
+                  <input type="radio" name="to-v" value="top" checked />
+                  top
+                </label>
               </div>
               <div>
-                <input type="radio" id="to-v-center" name="to-v" value="center" />
-                <label for="to-v-center">center</label>
+                <label>
+                  <input type="radio" name="to-v" value="center" />
+                  center
+                </label>
               </div>
               <div>
-                <input type="radio" id="to-v-bottom" name="to-v" value="bottom" />
-                <label for="to-v-bottom">bottom</label>
+                <label>
+                  <input type="radio" name="to-v" value="bottom" />
+                  bottom
+                </label>
               </div>
             </fieldset>
             <fieldset>
               <legend>transform-origin.h</legend>
               <div>
-                <input type="radio" id="to-h-top" name="to-h" value="left" checked />
-                <label for="to-h-left">left</label>
+                <label>
+                  <input type="radio" name="to-h" value="left" checked />
+                  left
+                </label>
               </div>
               <div>
-                <input type="radio" id="to-h-center" name="to-h" value="center" />
-                <label for="to-h-center">center</label>
+                <label>
+                  <input type="radio" name="to-h" value="center" />
+                  center
+                </label>
               </div>
               <div>
-                <input type="radio" id="to-h-right" name="to-h" value="right" />
-                <label for="to-h-right">right</label>
+                <label>
+                  <input type="radio" name="to-h" value="right" />
+                  right
+                </label>
               </div>
             </fieldset>
           </div>
@@ -251,7 +275,7 @@
       const radios = document.querySelectorAll('input[type="radio"]');
       const customMenu = document.querySelector('[anchor-el="custom"');
       radios.forEach((radio) => {
-        radio.addEventListener('change', updateOrigin.bind(this));
+        radio.addEventListener('change', updateOrigin);
       });
       function updateOrigin(e) {
         const name = e.target.name;

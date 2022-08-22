@@ -58,63 +58,95 @@
 
         <div class="demo-container bg-change">
           <md-top-app-bar static no-contents>
-            <md-icon-button slot="navBtn" standard>
-              <iconify-icon icon="material-symbols:menu"></iconify-icon>
-            </md-icon-button>
-            <h6 slot="title">Small</h6>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:account-circle"></iconify-icon>
-            </md-icon-button>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:more-vert"></iconify-icon>
-            </md-icon-button>
-          </md-top-app-bar>
-          <md-top-app-bar centered static no-contents>
-            <md-icon-button slot="navBtn" standard>
-              <iconify-icon icon="material-symbols:menu"></iconify-icon>
-            </md-icon-button>
-            <h6 slot="title">Centered</h6>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:account-circle"></iconify-icon>
-            </md-icon-button>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:more-vert"></iconify-icon>
-            </md-icon-button>
-          </md-top-app-bar>
-          <md-top-app-bar medium static no-contents>
-            <md-icon-button slot="navBtn" standard>
-              <iconify-icon icon="material-symbols:menu"></iconify-icon>
-            </md-icon-button>
-            <h6 slot="title">Medium</h6>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:account-circle"></iconify-icon>
-            </md-icon-button>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:more-vert"></iconify-icon>
-            </md-icon-button>
-          </md-top-app-bar>
-          <md-top-app-bar large static no-contents>
-            <md-icon-button slot="navBtn" standard>
-              <iconify-icon icon="material-symbols:menu"></iconify-icon>
-            </md-icon-button>
-            <h6 slot="title">Large</h6>
-            <md-icon-button slot="actionBtn" standard>
-              <iconify-icon icon="material-symbols:account-circle"></iconify-icon>
-            </md-icon-button>
+            <md-icon-button
+              slot="navBtn"
+              standard
+              data-aria-label="open drawer"
+              icon="material-symbols:menu"
+            ></md-icon-button>
+            <h1 slot="title">Small</h1>
             <md-icon-button
               slot="actionBtn"
               standard
-              data-role="combobox"
+              data-aria-label="account"
+              icon="material-symbols:account-circle"
+            ></md-icon-button>
+            <md-icon-button
+              slot="actionBtn"
+              standard
               data-aria-label="other actions"
+              icon="material-symbols:more-vert"
+            ></md-icon-button>
+          </md-top-app-bar>
+          <md-top-app-bar centered static no-contents>
+            <md-icon-button
+              slot="navBtn"
+              standard
+              data-aria-label="open drawer"
+              icon="material-symbols:menu"
+            ></md-icon-button>
+            <h1 slot="title">Centered</h1>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="account"
+              icon="material-symbols:account-circle"
+            ></md-icon-button>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="other actions"
+              icon="material-symbols:more-vert"
+            ></md-icon-button>
+          </md-top-app-bar>
+          <md-top-app-bar medium static no-contents>
+            <md-icon-button
+              slot="navBtn"
+              standard
+              data-aria-label="open drawer"
+              icon="material-symbols:menu"
+            ></md-icon-button>
+            <h1 slot="title">Medium</h1>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="account"
+              icon="material-symbols:account-circle"
+            ></md-icon-button>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="other actions"
+              icon="material-symbols:more-vert"
+            ></md-icon-button>
+          </md-top-app-bar>
+          <md-top-app-bar large static no-contents>
+            <md-icon-button
+              slot="navBtn"
+              standard
+              data-aria-label="open drawer"
+              icon="material-symbols:menu"
+            ></md-icon-button>
+            <h1 slot="title">Small</h1>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="account"
+              icon="material-symbols:account-circle"
+            ></md-icon-button>
+            <md-icon-button
+              slot="actionBtn"
+              standard
+              data-aria-label="other actions"
+              icon="material-symbols:more-vert"
               id="menu-binder-4"
-            >
-              <iconify-icon icon="material-symbols:more-vert"></iconify-icon>
-            </md-icon-button>
+            ></md-icon-button>
           </md-top-app-bar>
 
           <md-menu
             dense
             anchor-el="menu-binder-4"
+            data-aria-label="other actions"
             anchor-origin='{"v": "bottom", "h": "right"}'
             transform-origin='{"v": "top", "h": "right"}'
           >

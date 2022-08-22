@@ -194,13 +194,13 @@ export default class Popover extends BaseElement {
   }
   get _template() {
     return html`
-      <div part="overlay"></div>
+      <div part="overlay" aria-hidden="true"></div>
       <div part="inner popover" tabindex="-1">${this._content}</div>
     `;
   }
 
   get marginThreshold() {
-    return 48;
+    return 16;
   }
   /**
    * @returns {{top: number, left: number, transformOrigin: {v: number|string, h: number|string}}}
@@ -265,8 +265,12 @@ export default class Popover extends BaseElement {
   }
 
   open() {
+    if (!this.anchorElement) {
+      this.anchorErr();
+      return;
+    }
     this.setPosition();
-    this.anchorElement?.setAttribute('aria-expanded', 'true');
+    this.anchorElement.ariaExpanded = 'true';
     this.setAttribute('aria-hidden', 'false');
     this.setAttribute('open', '');
     this.setAttribute('animate', '');
@@ -275,7 +279,11 @@ export default class Popover extends BaseElement {
     document.documentElement.style.overflow = 'hidden';
   }
   close() {
-    this.anchorElement?.setAttribute('aria-expanded', 'false');
+    if (!this.anchorElement) {
+      this.anchorErr();
+      return;
+    }
+    this.anchorElement.ariaExpanded = '';
     this.setAttribute('aria-hidden', 'true');
     this.removeAttribute('open');
     setTimeout(() => {

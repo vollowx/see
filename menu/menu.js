@@ -91,11 +91,21 @@ export default class Menu extends Popover {
    * @param {boolean} assigned if user assigned a menuitem, ignore selected menuitem
    */
   open(assigned = false) {
+    if (!this.anchorElement) {
+      this.anchorErr();
+      return;
+    }
     super.open();
+    this.anchorElement.setAttribute('aria-controls', this.listElement.id);
     assigned ? null : this.listElement.updateFocus();
   }
   close() {
+    if (!this.anchorElement) {
+      this.anchorErr();
+      return;
+    }
     super.close();
+    this.anchorElement.setAttribute('aria-controls', '');
     this.itemElements.forEach((item) => {
       item.removeAttribute('focus-from');
       item.rippleElement.removeAllRipples();
@@ -172,7 +182,6 @@ export default class Menu extends Popover {
       item.innerElement.id = `${this.anchorElement?.id}-item-${[...this.itemElements].indexOf(item)}`;
     });
 
-    this.anchorElement.setAttribute('aria-controls', this.listElement.id);
   }
 
   connectedCallback() {

@@ -37,7 +37,9 @@
   function CSSStyleSheet(options) {
     if (!DOC) {
       const frame = document.createElement('iframe');
-      frame.style.cssText = 'position:absolute;left:0;top:-9999px;width:1px;height:1px;';
+      frame.style.cssText = 'display:none;visibility:hidden;';
+      frame.tabIndex = -1;
+      frame.title = 'constructable-stylesheet-polyfill';
       document.body.appendChild(frame);
       DOC = frame.contentWindow.document;
     }

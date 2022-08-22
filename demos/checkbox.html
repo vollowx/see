@@ -53,16 +53,16 @@
 
         <div class="demo-container">
           <md-checkbox>Labeled</md-checkbox>
-          <md-checkbox checked></md-checkbox>
-          <md-checkbox indeterminate></md-checkbox>
+          <md-checkbox data-aria-label="a checked checkbox" checked></md-checkbox>
+          <md-checkbox data-aria-label="a indeterminate checkbox" indeterminate></md-checkbox>
           <md-checkbox disabled>Disabled</md-checkbox>
-          <md-checkbox disabled checked></md-checkbox>
-          <md-checkbox disabled indeterminate></md-checkbox>
+          <md-checkbox data-aria-label="a checked but disabled checkbox" disabled checked></md-checkbox>
+          <md-checkbox data-aria-label="a indeterminate but disabled checkbox" disabled indeterminate></md-checkbox>
 
           <span aria-hidden="true" class="demo-spacer"></span>
 
           <div style="display: flex; flex-direction: column">
-            <md-checkbox indeterminate data-aria-controls="child1 child2 child3">Parent</md-checkbox>
+            <md-checkbox indeterminate data-id="parent">Parent</md-checkbox>
             <div style="display: flex; flex-direction: column; padding-inline-start: 24px">
               <md-checkbox data-id="child1" checked>Child 1</md-checkbox>
               <md-checkbox data-id="child2">Child 2</md-checkbox>
@@ -142,7 +142,7 @@
     </main>
 
     <script>
-      const parent = document.querySelector('div > [data-aria-controls]');
+      const parent = document.querySelector('[data-id="parent"]');
       const child1 = document.querySelector('[data-id="child1"]');
       const child2 = document.querySelector('[data-id="child2"]');
       const handleChangeParent = (e) => {
