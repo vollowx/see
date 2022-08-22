@@ -1,5 +1,5 @@
 import { argbFromHex, themeFromSourceColor, applyTheme } from '../system/color-system.js';
-const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color') || '#114514'));
+const theme = themeFromSourceColor(argbFromHex(localStorage.getItem('key-color') || '#6750a4'));
 applyTheme(theme, { target: document.documentElement, brightnessSuffix: true });
 
 import * as TM from '../index.js';
@@ -93,5 +93,3 @@ addEventListener('DOMContentLoaded', () => {
   themeTgl?.addEventListener('click', toggleTheme);
   dirTgl?.addEventListener('click', toggleDir);
 });
-
-import './lib/prism.js';

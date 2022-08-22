@@ -1,5 +1,3 @@
-@import url(./lib/prism.css);
-
 :root {
   --md-sys-typescale-font-family-base: 'Roboto';
   --md-sys-typescale-font-family-global: var(--md-sys-typescale-font-family-base), system-ui, -apple-system,
