@@ -32,5 +32,4 @@ export function listenThemeChange(el) {
   mutationObserver.observe(el, options);
   return mutationObserver;
 }
-const html = document.documentElement;
-if (html) listenThemeChange(html);
+if (document) listenThemeChange(document.documentElement);
