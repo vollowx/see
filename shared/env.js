@@ -23,4 +23,4 @@ export default class Env {
     this.env = 'development';
   }
 }
-window.Env = Env;
+// window.Env = Env;
