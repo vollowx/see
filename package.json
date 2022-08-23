@@ -10,6 +10,7 @@
     "material-design",
     "ui"
   ],
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huge-pancake/tiny-material.git"
