@@ -1,7 +1,7 @@
 import { html, css } from './template.js';
 import BaseElement from './base-element.js';
 
-const BasicButtonStyle = css`
+const ActionEStyle = css`
   :host {
     flex-shrink: 0;
     display: inline-flex;
@@ -65,7 +65,6 @@ export default class ActionElement extends BaseElement {
 
   _delegatesFocus = true;
 
-  /** @type {string[]} */
   static get observedAttributes() {
     return [
       'disabled',
@@ -166,7 +165,7 @@ export default class ActionElement extends BaseElement {
   }
 
   get _styles() {
-    return [BasicButtonStyle];
+    return [ActionEStyle];
   }
   get _renderAccessability() {
     return ``;

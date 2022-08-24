@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Testing</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar auto-padding>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
+        </md-icon-button>
+      </a>
+
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
+      </md-icon-button>
+    </md-top-app-bar>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
+        <ul></ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">Testing</md-typography>
+
+        <div class="demo-container">
+          <ns-text-field autofocus></ns-text-field>
+          <ns-text-field placeholder="Placeholder and Disabled" disabled></ns-text-field>
+          <ns-text-field placeholder="Required" required></ns-text-field>
+          <ns-text-field default-value="Default val"></ns-text-field>
+          <ns-text-field type="password"></ns-text-field>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

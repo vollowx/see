@@ -15,8 +15,9 @@ import Ripple from './ripple/ripple.js';
 import TopAppBar from './top-app-bar/top-app-bar.js';
 import Typography from './typography/typography.js';
 
-import ActionElement from './shared/action-element.js';
 import BaseElement from './shared/base-element.js';
+import ActionElement from './shared/action-element.js';
+import { TextFieldElement } from './shared/text-field-element.js';
 import Env from './shared/env.js';
 
 export {
@@ -38,5 +39,6 @@ export {
   Typography,
   BaseElement,
   ActionElement,
+  TextFieldElement,
   Env,
 };

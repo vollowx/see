@@ -35,12 +35,6 @@ export default class BaseElement extends HTMLElement {
   _attachShadow() {
     this.attachShadow({ mode: 'open', delegatesFocus: this._delegatesFocus });
   }
-  get _renderAccessability() {
-    return ``;
-  }
-  get _renderContents() {
-    return `<slot></slot>`;
-  }
   /** @type {DocumentFragment|string} */
   get _template() {
     return html``;
