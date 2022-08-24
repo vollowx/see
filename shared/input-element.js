@@ -281,7 +281,7 @@ export class InputElement extends BaseElement {
       this.syncDataAttrByEmpty(name, this.inputElement);
       return;
     }
-    if (['minlength', 'maxlength', 'placeholder'].includes(name)) {
+    if (['name', 'minlength', 'maxlength', 'placeholder'].includes(name)) {
       this.syncNonDataAttrByEmpty(name, this.inputElement);
     }
     if (['disabled', 'required', 'readonly'].includes(name)) {
