@@ -1,15 +1,15 @@
 import { html, css } from './template.js';
 import BaseElement from './base-element.js';
 
-const TextFieldEStyle = css``;
+const InputEStyle = css``;
 
-export const TextFieldTypes = ['email', 'number', 'password', 'search', 'tel', 'text', 'url'];
+export const InputTypes = ['email', 'number', 'password', 'search', 'tel', 'text', 'url'];
 export const UnsupportedTypes = ['color', 'date', 'datetime-local', 'file', 'month', 'time', 'week'];
 export const InvalidTypes = ['button', 'checkbox', 'hidden', 'image', 'radio', 'range', 'reset', 'submit'];
 
-export class TextFieldElement extends BaseElement {
+export class InputElement extends BaseElement {
   static get is() {
-    return 'ns-text-field';
+    return 'ns-input';
   }
 
   _delegatesFocus = true;
@@ -220,7 +220,7 @@ export class TextFieldElement extends BaseElement {
   }
 
   get _styles() {
-    return [TextFieldEStyle];
+    return [InputEStyle];
   }
   get _template() {
     return html`${this._renderInput}`;
@@ -289,9 +289,9 @@ export class TextFieldElement extends BaseElement {
     }
     switch (name) {
       case 'type':
-        if (!TextFieldTypes.includes(this.type)) {
+        if (!InputTypes.includes(this.type)) {
           this.type = this.inputElement.type;
-          throw new Error('Invalid type for TextField');
+          throw new Error('Invalid type for Input');
         }
         this.inputElement.type = this.type;
         break;
@@ -312,4 +312,4 @@ export class TextFieldElement extends BaseElement {
   }
 }
 
-customElements.define(TextFieldElement.is, TextFieldElement);
+customElements.define(InputElement.is, InputElement);

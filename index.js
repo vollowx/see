@@ -17,7 +17,7 @@ import Typography from './typography/typography.js';
 
 import BaseElement from './shared/base-element.js';
 import ActionElement from './shared/action-element.js';
-import { TextFieldElement } from './shared/text-field-element.js';
+import { InputElement } from './shared/input-element.js';
 import Env from './shared/env.js';
 
 export {
@@ -39,6 +39,6 @@ export {
   Typography,
   BaseElement,
   ActionElement,
-  TextFieldElement,
+  InputElement,
   Env,
 };
