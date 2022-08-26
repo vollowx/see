@@ -160,13 +160,13 @@ export default class Popover extends BaseElement {
   get _styles() {
     return [PopoverStyle];
   }
-  get _renderContents() {
+  _renderContents() {
     return `<slot></slot>`;
   }
   get _template() {
     return html`
       <div part="overlay" aria-hidden="true"></div>
-      <div part="inner popover" tabindex="-1">${this._renderContents}</div>
+      <div part="inner popover" tabindex="-1">${this._renderContents()}</div>
     `;
   }
 

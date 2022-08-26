@@ -119,7 +119,7 @@ export default class FAB extends Button {
   get _styles() {
     return [...super._styles, FABStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-  get _renderAccessability() {
+  _renderAccessibility() {
     return /* html */ `<md-ripple></md-ripple>`;
   }
 }

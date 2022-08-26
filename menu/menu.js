@@ -7,6 +7,9 @@ const MenuStyle = css`
   :host {
     z-index: 1000;
   }
+  [part~='popover'] {
+    overflow-x: hidden;
+  }
   [part~='menu'] {
     position: fixed;
     min-width: 112px;
@@ -80,7 +83,7 @@ export default class Menu extends Popover {
   get _styles() {
     return [...super._styles, MenuStyle];
   }
-  get _renderContents() {
+  _renderContents() {
     return /* html */ `<md-list data-role="menu" tabindex="-1" part="list"><slot></slot></md-list>`;
   }
 

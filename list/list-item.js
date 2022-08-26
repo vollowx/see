@@ -4,6 +4,7 @@ import ActionElement from '../shared/action-element.js';
 
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
+import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 
 const ListItemStyle = css`
@@ -37,6 +38,10 @@ const ListItemStyle = css`
   [part~='target'] {
     position: absolute;
     inset: 0;
+  }
+  [part~='focus-ring'] {
+    --md-focus-ring-padding-vertical: -4px;
+    --md-focus-ring-padding-horizontal: -4px;
   }
   :host([leading]) [part~='leading-root'] {
     flex-shrink: 0;
@@ -104,15 +109,15 @@ export default class ListItem extends ActionElement {
   }
 
   get _styles() {
-    return [...super._styles, ListItemStyle, StateLayerStyleFAE];
+    return [...super._styles, ListItemStyle, FocusRingStyleFAE, StateLayerStyleFAE];
   }
   get _renderLeading() {
     return ``;
   }
-  get _renderAccessability() {
+  _renderAccessibility() {
     return `<md-ripple></md-ripple>`;
   }
-  get _renderContents() {
+  _renderContents() {
     return /* html */ `
       <span part="leading-root">
         ${this._renderLeading ? this._renderLeading : /* html */ `<slot name="leading"></slot>`}
@@ -125,7 +130,7 @@ export default class ListItem extends ActionElement {
       </span>
     `;
   }
-  get _renderAppends() {
+  _renderAppends() {
     return /* html */ `
       <span part="secondary-action">
         <slot name="secAction"></slot>

@@ -69,7 +69,7 @@ const CheckboxStyle = css`
     box-sizing: border-box;
     width: 18px;
     height: 18px;
-    border: 2px solid;
+    border: 0 solid;
     border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.54);
     border-radius: 2px;
     background-color: transparent;
@@ -80,9 +80,11 @@ const CheckboxStyle = css`
   [part~='check-mark'] {
     position: absolute;
     inset: 0px;
+    padding: 2.8px;
     width: 100%;
+    box-sizing: border-box;
     opacity: 0;
-    transition: opacity 90ms cubic-bezier(0.14, 0, 0, 1);
+    transition: opacity 90ms cubic-bezier(0.14, 0, 0, 1), transform 180ms cubic-bezier(0.14, 0, 0, 1);
   }
   [part='check-mark'] path {
     inset: 0;
@@ -90,31 +92,33 @@ const CheckboxStyle = css`
     stroke-width: 4px;
     stroke-dashoffset: 29.7833385;
     stroke-dasharray: 29.7833385;
-    transition: 90ms cubic-bezier(0.14, 0, 0, 1);
+    color: var(--md-sys-color-surface);
+    transition: 180ms cubic-bezier(0.14, 0, 0, 1);
   }
   [part='mixed-mark'] {
-    margin: 5.6px;
+    margin: 4px;
     width: 100%;
     height: 0;
     transform: scaleX(0) rotate(0deg);
-    border-width: 4px;
+    border-width: 1px;
     border-style: solid;
     color: var(--md-sys-color-surface);
     background-color: currentColor;
     border-color: currentColor;
     opacity: 0;
-    transition: 90ms opacity cubic-bezier(0.14, 0, 0, 1), 90ms transform cubic-bezier(0.14, 0, 0, 1);
+    transition: 90ms opacity cubic-bezier(0.14, 0, 0, 1), 180ms transform cubic-bezier(0.14, 0, 0, 1);
+  }
+  :host(:not([checked]):not([indeterminate])) [part='background'] {
+    border-width: 2px;
   }
   :host([checked]) [part='background'],
   :host([indeterminate]) [part='background'] {
     background-color: var(--md-sys-color-primary);
-    border-color: transparent;
   }
   :host([checked]) [part='check-mark'] {
     opacity: 1;
   }
   :host([checked]) [part='check-mark'] path {
-    color: var(--md-sys-color-surface);
     stroke-dashoffset: 0;
   }
   :host([checked]) [part='mixed-mark'] {
@@ -123,6 +127,9 @@ const CheckboxStyle = css`
   :host([indeterminate]) [part='mixed-mark'] {
     transform: scaleX(1) rotate(0deg);
     opacity: 1;
+  }
+  :host([indeterminate]) [part='check-mark'] {
+    transform: rotate(45deg);
   }
   :host([disabled]) {
     color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);

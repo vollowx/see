@@ -41,7 +41,7 @@ export default class Button extends ActionElement {
   /**
    * Extra contents in `label-root`
    */
-  get _renderContents() {
+  _renderContents() {
     return /* html */ `
       <span part="leading-root">
         <slot name="leading">

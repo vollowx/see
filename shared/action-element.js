@@ -86,7 +86,6 @@ export default class ActionElement extends BaseElement {
   set disabled(value) {
     this.toggleAttribute('disabled', value);
   }
-
   get ariaLabel() {
     return this.getAttribute('data-aria-label');
   }
@@ -97,7 +96,6 @@ export default class ActionElement extends BaseElement {
       this.removeAttribute('data-aria-label');
     }
   }
-
   get ariaHasPopup() {
     return this.getAttribute('data-aria-haspopup');
   }
@@ -108,7 +106,6 @@ export default class ActionElement extends BaseElement {
       this.removeAttribute('data-aria-haspopup');
     }
   }
-
   get ariaControls() {
     return this.getAttribute('data-aria-controls');
   }
@@ -119,7 +116,6 @@ export default class ActionElement extends BaseElement {
       this.removeAttribute('data-aria-controls');
     }
   }
-
   get ariaExpanded() {
     return this.getAttribute('data-aria-expanded');
   }
@@ -130,7 +126,6 @@ export default class ActionElement extends BaseElement {
       this.removeAttribute('data-aria-expanded');
     }
   }
-
   get ariaSelected() {
     return this.getAttribute('data-aria-selected');
   }
@@ -167,13 +162,13 @@ export default class ActionElement extends BaseElement {
   get _styles() {
     return [ActionEStyle];
   }
-  get _renderAccessability() {
+  _renderAccessibility() {
     return ``;
   }
-  get _renderContents() {
+  _renderContents() {
     return `<slot></slot>`;
   }
-  get _renderAppends() {
+  _renderAppends() {
     return ``;
   }
   get _template() {
@@ -183,11 +178,11 @@ export default class ActionElement extends BaseElement {
         part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
-        ${this._renderAccessability}
+        ${this._renderAccessibility()}
         <span part="target"></span>
-        ${this._renderContents}
+        ${this._renderContents()}
       </${this.getAttribute('tag') || this._defaultTag}>
-      ${this._renderAppends}
+      ${this._renderAppends()}
     `;
   }
 

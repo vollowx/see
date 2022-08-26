@@ -136,11 +136,11 @@ export default class IconButton extends ActionElement {
     return [...super._styles, IconButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
 
-  get _renderAccessability() {
+  _renderAccessibility() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 
-  get _renderContents() {
+  _renderContents() {
     return /* html */ `
       <span part="icon-root">
         <md-icon part="icon"></md-icon>

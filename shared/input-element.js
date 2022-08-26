@@ -16,48 +16,45 @@ export class InputElement extends BaseElement {
 
   static get observedAttributes() {
     return [
-      'label',
-      'value',
+      'autofocus',
       'default-value',
-      'supporting-text',
-      'required',
+      'disabled',
       'error',
       'error-text',
-      'type',
-      'disabled',
-      'name',
-      'minlength',
+      'label',
+      'max',
       'maxlength',
+      'min',
+      'minlength',
+      'name',
+      'pattern',
       'placeholder',
       'readonly',
-      'autofocus',
+      'required',
+      'supporting-text',
+      'type',
+      'value',
       // ARIA
+      'id',
+      'role',
+      'data-role',
       'aria-label',
       'data-aria-label',
       'aria-labelby',
       'data-aria-labelby',
     ];
   }
-  get label() {
-    return this.getAttribute('label') || '';
-  }
-  set label(value) {
-    this.setAttribute('label', value);
-  }
-  get value() {
-    return this.getAttribute('value') || '';
-  }
-  set value(value) {
-    this.setAttribute('value', value);
-  }
   get defaultValue() {
     return this.getAttribute('default-value') || '';
   }
-  get required() {
-    return this.hasAttribute('required');
+  set defaultValue(value) {
+    this.setAttribute('default-value', value);
   }
-  set required(value) {
-    this.toggleAttribute('required', value);
+  get disabled() {
+    return this.hasAttribute('disabled');
+  }
+  set disabled(value) {
+    this.toggleAttribute('disabled', value);
   }
   get error() {
     return this.hasAttribute('error');
@@ -71,23 +68,17 @@ export class InputElement extends BaseElement {
   set errorText(value) {
     this.setAttribute('error-text', value);
   }
-  get type() {
-    return this.getAttribute('type') || 'text';
+  get label() {
+    return this.getAttribute('label') || '';
   }
-  set type(value) {
-    this.setAttribute('type', value);
+  set label(value) {
+    this.setAttribute('label', value);
   }
-  get disabled() {
-    return this.hasAttribute('disabled');
+  get maxLength() {
+    return parseInt(this.getAttribute('maxlength') || '-1');
   }
-  set disabled(value) {
-    this.toggleAttribute('disabled', value);
-  }
-  get name() {
-    return this.getAttribute('name') || '';
-  }
-  set name(value) {
-    this.setAttribute('name', value);
+  set maxLength(value) {
+    this.setAttribute('maxlength', value.toString());
   }
   get minLength() {
     return parseInt(this.getAttribute('minlength') || '-1');
@@ -95,11 +86,17 @@ export class InputElement extends BaseElement {
   set minLength(value) {
     this.setAttribute('minlength', value.toString());
   }
-  get maxLength() {
-    return parseInt(this.getAttribute('maxlength') || '-1');
+  get name() {
+    return this.getAttribute('name') || '';
   }
-  set maxLength(value) {
-    this.setAttribute('maxlength', value.toString());
+  set name(value) {
+    this.setAttribute('name', value);
+  }
+  get pattern() {
+    return this.getAttribute('pattern') || '';
+  }
+  set pattern(value) {
+    this.setAttribute('pattern', value);
   }
   get placeholder() {
     return this.getAttribute('placeholder') || '';
@@ -112,6 +109,40 @@ export class InputElement extends BaseElement {
   }
   set readonly(value) {
     this.toggleAttribute('readonly', value);
+  }
+  get required() {
+    return this.hasAttribute('required');
+  }
+  set required(value) {
+    this.toggleAttribute('required', value);
+  }
+  get supportingText() {
+    return this.getAttribute('supporting-text') || '';
+  }
+  set supportingText(value) {
+    this.setAttribute('supporting-text', value);
+  }
+  get type() {
+    return this.getAttribute('type') || 'text';
+  }
+  set type(value) {
+    this.setAttribute('type', value);
+  }
+  get value() {
+    return this.getAttribute('value') || '';
+  }
+  set value(value) {
+    this.setAttribute('value', value);
+  }
+  get role() {
+    return this.getAttribute('data-role');
+  }
+  set role(value) {
+    if (value) {
+      this.setAttribute('data-role', value);
+    } else {
+      this.removeAttribute('data-role');
+    }
   }
   get ariaLabel() {
     return this.getAttribute('data-aria-label');
@@ -210,6 +241,20 @@ export class InputElement extends BaseElement {
   reset() {
     this.value = this.defaultValue;
   }
+  reportValidity() {
+    const valid = this.inputElement.reportValidity();
+    if (!valid) {
+      this.dispatchEvent(new Event('invalid', { cancelable: true }));      
+    }
+    return valid;
+  }
+  checkValidity() {
+    const valid = this.inputElement.checkValidity();
+    if (!valid) {
+      this.dispatchEvent(new Event('invalid', { cancelable: true }));      
+    }
+    return valid;
+  }
 
   get formElement() {
     return this.closest('form');
@@ -223,11 +268,19 @@ export class InputElement extends BaseElement {
     return [InputEStyle];
   }
   get _template() {
-    return html`${this._renderInput}`;
+    return html` ${this._renderInput()} ${this._renderSupportingText()} `;
   }
-  get _renderInput() {
+  _renderInput() {
     return /* html */ `
       <input part="native input" ${this.autofocus ? 'autofocus' : ''} value="${this.defaultValue}" />
+    `;
+  }
+  _renderSupportingText() {
+    return /* html */ `
+      <span part="supporting-text">
+        <span part="text"></span>
+        <span part="length"></span>
+      </span>
     `;
   }
 
@@ -267,6 +320,7 @@ export class InputElement extends BaseElement {
   }
 
   connectedCallback() {
+    this.addEventListener('click', this.focus);
     this.inputElement.addEventListener('input', this.handleInput.bind(this));
     this.inputElement.addEventListener('change', this.handleChange.bind(this));
     this.inputElement.addEventListener('select', this.handleSelect.bind(this));
@@ -277,11 +331,11 @@ export class InputElement extends BaseElement {
    * @param {string|undefined} newValue
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    if (['aria-label', 'data-aria-label', 'aria-labelby', 'data-aria-label'].includes(name)) {
+    if (['role', 'data-role', 'aria-label', 'data-aria-label', 'aria-labelby', 'data-aria-label'].includes(name)) {
       this.syncDataAttrByEmpty(name, this.inputElement);
       return;
     }
-    if (['name', 'minlength', 'maxlength', 'placeholder'].includes(name)) {
+    if (['id', 'name', 'pattern', 'placeholder', 'max', 'maxlength', 'min', 'minlength'].includes(name)) {
       this.syncNonDataAttrByEmpty(name, this.inputElement);
     }
     if (['disabled', 'required', 'readonly'].includes(name)) {
