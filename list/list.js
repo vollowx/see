@@ -31,7 +31,13 @@ export default class List extends BaseElement {
   }
 
   static get observedAttributes() {
-    return [];
+    return ['role', 'data-role'];
+  }
+  get role() {
+    return this.getAttribute('data-role') || 'list';
+  }
+  set role(value) {
+    this.setAttribute('data-role', value || 'list');
   }
 
   get _styles() {
@@ -40,7 +46,7 @@ export default class List extends BaseElement {
 
   get _template() {
     return html`
-      <ul part="list" role="${this.getAttribute('data-role') || 'list'}">
+      <ul part="inner list">
         <slot></slot>
       </ul>
     `;
@@ -217,8 +223,19 @@ export default class List extends BaseElement {
   }
 
   connectedCallback() {
+    this.role = this.role;
     this.itemElements[0] ? (this.itemElements[0].innerElement.tabIndex = 0) : null;
     this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
+  }
+  /**
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (['role', 'data-role'].includes(name)) {
+      this.syncDataAttrByEmpty(name);
+    }
   }
 }
 

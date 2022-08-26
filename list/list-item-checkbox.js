@@ -12,7 +12,7 @@ export default class ListItemCheckbox extends ListItem {
     return this.getEl('md-checkbox');
   }
 
-  get _renderLeading() {
+  _renderLeading() {
     return /* html */ `<md-checkbox tabindex="-1"></md-checkbox>`;
   }
 

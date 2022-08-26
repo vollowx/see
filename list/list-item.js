@@ -111,7 +111,7 @@ export default class ListItem extends ActionElement {
   get _styles() {
     return [...super._styles, ListItemStyle, FocusRingStyleFAE, StateLayerStyleFAE];
   }
-  get _renderLeading() {
+  _renderLeading() {
     return ``;
   }
   _renderAccessibility() {
@@ -120,7 +120,7 @@ export default class ListItem extends ActionElement {
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        ${this._renderLeading ? this._renderLeading : /* html */ `<slot name="leading"></slot>`}
+        ${this._renderLeading() ? this._renderLeading() : /* html */ `<slot name="leading"></slot>`}
       </span>
       <span part="label-root">
         <slot></slot>
