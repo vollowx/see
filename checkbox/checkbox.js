@@ -118,7 +118,6 @@ const CheckboxStyle = css`
   :host([checked]) [part='check-mark'] {
     opacity: 1;
   }
-  :host([indeterminate]) [part='check-mark'] path,
   :host([checked]) [part='check-mark'] path {
     stroke-dashoffset: 0;
   }
@@ -131,6 +130,11 @@ const CheckboxStyle = css`
   }
   :host([indeterminate]) [part='check-mark'] {
     transform: rotate(45deg);
+  }
+  :host([indeterminate]) [part='check-mark'] path {
+    /* For animation~ */
+    stroke-dashoffset: -7px;
+    transform: translateX(-4px);
   }
   :host([disabled]) {
     color: rgba(var(--md-sys-color-on-surface-rgb), 0.38);
