@@ -118,6 +118,7 @@ const CheckboxStyle = css`
   :host([checked]) [part='check-mark'] {
     opacity: 1;
   }
+  :host([indeterminate]) [part='check-mark'] path,
   :host([checked]) [part='check-mark'] path {
     stroke-dashoffset: 0;
   }
