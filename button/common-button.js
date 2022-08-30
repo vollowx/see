@@ -120,7 +120,7 @@ export default class CommonButton extends Button {
   get _styles() {
     return [...super._styles, CommonButtonStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
-  _renderAccessibility() {
+  _renderDisplays() {
     return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }

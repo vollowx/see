@@ -170,7 +170,7 @@ export default class ActionElement extends BaseElement {
   get _styles() {
     return [ActionEStyle];
   }
-  _renderAccessibility() {
+  _renderDisplays() {
     return ``;
   }
   _renderContents() {
@@ -186,7 +186,7 @@ export default class ActionElement extends BaseElement {
         part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
-        ${this._renderAccessibility()}
+        ${this._renderDisplays()}
         <span part="target"></span>
         ${this._renderContents()}
       </${this.getAttribute('tag') || this._defaultTag}>

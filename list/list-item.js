@@ -114,7 +114,7 @@ export default class ListItem extends ActionElement {
   _renderLeading() {
     return ``;
   }
-  _renderAccessibility() {
+  _renderDisplays() {
     return `<md-ripple></md-ripple>`;
   }
   _renderContents() {
