@@ -1,14 +1,36 @@
 # tiny-material
 
-> Still on developing, DO NOT use for production environment
+> MaterialYou & WebComponents!  
+> Still on developing, DO NOT use for production environment.
 
-Run well on Google Chrome, Firefox, Chrome for Android, Microsoft Edge (Chromium), Opera for Android
+Run well on most modern browsers like Google Chrome, Firefox, Chromium, Microsoft Edge (Chromium), Opera, etc.
 
-Core tech:
+What? IE? Never!
 
-- Web Components (if you want to use polyfill, import by your self)
-- Shadow Root
-- Constructable StyleSheets (using polyfill, so now in all browser the styles are `<style>`)
-- CSS variable (run well on most browser)
-- `:focus-visible` (without polyfill)
+By the way, `iconify-icon` maybe will not work on safari. So you may need another way to use **SVG icon** or just use **icon font**.
+
+## Core tech
+
+- Web Components (without polyfill)
+- Shadow Root    (without polyfill)
+- Constructable StyleSheets (with polyfill)
+- CSS variable
 - Typescript (only for type check)
+
+## Stars
+
+[![Star History Chart](https://api.star-history.com/svg?repos=huge-pancake/tiny-material&type=Date)](https://star-history.com/#huge-pancake/tiny-material&Date)
+
+If you like this project, give a star please!
+
+## Contributions
+
+If you **found a bug** or you want to **provide some suggestions**, just create a new issue.
+
+We **welcome** anyone's contributions.
+
+Contributors will be show in the following sheet.
+
+|Name|Contributions|
+|-|-|
+|[huge-pancake](https://github.com/huge-pancake)|ColorSystem, TypographySystem, ElevationSystem, BaseElement, ActionElement, CommonButton, IconButton, FAB, Badge, Checkbox, Divider, Icon, List, ListItem, ListItemCheckbox, ListItemRadio, Menu, Popover, Ripple, FocusRing, StateLayer, TopAppBar, Typography, SPEC|
