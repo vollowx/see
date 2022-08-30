@@ -1,5 +1,6 @@
 import Badge from './badge/badge.js';
 import Checkbox from './checkbox/checkbox.js';
+import CheckboxLabeled from './checkbox/checkbox-labeled.js';
 import CommonButton from './button/common-button.js';
 import Divider from './divider/divider.js';
 import FAB from './button/fab.js';
@@ -23,6 +24,7 @@ import Env from './shared/env.js';
 export {
   Badge,
   Checkbox,
+  CheckboxLabeled,
   CommonButton,
   Divider,
   FAB,

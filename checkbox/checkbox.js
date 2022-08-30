@@ -15,20 +15,6 @@ const CheckboxStyle = css`
     pointer-events: none;
     cursor: default;
   }
-  [part~='root'] {
-    display: inline-flex;
-    align-items: center;
-    ${TypographyStylesGenerator('label', 'L')}
-  }
-  :host([top]) [part~='root'] {
-    flex-direction: column-reverse;
-  }
-  :host([bottom]) [part~='root'] {
-    flex-direction: column;
-  }
-  :host([start]) [part~='root'] {
-    flex-direction: row-reverse;
-  }
   [part='target'] {
     position: absolute;
     top: 50%;
@@ -132,8 +118,7 @@ const CheckboxStyle = css`
     transform: rotate(45deg);
   }
   :host([indeterminate]) [part='check-mark'] path {
-    /* For animation~ */
-    stroke-dashoffset: -7px;
+    stroke-dashoffset: -11px;
     transform: translateX(-4px);
   }
   :host([disabled]) {
@@ -280,25 +265,23 @@ export default class Checkbox extends BaseElement {
     return [CheckboxStyle, StateLayerStyleFAE, FocusRingStyleFAE];
   }
   get _template() {
-    return html`
-      <label part="inner root">
-        <span part="native-root focus-controller">
-          <input part="native" type="checkbox" />
-          <div part="background">
-            <svg part="check-mark" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
-            </svg>
-            <div part="mixed-mark"></div>
-          </div>
-          <span part="state-layer"></span>
-          <span part="focus-ring"></span>
-          <span part="target"></span>
-          <md-ripple></md-ripple>
-        </span>
-        <span part="label-root">
-          <slot></slot>
-        </span>
-      </label>
+    return html` ${this._renderInput()} `;
+  }
+  _renderInput() {
+    return /* html */ `
+      <span part="native-root focus-controller">
+        <input part="native" type="checkbox" />
+        <div part="background">
+          <svg part="check-mark" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+          </svg>
+          <div part="mixed-mark"></div>
+        </div>
+        <span part="state-layer"></span>
+        <span part="focus-ring"></span>
+        <span part="target"></span>
+        <md-ripple></md-ripple>
+      </span>
     `;
   }
 
