@@ -78,8 +78,9 @@ export default class BaseElement extends HTMLElement {
    * Sync attribute by empty is or not.
    * @param {string} attribute
    * @param {HTMLElement|null} target
+   * @param {string|null} defaultVal
    */
-  syncDataAttrByEmpty(attribute, target = this.innerElement) {
+  syncDataAttrByEmpty(attribute, target = this.innerElement, defaultVal = null) {
     if (!target) {
       throw new Error('need target');
     }
@@ -108,6 +109,10 @@ export default class BaseElement extends HTMLElement {
       this.removeAttribute(attribute);
       hasOuterAttr = true;
       outerAttrVal = badAttrVal;
+    }
+    if (defaultVal) {
+      target.setAttribute(innerAttrName, outerAttrVal || defaultVal);
+      return;
     }
     // to sync
     if (outerAttrVal) {

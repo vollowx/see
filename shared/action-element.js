@@ -68,6 +68,8 @@ export default class ActionElement extends BaseElement {
   static get observedAttributes() {
     return [
       'disabled',
+      'role',
+      'data-role',
       'aria-label',
       'data-aria-label',
       'aria-haspopup',
@@ -85,6 +87,12 @@ export default class ActionElement extends BaseElement {
   }
   set disabled(value) {
     this.toggleAttribute('disabled', value);
+  }
+  get role() {
+    return this.getAttribute('data-role') || this._defaultRole;
+  }
+  set role(value) {
+    this.setAttribute('data-role', value || this._defaultRole);
   }
   get ariaLabel() {
     return this.getAttribute('data-aria-label');
@@ -174,7 +182,7 @@ export default class ActionElement extends BaseElement {
   get _template() {
     return html`
       <${this.getAttribute('tag') || this._defaultTag}
-        role="${this.getAttribute('data-role') || this._defaultRole}" tabindex="${this._defaultTabIndex}"
+        role="${this._defaultRole}" tabindex="${this._defaultTabIndex}"
         part="inner button focus-controller">
         <span part="state-layer"></span>
         <span part="focus-ring"></span>
@@ -226,6 +234,10 @@ export default class ActionElement extends BaseElement {
       ].includes(name)
     ) {
       this.syncDataAttrByEmpty(name);
+      return;
+    }
+    if (['role', 'data-role'].includes(name)) {
+      this.syncDataAttrByEmpty(name, this.innerElement, this._defaultRole);
       return;
     }
     if (name === 'disabled') {
