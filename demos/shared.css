@@ -245,7 +245,7 @@ main {
 }
 .index h2 {
   padding: 0 8px;
-  opacity: 0.6;
+  color: var(--md-sys-color-on-surface-variant);
 }
 .index a {
   position: relative;
