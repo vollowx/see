@@ -55,7 +55,7 @@ const toggleDir = (_ev) => {
 
 const CSSBlock = document.createElement('style');
 CSSBlock.innerHTML = /* css */ `
-  .index h2 { ${TypographyStylesGenerator('label', 'L')} }
+  .index h2 { ${TypographyStylesGenerator('label', 'S')} }
   .index li { ${TypographyStylesGenerator('label', 'M')} }
   .table-of-ctt ul li a { ${TypographyStylesGenerator('body', 'M')} }
   .color-item { ${TypographyStylesGenerator('label', 'L')} }
