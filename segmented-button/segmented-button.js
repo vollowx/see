@@ -131,12 +131,7 @@ export default class SegmentedButton extends ActionElement {
   }
 
   handleClick() {
-    if (this.setElement?.multiselect) {
-      this.selected = !this.selected;
-    } else {
-      this.selected = true;
-    }
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.dispatchEvent(new Event('seg-button-interaction', { bubbles: true, composed: true }));
   }
 
   connectedCallback() {
