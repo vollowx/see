@@ -1,14 +1,18 @@
 {
   "name": "tiny-material",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Providing accessible components with Web Components & Material You",
   "author": "huge-pancake",
   "license": "MIT",
   "keywords": [
-    "web-components",
-    "material-you",
+    "ui",
+    "material",
     "material-design",
-    "ui"
+    "web-components",
+    "component-library",
+    "ui-components",
+    "ui-library",
+    "material-you",
   ],
   "main": "index.js",
   "repository": {
