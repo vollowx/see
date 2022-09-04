@@ -75,7 +75,7 @@ const FABStyle = css`
     top: 50%;
     left: 0px;
     right: 0px;
-    height: calc(100%);
+    height: 100%;
     transform: translateY(-50%);
     box-sizing: border-box;
   }

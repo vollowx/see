@@ -3,7 +3,6 @@ import { html, css } from '../shared/template.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 import Ripple from '../ripple/ripple.js';
-import { TypographyStylesGenerator } from '../system/typography-system.js';
 
 const CheckboxStyle = css`
   :host {

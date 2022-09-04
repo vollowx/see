@@ -82,7 +82,7 @@ const CommonButtonStyle = css`
     top: 50%;
     left: 0px;
     right: 0px;
-    height: calc(100% + 8px);
+    height: 48px;
     transform: translateY(-50%);
     box-sizing: border-box;
   }

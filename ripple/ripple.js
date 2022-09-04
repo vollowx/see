@@ -90,7 +90,7 @@ export default class Ripple extends BaseElement {
         height: ${this.centered ? this.centerRadius * 2 : this.radius * 2}px;
         transition-duration: 270ms;
         transform: scale3d(1.3, 1.3, 1.3);
-        opacity: 0.12;`;
+        opacity: var(--md-state-layer-press-opacity, 0.12);`;
     }, 10);
   };
   /**

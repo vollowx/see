@@ -13,6 +13,8 @@ import ListItemRadio from './list/list-item-radio.js';
 import Menu from './menu/menu.js';
 import Popover from './popover/popover.js';
 import Ripple from './ripple/ripple.js';
+import SegmentedButton from './segmented-button/segmented-button.js';
+import SegmentedButtonSet from './segmented-button/segmented-button-set.js';
 import TopAppBar from './top-app-bar/top-app-bar.js';
 import Typography from './typography/typography.js';
 
@@ -37,6 +39,8 @@ export {
   Menu,
   Popover,
   Ripple,
+  SegmentedButton,
+  SegmentedButtonSet,
   TopAppBar,
   Typography,
   BaseElement,

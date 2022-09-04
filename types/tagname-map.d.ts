@@ -13,6 +13,8 @@ import ListItemRadio from '../list/list-item-radio';
 import Menu from '../menu/menu';
 import Popover from '../popover/popover';
 import Ripple from '../ripple/ripple';
+import SegmentedButton from '../segmented-button/segmented-button';
+import SegmentedButtonSet from '../segmented-button/segmented-button-set';
 import TopAppBar from '../top-app-bar/top-app-bar';
 import Typography from '../typography/typography';
 
@@ -33,6 +35,8 @@ declare global {
     'md-menu': Menu;
     'md-popover': Popover;
     'md-ripple': Ripple;
+    'md-seg-button': SegmentedButton,
+    'md-seg-button-set': SegmentedButtonSet,
     'md-top-app-bar': TopAppBar;
     'md-typography': Typography;
   }

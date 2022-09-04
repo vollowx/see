@@ -33,6 +33,7 @@ const FocusRingStyle = css`
     border: var(--md-focus-ring-outer-width, 2px) solid
       var(--md-focus-ring-outer-color, var(--md-sys-color-tertiary-container));
     border-radius: var(--md-focus-ring-radius, 8px);
+    z-index: 1;
   }
   [part~='focus-ring']::before {
     content: '';

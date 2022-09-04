@@ -12,16 +12,16 @@ export default class Button extends ActionElement {
   set label(value) {
     this.setAttribute('label', value);
   }
-  get leadingIcon() {
+  get leading() {
     return this.getAttribute('leading') || '';
   }
-  set leadingIcon(value) {
+  set leading(value) {
     this.setAttribute('leading', value);
   }
-  get trailingIcon() {
+  get trailing() {
     return this.getAttribute('trailing') || '';
   }
-  set trailingIcon(value) {
+  set trailing(value) {
     this.setAttribute('trailing', value);
   }
 
@@ -30,17 +30,14 @@ export default class Button extends ActionElement {
     return this.getEl('[part~="label"]');
   }
   /** @type {Icon} */
-  get leadingIconElement() {
+  get leadingElement() {
     return this.getEl('[part~="leading"]');
   }
   /** @type {Icon} */
-  get trailingIconElement() {
+  get trailingElement() {
     return this.getEl('[part~="trailing"]');
   }
 
-  /**
-   * Extra contents in `label-root`
-   */
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
@@ -69,7 +66,7 @@ export default class Button extends ActionElement {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'label') this.fillNonDataAttr(name, this.labelElement);
-    if (name === 'leading') this.syncNonDataAttrByEmpty(name, this.leadingIconElement, false, 'icon');
-    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingIconElement, false, 'icon');
+    if (name === 'leading') this.syncNonDataAttrByEmpty(name, this.leadingElement, false, 'icon');
+    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingElement, false, 'icon');
   }
 }

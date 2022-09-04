@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Segmented button</title>
+
+    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar auto-padding>
+      <a slot="navBtn" href="./" tabindex="-1" class="outer-link">
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
+        </md-icon-button>
+      </a>
+
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
+      </md-icon-button>
+    </md-top-app-bar>
+
+    <main>
+      <nav class="table-of-ctt" aria-label="Contents">
+        <p>Contents</p>
+        <ul>
+          <li><a href="#single">Single select, 单选</a></li>
+          <li><a href="#multi">Multi select, 多选</a></li>
+          <li><a href="#attributes">Attributes, 属性</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">Segmented button, 分段按钮</md-typography>
+
+        <md-typography body-m tag="p">
+          Design baseline from
+          <a href="https://m3.material.io/components/segmented-buttons/specs" target="_blank">m3.material.io</a>
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="single-select">Single select, 单选</md-typography>
+
+        <div class="demo-container">
+          <md-seg-button-set>
+            <md-seg-button
+              leading="material-symbols:format-align-left"
+              value="left aligned"
+              data-aria-label="left aligned"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-center"
+              value="centered"
+              data-aria-label="centered"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-right"
+              value="right aligned"
+              data-aria-label="right aligned"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-justify"
+              value="justify"
+              data-aria-label="justify"
+              disabled
+            ></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set>
+            <md-seg-button
+              leading="material-symbols:format-align-left"
+              value="left aligned"
+              label="Left aligned"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-center"
+              value="centered"
+              label="Centered"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-right"
+              value="right aligned"
+              label="Right aligned"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-justify"
+              value="justify"
+              label="Justify"
+              disabled
+            ></md-seg-button>
+          </md-seg-button-set>
+        </div>
+
+        <md-typography headline-m tag="h2" id="multi-select">Multi select, 多选</md-typography>
+
+        <div class="demo-container">
+          <md-seg-button-set multiselect>
+            <md-seg-button leading="material-symbols:format-bold" value="bold" data-aria-label="bold" selected></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-italic"
+              value="italic"
+              data-aria-label="italic"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-underlined"
+              value="underlined"
+              data-aria-label="underlined"
+            ></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set multiselect>
+            <md-seg-button leading="material-symbols:format-bold" value="bold" label="bold" selected></md-seg-button>
+            <md-seg-button leading="material-symbols:format-italic" value="italic" label="italic"></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-underlined"
+              value="underlined"
+              label="underlined"
+            ></md-seg-button>
+          </md-seg-button-set>
+        </div>
+
+        <md-typography headline-m tag="h2" id="density">Density, 密度</md-typography>
+
+        <div class="demo-container">
+          <md-seg-button-set multiselect style="--md-seg-button-density: 0px">
+            <md-seg-button selected value="bold" label="Bold"></md-seg-button>
+            <md-seg-button value="italic" label="Italic"></md-seg-button>
+            <md-seg-button value="underlined" label="Underlined"></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set multiselect style="--md-seg-button-density: 1px">
+            <md-seg-button selected value="bold" label="Bold"></md-seg-button>
+            <md-seg-button value="italic" label="Italic"></md-seg-button>
+            <md-seg-button value="underlined" label="Underlined"></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set multiselect style="--md-seg-button-density: 2px">
+            <md-seg-button selected value="bold" label="Bold"></md-seg-button>
+            <md-seg-button value="italic" label="Italic"></md-seg-button>
+            <md-seg-button value="underlined" label="Underlined"></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set multiselect style="--md-seg-button-density: 3px">
+            <md-seg-button selected value="bold" label="Bold"></md-seg-button>
+            <md-seg-button value="italic" label="Italic"></md-seg-button>
+            <md-seg-button value="underlined" label="Underlined"></md-seg-button>
+          </md-seg-button-set>
+        </div>
+
+        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+        <md-typography body-m tag="p">Types:</md-typography>
+        <ul>
+          <li>single select means choose one of all names</li>
+          <li>
+            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+            <code>false</code>
+          </li>
+        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
