@@ -12,7 +12,7 @@
     "component-library",
     "ui-components",
     "ui-library",
-    "material-you",
+    "material-you"
   ],
   "main": "index.js",
   "repository": {
