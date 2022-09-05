@@ -41,7 +41,10 @@
         <ul>
           <li><a href="#single">Single select, 单选</a></li>
           <li><a href="#multi">Multi select, 多选</a></li>
+          <li><a href="#density">Density, 密度</a></li>
+          <li><a href="#custom-events">Custom events, 自定义事件</a></li>
           <li><a href="#attributes">Attributes, 属性</a></li>
+          <li><a href="#css-variables">CSS Variables, CSS 变量</a></li>
         </ul>
       </nav>
 
@@ -62,6 +65,29 @@
               value="left aligned"
               data-aria-label="left aligned"
               selected
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-center"
+              value="centered"
+              data-aria-label="centered"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-right"
+              value="right aligned"
+              data-aria-label="right aligned"
+            ></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-align-justify"
+              value="justify"
+              data-aria-label="justify"
+              disabled
+            ></md-seg-button>
+          </md-seg-button-set>
+          <md-seg-button-set>
+            <md-seg-button
+              leading="material-symbols:format-align-left"
+              value="left aligned"
+              data-aria-label="left aligned"
             ></md-seg-button>
             <md-seg-button
               leading="material-symbols:format-align-center"
@@ -134,6 +160,28 @@
           </md-seg-button-set>
         </div>
 
+        <md-typography headline-m tag="h2" id="custom-events">Custom events, 自定义事件</md-typography>
+
+        <md-typography headline-s tag="h3">Custom events of <code>md-seg-button</code></md-typography>
+
+        <ul>
+          <li><p><code>seg-button-interaction</code> when a button clicked. <code>{ bubbles: true, composed: true }</code></p></li>
+        </ul>
+        
+        <md-typography headline-s tag="h3">Custom events of <code>md-seg-button-set</code></md-typography>
+
+        <ul>
+          <li><p><code>seg-button-set-change</code> when the data of this segmented button set changed. <br /><pre>{
+  detail: {
+    button: this.buttonElements[index],
+    selected: this.buttonElements[index].selected,
+    index,
+  },
+  bubbles: true,
+  composed: true
+}</pre></p></li>
+        </ul>
+
         <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
 
         <md-typography body-m tag="p">Types:</md-typography>
@@ -145,6 +193,8 @@
           </li>
         </ul>
 
+        <md-typography headline-s tag="h3">Attributes of <code>md-seg-button</code></md-typography>
+
         <table>
           <thead>
             <tr>
@@ -154,7 +204,101 @@
               <th>Description, 描述</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td class="name">disabled</td>
+              <td class="type">toggle</td>
+              <td class="default-val">false</td>
+              <td>
+                If true, common button will be disabled. Controls
+                <code>disabled</code>, <code>aria-disabled</code>
+              </td>
+            </tr>
+            <tr>
+              <td class="name">value</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls <code>value</code></td>
+            </tr>
+            <tr>
+              <td class="name">selected</td>
+              <td class="type">boolean</td>
+              <td class="default-val">(false)</td>
+              <td>Controls <code>aria-pressed</code></td>
+            </tr>
+            <tr>
+              <td class="name">data-role</td>
+              <td class="type">string</td>
+              <td class="default-val">button</td>
+              <td>Controls role</td>
+            </tr>
+            <tr>
+              <td class="name">data-aria-label</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls aria-label</td>
+            </tr>
+            <tr>
+              <td class="name">label</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls label content, the default value of aria-label</td>
+            </tr>
+            <tr>
+              <td class="name">leading</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls leading icon name</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <md-typography headline-s tag="h3">Attributes of <code>md-seg-button-set</code></md-typography>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Type, 类型</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">data-aria-label</td>
+              <td class="type">string</td>
+              <td class="default-val"></td>
+              <td>Controls aria-label</td>
+            </tr>
+            <tr>
+              <td class="name">multiselect</td>
+              <td class="type">boolean</td>
+              <td class="default-val">(false)</td>
+              <td>If true, it's multiselect mode, or it's single-select mode.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <md-typography headline-m tag="h2" id="css-variables">CSS Variables, CSS 变量</md-typography>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name, 名称</th>
+              <th>Format, 格式</th>
+              <th>Default value, 默认值</th>
+              <th>Description, 描述</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">--md-seg-button-density</td>
+              <td class="type">{number}px</td>
+              <td class="default-val">0px</td>
+              <td>Controls density.</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </main>

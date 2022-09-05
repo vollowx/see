@@ -137,7 +137,7 @@ export default class SegmentedButton extends ActionElement {
   connectedCallback() {
     super.connectedCallback();
     this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
-    this.addEventListener('click', this.handleClick.bind(this));
+    this.innerElement.addEventListener('click', this.handleClick.bind(this));
   }
   /**
    * @param {string} name
@@ -148,12 +148,6 @@ export default class SegmentedButton extends ActionElement {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'selected') {
-      if (!this.setElement) {
-        return;
-      }
-      if (this.selected) {
-        this.setElement.childChanged(this);
-      }
       this.innerElement.setAttribute('aria-pressed', this.selected ? 'true' : 'false');
       return;
     }
