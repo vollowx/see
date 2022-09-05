@@ -301,8 +301,16 @@ export default class Checkbox extends BaseElement {
   handleChange() {
     this.checked = this.nativeElement.checked;
     this.indeterminate = this.nativeElement.indeterminate;
-    this.updateNativeState();
-
+    this.updateInputARIA();
+    this.emitChangeEvent();
+  }
+  updateInputARIA() {
+    let ariaChecked = ['false', 'true', 'mixed'];
+    let which = this.indeterminate ? 2 : this.checked ? 1 : 0;
+    this.nativeElement.ariaChecked = ariaChecked[which];
+  }
+  emitChangeEvent() {
+    if (!this.isConnected) return;
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,
@@ -310,20 +318,13 @@ export default class Checkbox extends BaseElement {
       })
     );
   }
-  updateNativeState() {
-    // let paths = [this._uncheckedMarkPath, this._checkedMarkPath, this._indeterminateMarkPath];
-    let ariaChecked = ['false', 'true', 'mixed'];
-    let which = this.indeterminate ? 2 : this.checked ? 1 : 0;
-    // this.markElement.setAttribute('d', paths[which]);
-    this.nativeElement.ariaChecked = ariaChecked[which];
-  }
 
   connectedCallback() {
     this.nativeElement.addEventListener('focusin', this.handleFocusIn.bind(this));
     this.nativeElement.addEventListener('focusout', this.handleFocusOut.bind(this));
     this.nativeElement.addEventListener('change', this.handleChange.bind(this));
 
-    this.updateNativeState();
+    this.updateInputARIA();
   }
   /**
    * @param {string} name
@@ -366,7 +367,7 @@ export default class Checkbox extends BaseElement {
       }
       this.nativeElement.indeterminate = this.indeterminate;
     }
-    this.updateNativeState();
+    this.updateInputARIA();
   }
 }
 
