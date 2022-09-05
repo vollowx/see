@@ -269,6 +269,11 @@ main {
 .index a:hover {
   background-color: rgba(var(--md-sys-color-on-surface-rgb), 0.08);
 }
+@media (hover: none) {
+  .index a:hover {
+    background-color: transparent;
+  }
+}
 
 .overflow-box {
   overflow: auto;

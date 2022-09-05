@@ -28,9 +28,3 @@ If you like this project, give a star please!
 If you **found a bug** or you want to **provide some suggestions**, just create a new issue.
 
 We **welcome** anyone's contributions.
-
-Contributors will be show in the following sheet.
-
-|Name|Contributions|
-|-|-|
-|[huge-pancake](https://github.com/huge-pancake)|ColorSystem, TypographySystem, ElevationSystem, BaseElement, ActionElement, CommonButton, IconButton, FAB, Badge, Checkbox, Divider, Icon, List, ListItem, ListItemCheckbox, ListItemRadio, Menu, Popover, Ripple, FocusRing, StateLayer, TopAppBar, Typography, SPEC|
