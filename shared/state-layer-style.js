@@ -12,10 +12,6 @@ import { css } from './template.js';
  * part="focus-controller"
  * ```
  * to your element.
- *
- * Of course, this way is full of limitation,
- * so if you need more customization, just do
- * not use this.
  */
 const StateLayerStyle = css`
   [part~='focus-controller'] [part~='state-layer'] {
@@ -29,10 +25,10 @@ const StateLayerStyle = css`
     opacity: 0;
   }
   [part~='focus-controller']:focus-visible [part~='state-layer'] {
-    opacity: 0.12;
+    opacity: var(--md-sys-states-focus, 0.12);
   }
   [part~='focus-controller']:hover [part~='state-layer'] {
-    opacity: 0.08;
+    opacity: var(--md-sys-states-hover, 0.08);
   }
   @media (hover: none) {
     [part~='focus-controller']:hover [part~='state-layer'] {

@@ -17,10 +17,10 @@ const StateLayerStyleFAE = css`
     opacity: 0;
   }
   :host([focus-from='keyboard']) [part~='state-layer'] {
-    opacity: 0.12;
+    opacity: var(--md-sys-states-focus, 0.12);
   }
   [part~='focus-controller']:hover [part~='state-layer'] {
-    opacity: 0.08;
+    opacity: var(--md-sys-states-hover, 0.08);
   }
   @media (hover: none) {
     [part~='focus-controller']:hover [part~='state-layer'] {

@@ -1,5 +1,5 @@
-import { css } from "./template.js";
-import { TypographyStylesGenerator } from "../system/typography-system.js";
+import { css } from './template.js';
+import { TypographyStylesGenerator } from '../system/typography-system.js';
 
 const FormControlLabelStyle = css`
   [part~='fcl-root'] {

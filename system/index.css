@@ -1,6 +1,7 @@
-/* This file is for import all systems in one go */
+/* This file is for import all systems */
 @import url(./color-system.css);
 @import url(./elevation-system.css);
+@import url(./states-system.css);
 
 html,
 body {

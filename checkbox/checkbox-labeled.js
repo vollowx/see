@@ -1,6 +1,6 @@
-import Checkbox from "./checkbox.js";
-import FormControlLabelStyle from "../shared/form-control-label-style.js";
-import { html } from "../shared/template.js";
+import Checkbox from './checkbox.js';
+import FormControlLabelStyle from '../shared/form-control-label-style.js';
+import { html } from '../shared/template.js';
 
 export default class CheckboxLabeled extends Checkbox {
   static get is() {

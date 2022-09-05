@@ -244,14 +244,14 @@ export class InputElement extends BaseElement {
   reportValidity() {
     const valid = this.inputElement.reportValidity();
     if (!valid) {
-      this.dispatchEvent(new Event('invalid', { cancelable: true }));      
+      this.dispatchEvent(new Event('invalid', { cancelable: true }));
     }
     return valid;
   }
   checkValidity() {
     const valid = this.inputElement.checkValidity();
     if (!valid) {
-      this.dispatchEvent(new Event('invalid', { cancelable: true }));      
+      this.dispatchEvent(new Event('invalid', { cancelable: true }));
     }
     return valid;
   }

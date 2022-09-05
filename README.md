@@ -12,7 +12,7 @@ By the way, `iconify-icon` maybe will not work on safari. So you may need anothe
 ## Core tech
 
 - Web Components (without polyfill)
-- Shadow Root    (without polyfill)
+- Shadow Root (without polyfill)
 - Constructable StyleSheets (with polyfill)
 - CSS variable
 - Typescript (only for type check)

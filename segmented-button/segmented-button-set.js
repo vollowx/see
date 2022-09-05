@@ -108,7 +108,7 @@ export default class SegmentedButtonSet extends BaseElement {
     }
   }
   /**
-   * @param {CustomEvent} e 
+   * @param {CustomEvent} e
    */
   handleSegButtonInteraction(e) {
     // @ts-ignore
@@ -132,15 +132,17 @@ export default class SegmentedButtonSet extends BaseElement {
    * @param {number} index
    */
   emitChangeEvent(index) {
-    this.dispatchEvent(new CustomEvent('seg-button-set-change', {
-      detail: {
-        button: this.buttonElements[index],
-        selected: this.buttonElements[index].selected,
-        index,
-      },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent('seg-button-set-change', {
+        detail: {
+          button: this.buttonElements[index],
+          selected: this.buttonElements[index].selected,
+          index,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   /**

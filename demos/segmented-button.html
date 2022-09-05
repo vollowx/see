@@ -6,7 +6,7 @@
     <meta name="description" content="The index of all the components" />
     <title>Segmented button</title>
 
-    <link rel="stylesheet" href="../system/collection.css" />
+    <link rel="stylesheet" href="../system/index.css" />
     <link rel="stylesheet" href="./shared.css" />
     <script type="module" src="./shared.js"></script>
 
@@ -112,7 +112,12 @@
 
         <div class="demo-container">
           <md-seg-button-set multiselect>
-            <md-seg-button leading="material-symbols:format-bold" value="bold" data-aria-label="bold" selected></md-seg-button>
+            <md-seg-button
+              leading="material-symbols:format-bold"
+              value="bold"
+              data-aria-label="bold"
+              selected
+            ></md-seg-button>
             <md-seg-button
               leading="material-symbols:format-italic"
               value="italic"
@@ -165,13 +170,20 @@
         <md-typography headline-s tag="h3">Custom events of <code>md-seg-button</code></md-typography>
 
         <ul>
-          <li><p><code>seg-button-interaction</code> when a button clicked. <code>{ bubbles: true, composed: true }</code></p></li>
+          <li>
+            <code>seg-button-interaction</code> when a button clicked. <code>{ bubbles: true, composed: true }</code>
+          </li>
         </ul>
-        
+
         <md-typography headline-s tag="h3">Custom events of <code>md-seg-button-set</code></md-typography>
 
         <ul>
-          <li><p><code>seg-button-set-change</code> when the data of this segmented button set changed. <br /><pre>{
+          <li>
+            <code>seg-button-set-change</code>
+            when the data of this segmented button set changed.
+            <br />
+            <pre>
+{
   detail: {
     button: this.buttonElements[index],
     selected: this.buttonElements[index].selected,
@@ -179,7 +191,9 @@
   },
   bubbles: true,
   composed: true
-}</pre></p></li>
+}</pre
+            >
+          </li>
         </ul>
 
         <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
@@ -254,7 +268,7 @@
         </table>
 
         <md-typography headline-s tag="h3">Attributes of <code>md-seg-button-set</code></md-typography>
-        
+
         <table>
           <thead>
             <tr>

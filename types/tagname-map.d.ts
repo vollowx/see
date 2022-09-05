@@ -23,7 +23,7 @@ declare global {
     'md-badge': Badge;
     'md-button': CommonButton;
     'md-checkbox': Checkbox;
-    'md-checkbox-labeled': CheckboxLabeled,
+    'md-checkbox-labeled': CheckboxLabeled;
     'md-divider': Divider;
     'md-fab': FAB;
     'md-icon': Icon;
@@ -35,8 +35,8 @@ declare global {
     'md-menu': Menu;
     'md-popover': Popover;
     'md-ripple': Ripple;
-    'md-seg-button': SegmentedButton,
-    'md-seg-button-set': SegmentedButtonSet,
+    'md-seg-button': SegmentedButton;
+    'md-seg-button-set': SegmentedButtonSet;
     'md-top-app-bar': TopAppBar;
     'md-typography': Typography;
   }

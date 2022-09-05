@@ -1,0 +1,6 @@
+:root {
+  --md-sys-states-hover: 0.08;
+  --md-sys-states-focus: 0.12;
+  --md-sys-states-press: 0.12;
+  --md-sys-states-drag: 0.16;
+}
