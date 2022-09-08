@@ -20,6 +20,10 @@ const DividerStyle = css`
   :host([inset]) [part~='divider'] {
     margin-inline-start: 16px;
   }
+  :host([inset~='middle']) [part~='divider'] {
+    margin-inline-start: 16px;
+    margin-inline-end: 16px;
+  }
   :host([inset~='end']) [part~='divider'] {
     margin-inline-end: 16px;
   }

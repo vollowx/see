@@ -11,6 +11,8 @@ import ListItem from './list/list-item.js';
 import ListItemCheckbox from './list/list-item-checkbox.js';
 import ListItemRadio from './list/list-item-radio.js';
 import Menu from './menu/menu.js';
+import NavigationDrawer from './navigation-drawer/navigation-drawer.js';
+import NavigationDrawerItem from './navigation-drawer/navigation-drawer-item.js';
 import Popover from './popover/popover.js';
 import Ripple from './ripple/ripple.js';
 import SegmentedButton from './segmented-button/segmented-button.js';
@@ -37,6 +39,8 @@ export {
   ListItemCheckbox,
   ListItemRadio,
   Menu,
+  NavigationDrawer,
+  NavigationDrawerItem,
   Popover,
   Ripple,
   SegmentedButton,

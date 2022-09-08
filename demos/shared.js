@@ -48,7 +48,7 @@ const toggleDir = (_ev) => {
   const newDir = oldDir === 'rtl' ? 'ltr' : 'rtl';
   localStorage.setItem('md-dir', newDir);
   document.documentElement.setAttribute('dir', newDir);
-  document.querySelectorAll('md-badge').forEach((badge) => badge.setAttribute('dir', newDir));
+  document.querySelectorAll('md-badge, md-nav-drawer').forEach((el) => el.setAttribute('dir', newDir));
   // @ts-ignore
   updateDirIcon(_ev.target, newDir);
 };
@@ -65,6 +65,23 @@ CSSBlock.innerHTML = /* css */ `
 document.head.appendChild(CSSBlock);
 
 addEventListener('DOMContentLoaded', () => {
+  /** @type {HTMLButtonElement|null} */
+  const openDrawer = document.querySelector('#openDrawer');
+  const drawer = document.querySelector('#drawer');
+
+  if (openDrawer && drawer) {
+    openDrawer.addEventListener('click', (_e) => {
+      // @ts-ignore
+      drawer.open = true;
+    });
+    drawer.addEventListener('navigation-drawer-changed', (_e) => {
+      // @ts-ignore
+      if (!_e.detail.opened) {
+        openDrawer.focus();
+      }
+    });
+  }
+
   const themeTgl = document.querySelector('#theme-tgl');
   const dirTgl = document.querySelector('#dir-tgl');
 
@@ -84,8 +101,8 @@ addEventListener('DOMContentLoaded', () => {
   // Applying
   document.documentElement.setAttribute('data-md-theme', theme);
   document.documentElement.setAttribute('dir', dir);
-  document.querySelectorAll('md-badge').forEach((badge) => {
-    badge.setAttribute('dir', dir);
+  document.querySelectorAll('md-badge, md-nav-drawer').forEach((el) => {
+    el.setAttribute('dir', dir);
   });
 
   updateThemeIcon(themeTgl, theme);

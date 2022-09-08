@@ -4,28 +4,22 @@ import { html, css } from '../shared/template.js';
 
 const TopAppBarStyle = css`
   :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    height: 100%;
     --md-top-app-bar-height: 64px;
-    height: min-content;
   }
   /* FIXME: background no animation */
   [part~='header'] {
     position: relative;
     display: flex;
-    width: var(--md-top-app-bar-width, 100%);
+    width: 100%;
     min-height: var(--md-top-app-bar-height, 64px);
     background-color: var(--md-sys-color-surface);
     box-sizing: border-box;
   }
-  :host([auto-padding]) [part~='header'] {
-    padding-right: var(--md-global-padding-right);
-  }
-  :host(:not([static])) [part~='header'] {
-    position: fixed;
-    top: 0;
-    left: auto;
-    right: 0;
+  :host(:not([no-elevation])) [part~='header'] {
     z-index: 2;
   }
   :host(:not([static])) [scrolled] {
@@ -88,10 +82,8 @@ const TopAppBarStyle = css`
     ${TypographyStylesGenerator('headline', 'M')}
   }
   [part~='contents'] {
-    padding-top: var(--md-top-app-bar-height, 64px);
-  }
-  :host([no-contents]) [part~='contents'] {
-    display: none;
+    flex: 1;
+    overflow: auto;
   }
 `;
 
@@ -124,9 +116,13 @@ export default class TopAppBar extends BaseElement {
     `;
   }
 
+  /** @type {HTMLDivElement} */
+  get contentsElement() {
+    return this.getEl('[part~="contents"]');
+  }
   /** @type {Window|Element} */
   get bindElement() {
-    return document.querySelector(`${this.getAttribute('bind-el')}`) || window;
+    return document.querySelector(`${this.getAttribute('bind-el')}`) || this.contentsElement;
   }
   /** @type {HTMLElement} */
   get topAppBarElement() {

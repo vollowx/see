@@ -61,6 +61,11 @@ const TypographyStyle = css`
   :host([tag='p']) {
     display: block;
   }
+  :host([in-drawer]) {
+    display: block;
+    margin: 16px;
+    color: var(--md-sys-color-on-surface-variant);
+  }
 `;
 
 export default class Typography extends BaseElement {

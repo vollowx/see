@@ -15,6 +15,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: var(--md-sys-typescale-font-family-global);
@@ -123,9 +128,6 @@ md-fab-set {
 
 main {
   display: flex;
-  width: 100%;
-  position: absolute;
-  top: 0;
 }
 .overview-content {
   display: none;
@@ -176,7 +178,7 @@ main {
 }
 .main {
   margin-inline-start: 0;
-  padding: 64px 24px 24px 24px;
+  padding: 0 24px 24px 24px;
   max-width: 1080px;
   width: 100%;
   box-sizing: border-box;

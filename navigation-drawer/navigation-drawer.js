@@ -1,0 +1,231 @@
+import BaseElement from '../shared/base-element.js';
+import { html, css } from '../shared/template.js';
+
+const NavigationDrawerStyle = css`
+  :host {
+    display: flex;
+    height: 100%;
+    --md-nav-drawer-width: 360px;
+  }
+  [part~='drawer'] {
+    flex-shrink: 0;
+    width: var(--md-nav-drawer-width);
+    height: 100%;
+    background: var(--md-sys-color-surface);
+    border-radius: 0 16px 16px 0;
+    transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1), 250ms margin cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 4;
+    outline: none;
+  }
+  [part='drawerContent'] {
+    padding: 12px;
+  }
+  [part~='content'] {
+    width: 100%;
+    overflow: auto;
+  }
+  @media (max-width: 1199px) {
+    [part~='drawer'] {
+      transform: translateX(calc(0px - var(--md-nav-drawer-width)));
+      margin-inline-end: calc(0px - var(--md-nav-drawer-width));
+    }
+    :host([dir='rtl']) [part~='drawer'] {
+      transform: translateX(var(--md-nav-drawer-width));
+    }
+  }
+  :host([modal]) [part~='drawer'] {
+    transform: translateX(calc(0px - var(--md-nav-drawer-width)));
+    margin-inline-end: calc(0px - var(--md-nav-drawer-width));
+    background: var(--md-sys-elevation-surface-1);
+  }
+  :host([modal][dir='rtl']) [part~='drawer'] {
+    transform: translateX(var(--md-nav-drawer-width));
+    border-radius: 16px 0 0 16px;
+  }
+  :host([modal]) [part='overlay'] {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: var(--md-sys-color-on-surface-light);
+    transition: 250ms opacity cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 4;
+    opacity: 0;
+    pointer-events: none;
+  }
+  :host([modal][open]) [part='overlay'] {
+    opacity: 0.56;
+    pointer-events: auto;
+  }
+  :host([modal][open]) [part~='drawer'] {
+    transform: translateX(0);
+  }
+`;
+
+export default class NavigationDrawer extends BaseElement {
+  static get is() {
+    return 'md-nav-drawer';
+  }
+
+  static get observedAttributes() {
+    return [
+      'open',
+      'modal',
+      'aria-label',
+      'data-aria-label',
+      'aria-labelby',
+      'data-aria-labelby',
+      'aria-describedby',
+      'data-aria-describedby',
+      'aria-modal',
+      'data-aria-modal',
+    ];
+  }
+  get open() {
+    return this.hasAttribute('open');
+  }
+  set open(value) {
+    this.toggleAttribute('open', value);
+  }
+  get modal() {
+    return this.hasAttribute('modal');
+  }
+  set modal(value) {
+    this.toggleAttribute('modal', value);
+  }
+  get ariaLabel() {
+    return this.getAttribute('data-aria-label');
+  }
+  set ariaLabel(value) {
+    if (value) {
+      this.setAttribute('data-aria-label', value);
+    } else {
+      this.removeAttribute('data-aria-label');
+    }
+  }
+  get ariaLabelBy() {
+    return this.getAttribute('data-aria-labelby');
+  }
+  set ariaLabelBy(value) {
+    if (value) {
+      this.setAttribute('data-aria-labelby', value);
+    } else {
+      this.removeAttribute('data-aria-label');
+    }
+  }
+  get ariaDescribedBy() {
+    return this.getAttribute('data-aria-describedby');
+  }
+  set ariaDescribedBy(value) {
+    if (value) {
+      this.setAttribute('data-aria-describedby', value);
+    } else {
+      this.removeAttribute('data-aria-describedby');
+    }
+  }
+  _defaultAriaModal = 'false';
+  get ariaModal() {
+    return this.getAttribute('data-aria-modal') || this._defaultAriaModal;
+  }
+  set ariaModal(value) {
+    this.setAttribute('data-aria-modal', value || this._defaultAriaModal);
+  }
+
+  /** @type {HTMLDivElement} */
+  get overlayElement() {
+    return this.getEl('[part="overlay"]');
+  }
+
+  get _styles() {
+    return [NavigationDrawerStyle];
+  }
+  get _template() {
+    return html`
+      <div part="overlay" aria-hidden="true"></div>
+      <span part="focus-trap-start" tabindex="0"></span>
+      <aside
+        part="inner drawer" tabindex="-1"
+        aria-expanded="${this.open ? 'true' : 'false'}"
+        aria-hidden="${this.open ? 'true' : 'false'}"
+      >
+        <div part="drawerHeader">
+          <slot name="drawerHeader"></slot>
+        </div>
+        <div part="drawerContent">
+          <slot name="drawerContent"></slot>
+        </div>
+      </aside>
+      <span part="focus-trap-end" tabindex="0"></span>
+      <div part="content"><slot></slot></div>
+    `;
+  }
+
+  updateStates() {
+    if (!this.innerElement) return;
+    const opened = this.open;
+    this.innerElement.ariaExpanded = opened ? 'true' : 'false';
+    this.innerElement.ariaHidden = !opened ? 'true' : 'false';
+    if (opened) {
+      this.innerElement.focus();
+    }
+    setTimeout(() => {
+      this.dispatchEvent(
+        new CustomEvent('navigation-drawer-changed', { detail: { opened: opened }, bubbles: true, composed: true })
+      );
+    }, 250);
+  }
+  /**
+   * @param {KeyboardEvent} _e
+   */
+  handleKeyDown(_e) {
+    if (_e.code === 'Escape') {
+      this.open = false;
+    }
+  }
+  /**
+   * @param {MouseEvent} _ev
+   */
+  handleOverlayClick(_ev) {
+    this.open = false;
+  }
+
+  connectedCallback() {
+    this.innerElement?.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.overlayElement.addEventListener('click', this.handleOverlayClick.bind(this));
+  }
+  /**
+   * @param {string} name
+   * @param {string|undefined} oldValue
+   * @param {string|undefined} newValue
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (
+      [
+        'aria-label',
+        'data-aria-label',
+        'aria-labelby',
+        'data-aria-labelby',
+        'aria-describedby',
+        'data-aria-describedby',
+      ].includes(name)
+    ) {
+      this.syncDataAttrByEmpty(name);
+      return;
+    }
+    if (name === 'open') {
+      this.updateStates();
+      return;
+    }
+    if (name === 'modal') {
+      if (this.modal) {
+        this.innerElement?.setAttribute('role', 'dialog');
+      } else {
+        this.innerElement?.removeAttribute('role');
+      }
+    }
+    if (['aria-modal', 'data-aria-modal'].includes(name)) {
+      this.syncDataAttrByEmpty(name, this.innerElement, this._defaultAriaModal);
+    }
+  }
+}
+
+customElements.define(NavigationDrawer.is, NavigationDrawer);

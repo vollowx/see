@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>Navigation drawer</title>
+
+    <link rel="stylesheet" href="../system/index.css" />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.js"></script>
+
+    <script src="../shared/constructable-stylesheets-polyfill.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-nav-drawer modal id="drawer">
+      <div slot="drawerContent">
+        <md-typography title-s in-drawer>This Project</md-typography>
+        <md-nav-drawer-item label="Home" leading="material-symbols:home"></md-nav-drawer-item>
+        <md-nav-drawer-item label="About" leading="material-symbols:info"></md-nav-drawer-item>
+        <md-divider inset="middle" vert-margin></md-divider>
+        <md-typography title-s in-drawer>Components</md-typography>
+        <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
+        <md-nav-drawer-item label="Floating action button" leading="material-symbols:edit-square" selected></md-nav-drawer-item>
+        <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle"></md-nav-drawer-item>
+        <md-nav-drawer-item label="Checkbox" leading="material-symbols:check-box"></md-nav-drawer-item>
+        <md-nav-drawer-item label="Divider" leading="material-symbols:remove"></md-nav-drawer-item>
+        <md-nav-drawer-item label="List" leading="material-symbols:view-list-outline-rounded" disabled></md-nav-drawer-item>
+        <md-typography title-s in-drawer>APIs</md-typography>
+        <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
+        <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle"></md-nav-drawer-item>
+      </div>
+
+      <md-top-app-bar auto-padding with-drawer>
+        <md-icon-button
+          slot="navBtn"
+          id="openDrawer"
+          standard
+          data-aria-label="Open drawer"
+          icon="material-symbols:menu"
+        ></md-icon-button>
+
+        <md-icon-button
+          slot="actionBtn"
+          id="dir-tgl"
+          standard
+          data-aria-label="toggle right-to-left/left-to-right"
+        ></md-icon-button>
+        <md-icon-button
+          slot="actionBtn"
+          id="theme-tgl"
+          standard
+          data-aria-label="toggle light/dark theme"
+        ></md-icon-button>
+
+        <main>
+          <nav class="overview-content" aria-label="Overview Content">
+            <p>Overview Content</p>
+            <ul></ul>
+          </nav>
+
+          <div class="main">
+            <md-typography display-s tag="h1">Navigation drawer, 导航抽屉</md-typography>
+
+            <p>
+              Design baseline from
+              <a href="https://m3.material.io/components/floating-action-button/specs" target="_blank"
+                >m3.material.io</a
+              >
+            </p>
+
+            <md-typography headline-m tag="h2" id="basic-fab">Basic FAB, 基础浮动操作按钮</md-typography>
+
+            <div class="demo-container">
+              <md-fab data-aria-label="open settings">
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+              <md-fab label="Extended" leading>
+                <iconify-icon slot="leading" icon="material-symbols:add"></iconify-icon>
+              </md-fab>
+              <md-fab label="Extended without icon"></md-fab>
+
+              <div class="demo-spacer" aria-hidden="true"></div>
+
+              <md-fab data-aria-label="open settings">
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+              <md-fab data-aria-label="open settings" surface>
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+              <md-fab data-aria-label="open settings" secondary>
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+              <md-fab data-aria-label="open settings" tertiary>
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+
+              <div class="demo-spacer" aria-hidden="true"></div>
+
+              <md-fab label="Normal elevation"></md-fab>
+              <md-fab lower label="Lower"></md-fab>
+
+              <div class="demo-spacer" aria-hidden="true"></div>
+
+              <md-fab data-aria-label="open settings">
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+              <md-fab data-aria-label="small floating action button" small>
+                <iconify-icon icon="material-symbols:remove"></iconify-icon>
+              </md-fab>
+              <md-fab data-aria-label="large floating action button" large>
+                <iconify-icon icon="material-symbols:add"></iconify-icon>
+              </md-fab>
+
+              <div class="demo-spacer" aria-hidden="true"></div>
+
+              <md-fab data-aria-label="open settings" disabled>
+                <iconify-icon icon="material-symbols:settings"></iconify-icon>
+              </md-fab>
+            </div>
+
+            <md-typography headline-m tag="h2" id="custom-inner-element"
+              >Custom inner element, 自定义内部元素</md-typography
+            >
+
+            <md-typography body-m tag="p">
+              Sometimes, maybe you want to use FAB component with a
+              <code>&lt;input&gt;</code>, but then you will find that this is not feasible. So we provide function to
+              custom inner element. See the following example(s).
+            </md-typography>
+            <md-typography body-m tag="p">
+              有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 FAB 组件的样式一同使用, 但你将会发现这不可行.
+              所以我们提供自定义内部元素的功能. 见下例子.
+            </md-typography>
+
+            <div class="demo-container" dir="ltr">
+              <label for="file-uploader">
+                <input type="file" name="file-uploader" id="file-uploader" multiple style="display: none" />
+                <md-fab tag="span" data-aria-label="Upload files">
+                  <iconify-icon icon="material-symbols:upload"></iconify-icon>
+                </md-fab>
+              </label>
+            </div>
+
+            <md-typography headline-m tag="h2" id="link">Link, 链接</md-typography>
+
+            <md-typography body-m tag="p"
+              ><code>&lt;a&gt;</code> must with <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+            >
+            <md-typography body-m tag="p"
+              ><code>&lt;a&gt;</code> 必须有 <code>tabindex="-1" style="text-decoration: none;"</code></md-typography
+            >
+
+            <div class="demo-container" dir="ltr">
+              <a href="https://github.com/huge-pancake/tiny-material" target="_blank" tabindex="-1" class="outer-link">
+                <md-fab data-aria-label="Jump to Github">
+                  <iconify-icon icon="material-symbols:north-east"></iconify-icon>
+                </md-fab>
+              </a>
+            </div>
+
+            <pre class="language-css"><code>.outer-link {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}</code></pre>
+
+            <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
+
+            <md-typography body-m tag="p"
+              >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+            >
+            <md-typography body-m tag="p"
+              >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+            >
+            <md-typography body-m tag="p"
+              >Support all the other ARIA attributes for fab, see details at the following table.</md-typography
+            >
+            <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
+
+            <div class="demo-container" dir="ltr">
+              <md-fab data-aria-label="A fab with custom ARIA label">
+                <iconify-icon icon="material-symbols:accessibility"></iconify-icon>
+              </md-fab>
+            </div>
+
+            <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
+
+            <md-typography body-m tag="p">Types:</md-typography>
+            <ul>
+              <li>single choice means choose one of all names</li>
+              <li>
+                toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
+                <code>false</code>
+              </li>
+            </ul>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Name, 名称</th>
+                  <th>Type, 类型</th>
+                  <th>Default value, 默认值</th>
+                  <th>Description, 描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">(primary) / surface / secondary / tertiary</td>
+                  <td class="type">single choice</td>
+                  <td class="default-val">(filled)</td>
+                  <td>Controls FAB's style</td>
+                </tr>
+                <tr>
+                  <td class="name">(normal) / small / large</td>
+                  <td class="type">single choice</td>
+                  <td class="default-val">(normal)</td>
+                  <td>Controls FAB's size</td>
+                </tr>
+                <tr>
+                  <td class="name">(normal) / lower</td>
+                  <td class="type">single choice</td>
+                  <td class="default-val">(normal)</td>
+                  <td>Controls FAB's elevation</td>
+                </tr>
+                <tr>
+                  <td class="name">disabled</td>
+                  <td class="type">toggle</td>
+                  <td class="default-val">false</td>
+                  <td>
+                    If true, FAB will be disabled. Controls <code>disabled</code>,
+                    <code>aria-disabled</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="name">data-role</td>
+                  <td class="type">string</td>
+                  <td class="default-val">button</td>
+                  <td>Controls role</td>
+                </tr>
+                <tr>
+                  <td class="name">data-aria-label</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls aria-label</td>
+                </tr>
+                <tr>
+                  <td class="name">data-aria-haspopup</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls aria-haspopup</td>
+                </tr>
+                <tr>
+                  <td class="name">data-aria-controls</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls aria-controls</td>
+                </tr>
+                <tr>
+                  <td class="name">data-aria-expanded</td>
+                  <td class="type">boolean</td>
+                  <td class="default-val"></td>
+                  <td>Controls aria-expanded</td>
+                </tr>
+                <tr>
+                  <td class="name">data-aria-selected</td>
+                  <td class="type">boolean</td>
+                  <td class="default-val"></td>
+                  <td>Controls aria-selected</td>
+                </tr>
+                <tr>
+                  <td class="name">leading</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls leading icon name</td>
+                </tr>
+                <tr>
+                  <td class="name">trailing</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls trailing icon name</td>
+                </tr>
+                <tr>
+                  <td class="name">tag</td>
+                  <td class="type">string</td>
+                  <td class="default-val"></td>
+                  <td>Controls custom inner element tag name</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </md-top-app-bar>
+    </md-nav-drawer>
+  </body>
+</html>
