@@ -36,9 +36,10 @@
     </md-top-app-bar>
 
     <main>
-      <nav class="table-of-ctt" aria-label="Contents">
-        <p>Contents</p>
+      <nav class="overview-content" aria-label="Overview Content">
+        <p>Overview Content</p>
         <ul>
+          <li><a href="#apis">APIs</a></li>
           <li>
             <a href="#basic-common-button">Basic common button, 基础常规按钮</a>
           </li>
@@ -48,7 +49,6 @@
           </li>
           <li><a href="#link">Link, 链接</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
-          <li><a href="#attributes">Attributes, 属性</a></li>
         </ul>
       </nav>
 
@@ -58,6 +58,14 @@
         <md-typography body-m tag="p">
           Design baseline from
           <a href="https://m3.material.io/components/buttons/specs" target="_blank">m3.material.io</a>
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="apis">APIs</md-typography>
+
+        <md-typography body-m>
+          <ul>
+            <li><a href="./apis/common-button.html">md-button(CommonButton)</a></li>
+          </ul>
         </md-typography>
 
         <md-typography headline-m tag="h2" id="basic-common-button">Basic common button, 基础常规按钮</md-typography>
@@ -86,16 +94,7 @@
         <md-typography headline-m tag="h2" id="has-icon">Has icon, 有图标的</md-typography>
 
         <md-typography title-m tag="h3"
-          >Way 1, use slot and custom source (recommended), 第一种方式, 使用 slot 和自定义的源 (推荐)</md-typography
-        >
-
-        <md-typography body-m tag="p">This way can reduce network spending. 该方法可减少网络开销</md-typography>
-        <md-typography body-m tag="p">
-          Also, you have more customize on this way, like use another icon set (in iconify), or use image as a icon.
-        </md-typography>
-        <md-typography body-m tag="p"
-          >同时, 你可以拥有更多的自定义空间, 例如使用另一个图标集 (在 iconify 内),
-          或是拿图片当作图标使用.</md-typography
+          >Way 1, use slot, 第一种方式, 使用插槽</md-typography
         >
 
         <div class="demo-container">
@@ -160,7 +159,7 @@
           inner element. See the following example(s).
         </md-typography>
         <md-typography body-m tag="p">
-          有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同 button 组件的样式一同使用, 但你将会发现这不可行.
+          有时, 也许你希望将 <code>&lt;input&gt;</code> 的功能同该组件的样式一同使用, 但你将会发现这不可行.
           所以我们提供自定义内部元素的功能. 见下例子.
         </md-typography>
 
@@ -189,15 +188,15 @@
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
         <md-typography body-m tag="p"
-          >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+          >For example, use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
         >
         <md-typography body-m tag="p"
-          >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+          >例：使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
         >
         <md-typography body-m tag="p"
-          >Support all the other ARIA attributes for button, see details at the following table.</md-typography
+          >See details here: <a href="#apis">APIs</a>.</md-typography
         >
-        <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
+        <md-typography body-m tag="p">详见：<a href="#apis">APIs</a>。</md-typography>
 
         <div class="demo-container">
           <md-button
@@ -205,105 +204,6 @@
             data-aria-label="A Button with custom ARIA label"
           ></md-button>
         </div>
-
-        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
-
-        <md-typography body-m tag="p">Types:</md-typography>
-        <ul>
-          <li>single choice means choose one of all names</li>
-          <li>
-            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
-            <code>false</code>
-          </li>
-        </ul>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Name, 名称</th>
-              <th>Type, 类型</th>
-              <th>Default value, 默认值</th>
-              <th>Description, 描述</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="name">(filled) / tonal / elevated / outlined / text</td>
-              <td class="type">single choice</td>
-              <td class="default-val">(filled)</td>
-              <td>Controls button's style</td>
-            </tr>
-            <tr>
-              <td class="name">disabled</td>
-              <td class="type">toggle</td>
-              <td class="default-val">false</td>
-              <td>
-                If true, common button will be disabled. Controls
-                <code>disabled</code>, <code>aria-disabled</code>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">data-role</td>
-              <td class="type">string</td>
-              <td class="default-val">button</td>
-              <td>Controls role</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-label</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-label</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-haspopup</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-haspopup</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-controls</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-controls</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-expanded</td>
-              <td class="type">boolean</td>
-              <td class="default-val"></td>
-              <td>Controls aria-expanded</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-selected</td>
-              <td class="type">boolean</td>
-              <td class="default-val"></td>
-              <td>Controls aria-selected</td>
-            </tr>
-            <tr>
-              <td class="name">label</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls label content, the default value of aria-label</td>
-            </tr>
-            <tr>
-              <td class="name">leading</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls leading icon name</td>
-            </tr>
-            <tr>
-              <td class="name">trailing</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls trailing icon name</td>
-            </tr>
-            <tr>
-              <td class="name">tag</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls custom inner element tag name</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </main>
   </body>

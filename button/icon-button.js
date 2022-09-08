@@ -14,20 +14,20 @@ const IconButtonStyle = css`
     border-radius: 50%;
     outline: none;
 
-    background-color: var(--md-filled-button-background-color, var(--md-sys-color-primary));
-    color: var(--md-filled-button-color, var(--md-sys-color-on-primary));
+    background-color: var(--md-filled-icon-button-background-color, var(--md-sys-color-primary));
+    color: var(--md-filled-icon-button-color, var(--md-sys-color-on-primary));
   }
   :host(:not([tonal]):not([outlined]):not([standard])[toggle]:not([selected])) [part~='button'] {
-    background-color: var(--md-filled-toggle-button-background-color, var(--md-sys-color-surface-variant));
-    color: var(--md-filled-toggle-button-color, var(--md-sys-color-primary));
+    background-color: var(--md-filled-toggle-icon-button-background-color, var(--md-sys-color-surface-variant));
+    color: var(--md-filled-toggle-icon-button-color, var(--md-sys-color-primary));
   }
   :host([tonal]) [part~='button'] {
     background-color: var(--md-tonal-icon-button-background-color, var(--md-sys-color-secondary));
     color: var(--md-tonal-icon-button-color, var(--md-sys-color-on-secondary));
   }
   :host([tonal][toggle]:not([selected])) [part~='button'] {
-    background-color: var(--md-tonal-toggle-button-background-color, var(--md-sys-color-surface-variant));
-    color: var(--md-tonal-toggle-button-color, var(--md-sys-color-on-surface-variant));
+    background-color: var(--md-tonal-toggle-icon-button-background-color, var(--md-sys-color-surface-variant));
+    color: var(--md-tonal-toggle-icon-button-color, var(--md-sys-color-on-surface-variant));
   }
   :host(:not([outlined]):not([standard])[disabled]) [part~='button'],
   :host([outlined][disabled][selected]) [part~='button'] {
@@ -39,14 +39,14 @@ const IconButtonStyle = css`
     color: var(--md-outlined-icon-button-color, var(--md-sys-color-on-surface-variant));
   }
   :host([outlined]) [part~='outline'] {
-    border: 1px solid var(--md-outlined-button-border-color, var(--md-sys-color-outline));
+    border: 1px solid var(--md-outlined-icon-button-border-color, var(--md-sys-color-outline));
   }
   :host([outlined]) [part~='button']:focus-visible [part~='outline'] {
-    border-color: var(--md-outlined-icon-button-focus-color, var(--md-sys-color-primary));
+    border-color: var(--md-outlined-icon-button-focus-border-color, var(--md-sys-color-primary));
   }
   :host([outlined][selected]) [part~='button'] {
-    background-color: var(--md-sys-color-inverse-surface);
-    color: var(--md-sys-color-inverse-on-surface);
+    background-color: var(--md-outlined-selected-icon-button-background-color, var(--md-sys-color-inverse-surface));
+    color: var(--md-outlined-selected-icon-button-color, var(--md-sys-color-inverse-on-surface));
   }
   :host([outlined][selected]) [part~='outline'],
   :host([outlined][disabled][selected]) [part~='outline'] {
@@ -63,7 +63,7 @@ const IconButtonStyle = css`
     color: var(--md-standard-icon-button-color, var(--md-sys-color-on-surface-variant));
   }
   :host([standard][selected]) [part~='button'] {
-    color: var(--md-sys-color-primary);
+    color: var(--md-standard-selected-icon-button-color, var(--md-sys-color-primary));
   }
   :host([standard][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);

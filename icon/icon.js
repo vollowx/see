@@ -6,6 +6,8 @@ const IconStyle = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
+    font-size: 1rem;
     width: 1em;
     height: 1em;
     color: inherit;

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" id="document">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The index of all the components" />
+    <title>md-icon-button(IconButton) APIs</title>
+
+    <link rel="stylesheet" href="../../system/index.css" />
+    <link rel="stylesheet" href="../shared.css" />
+    <script type="module" src="../shared.js"></script>
+
+    <script src="../../shared/constructable-stylesheets-polyfill.js"></script>
+    <!-- <script src="https://unpkg.com/@webcomponents/webcomponentsjs@%5E2/"></script> -->
+    <!-- <script src="https://unpkg.com/@webcomponents/custom-elements"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.0-beta.2/dist/iconify-icon.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <md-top-app-bar auto-padding>
+      <a slot="navBtn" href="../" tabindex="-1" class="outer-link">
+        <md-icon-button standard icon="material-symbols:arrow-back" data-aria-label="Back to index page">
+        </md-icon-button>
+      </a>
+
+      <md-icon-button slot="actionBtn" id="dir-tgl" standard data-aria-label="toggle right-to-left/left-to-right">
+      </md-icon-button>
+      <md-icon-button slot="actionBtn" id="theme-tgl" standard data-aria-label="toggle light/dark theme">
+      </md-icon-button>
+    </md-top-app-bar>
+
+    <main>
+      <nav class="overview-content" aria-label="Overview Content">
+        <p>Overview Content</p>
+        <ul>
+          <li><a href="#component-pages">Component pages, 组件页面</a></li>
+          <li><a href="#attrs">Attributes, 属性</a></li>
+          <li><a href="#attrs-in-js">Attributes in JS, JS 中的属性</a></li>
+          <li><a href="#slots">Slots, 插槽</a></li>
+          <li><a href="#css-vars">CSS variables, CSS 变量</a></li>
+        </ul>
+      </nav>
+
+      <div class="main">
+        <md-typography display-s tag="h1">md-icon-button(IconButton) APIs</md-typography>
+
+        <md-typography body-m tag="p">Extended <a href="./action-element.html">ActionElement</a></md-typography>
+
+        <md-typography headline-m tag="h2" id="component-pages">Component pages, 组件页面</md-typography>
+
+        <md-typography body-m>
+          <ul>
+            <li>
+              <a href="../icon-button.html"
+                >Icon button <md-icon aria-hidden="true" icon="material-symbols:link"></md-icon
+              ></a>
+            </li>
+          </ul>
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="attrs">Attributes, 属性</md-typography>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name, 名称</th>
+                <th>Type, 类型</th>
+                <th>Default value, 默认值</th>
+                <th>Description, 描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">filled / tonal / outlined / standard</td>
+                <td class="type">single</td>
+                <td class="default-val">filled</td>
+                <td>Controls icon button's style.</td>
+              </tr>
+              <tr>
+                <td class="name">icon</td>
+                <td class="type">string</td>
+                <td class="default-val"></td>
+                <td>Controls icon name.</td>
+              </tr>
+              <tr>
+                <td class="name">toggle</td>
+                <td class="type">toggle</td>
+                <td class="default-val">false</td>
+                <td>If true, icon button will have 2 states - unselected and selected. Controls <code>selected</code>.</td>
+              </tr>
+              <tr>
+                <td class="name">selected</td>
+                <td class="type">boolean</td>
+                <td class="default-val"></td>
+                <td>Controls <code>aria-pressed</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <md-typography headline-m tag="h2" id="attrs-in-js"
+          >Attributes in JavaScript, JavaScript 中的属性</md-typography
+        >
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name, 名称</th>
+                <th>Type, 类型</th>
+                <th>Default value, 默认值</th>
+                <th>Description, 描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">icon</td>
+                <td class="type">string</td>
+                <td class="default-val">''</td>
+                <td>Controls icon.</td>
+              </tr>
+              <tr>
+                <td class="name">iconElement</td>
+                <td class="type">Icon</td>
+                <td class="default-val"></td>
+                <td>Icon element.</td>
+              </tr>
+              <tr>
+                <td class="name">toggle</td>
+                <td class="type">boolean</td>
+                <td class="default-val">false</td>
+                <td>Controls if the icon button can be selected.</td>
+              </tr>
+              <tr>
+                <td class="name">selected</td>
+                <td class="type">boolean</td>
+                <td class="default-val"></td>
+                <td>Controls <code>aria-pressed</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <md-typography headline-m tag="h2" id="slots">Slots, 插槽</md-typography>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name, 名称</th>
+                <th>Description, 描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">default</td>
+                <td>Icon button's icon, or use for customizing the contents.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <md-typography headline-m tag="h2" id="css-vars">CSS variables, CSS 变量</md-typography>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name, 名称</th>
+                <th>Default value, 默认值</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">--md-filled-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-primary</td>
+              </tr>
+              <tr>
+                <td class="name">--md-filled-icon-button-color</td>
+                <td class="default-val">--md-sys-color-on-primary</td>
+              </tr>
+              <tr>
+                <td class="name">--md-filled-toggle-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-surface-variant</td>
+              </tr>
+              <tr>
+                <td class="name">--md-filled-toggle-icon-button-color</td>
+                <td class="default-val">--md-sys-color-primary</td>
+              </tr>
+
+              <tr>
+                <td class="name">--md-tonal-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-secondary</td>
+              </tr>
+              <tr>
+                <td class="name">--md-tonal-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-on-secondary</td>
+              </tr>
+              <tr>
+                <td class="name">--md-tonal-toggle-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-surface-variant</td>
+              </tr>
+              <tr>
+                <td class="name">--md-tonal-toggle-icon-button-color</td>
+                <td class="default-val">--md-sys-color-secondary</td>
+              </tr>
+
+              <tr>
+                <td class="name">--md-outlined-icon-button-color</td>
+                <td class="default-val">--md-sys-color-on-surface-variant</td>
+              </tr>
+              <tr>
+                <td class="name">--md-outlined-icon-button-border-color</td>
+                <td class="default-val">--md-sys-color-outline</td>
+              </tr>
+              <tr>
+                <td class="name">--md-outlined-icon-button-focus-border-color</td>
+                <td class="default-val">--md-sys-color-primary</td>
+              </tr>
+              <tr>
+                <td class="name">--md-outlined-selected-icon-button-background-color</td>
+                <td class="default-val">--md-sys-color-inverse-surface</td>
+              </tr>
+              <tr>
+                <td class="name">--md-outlined-selected-icon-button-color</td>
+                <td class="default-val">--md-sys-color-inverse-on-surface</td>
+              </tr>
+
+              <tr>
+                <td class="name">--md-standard-icon-button-color</td>
+                <td class="default-val">--md-sys-color-on-surface-variant</td>
+              </tr>
+              <tr>
+                <td class="name">--md-standard-selected-icon-button-color</td>
+                <td class="default-val">--md-sys-color-primary</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

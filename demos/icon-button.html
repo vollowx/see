@@ -36,9 +36,10 @@
     </md-top-app-bar>
 
     <main>
-      <nav class="table-of-ctt" aria-label="Contents">
-        <p>Contents</p>
+      <nav class="overview-content" aria-label="Overview Content">
+        <p>Overview Content</p>
         <ul>
+          <li><a href="#apis">APIs</a></li>
           <li>
             <a href="#basic-icon-button">Basic icon button, 基础图标按钮</a>
           </li>
@@ -47,7 +48,6 @@
           </li>
           <li><a href="#link">Link, 链接</a></li>
           <li><a href="#accessibility">Accessibility, 无障碍功能</a></li>
-          <li><a href="#attributes">Attributes, 属性</a></li>
         </ul>
       </nav>
 
@@ -57,6 +57,14 @@
         <md-typography body-m tag="p">
           Design baseline from
           <a href="https://m3.material.io/components/icon-buttons/specs" target="_blank">m3.material.io</a>
+        </md-typography>
+
+        <md-typography headline-m tag="h2" id="apis">APIs</md-typography>
+
+        <md-typography body-m>
+          <ul>
+            <li><a href="./apis/icon-button.html">md-icon-button(IconButton)</a></li>
+          </ul>
         </md-typography>
 
         <md-typography headline-m tag="h2" id="basic-icon-button">Basic icon button, 基础图标按钮</md-typography>
@@ -164,114 +172,21 @@
         <md-typography headline-m tag="h2" id="accessibility">Accessibility, 无障碍功能</md-typography>
 
         <md-typography body-m tag="p"
-          >Use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
+          >For example, use <code>data-aria-label</code> attribute to custom <code>aria-label</code>.</md-typography
         >
         <md-typography body-m tag="p"
-          >使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
+          >例：使用 <code>data-aria-label</code> 属性来自定义 <code>aria-label</code>.</md-typography
         >
         <md-typography body-m tag="p"
-          >Support all the other ARIA attributes for icon button, see details at the following table.</md-typography
+          >See details here: <a href="#apis">APIs</a>.</md-typography
         >
-        <md-typography body-m tag="p">其他用于按钮的 ARIA 属性全部支持, 详见下表.</md-typography>
+        <md-typography body-m tag="p">详见：<a href="#apis">APIs</a>。</md-typography>
 
         <div class="demo-container" dir="ltr">
           <md-icon-button data-aria-label="A icon button with custom ARIA label">
             <iconify-icon icon="material-symbols:accessibility"></iconify-icon>
           </md-icon-button>
         </div>
-
-        <md-typography headline-m tag="h2" id="attributes">Attributes, 属性</md-typography>
-
-        <md-typography body-m tag="p">Types:</md-typography>
-        <ul>
-          <li>single choice means choose one of all names</li>
-          <li>
-            toggle means give a attribute with no content for <code>true</code>, do not give this attribute for
-            <code>false</code>
-          </li>
-        </ul>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Name, 名称</th>
-              <th>Type, 类型</th>
-              <th>Default value, 默认值</th>
-              <th>Description, 描述</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="name">(filled) / tonal / outlined / standard</td>
-              <td class="type">single choice</td>
-              <td class="default-val">(filled)</td>
-              <td>Controls icon button's style</td>
-            </tr>
-            <tr>
-              <td class="name">disabled</td>
-              <td class="type">toggle</td>
-              <td class="default-val">false</td>
-              <td>
-                If true, icon button will be disabled. Controls
-                <code>disabled</code>, <code>aria-disabled</code>
-              </td>
-            </tr>
-            <tr>
-              <td class="name">data-role</td>
-              <td class="type">string</td>
-              <td class="default-val">button</td>
-              <td>Controls role</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-label</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-label</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-haspopup</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-haspopup</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-controls</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls aria-controls</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-expanded</td>
-              <td class="type">boolean</td>
-              <td class="default-val"></td>
-              <td>Controls aria-expanded</td>
-            </tr>
-            <tr>
-              <td class="name">data-aria-selected</td>
-              <td class="type">boolean</td>
-              <td class="default-val"></td>
-              <td>Controls aria-selected</td>
-            </tr>
-            <tr>
-              <td class="name">icon</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls icon name</td>
-            </tr>
-            <tr>
-              <td class="name">toggle</td>
-              <td class="type">toggle</td>
-              <td class="default-val">false</td>
-              <td>If true, icon button will have 2 states - unselected and selected. Controls <code>selected</code></td>
-            </tr>
-            <tr>
-              <td class="name">tag</td>
-              <td class="type">string</td>
-              <td class="default-val"></td>
-              <td>Controls custom inner element tag name</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </main>
   </body>

@@ -2,7 +2,7 @@
   --md-sys-typescale-font-family-base: 'Roboto';
   --md-sys-typescale-font-family-global: var(--md-sys-typescale-font-family-base), system-ui, -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --md-sys-typescale-font-family-monospace: 'JetBrains Mono', Consolas, Menlo, Monaco, 'Andale Mono', 'Ubuntu Mono',
+  --md-sys-typescale-font-family-monospace: 'Maple Mono SC NF', Consolas, Menlo, Monaco, 'Andale Mono', 'Ubuntu Mono',
     monospace;
   box-sizing: border-box;
   --demo-header-height: 64px;
@@ -42,11 +42,20 @@ pre {
   margin: 10px 0;
 }
 .main > [tag='h2'] {
-  margin: 40px 0px 10px;
+  margin-bottom: 16px;
   scroll-margin-top: calc(var(--demo-header-height) + 16px);
 }
 .main > [tag='h3'] {
-  margin: 10px 0;
+  margin: 16px 0;
+}
+.main [tag='h2'],
+.main [tag='h4'],
+.main [tag='h5'],
+.main [tag='h6'] {
+  margin: 32px 0;
+}
+.main [tag='p'] {
+  margin: 1rem 0;
 }
 
 code,
@@ -55,39 +64,35 @@ kbd {
   font-family: var(--md-sys-typescale-font-family-monospace);
 }
 
-table {
-  margin-inline: 20px;
-  display: block;
-  word-break: normal;
-  text-align: left;
+.table-wrapper {
+  border: 1px solid var(--md-sys-color-surface-variant);
+  border-radius: 24px;
   overflow-x: auto;
+}
+table {
+  width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  border-spacing: 0px;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 16px 24px;
+  border-top: 1px solid var(--md-sys-color-surface-variant);
+  border-left: 1px solid var(--md-sys-color-surface-variant);
+  vertical-align: middle;
 }
 th {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
+  background: var(--md-sys-elevation-surface-1);
+  color: var(--md-sys-color-on-surface-variant);
   font-weight: 500;
-  color: var(--md-sys-color-on-background);
-  white-space: pre;
-  border-bottom: 1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.16);
-  padding-right: 20px;
-  padding-top: 12px;
-  padding-bottom: 12px;
 }
-td {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  letter-spacing: 0px;
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-weight: 400;
-  border-bottom: 1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.16);
-  padding-right: 20px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: var(--md-sys-color-on-background);
+td:first-child,
+th:first-child {
+  border-left: 0;
+}
+thead:first-child tr:first-child th,
+tbody:first-child tr:first-child td {
+  border-top: 0;
 }
 .name,
 .type,
@@ -122,7 +127,7 @@ main {
   position: absolute;
   top: 0;
 }
-.table-of-ctt {
+.overview-content {
   display: none;
   flex-shrink: 0;
   position: sticky;
@@ -136,15 +141,15 @@ main {
   overflow-y: auto;
   box-sizing: border-box;
 }
-.table-of-ctt p {
+.overview-content p {
   margin-inline-start: 12px;
 }
-.table-of-ctt ul {
+.overview-content ul {
   padding: 0;
   margin: 0;
   list-style: none;
 }
-.table-of-ctt ul li a {
+.overview-content ul li a {
   position: relative;
   padding: 0px 8px;
   margin-block-start: 4px;
@@ -157,27 +162,27 @@ main {
   border-left: 1px solid transparent;
   outline: none;
 }
-[dir='rtl'] .table-of-ctt ul li a {
+[dir='rtl'] .overview-content ul li a {
   border-left: none;
   border-right: 1px solid transparent;
 }
-.table-of-ctt ul li a:focus-visible {
+.overview-content ul li a:focus-visible {
   color: rgba(var(--md-sys-color-on-surface-rgb), 0.9);
   border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.48);
 }
-.table-of-ctt ul li a:hover {
+.overview-content ul li a:hover {
   color: rgba(var(--md-sys-color-on-surface-rgb), 0.8);
   border-color: rgba(var(--md-sys-color-on-surface-rgb), 0.32);
 }
 .main {
   margin-inline-start: 0;
   padding: 64px 24px 24px 24px;
-  max-width: 105ch;
+  max-width: 1080px;
   width: 100%;
   box-sizing: border-box;
 }
 @media (min-width: 768px) {
-  .table-of-ctt {
+  .overview-content {
     display: block;
   }
   .main {
@@ -244,6 +249,10 @@ main {
   padding: 0;
 }
 .index h2 {
+  padding: 0 8px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+.index p {
   padding: 0 8px;
   color: var(--md-sys-color-on-surface-variant);
 }

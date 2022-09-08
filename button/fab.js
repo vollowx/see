@@ -15,23 +15,23 @@ const FABStyle = css`
 
     padding: 0 16px;
     font-family: var(--md-sys-typoscale-font-family-global);
-    background-color: var(--md-fab-background-color, var(--md-sys-color-primary-container));
-    color: var(--md-fab-color, var(--md-sys-color-on-primary-container));
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
     border-radius: var(--md-fab-border-radius, 16px);
     box-shadow: var(--md-sys-elevation-shadow-3);
     ${TypographyStylesGenerator('label', 'L')}
   }
   :host([surface]) [part~='button'] {
-    background-color: var(--md-fab-background-color, var(--md-sys-color-surface));
-    color: var(--md-fab-color, var(--md-sys-color-on-surface));
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
   }
   :host([secondary]) [part~='button'] {
-    background-color: var(--md-fab-background-color, var(--md-sys-color-secondary-container));
-    color: var(--md-fab-color, var(--md-sys-color-on-secondary-container));
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
   }
   :host([tertiary]) [part~='button'] {
-    background-color: var(--md-fab-background-color, var(--md-sys-color-tertiary-container));
-    color: var(--md-fab-color, var(--md-sys-color-on-tertiary-container));
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
   }
   [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-4);
@@ -78,21 +78,6 @@ const FABStyle = css`
     height: 100%;
     transform: translateY(-50%);
     box-sizing: border-box;
-  }
-  [part='leading'],
-  [part='trailing'] {
-    font-family: var(--md-sys-typescale-icon-font-family, 'Material Symbols Outlined');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 1.125rem;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
   }
   [part='label-root'],
   [part='leading-root'],

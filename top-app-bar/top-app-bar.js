@@ -18,10 +18,8 @@ const TopAppBarStyle = css`
     background-color: var(--md-sys-color-surface);
     box-sizing: border-box;
   }
-  @media (hover: hover) {
-    :host([auto-padding]) [part~='header'] {
-      padding-right: var(--md-global-padding-right);
-    }
+  :host([auto-padding]) [part~='header'] {
+    padding-right: var(--md-global-padding-right);
   }
   :host(:not([static])) [part~='header'] {
     position: fixed;

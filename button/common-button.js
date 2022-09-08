@@ -14,14 +14,14 @@ const CommonButtonStyle = css`
 
     font-family: var(--md-sys-typoscale-font-family-global);
     padding: 0 24px;
-    background-color: var(--md-filled-button-background-color, var(--md-sys-color-primary));
-    color: var(--md-filled-button-color, var(--md-sys-color-on-primary));
-    border-radius: var(--md-button-border-radius, 114514px);
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: var(--md-button-border-radius, 9999px);
     ${TypographyStylesGenerator('label', 'L')}
   }
   :host([tonal]) [part~='button'] {
-    background-color: var(--md-tonal-button-background-color, var(--md-sys-color-secondary));
-    color: var(--md-tonal-button-color, var(--md-sys-color-on-secondary));
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
   }
   :host(:not([elevated]):not([outlined]):not([text])) [part~='button']:hover:not(:active) {
     box-shadow: var(--md-sys-elevation-shadow-1);
@@ -32,8 +32,8 @@ const CommonButtonStyle = css`
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
   }
   :host([elevated]) [part~='button'] {
-    background: var(--md-elevated-button-background-color, var(--md-sys-elevation-surface-1));
-    color: var(--md-elevated-button-color, var(--md-sys-color-primary));
+    background: var(--md-sys-elevation-surface-1);
+    color: var(--md-sys-color-primary);
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
   :host([elevated]) [part~='button']:hover:not(:active) {
@@ -41,13 +41,13 @@ const CommonButtonStyle = css`
   }
   :host([outlined]) [part~='button'] {
     background-color: transparent;
-    color: var(--md-outlined-button-color, var(--md-sys-color-primary));
+    color: var(--md-sys-color-primary);
   }
   :host([outlined]) [part~='outline'] {
-    border: 1px solid var(--md-outlined-button-border-color, var(--md-sys-color-outline));
+    border: 1px solid var(--md-sys-color-outline);
   }
   :host([outlined][focus-from='keyboard']) [part~='outline'] {
-    border-color: var(--md-outlined-button-focus-color, var(--md-sys-color-primary));
+    border-color: var(--md-sys-color-primary);
   }
   :host([outlined][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
@@ -59,7 +59,7 @@ const CommonButtonStyle = css`
     min-width: 64px;
     padding: 0 12px;
     background-color: transparent;
-    color: var(--md-text-button-color, var(--md-sys-color-primary));
+    color: var(--md-sys-color-primary);
   }
   :host([text][disabled]) [part~='button'] {
     color: rgba(var(--md-sys-color-on-surface-rgb, 28, 27, 31), 0.38);
@@ -108,7 +108,7 @@ const CommonButtonStyle = css`
   }
   md-icon,
   ::slotted(iconify-icon) {
-    font-size: var(--md-fab-icon-size, 1.125rem);
+    font-size: var(--md-button-icon-size, 1.125rem);
   }
 `;
 
