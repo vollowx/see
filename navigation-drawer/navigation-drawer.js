@@ -1,4 +1,5 @@
 import BaseElement from '../shared/base-element.js';
+import TrapFocus from '../shared/trap-focus.js';
 import { html, css } from '../shared/template.js';
 
 const NavigationDrawerStyle = css`
@@ -7,6 +8,9 @@ const NavigationDrawerStyle = css`
     height: 100%;
     --md-nav-drawer-width: 360px;
   }
+  ns-trap-focus {
+    z-index: 4;
+  }
   [part~='drawer'] {
     flex-shrink: 0;
     width: var(--md-nav-drawer-width);
@@ -14,7 +18,6 @@ const NavigationDrawerStyle = css`
     background: var(--md-sys-color-surface);
     border-radius: 0 16px 16px 0;
     transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1), 250ms margin cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 4;
     outline: none;
   }
   [part='drawerContent'] {
@@ -130,6 +133,10 @@ export default class NavigationDrawer extends BaseElement {
     this.setAttribute('data-aria-modal', value || this._defaultAriaModal);
   }
 
+  /** @type {TrapFocus} */
+  get trapFocusElement() {
+    return this.getEl('ns-trap-focus');
+  }
   /** @type {HTMLDivElement} */
   get overlayElement() {
     return this.getEl('[part="overlay"]');
@@ -141,20 +148,21 @@ export default class NavigationDrawer extends BaseElement {
   get _template() {
     return html`
       <div part="overlay" aria-hidden="true"></div>
-      <span part="focus-trap-start" tabindex="0"></span>
-      <aside
-        part="inner drawer" tabindex="-1"
-        aria-expanded="${this.open ? 'true' : 'false'}"
-        aria-hidden="${this.open ? 'true' : 'false'}"
-      >
-        <div part="drawerHeader">
-          <slot name="drawerHeader"></slot>
-        </div>
-        <div part="drawerContent">
-          <slot name="drawerContent"></slot>
-        </div>
-      </aside>
-      <span part="focus-trap-end" tabindex="0"></span>
+      <ns-trap-focus inactive>
+        <aside
+          part="inner drawer"
+          tabindex="-1"
+          aria-expanded="${this.open ? 'true' : 'false'}"
+          aria-hidden="${this.open ? 'true' : 'false'}"
+        >
+          <div part="drawerHeader">
+            <slot name="drawerHeader"></slot>
+          </div>
+          <div part="drawerContent">
+            <slot name="drawerContent"></slot>
+          </div>
+        </aside>
+      </ns-trap-focus>
       <div part="content"><slot></slot></div>
     `;
   }
@@ -189,6 +197,7 @@ export default class NavigationDrawer extends BaseElement {
   }
 
   connectedCallback() {
+    this.trapFocusElement._root = this.querySelector('[slot="drawerContent"]') || this;
     this.innerElement?.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.overlayElement.addEventListener('click', this.handleOverlayClick.bind(this));
   }

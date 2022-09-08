@@ -1,3 +1,5 @@
+import TrapFocus from './shared/trap-focus.js';
+
 import Badge from './badge/badge.js';
 import Checkbox from './checkbox/checkbox.js';
 import CheckboxLabeled from './checkbox/checkbox-labeled.js';
@@ -26,6 +28,8 @@ import { InputElement } from './shared/input-element.js';
 import Env from './shared/env.js';
 
 export {
+  TrapFocus,
+
   Badge,
   Checkbox,
   CheckboxLabeled,
