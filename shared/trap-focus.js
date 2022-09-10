@@ -61,7 +61,14 @@ export default class TrapFocus extends BaseElement {
   get allFocusableEls() {
     /** @type {HTMLElement[]} */
     // @ts-ignore
-    const focusableEls = [...this._root.querySelectorAll(focusableSelector)];
+    let focusableEls = [...this._root.querySelectorAll(focusableSelector)];
+    for (let i = 0; i < focusableEls.length; i++) {
+      if (focusableEls[i].hasAttribute('disabled') || focusableEls[i].tabIndex === -1) {
+        focusableEls.splice(i, 1);
+        i--;
+      }
+    }
+    console.log(focusableEls);
     return focusableEls;
   }
 

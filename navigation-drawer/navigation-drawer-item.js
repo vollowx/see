@@ -1,17 +1,16 @@
 import { css } from '../shared/template.js';
 import { TypographyStylesGenerator } from '../system/typography-system.js';
-import Button from '../button/shared.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 // @ts-ignore
 import Ripple from '../ripple/ripple.js';
+import ListItem from '../list/list-item.js';
 
 const NavigationDrawerItemStyle = css`
   :host {
     width: 100%;
   }
   [part~='button'] {
-    justify-content: flex-start;
     width: 100%;
     height: 56px;
     outline: none;
@@ -52,13 +51,14 @@ const NavigationDrawerItemStyle = css`
   [part='leading-root'],
   [part='trailing-root'] {
     display: inline-flex;
+    color: inherit;
   }
   [part='leading-root'] {
     margin-inline-start: -8px;
     margin-inline-end: 12px;
   }
   [part='trailing-root'] {
-    margin-inline-start: 12px;
+    margin-inline-start: auto;
     margin-inline-end: -8px;
   }
   md-icon,
@@ -67,7 +67,7 @@ const NavigationDrawerItemStyle = css`
   }
 `;
 
-export default class NavigationDrawerItem extends Button {
+export default class NavigationDrawerItem extends ListItem {
   static get is() {
     return 'md-nav-drawer-item';
   }

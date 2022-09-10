@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/huge-pancake/tiny-material#readme",
   "scripts": {
-    "serve": "web-dev-server --open demos/ --node-resolve --watch --port 4096",
+    "serve": "web-dev-server --open demos/ --node-resolve --watch --port 8001",
     "check": "tsc",
     "check:watch": "tsc --watch",
     "format": "prettier . --write"

@@ -4,6 +4,13 @@ import ListItem from './list-item.js';
 import ListItemCheckbox from './list-item-checkbox.js';
 import ListItemRadio from './list-item-radio.js';
 
+const listItemsSelector = [
+  'md-list-item',
+  'md-list-item-checkbox',
+  'md-list-item-radio',
+  'md-nav-drawer-item',
+].map(str => str = '[open]>' + str + ':not([disabled]),:scope>' + str + ':not([disabled])').join(',');
+
 const ListStyle = css`
   :host() {
     display: block;
@@ -64,12 +71,12 @@ export default class List extends BaseElement {
   get listElement() {
     return this.getEl('[part~="list"]');
   }
-  /** @type {(ListItem|ListItemCheckbox|ListItemRadio)[]} */
+  /** @type {(ListItem)[]} */
   get itemElements() {
     // @ts-ignore
-    return [...(this.itemsContainer() || this).querySelectorAll('md-list-item, md-list-item-checkbox')];
+    return [...(this.itemsContainer() || this).querySelectorAll(listItemsSelector)];
   }
-  /** @type {ListItem|ListItemCheckbox|ListItemRadio} */
+  /** @type {ListItem} */
   get activeItem() {
     return (this.itemsContainer() || this).querySelector('[focus-from]') || this.itemElements[0];
   }
@@ -224,8 +231,8 @@ export default class List extends BaseElement {
 
   connectedCallback() {
     this.role = this.role;
-    this.itemElements[0] ? (this.itemElements[0].innerElement.tabIndex = 0) : null;
     this.listElement.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.itemElements.length > 0 ? this.itemElements[0].setAttribute('first-item', '') : null;
   }
   /**
    * @param {string} name

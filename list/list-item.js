@@ -6,6 +6,8 @@ import ActionElement from '../shared/action-element.js';
 import Ripple from '../ripple/ripple.js';
 import FocusRingStyleFAE from '../shared/focus-ring-style-fae.js';
 import StateLayerStyleFAE from '../shared/state-layer-style-fae.js';
+import Icon from '../icon/icon.js';
+import Collapse from '../collapse/collapse.js';
 
 const ListItemStyle = css`
   :host {
@@ -92,6 +94,41 @@ export default class ListItem extends ActionElement {
   static get is() {
     return 'md-list-item';
   }
+  static get observedAttributes() {
+    return [...super.observedAttributes, 'label', 'leading', 'trailing'];
+  }
+
+  get label() {
+    return this.getAttribute('label') || '';
+  }
+  set label(value) {
+    this.setAttribute('label', value);
+  }
+  get leading() {
+    return this.getAttribute('leading') || '';
+  }
+  set leading(value) {
+    this.setAttribute('leading', value);
+  }
+  get trailing() {
+    return this.getAttribute('trailing') || '';
+  }
+  set trailing(value) {
+    this.setAttribute('trailing', value);
+  }
+
+  /** @type {HTMLSpanElement} */
+  get labelElement() {
+    return this.getEl('[part~="label"]');
+  }
+  /** @type {Icon} */
+  get leadingElement() {
+    return this.getEl('[part~="leading"]');
+  }
+  /** @type {Icon} */
+  get trailingElement() {
+    return this.getEl('[part~="trailing"]');
+  }
 
   get keyChar() {
     return this.getAttribute('key-char');
@@ -120,13 +157,20 @@ export default class ListItem extends ActionElement {
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        ${this._renderLeading() ? this._renderLeading() : /* html */ `<slot name="leading"></slot>`}
+        ${
+          this._renderLeading()
+            ? this._renderLeading()
+            : /* html */ `<slot name="leading"><md-icon part="leading"></md-icon></slot>`
+        }
       </span>
       <span part="label-root">
+        <span part="label"></span>
         <slot></slot>
       </span>
       <span part="trailing-root">
-        <slot name="trailing"></slot>
+        <slot name="trailing">
+          <md-icon part="trailing"></md-icon>
+        </slot>
       </span>
     `;
   }
@@ -148,12 +192,44 @@ export default class ListItem extends ActionElement {
    */
   handleFocusIn(_ev) {
     super.handleFocusIn(_ev);
-    this.parentNode?.querySelectorAll('md-list-item').forEach((item) => {
-      item.innerElement.tabIndex = -1;
-    });
-    this.innerElement.tabIndex = 0;
+    this.closest('md-list')
+      ?.querySelectorAll('md-list-item,md-list-item-checkbox,md-list-item-radio,md-nav-drawer-item')
+      // @ts-ignore
+      .forEach((/** @type {ListItem} */ item) => {
+        item.tabIndex = -1;
+      });
+    this.tabIndex = 0;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.hasAttribute('first-item')) {
+      this.tabIndex = 0;
+      this.removeAttribute('first-item');
+    }
+    if (this.hasAttribute('collapse-controller')) {
+      const _updateTrailing = () => {
+        this.trailing = collapse.open ? 'material-symbols:arrow-drop-up' : 'material-symbols:arrow-drop-down';
+      };
+      /** @type {Collapse} */
+      // @ts-ignore
+      const collapse = this.nextElementSibling;
+      _updateTrailing();
+      this.addEventListener('click', () => {
+        collapse.toggle();
+        _updateTrailing();
+      });
+      this.addEventListener('keydown', (_e) => {
+        if (_e.key === 'ArrowRight') {
+          collapse.open = true;
+          _updateTrailing();
+        } else if (_e.key === 'ArrowLeft') {
+          collapse.open = false;
+          _updateTrailing();
+        }
+      });
+    }
+  }
   /**
    * @param {string} name
    * @param {string|undefined} oldValue
@@ -161,6 +237,12 @@ export default class ListItem extends ActionElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (name === 'label') this.fillNonDataAttr(name, this.labelElement);
+    // For `md-list-item-checkbox` and `md-list-item-radio`
+    if (name === 'leading' && this.leadingElement)
+      this.syncNonDataAttrByEmpty(name, this.leadingElement, false, 'icon');
+    if (name === 'trailing') this.syncNonDataAttrByEmpty(name, this.trailingElement, false, 'icon');
   }
 }
 

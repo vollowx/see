@@ -1,6 +1,7 @@
 import BaseElement from '../shared/base-element.js';
 import TrapFocus from '../shared/trap-focus.js';
 import { html, css } from '../shared/template.js';
+import NavigationDrawerItem from './navigation-drawer-item.js';
 
 const NavigationDrawerStyle = css`
   :host {
@@ -22,6 +23,7 @@ const NavigationDrawerStyle = css`
   }
   [part='drawerContent'] {
     padding: 12px;
+    overflow-x: auto;
   }
   [part~='content'] {
     width: 100%;
@@ -35,6 +37,9 @@ const NavigationDrawerStyle = css`
     :host([dir='rtl']) [part~='drawer'] {
       transform: translateX(var(--md-nav-drawer-width));
     }
+  }
+  :host([modal]) ns-trap-focus {
+    visibility: hidden;
   }
   :host([modal]) [part~='drawer'] {
     transform: translateX(calc(0px - var(--md-nav-drawer-width)));
@@ -58,6 +63,9 @@ const NavigationDrawerStyle = css`
   :host([modal][open]) [part='overlay'] {
     opacity: 0.56;
     pointer-events: auto;
+  }
+  :host([modal][open]) ns-trap-focus {
+    visibility: visible;
   }
   :host([modal][open]) [part~='drawer'] {
     transform: translateX(0);
@@ -148,7 +156,7 @@ export default class NavigationDrawer extends BaseElement {
   get _template() {
     return html`
       <div part="overlay" aria-hidden="true"></div>
-      <ns-trap-focus inactive>
+      <ns-trap-focus>
         <aside
           part="inner drawer"
           tabindex="-1"
@@ -174,6 +182,12 @@ export default class NavigationDrawer extends BaseElement {
     this.innerElement.ariaHidden = !opened ? 'true' : 'false';
     if (opened) {
       this.innerElement.focus();
+    } else {
+      this.trapFocusElement.style.visibility = 'visible';
+      setTimeout(() => {
+        // @ts-ignore
+        this.trapFocusElement.style.visibility = '';
+      }, 250);
     }
     setTimeout(() => {
       this.dispatchEvent(
@@ -192,12 +206,36 @@ export default class NavigationDrawer extends BaseElement {
   /**
    * @param {MouseEvent} _ev
    */
+  handleClick(_ev) {
+    let close = false;
+    /** @type {NavigationDrawer|NavigationDrawerItem} */
+    // @ts-ignore
+    const target = _ev.target;
+    if (
+      target.tagName === 'MD-NAV-DRAWER-ITEM' &&
+      !target.hasAttribute('disabled') &&
+      !target.hasAttribute('collapse-controller')
+    ) {
+      close = true;
+    }
+    // if (target.tagName === 'MD-LIST') {
+    //   // For ARIA menu closing
+    //   close = true;
+    // }
+    if (close) {
+      this.open = false;
+    }
+  }
+  /**
+   * @param {MouseEvent} _ev
+   */
   handleOverlayClick(_ev) {
     this.open = false;
   }
 
   connectedCallback() {
     this.trapFocusElement._root = this.querySelector('[slot="drawerContent"]') || this;
+    this.innerElement?.addEventListener('click', this.handleClick.bind(this));
     this.innerElement?.addEventListener('keydown', this.handleKeyDown.bind(this));
     this.overlayElement.addEventListener('click', this.handleOverlayClick.bind(this));
   }

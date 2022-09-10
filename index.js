@@ -1,3 +1,4 @@
+import Collapse from './collapse/collapse.js';
 import TrapFocus from './shared/trap-focus.js';
 
 import Badge from './badge/badge.js';
@@ -28,6 +29,7 @@ import { InputElement } from './shared/input-element.js';
 import Env from './shared/env.js';
 
 export {
+  Collapse,
   TrapFocus,
 
   Badge,

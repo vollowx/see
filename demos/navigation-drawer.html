@@ -25,20 +25,38 @@
   <body>
     <md-nav-drawer modal id="drawer">
       <div slot="drawerContent">
-        <md-typography title-s in-drawer>This Project</md-typography>
-        <md-nav-drawer-item label="Home" leading="material-symbols:home"></md-nav-drawer-item>
-        <md-nav-drawer-item label="About" leading="material-symbols:info"></md-nav-drawer-item>
-        <md-divider inset="middle" vert-margin></md-divider>
-        <md-typography title-s in-drawer>Components</md-typography>
-        <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
-        <md-nav-drawer-item label="Floating action button" leading="material-symbols:edit-square" selected></md-nav-drawer-item>
-        <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle"></md-nav-drawer-item>
-        <md-nav-drawer-item label="Checkbox" leading="material-symbols:check-box"></md-nav-drawer-item>
-        <md-nav-drawer-item label="Divider" leading="material-symbols:remove"></md-nav-drawer-item>
-        <md-nav-drawer-item label="List" leading="material-symbols:view-list-outline-rounded" disabled></md-nav-drawer-item>
-        <md-typography title-s in-drawer>APIs</md-typography>
-        <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
-        <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle"></md-nav-drawer-item>
+        <md-list>
+          <md-typography title-s in-drawer>This Project</md-typography>
+          <md-nav-drawer-item label="Home" leading="material-symbols:home"></md-nav-drawer-item>
+          <md-nav-drawer-item label="About" leading="material-symbols:info"></md-nav-drawer-item>
+          <md-divider inset="middle" vert-margin></md-divider>
+          <md-typography title-s in-drawer>Components</md-typography>
+          <md-nav-drawer-item
+            label="Buttons"
+            data-aria-label="Expand or collapse buttons"
+            leading="material-symbols:smart-button"
+            collapse-controller
+          ></md-nav-drawer-item>
+          <ns-collapse in-drawer>
+            <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
+            <md-nav-drawer-item
+              label="Floating action button"
+              leading="material-symbols:edit-square"
+              selected
+            ></md-nav-drawer-item>
+            <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle"></md-nav-drawer-item>
+          </ns-collapse>
+          <md-nav-drawer-item label="Checkbox" leading="material-symbols:check-box"></md-nav-drawer-item>
+          <md-nav-drawer-item label="Divider" leading="material-symbols:remove"></md-nav-drawer-item>
+          <md-nav-drawer-item
+            label="List"
+            leading="material-symbols:view-list-outline-rounded"
+            disabled
+          ></md-nav-drawer-item>
+          <md-typography title-s in-drawer>APIs</md-typography>
+          <md-nav-drawer-item label="Common button" leading="material-symbols:smart-button"></md-nav-drawer-item>
+          <md-nav-drawer-item label="Icon button" leading="material-symbols:play-circle" disabled></md-nav-drawer-item>
+        </md-list>
       </div>
 
       <md-top-app-bar auto-padding with-drawer>
