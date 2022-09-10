@@ -14,12 +14,14 @@ const NavigationDrawerStyle = css`
   }
   [part~='drawer'] {
     flex-shrink: 0;
+    max-width: var(--md-nav-drawer-width);
     width: var(--md-nav-drawer-width);
     height: 100%;
     background: var(--md-sys-color-surface);
     border-radius: 0 16px 16px 0;
     transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1), 250ms margin cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
+    box-sizing: border-box;
   }
   [part='drawerContent'] {
     padding: 12px;
@@ -33,23 +35,23 @@ const NavigationDrawerStyle = css`
   }
   @media (max-width: 1199px) {
     [part~='drawer'] {
-      transform: translateX(calc(0px - var(--md-nav-drawer-width)));
+      transform: translateX(-100%);
       margin-inline-end: calc(0px - var(--md-nav-drawer-width));
     }
     :host([dir='rtl']) [part~='drawer'] {
-      transform: translateX(var(--md-nav-drawer-width));
+      transform: translateX(100%);
     }
   }
   :host([modal]) ns-trap-focus {
     visibility: hidden;
   }
   :host([modal]) [part~='drawer'] {
-    transform: translateX(calc(0px - var(--md-nav-drawer-width)));
+    transform: translateX(-100%);
     margin-inline-end: calc(0px - var(--md-nav-drawer-width));
     background: var(--md-sys-elevation-surface-1);
   }
   :host([modal][dir='rtl']) [part~='drawer'] {
-    transform: translateX(var(--md-nav-drawer-width));
+    transform: translateX(100%);
     border-radius: 16px 0 0 16px;
   }
   :host([modal]) [part='overlay'] {

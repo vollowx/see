@@ -149,7 +149,7 @@ export default class ListItem extends ActionElement {
     return [...super._styles, ListItemStyle, FocusRingStyleFAE, StateLayerStyleFAE];
   }
   _renderLeading() {
-    return ``;
+    return `<slot name="leading" aria-hidden="true"><md-icon part="leading"></md-icon></slot>`;
   }
   _renderDisplays() {
     return `<md-ripple></md-ripple>`;
@@ -157,18 +157,14 @@ export default class ListItem extends ActionElement {
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        ${
-          this._renderLeading()
-            ? this._renderLeading()
-            : /* html */ `<slot name="leading"><md-icon part="leading"></md-icon></slot>`
-        }
+        ${this._renderLeading()}
       </span>
       <span part="label-root">
         <span part="label"></span>
         <slot></slot>
       </span>
       <span part="trailing-root">
-        <slot name="trailing">
+        <slot name="trailing" aria-hidden="true">
           <md-icon part="trailing"></md-icon>
         </slot>
       </span>

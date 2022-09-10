@@ -41,7 +41,7 @@ export default class Button extends ActionElement {
   _renderContents() {
     return /* html */ `
       <span part="leading-root">
-        <slot name="leading">
+        <slot name="leading" aria-hidden="true">
           <md-icon part="leading"></md-icon>
         </slot>
       </span>
@@ -50,7 +50,7 @@ export default class Button extends ActionElement {
         <slot></slot>
       </span>
       <span part="trailing-root">
-        <slot name="trailing">
+        <slot name="trailing" aria-hidden="true">
           <md-icon part="trailing"></md-icon>
         </slot>
       </span>

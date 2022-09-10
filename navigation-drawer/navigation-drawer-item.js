@@ -48,6 +48,9 @@ const NavigationDrawerItemStyle = css`
     transform: translateY(-50%);
     box-sizing: border-box;
   }
+  [part='label-root'] {
+    text-align: left;
+  }
   [part='leading-root'],
   [part='trailing-root'] {
     display: inline-flex;
@@ -75,11 +78,12 @@ export default class NavigationDrawerItem extends ListItem {
     return 'md-nav-drawer-item';
   }
 
+  get _defaultTag() {
+    return 'button';
+  }
+
   get _styles() {
     return [...super._styles, NavigationDrawerItemStyle, StateLayerStyleFAE, FocusRingStyleFAE];
-  }
-  _renderDisplays() {
-    return /* html */ `<span part="outline"></span><md-ripple></md-ripple>`;
   }
 }
 
