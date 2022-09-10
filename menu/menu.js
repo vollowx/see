@@ -6,6 +6,7 @@ import ListItem from '../list/list-item.js';
 const MenuStyle = css`
   :host {
     z-index: 1000;
+    --md-list-padding: 8px 0;
   }
   [part~='popover'] {
     overflow-x: hidden;

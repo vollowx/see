@@ -23,7 +23,9 @@ const NavigationDrawerStyle = css`
   }
   [part='drawerContent'] {
     padding: 12px;
+    height: 100%;
     overflow-x: auto;
+    box-sizing: border-box;
   }
   [part~='content'] {
     width: 100%;

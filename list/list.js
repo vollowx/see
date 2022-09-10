@@ -26,7 +26,7 @@ const ListStyle = css`
     flex-direction: column;
     box-sizing: border-box;
     margin: 0px;
-    padding: 8px 0;
+    padding: var(--md-list-padding, 0);
     list-style: none;
     outline: 0;
   }

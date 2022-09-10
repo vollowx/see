@@ -61,6 +61,9 @@ const NavigationDrawerItemStyle = css`
     margin-inline-start: auto;
     margin-inline-end: -8px;
   }
+  :host([leading]) [part~='leading-root'] {
+    padding-inline-end: 0;
+  }
   md-icon,
   ::slotted(iconify-icon) {
     font-size: var(--md-button-icon-size, 1.5rem);
