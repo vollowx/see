@@ -49,7 +49,7 @@ const NavigationDrawerItemStyle = css`
     box-sizing: border-box;
   }
   [part='label-root'] {
-    text-align: left;
+    text-align: start;
   }
   [part='leading-root'],
   [part='trailing-root'] {
