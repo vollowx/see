@@ -1,3 +1,8 @@
+```
+Wait, this project is stopped. Don't star.
+Maybe I will rebuild it in huge-pancake/detailed-components, I don't have much time.
+```
+
 # tiny-material
 
 > MaterialYou & WebComponents!  
