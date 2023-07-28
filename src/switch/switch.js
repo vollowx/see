@@ -52,11 +52,17 @@ export default class MdSwitchElement extends BaseElement {
     }
     this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+
     this.addEventListener('click', this.#handleClick.bind(this));
     this.addEventListener('keydown', this.#handleKeyDown.bind(this));
     this.addEventListener('keyup', this.#handleKeyUp.bind(this));
     this.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
     this.addEventListener('pointerup', this.#handlePointerUp.bind(this));
+
+    const parent = this.parentElement;
+    if (!parent) return;
+    if (parent.tagName === 'LABEL')
+      parent.addEventListener('click', this.#handleParentClick.bind(this));
   }
   static get observedAttributes() {
     return ['checked', 'disabled'];
@@ -164,6 +170,19 @@ export default class MdSwitchElement extends BaseElement {
     if (this.#handledPointerMove) {
       return;
     }
+    this.#toggleState();
+  }
+  // FIXME: incorrect focus ring at this
+  /**
+   * @param {PointerEvent} e
+   */
+  #handleParentClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (this.#handledPointerMove) {
+      return;
+    }
+    this.focus();
     this.#toggleState();
   }
   /**

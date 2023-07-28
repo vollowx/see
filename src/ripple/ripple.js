@@ -22,10 +22,10 @@ export default class MdRippleElement extends BaseElement {
     return getTemplateMdRipple();
   }
   connectedCallback() {
+    // @ts-ignore
     this.#parent =
-      this.parentNode?.nodeType === 11
-        ? // @ts-ignore
-          this.getRootNode().host
+      this.parentNode instanceof ShadowRoot
+        ? this.parentNode.host
         : this.parentNode;
     if (getComputedStyle(this.#parent).position === 'static')
       this.#parent.style.position = 'relative';
