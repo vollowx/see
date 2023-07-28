@@ -1,0 +1,17 @@
+{
+  "name": "m3-web-components",
+  "version": "0.1.1",
+  "description": "Web Components, with Material You design guidelines.",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "vite"
+  },
+  "author": "vollow",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.4.7"
+  }
+}
