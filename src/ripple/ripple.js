@@ -1,72 +1,121 @@
-import BaseElement from '../shared/base-element.js';
-import { distance } from '../shared/utils.js';
+// @ts-check
+
+import BaseElement from "../shared/base-element.js";
+import { distance } from "../shared/utils.js";
+
+import MdRippleElementStyle from "./ripple.css?inline";
 
 const getTemplateMdRipple = () => {
-  return `
-  <style>
-    :host {
-      border-radius: inherit;
-      display: block;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      position: absolute;
-    }
-
-    [part~='ripple'] {
-      background-color: currentColor;
-      left: 0;
-      opacity: var(--md-comp-ripple-opacity, 0.23);
-      pointer-events: none;
-      position: absolute;
-      /* 用 filter blur 的话，在 Chromium 上显示效果不完美 */
-      width: 0.01rem; /* 不能太小，否则阴影是方的 */
-       height: 0.01rem;
-      box-shadow: 0 0 80px var(--radius) currentColor;
-    }
-    [part~='ripple'],
-    :host([circle]) {
-      border-radius: 50%;
-    }
-  </style>
-`;
+  return `<style>${MdRippleElementStyle}</style>`;
 };
 
-/**
- * M3Ripple
- *
- * from https://codepen.io/dffzmxj/pen/XWVxoWE
- */
-export default class M3Ripple extends BaseElement {
-  $parent;
-  $ripples = [];
-  #defaultMaximumRadius = 200;
-  #defaultMinimumDuration = 300;
-  #keyPressed = false;
+const MIN_DURATION = 300;
 
+/**
+ * From https://codepen.io/dffzmxj/pen/XWVxoWE
+ */
+export default class MdRippleElement extends BaseElement {
+  static get is() {
+    return "md-ripple";
+  }
   render() {
     return getTemplateMdRipple();
   }
   connectedCallback() {
-    this.$parent = this.parentNode?.nodeType === 11 ? this.getRootNode().host : this.parentNode;
-    if (getComputedStyle(this.$parent).position === 'static') this.$parent.style.position = 'relative';
-    this.$parent.addEventListener('touchstart', this.spawnRipple.bind(this));
-    this.$parent.addEventListener('mousedown', this.spawnRipple.bind(this));
-    this.$parent.addEventListener('keydown', this._handleKeydown.bind(this));
-    this.$parent.addEventListener('touchend', this.destroyRipples.bind(this));
-    document.addEventListener('mouseup', this.destroyRipples.bind(this));
-    document.addEventListener('keyup', this._handleKeyup.bind(this));
+    if (getComputedStyle(this.#parent).position === "static")
+      this.#parent.style.position = "relative";
+    this.#parent =
+      this.parentNode?.nodeType === 11
+        ? // @ts-ignore
+          this.getRootNode().host
+        : this.parentNode;
+    this.#parent.addEventListener("touchstart", this.#spawnRipple.bind(this));
+    this.#parent.addEventListener("mousedown", this.#spawnRipple.bind(this));
+    this.#parent.addEventListener("keydown", this.#handleKeyDown.bind(this));
+    document.addEventListener("touchend", this.#destroyRipples.bind(this));
+    document.addEventListener("mouseup", this.#destroyRipples.bind(this));
+    document.addEventListener("keyup", this.#handleKeyUp.bind(this));
   }
   disconnectedCallback() {
-    this.$parent.removeEventListener('touchstart', this.spawnRipple.bind(this));
-    this.$parent.removeEventListener('mousedown', this.spawnRipple.bind(this));
-    this.$parent.removeEventListener('keydown', this._handleKeydown.bind(this));
-    this.$parent.removeEventListener('touchend', this.destroyRipples.bind(this));
-    document.removeEventListener('mouseup', this.destroyRipples.bind(this));
-    document.removeEventListener('keyup', this._handleKeyup.bind(this));
+    this.#parent.removeEventListener(
+      "touchstart",
+      this.#spawnRipple.bind(this),
+    );
+    this.#parent.removeEventListener("mousedown", this.#spawnRipple.bind(this));
+    this.#parent.removeEventListener("keydown", this.#handleKeyDown.bind(this));
+    document.removeEventListener("touchend", this.#destroyRipples.bind(this));
+    document.removeEventListener("mouseup", this.#destroyRipples.bind(this));
+    document.removeEventListener("keyup", this.#handleKeyUp.bind(this));
+  }
+  static get observedAttributes() {
+    return ["centered", "no-key"];
+  }
+  /**
+   * @param {boolean} value
+   */
+  set centered(value) {
+    this.toggleAttribute("centered", value);
+  }
+  get centered() {
+    return this.hasAttribute("centered");
+  }
+  /**
+   * @param {boolean} value
+   */
+  set noKey(value) {
+    this.toggleAttribute("no-key", value);
+  }
+  get noKey() {
+    return this.hasAttribute("no-key");
   }
 
-  spawnRipple(event) {
+  /**
+   * @type {HTMLElement}
+   */
+  #parent;
+  /**
+   * @type {HTMLSpanElement[]}
+   */
+  #ripples = [];
+  #spacePressing = false;
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  #handleKeyDown(e) {
+    if ((e.key !== " " && e.key !== "Enter") || this.noKey) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === " " && !this.#spacePressing) {
+      this.#spacePressing = true;
+      this.#spawnRipple();
+    }
+    if (e.key === "Enter") {
+      this.#spawnRipple();
+      this.#destroyRipples();
+    }
+  }
+  /**
+   * @param {KeyboardEvent} e
+   */
+  #handleKeyUp(e) {
+    if ((e.key !== " " && e.key !== "Enter") || this.noKey) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === " ") {
+      this.#spacePressing = false;
+      this.#destroyRipples();
+    }
+  }
+
+  /**
+   * @param {PointerEvent | undefined} event
+   */
+  #spawnRipple(event = undefined) {
     const box = this.getBoundingClientRect();
     const boxCenter = {
       x: box.width / 2,
@@ -94,133 +143,80 @@ export default class M3Ripple extends BaseElement {
       { x: 0, y: box.height },
       { x: box.width, y: box.height },
     ];
-    // const radius = Math.min(
-    //   this.maximumRadius,
-    //   Math.max(...corners.map((corner) => distance(rippleCenter, corner)))
-    // );
-    const radius = Math.max(...corners.map((corner) => distance(rippleCenter, corner)));
-    // const translateStart = `${rippleCenter.x - radius}px, ${rippleCenter.y - radius}px`;
-    // const translateEnd = (this.willRecenter && !centered) ? `${boxCenter.x - radius}px, ${boxCenter.y - radius}px` : translateStart;
-    const ripple = document.createElement('div');
-    ripple.setAttribute('part', 'ripple');
-    // ripple.style.height = ripple.style.width = 2 * radius + 'px';
-    // ripple.style.transform = `translate(${translateEnd})`;
+    const radius = Math.max(
+      ...corners.map((corner) => distance(rippleCenter, corner)),
+    );
+    const ripple = document.createElement("div");
+    ripple.setAttribute("part", "ripple");
 
-    ripple.style.setProperty('--radius', `${radius}px`);
+    ripple.style.setProperty("--radius", `${radius}px`);
     ripple.style.left = `${rippleCenter.x}px`;
     ripple.style.top = `${rippleCenter.y}px`;
 
-    this.$ripples.push(ripple);
+    this.#ripples.push(ripple);
+    // @ts-ignore
     this.shadowRoot.append(ripple);
     ripple.animate(
       {
-        boxShadow: ['0 0 80px calc(var(--radius) * 0.2) currentColor', '0 0 80px var(--radius) currentColor'],
+        boxShadow: [
+          "0 0 80px calc(var(--radius) * 0.2) currentColor",
+          "0 0 80px var(--radius) currentColor",
+        ],
       },
       {
-        duration: Math.max(this.minimumDuration) || 0,
-        easing: 'cubic-bezier(0.1, 0, 0.5, 1)',
-        fill: 'forwards',
-      }
+        duration: Math.max(MIN_DURATION) || 0,
+        easing: "cubic-bezier(0.1, 0, 0.5, 1)",
+        fill: "forwards",
+      },
     );
 
     // Snowflake effect
-    const scene = document.createElement('canvas');
+    const scene = document.createElement("canvas");
     scene.height = box.height;
     scene.width = box.width;
-    const context = scene.getContext('2d');
-    context.fillStyle = 'white';
+    const context = scene.getContext("2d");
+    // @ts-ignore
+    context.fillStyle = "white";
     for (let x = 0; x < scene.width; x++)
-      for (let y = 0; y < scene.height; y++) if (Math.random() < 0.005) context.fillRect(x, y, 1, 1);
+      for (let y = 0; y < scene.height; y++)
+        // @ts-ignore
+        if (Math.random() < 0.005) context.fillRect(x, y, 1, 1);
+    // @ts-ignore
     this.shadowRoot.append(scene);
     const { opacity } = getComputedStyle(scene);
     const animation = scene.animate(
+      // @ts-ignore
       {
-        // @ts-ignore
         opacity: [0, opacity, 0],
       },
       {
-        duration: Math.max(this.minimumDuration) || 0,
-        easing: 'linear',
-      }
+        duration: Math.max(MIN_DURATION) || 0,
+        easing: "linear",
+      },
     );
     animation.onfinish = animation.oncancel = () => scene.remove();
   }
-  destroyRipples() {
-    for (const ripple of this.$ripples.splice(0)) {
+  #destroyRipples() {
+    for (const ripple of this.#ripples.splice(0)) {
       const { opacity } = getComputedStyle(ripple);
       if (!opacity) {
         ripple.remove();
         continue;
       }
       const animation = ripple.animate(
+        // @ts-ignore
         {
-          // @ts-ignore
           opacity: [opacity, 0],
         },
         {
           duration: 800,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.4, 0, 0.7, 0)',
-        }
+          fill: "forwards",
+          easing: "cubic-bezier(0.4, 0, 0.7, 0)",
+        },
       );
       animation.onfinish = animation.oncancel = () => ripple.remove();
     }
   }
-
-  get centered() {
-    return this.hasAttribute('centered');
-  }
-  set centered(value) {
-    const boolValue = !!value;
-    boolValue ? this.centered || this.setAttribute('centered', '') : this.removeAttribute('centered');
-  }
-
-  get willRecenter() {
-    return this.hasAttribute('will-recenter');
-  }
-  set willRecenter(value) {
-    const boolValue = !!value;
-    boolValue ? this.willRecenter || this.setAttribute('will-recenter', '') : this.removeAttribute('will-recenter');
-  }
-
-  get maximumRadius() {
-    const maximumRadius = parseFloat(this.getAttribute('maxradius') || '');
-    return isFinite(maximumRadius) ? maximumRadius : this.#defaultMaximumRadius;
-  }
-  /**
-   * @param {number} value
-   */
-  set maximumRadius(value) {
-    this.setAttribute('maxradius', value.toString());
-  }
-
-  get minimumDuration() {
-    const minimumDuration = parseFloat(this.getAttribute('minduration') || '');
-    return isFinite(minimumDuration) ? minimumDuration : this.#defaultMinimumDuration;
-  }
-  /**
-   * @param {number} value
-   */
-  set minimumDuration(value) {
-    this.setAttribute('minduration', value.toString());
-  }
-
-  _handleKeydown({ key }) {
-    if (key === ' ' && !this.#keyPressed) {
-      this.#keyPressed = true;
-      this.spawnRipple();
-    }
-    if (key === 'Enter') {
-      this.spawnRipple();
-      this.destroyRipples();
-    }
-  }
-  _handleKeyup({ key }) {
-    if (key === ' ') {
-      this.#keyPressed = false;
-      this.destroyRipples();
-    }
-  }
 }
 
-customElements.define('md-ripple', M3Ripple);
+customElements.define("md-ripple", MdRippleElement);

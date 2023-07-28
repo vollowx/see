@@ -6,90 +6,168 @@
     <title>Index | Docs of MWC</title>
     <script type="module" src="../src/switch/switch.js"></script>
     <script type="module" src="../src/ripple/ripple.js"></script>
-
-    <style>
-      body {
-        background-color: var(--md-sys-color-background);
-        color: var(--md-sys-color-on-background);
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Oxygen,
-          Ubuntu,
-          Cantarell,
-          "Open Sans",
-          "Helvetica Neue",
-          sans-serif;
-      }
-      ::selection {
-        background-color: var(--md-sys-color-tertiary-container);
-        color: var(--md-sys-color-on-tertiary-container);
-      }
-
-      :root {
-        --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-        --md-sys-motion-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-        --md-sys-color-background: #181118;
-        --md-sys-color-on-background: #eddee8;
-        --md-sys-color-surface: #181118;
-        --md-sys-color-surface-dim: #181118;
-        --md-sys-color-surface-bright: #3f373e;
-        --md-sys-color-surface-container-lowest: #130c12;
-        --md-sys-color-surface-container-low: #211920;
-        --md-sys-color-surface-container: #251d24;
-        --md-sys-color-surface-container-high: #30272e;
-        --md-sys-color-surface-container-highest: #3b3239;
-        --md-sys-color-on-surface: #eddee8;
-        --md-sys-color-surface-variant: #50434f;
-        --md-sys-color-on-surface-variant: #d4c1d0;
-        --md-sys-color-inverse-surface: #eddee8;
-        --md-sys-color-inverse-on-surface: #362e35;
-        --md-sys-color-outline: #80707d;
-        --md-sys-color-outline-variant: #50434f;
-        --md-sys-color-shadow: #000000;
-        --md-sys-color-scrim: #000000;
-        --md-sys-color-surface-tint: #ffa9ff;
-        --md-sys-color-primary: #ffa9ff;
-        --md-sys-color-on-primary: #590062;
-        --md-sys-color-primary-container: #7d008a;
-        --md-sys-color-on-primary-container: #ffd6fa;
-        --md-sys-color-inverse-primary: #a400b5;
-        --md-sys-color-inverse-on-primary: #ffffff;
-        --md-sys-color-secondary: #e7b9d5;
-        --md-sys-color-on-secondary: #45263c;
-        --md-sys-color-secondary-container: #5e3c53;
-        --md-sys-color-on-secondary-container: #ffd8ee;
-        --md-sys-color-tertiary: #fab2cd;
-        --md-sys-color-on-tertiary: #502036;
-        --md-sys-color-tertiary-container: #6a364d;
-        --md-sys-color-on-tertiary-container: #ffd9e5;
-        --md-sys-color-error: #ffb4ab;
-        --md-sys-color-on-error: #690005;
-        --md-sys-color-error-container: #93000a;
-        --md-sys-color-on-error-container: #ffdad6;
-      }
-    </style>
+    <script type="module" src="./main.js"></script>
   </head>
   <body>
-    <p>RTL</p>
-    <md-switch id="switch1" aria-label="right to left direction"></md-switch>
-    <p>Disable</p>
-    <md-switch id="switch2" aria-label="disabled controller"></md-switch>
+    <h1>Docs of <code>m3-web-components</code></h1>
 
-    <script>
-      const switch1 = document.querySelector("#switch1");
-      const switch2 = document.querySelector("#switch2");
+    <h2>Table of Contents</h2>
 
-      switch1.addEventListener("change", (e) => {
-        document.dir = e.detail ? "rtl" : "ltr";
-      });
-      switch2.addEventListener("change", (e) => {
-        switch1.disabled = e.detail;
-      });
-    </script>
+    <ul id="table-of-contents-list"></ul>
+
+    <h2>Ripple</h2>
+
+    <p>
+      Ripples are state layers used to communicate the status of a component or
+      interactive element.
+    </p>
+
+    <p>
+      A state layer is a semi-transparent covering on an element that indicates
+      its state. A layer can be applied to an entire element or in a circular
+      shape.
+    </p>
+
+    <h3>Usage</h3>
+
+    <p>
+      Ripples display on press pointer interactions. They may be attached to a
+      control in one of three ways.
+    </p>
+
+    <ol>
+      <li>
+        Attached to the parent element
+        <figure>
+          <button>
+            <md-ripple></md-ripple>
+            Button
+          </button>
+        </figure>
+      </li>
+      <li>
+        Attached to a referenced element
+        <figure>
+          <div style="display: inline-flex">
+            <md-ripple no-key></md-ripple>
+            <input />
+          </div>
+        </figure>
+      </li>
+      <li>
+        Attached imperatively
+        <figure>Undone yet</figure>
+      </li>
+    </ol>
+
+    <h4>Centered</h4>
+
+    <figure>
+      <button>
+        <md-ripple centered></md-ripple>
+        Button with Centered Ripple
+      </button>
+    </figure>
+
+    <h4>Unbounded</h4>
+
+    <figure>
+      <button>
+        <md-ripple unbounded></md-ripple>
+        Button with Unbounded Ripple
+      </button>
+    </figure>
+
+    <h3>Accessibility</h3>
+
+    <p>
+      Ripples are visual components and do not have assistive technology
+      requirements.
+    </p>
+
+    <h2>Switch</h2>
+
+    <p>
+      Switches are the preferred way to adjust settings. They're used to control
+      binary options – think On/Off or True/False.
+    </p>
+
+    <h3>Features</h3>
+
+    <ul>
+      <li>Draggable.</li>
+    </ul>
+
+    <h3>Interactive Demo</h3>
+
+    <figure class="switch-labelled">
+      <label>
+        <md-switch id="switch1"></md-switch>
+        RTL
+      </label>
+      <label>
+        <md-switch id="switch2"></md-switch>
+        Controlled switch
+      </label>
+      <label>
+        <md-switch id="switch3"></md-switch>
+        Checked
+      </label>
+      <label>
+        <md-switch id="switch4"></md-switch>
+        Disable
+      </label>
+
+      <script>
+        const switch1 = document.querySelector("#switch1");
+        const switch2 = document.querySelector("#switch2");
+        const switch3 = document.querySelector("#switch3");
+        const switch4 = document.querySelector("#switch4");
+
+        switch1.addEventListener(
+          "change",
+          (e) => (document.dir = e.detail ? "rtl" : "ltr"),
+        );
+        switch3.addEventListener("change", (e) => (switch2.checked = e.detail));
+        switch4.addEventListener(
+          "change",
+          (e) => (switch2.disabled = e.detail),
+        );
+      </script>
+    </figure>
+
+    <h3>Usage</h3>
+
+    <p>Switches may be standalone or pre-checked.</p>
+
+    <figure>
+      <md-switch aria-label="a demo switch"></md-switch>
+      <md-switch aria-label="a pre-checked switch" checked></md-switch>
+    </figure>
+
+    <h4>Label</h4>
+
+    <p>
+      Associate a label with a switch using the
+      <code>&lt;label&gt;</code> element.
+    </p>
+
+    <figure class="switch-labelled">
+      <label>
+        <md-switch></md-switch>
+        Label 1
+      </label>
+      <label>
+        <md-switch></md-switch>
+        Label 2
+      </label>
+    </figure>
+
+    <h3>Accessibility</h3>
+
+    <p>
+      Add an <code>aria-label</code> attribute to checkboxes without labels or
+      checkboxes whose labels need to be more descriptive.
+    </p>
   </body>
 </html>

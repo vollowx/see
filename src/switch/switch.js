@@ -3,9 +3,7 @@
 import BaseElement from "../shared/base-element.js";
 import { assert, isRTL } from "../shared/utils.js";
 
-// @ts-ignore
 import MdSwitchElementStyle from "./switch.css?inline";
-// @ts-ignore
 import MdFocusRingElementStyle from "../shared/focus-ring.css?inline";
 
 // const getOnIcon = () => {
@@ -27,7 +25,7 @@ import MdFocusRingElementStyle from "../shared/focus-ring.css?inline";
 // };
 
 const getTemplateMdSwitch = () => {
-  return /* html */ `
+  return `
     <style>${MdSwitchElementStyle}${MdFocusRingElementStyle}</style>
     <span part="focus-ring"></span>
     <span id="track"></span>

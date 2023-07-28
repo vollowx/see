@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build docs",
+    "preview": "vite preview docs"
   },
   "author": "vollow",
   "license": "MIT",

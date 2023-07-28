@@ -1,0 +1,26 @@
+:host {
+  border-radius: inherit;
+  display: block;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+:host(:not([unbounded])) {
+  overflow: hidden;
+}
+
+[part~="ripple"] {
+  background-color: currentColor;
+  left: 0;
+  opacity: var(--_opacity, 0.18);
+  pointer-events: none;
+  position: absolute;
+  /* With filter blur, it will not be perfect at look in Chromium */
+  width: 0.01rem; /* It should not be too small, or the ripple will be a square */
+  height: 0.01rem;
+  box-shadow: 0 0 80px var(--_radius) currentColor;
+}
+[part~="ripple"],
+:host([circle]) {
+  border-radius: 50%;
+}
