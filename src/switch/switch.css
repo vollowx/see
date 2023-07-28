@@ -32,7 +32,7 @@
 }
 
 :host::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   height: 100%;
@@ -108,7 +108,7 @@
   background-color: currentColor;
   opacity: 0.08;
   border-radius: 50%;
-  content: "";
+  content: '';
   height: var(--_ripple-size);
   left: calc(var(--_thumb-diameter_) / 2);
   position: absolute;

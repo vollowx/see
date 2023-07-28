@@ -8,7 +8,7 @@ export default class BaseElement extends HTMLElement {
   }
 
   _attachShadow() {
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
   }
 
   _render() {
@@ -16,7 +16,7 @@ export default class BaseElement extends HTMLElement {
 
     if (!shadowRoot) {
       throw new Error(
-        `[${this.tagName}] [render] Shadow root not found, rendering canceled.`,
+        `[${this.tagName}] [render] Shadow root not found, rendering canceled.`
       );
     }
 
@@ -24,7 +24,7 @@ export default class BaseElement extends HTMLElement {
   }
 
   render() {
-    return "";
+    return '';
   }
 
   #cachedElements = {};
@@ -39,7 +39,7 @@ export default class BaseElement extends HTMLElement {
 
     if (!shadowRoot) {
       throw new Error(
-        `[${this.tagName}] [element-getter] Shadow root not found, element querying canceled.`,
+        `[${this.tagName}] [element-getter] Shadow root not found, element querying canceled.`
       );
     }
 

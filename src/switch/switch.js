@@ -1,10 +1,10 @@
 // @ts-check
 
-import BaseElement from "../shared/base-element.js";
-import { assert, isRTL } from "../shared/utils.js";
+import BaseElement from '../shared/base-element.js';
+import { assert, isRTL } from '../shared/utils.js';
 
-import MdSwitchElementStyle from "./switch.css?inline";
-import MdFocusRingElementStyle from "../shared/focus-ring.css?inline";
+import MdSwitchElementStyle from './switch.css?inline';
+import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 
 // const getOnIcon = () => {
 //   return `
@@ -24,42 +24,42 @@ import MdFocusRingElementStyle from "../shared/focus-ring.css?inline";
 //   `;
 // };
 
-const getTemplateMdSwitch = () => {
+function getTemplateMdSwitch() {
   return `
     <style>${MdSwitchElementStyle}${MdFocusRingElementStyle}</style>
     <span part="focus-ring"></span>
     <span id="track"></span>
     <span id="thumb"></span>
   `;
-};
+}
 
 export default class MdSwitchElement extends BaseElement {
   static get is() {
-    return "md-switch";
+    return 'md-switch';
   }
   render() {
     return getTemplateMdSwitch();
   }
   connectedCallback() {
-    if (!this.hasAttribute("type")) {
-      this.setAttribute("type", "button");
+    if (!this.hasAttribute('type')) {
+      this.setAttribute('type', 'button');
     }
-    if (!this.hasAttribute("role")) {
-      this.setAttribute("role", "switch");
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'switch');
     }
-    if (!this.hasAttribute("tabindex")) {
-      this.setAttribute("tabindex", "0");
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
     }
-    this.setAttribute("aria-pressed", this.checked ? "true" : "false");
-    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
-    this.addEventListener("click", this.#handleClick.bind(this));
-    this.addEventListener("keydown", this.#handleKeyDown.bind(this));
-    this.addEventListener("keyup", this.#handleKeyUp.bind(this));
-    this.addEventListener("pointerdown", this.#handlePointerDown.bind(this));
-    this.addEventListener("pointerup", this.#handlePointerUp.bind(this));
+    this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.addEventListener('click', this.#handleClick.bind(this));
+    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    this.addEventListener('keyup', this.#handleKeyUp.bind(this));
+    this.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
+    this.addEventListener('pointerup', this.#handlePointerUp.bind(this));
   }
   static get observedAttributes() {
-    return ["checked", "disabled"];
+    return ['checked', 'disabled'];
   }
   /**
    * @param {string} name
@@ -68,11 +68,11 @@ export default class MdSwitchElement extends BaseElement {
    */
   attributeChangedCallback(name, _oldValue, _newValue) {
     switch (name) {
-      case "checked":
+      case 'checked':
         this.#checkedChanged();
         break;
 
-      case "disabled":
+      case 'disabled':
         this.#disabledChanged();
         break;
 
@@ -84,26 +84,26 @@ export default class MdSwitchElement extends BaseElement {
    * @param {boolean} value
    */
   set checked(value) {
-    this.toggleAttribute("checked", value);
+    this.toggleAttribute('checked', value);
   }
   get checked() {
-    return this.hasAttribute("checked");
+    return this.hasAttribute('checked');
   }
   #checkedChanged() {
-    this.setAttribute("aria-pressed", this.checked ? "true" : "false");
+    this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
   }
   /**
    * @param {boolean} value
    */
   set disabled(value) {
-    this.toggleAttribute("disabled", value);
+    this.toggleAttribute('disabled', value);
   }
   get disabled() {
-    return this.hasAttribute("disabled");
+    return this.hasAttribute('disabled');
   }
   #disabledChanged() {
-    this.setAttribute("tabindex", this.disabled ? "-1" : "0");
-    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+    this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
   #handledPointerMove = false;
@@ -111,9 +111,9 @@ export default class MdSwitchElement extends BaseElement {
 
   #handlePointerUp() {
     assert(this.#handlePointerMove);
-    this.removeEventListener("pointermove", this.#handlePointerMove);
+    this.removeEventListener('pointermove', this.#handlePointerMove);
 
-    const thumbRect = this.$("#thumb").getBoundingClientRect();
+    const thumbRect = this.$('#thumb').getBoundingClientRect();
     const rootbRect = this.getBoundingClientRect();
     const diff =
       thumbRect.left +
@@ -123,8 +123,8 @@ export default class MdSwitchElement extends BaseElement {
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
     if (this.checked != shouldBeChecked) this.#toggleState();
 
-    this.$("#thumb").style.transitionDuration = "";
-    this.$("#thumb").style.setProperty("--_thumb-diff-pointer", "");
+    this.$('#thumb').style.transitionDuration = '';
+    this.$('#thumb').style.setProperty('--_thumb-diff-pointer', '');
   }
   /**
    * @param {PointerEvent} e
@@ -137,7 +137,7 @@ export default class MdSwitchElement extends BaseElement {
     this.#pointerDownX = e.clientX;
     this.#handledPointerMove = false;
     assert(this.#handlePointerMove);
-    this.addEventListener("pointermove", this.#handlePointerMove);
+    this.addEventListener('pointermove', this.#handlePointerMove);
   }
   /**
    * @param {PointerEvent} e
@@ -149,11 +149,11 @@ export default class MdSwitchElement extends BaseElement {
     const limitedDiff = this.checked
       ? Math.min(0, Math.max(-20, diff))
       : Math.min(20, Math.max(0, diff));
-    this.$("#thumb").style.setProperty(
-      "--_thumb-diff-pointer",
-      `${2 * limitedDiff}px`,
+    this.$('#thumb').style.setProperty(
+      '--_thumb-diff-pointer',
+      `${2 * limitedDiff}px`
     );
-    this.$("#thumb").style.transitionDuration = "0s";
+    this.$('#thumb').style.transitionDuration = '0s';
   }
   /**
    * @param {PointerEvent} e
@@ -170,7 +170,7 @@ export default class MdSwitchElement extends BaseElement {
    * @param {KeyboardEvent} e
    */
   #handleKeyDown(e) {
-    if (e.key !== " " && e.key !== "Enter") {
+    if (e.key !== ' ' && e.key !== 'Enter') {
       return;
     }
     e.preventDefault();
@@ -178,7 +178,7 @@ export default class MdSwitchElement extends BaseElement {
     if (e.repeat) {
       return;
     }
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.#toggleState();
     }
   }
@@ -186,12 +186,12 @@ export default class MdSwitchElement extends BaseElement {
    * @param {KeyboardEvent} e
    */
   #handleKeyUp(e) {
-    if (e.key !== " " && e.key !== "Enter") {
+    if (e.key !== ' ' && e.key !== 'Enter') {
       return;
     }
     e.preventDefault();
     e.stopPropagation();
-    if (e.key === " ") {
+    if (e.key === ' ') {
       this.#toggleState();
     }
   }
@@ -201,11 +201,11 @@ export default class MdSwitchElement extends BaseElement {
     }
     this.checked = !this.checked;
     this.dispatchEvent(
-      new CustomEvent("change", {
+      new CustomEvent('change', {
         bubbles: true,
         composed: true,
         detail: this.checked,
-      }),
+      })
     );
   }
 }

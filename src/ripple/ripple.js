@@ -1,13 +1,13 @@
 // @ts-check
 
-import BaseElement from "../shared/base-element.js";
-import { distance } from "../shared/utils.js";
+import BaseElement from '../shared/base-element.js';
+import { distance } from '../shared/utils.js';
 
-import MdRippleElementStyle from "./ripple.css?inline";
+import MdRippleElementStyle from './ripple.css?inline';
 
-const getTemplateMdRipple = () => {
+function getTemplateMdRipple() {
   return `<style>${MdRippleElementStyle}</style>`;
-};
+}
 
 const MIN_DURATION = 300;
 
@@ -16,7 +16,7 @@ const MIN_DURATION = 300;
  */
 export default class MdRippleElement extends BaseElement {
   static get is() {
-    return "md-ripple";
+    return 'md-ripple';
   }
   render() {
     return getTemplateMdRipple();
@@ -27,46 +27,46 @@ export default class MdRippleElement extends BaseElement {
         ? // @ts-ignore
           this.getRootNode().host
         : this.parentNode;
-    if (getComputedStyle(this.#parent).position === "static")
-      this.#parent.style.position = "relative";
-    this.#parent.addEventListener("touchstart", this.#spawnRipple.bind(this));
-    this.#parent.addEventListener("mousedown", this.#spawnRipple.bind(this));
-    this.#parent.addEventListener("keydown", this.#handleKeyDown.bind(this));
-    document.addEventListener("touchend", this.#destroyRipples.bind(this));
-    document.addEventListener("mouseup", this.#destroyRipples.bind(this));
-    document.addEventListener("keyup", this.#handleKeyUp.bind(this));
+    if (getComputedStyle(this.#parent).position === 'static')
+      this.#parent.style.position = 'relative';
+    this.#parent.addEventListener('touchstart', this.#spawnRipple.bind(this));
+    this.#parent.addEventListener('mousedown', this.#spawnRipple.bind(this));
+    this.#parent.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    document.addEventListener('touchend', this.#destroyRipples.bind(this));
+    document.addEventListener('mouseup', this.#destroyRipples.bind(this));
+    document.addEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   disconnectedCallback() {
     this.#parent.removeEventListener(
-      "touchstart",
-      this.#spawnRipple.bind(this),
+      'touchstart',
+      this.#spawnRipple.bind(this)
     );
-    this.#parent.removeEventListener("mousedown", this.#spawnRipple.bind(this));
-    this.#parent.removeEventListener("keydown", this.#handleKeyDown.bind(this));
-    document.removeEventListener("touchend", this.#destroyRipples.bind(this));
-    document.removeEventListener("mouseup", this.#destroyRipples.bind(this));
-    document.removeEventListener("keyup", this.#handleKeyUp.bind(this));
+    this.#parent.removeEventListener('mousedown', this.#spawnRipple.bind(this));
+    this.#parent.removeEventListener('keydown', this.#handleKeyDown.bind(this));
+    document.removeEventListener('touchend', this.#destroyRipples.bind(this));
+    document.removeEventListener('mouseup', this.#destroyRipples.bind(this));
+    document.removeEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   static get observedAttributes() {
-    return ["centered", "no-key"];
+    return ['centered', 'no-key'];
   }
   /**
    * @param {boolean} value
    */
   set centered(value) {
-    this.toggleAttribute("centered", value);
+    this.toggleAttribute('centered', value);
   }
   get centered() {
-    return this.hasAttribute("centered");
+    return this.hasAttribute('centered');
   }
   /**
    * @param {boolean} value
    */
   set noKey(value) {
-    this.toggleAttribute("no-key", value);
+    this.toggleAttribute('no-key', value);
   }
   get noKey() {
-    return this.hasAttribute("no-key");
+    return this.hasAttribute('no-key');
   }
 
   /**
@@ -83,16 +83,16 @@ export default class MdRippleElement extends BaseElement {
    * @param {KeyboardEvent} e
    */
   #handleKeyDown(e) {
-    if ((e.key !== " " && e.key !== "Enter") || this.noKey) {
+    if ((e.key !== ' ' && e.key !== 'Enter') || this.noKey) {
       return;
     }
     e.preventDefault();
     e.stopPropagation();
-    if (e.key === " " && !this.#spacePressing) {
+    if (e.key === ' ' && !this.#spacePressing) {
       this.#spacePressing = true;
       this.#spawnRipple();
     }
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.#spawnRipple();
       this.#destroyRipples();
     }
@@ -101,12 +101,12 @@ export default class MdRippleElement extends BaseElement {
    * @param {KeyboardEvent} e
    */
   #handleKeyUp(e) {
-    if ((e.key !== " " && e.key !== "Enter") || this.noKey) {
+    if ((e.key !== ' ' && e.key !== 'Enter') || this.noKey) {
       return;
     }
     e.preventDefault();
     e.stopPropagation();
-    if (e.key === " ") {
+    if (e.key === ' ') {
       this.#spacePressing = false;
       this.#destroyRipples();
     }
@@ -144,12 +144,12 @@ export default class MdRippleElement extends BaseElement {
       { x: box.width, y: box.height },
     ];
     const radius = Math.max(
-      ...corners.map((corner) => distance(rippleCenter, corner)),
+      ...corners.map((corner) => distance(rippleCenter, corner))
     );
-    const ripple = document.createElement("div");
-    ripple.setAttribute("part", "ripple");
+    const ripple = document.createElement('div');
+    ripple.setAttribute('part', 'ripple');
 
-    ripple.style.setProperty("--radius", `${radius}px`);
+    ripple.style.setProperty('--radius', `${radius}px`);
     ripple.style.left = `${rippleCenter.x}px`;
     ripple.style.top = `${rippleCenter.y}px`;
 
@@ -159,24 +159,24 @@ export default class MdRippleElement extends BaseElement {
     ripple.animate(
       {
         boxShadow: [
-          "0 0 80px calc(var(--radius) * 0.2) currentColor",
-          "0 0 80px var(--radius) currentColor",
+          '0 0 80px calc(var(--radius) * 0.2) currentColor',
+          '0 0 80px var(--radius) currentColor',
         ],
       },
       {
         duration: Math.max(MIN_DURATION) || 0,
-        easing: "cubic-bezier(0.1, 0, 0.5, 1)",
-        fill: "forwards",
-      },
+        easing: 'cubic-bezier(0.1, 0, 0.5, 1)',
+        fill: 'forwards',
+      }
     );
 
     // Snowflake effect
-    const scene = document.createElement("canvas");
+    const scene = document.createElement('canvas');
     scene.height = box.height;
     scene.width = box.width;
-    const context = scene.getContext("2d");
+    const context = scene.getContext('2d');
     // @ts-ignore
-    context.fillStyle = "white";
+    context.fillStyle = 'white';
     for (let x = 0; x < scene.width; x++)
       for (let y = 0; y < scene.height; y++)
         // @ts-ignore
@@ -191,8 +191,8 @@ export default class MdRippleElement extends BaseElement {
       },
       {
         duration: Math.max(MIN_DURATION) || 0,
-        easing: "linear",
-      },
+        easing: 'linear',
+      }
     );
     animation.onfinish = animation.oncancel = () => scene.remove();
   }
@@ -210,13 +210,13 @@ export default class MdRippleElement extends BaseElement {
         },
         {
           duration: 800,
-          fill: "forwards",
-          easing: "cubic-bezier(0.4, 0, 0.7, 0)",
-        },
+          fill: 'forwards',
+          easing: 'cubic-bezier(0.4, 0, 0.7, 0)',
+        }
       );
       animation.onfinish = animation.oncancel = () => ripple.remove();
     }
   }
 }
 
-customElements.define("md-ripple", MdRippleElement);
+customElements.define('md-ripple', MdRippleElement);

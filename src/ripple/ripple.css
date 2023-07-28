@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-[part~="ripple"] {
+[part~='ripple'] {
   background-color: currentColor;
   left: 0;
   opacity: var(--_opacity, 0.18);
@@ -20,7 +20,7 @@
   height: 0.01rem;
   box-shadow: 0 0 80px var(--_radius) currentColor;
 }
-[part~="ripple"],
+[part~='ripple'],
 :host([circle]) {
   border-radius: 50%;
 }

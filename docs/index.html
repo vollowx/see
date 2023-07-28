@@ -125,19 +125,19 @@
       </label>
 
       <script>
-        const switch1 = document.querySelector("#switch1");
-        const switch2 = document.querySelector("#switch2");
-        const switch3 = document.querySelector("#switch3");
-        const switch4 = document.querySelector("#switch4");
+        const switch1 = document.querySelector('#switch1');
+        const switch2 = document.querySelector('#switch2');
+        const switch3 = document.querySelector('#switch3');
+        const switch4 = document.querySelector('#switch4');
 
         switch1.addEventListener(
-          "change",
-          (e) => (document.dir = e.detail ? "rtl" : "ltr"),
+          'change',
+          (e) => (document.dir = e.detail ? 'rtl' : 'ltr')
         );
-        switch3.addEventListener("change", (e) => (switch2.checked = e.detail));
+        switch3.addEventListener('change', (e) => (switch2.checked = e.detail));
         switch4.addEventListener(
-          "change",
-          (e) => (switch2.disabled = e.detail),
+          'change',
+          (e) => (switch2.disabled = e.detail)
         );
       </script>
     </figure>
