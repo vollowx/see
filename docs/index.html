@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index | Docs of MWC</title>
+    <script type="module" src="../src/switch/labelled-switch.js"></script>
     <script type="module" src="../src/switch/switch.js"></script>
     <script type="module" src="../src/ripple/ripple.js"></script>
     <script type="module" src="./main.js"></script>
@@ -33,6 +34,15 @@
     <ul>
       <li>Optional keyboard support.</li>
     </ul>
+
+    <h3>Bugs</h3>
+
+    <ol>
+      <li>
+        Rounded ripple becomes in the shape of square in Chromium-based
+        browsers, <a href="http://localhost:5173/docs/">reported</a>
+      </li>
+    </ol>
 
     <h3>Usage</h3>
 
@@ -107,22 +117,11 @@
     <h3>Interactive Demo</h3>
 
     <figure class="switch-labelled">
-      <label>
-        <md-switch id="switch1"></md-switch>
-        RTL
-      </label>
-      <label>
-        <md-switch id="switch2"></md-switch>
-        Controlled switch
-      </label>
-      <label>
-        <md-switch id="switch3"></md-switch>
-        Checked
-      </label>
-      <label>
-        <md-switch id="switch4"></md-switch>
-        Disable
-      </label>
+      <md-labelled-switch id="switch1" label="RTL"></md-labelled-switch>
+      <md-labelled-switch id="switch2" label="Controlled"></md-labelled-switch>
+      <span class="divider"></span>
+      <md-labelled-switch id="switch3" label="Checked"></md-labelled-switch>
+      <md-labelled-switch id="switch4" label="Disabled"></md-labelled-switch>
 
       <script>
         const switch1 = document.querySelector('#switch1');
@@ -160,14 +159,8 @@
     </p>
 
     <figure class="switch-labelled">
-      <label>
-        <md-switch></md-switch>
-        Label 1
-      </label>
-      <label>
-        <md-switch></md-switch>
-        Label 2
-      </label>
+      <md-labelled-switch label="Label 1"></md-labelled-switch>
+      <md-labelled-switch label="Label 2" checked></md-labelled-switch>
     </figure>
 
     <h3>Accessibility</h3>

@@ -24,28 +24,24 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 //   `;
 // };
 
-function getTemplateMdSwitch() {
-  return `
-    <style>${MdSwitchElementStyle}${MdFocusRingElementStyle}</style>
-    <span part="focus-ring"></span>
-    <span id="track"></span>
-    <span id="thumb"></span>
-  `;
-}
-
 export default class MdSwitchElement extends BaseElement {
   static get is() {
     return 'md-switch';
   }
   render() {
-    return getTemplateMdSwitch();
+    return `
+      <style>${MdSwitchElementStyle}${MdFocusRingElementStyle}</style>
+      <span part="focus-ring"></span>
+      <span id="track"></span>
+      <span id="thumb"></span>
+    `;
   }
   connectedCallback() {
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
     }
     if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'switch');
+      this.setAttribute('role', 'button');
     }
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
@@ -58,11 +54,6 @@ export default class MdSwitchElement extends BaseElement {
     this.addEventListener('keyup', this.#handleKeyUp.bind(this));
     this.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
     this.addEventListener('pointerup', this.#handlePointerUp.bind(this));
-
-    const parent = this.parentElement;
-    if (!parent) return;
-    if (parent.tagName === 'LABEL')
-      parent.addEventListener('click', this.#handleParentClick.bind(this));
   }
   static get observedAttributes() {
     return ['checked', 'disabled'];
@@ -170,19 +161,6 @@ export default class MdSwitchElement extends BaseElement {
     if (this.#handledPointerMove) {
       return;
     }
-    this.#toggleState();
-  }
-  // FIXME: incorrect focus ring at this
-  /**
-   * @param {PointerEvent} e
-   */
-  #handleParentClick(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    if (this.#handledPointerMove) {
-      return;
-    }
-    this.focus();
     this.#toggleState();
   }
   /**

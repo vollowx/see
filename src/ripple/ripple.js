@@ -5,10 +5,6 @@ import { distance } from '../shared/utils.js';
 
 import MdRippleElementStyle from './ripple.css?inline';
 
-function getTemplateMdRipple() {
-  return `<style>${MdRippleElementStyle}</style>`;
-}
-
 const MIN_DURATION = 300;
 
 /**
@@ -19,7 +15,7 @@ export default class MdRippleElement extends BaseElement {
     return 'md-ripple';
   }
   render() {
-    return getTemplateMdRipple();
+    return `<style>${MdRippleElementStyle}</style>`;
   }
   connectedCallback() {
     // @ts-ignore

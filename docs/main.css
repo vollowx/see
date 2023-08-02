@@ -92,3 +92,10 @@ figure.switch-labelled label {
   gap: 8px;
   align-items: center;
 }
+figure span.divider {
+  display: block;
+  margin-inline: 8px;
+  width: 1px;
+  height: 1rem;
+  background-color: var(--md-sys-color-outline);
+}

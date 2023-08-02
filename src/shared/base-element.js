@@ -32,7 +32,7 @@ export default class BaseElement extends HTMLElement {
    * Alias of `shadowRoot.querySelector`.
    * @param {string} selector
    * @param {boolean} force
-   * @returns {HTMLElement}
+   * @returns {any}
    */
   $(selector, force = false) {
     const shadowRoot = this.shadowRoot;
