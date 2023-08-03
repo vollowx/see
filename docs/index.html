@@ -8,166 +8,194 @@
     <script type="module" src="../src/switch/switch.js"></script>
     <script type="module" src="../src/ripple/ripple.js"></script>
     <script type="module" src="./main.js"></script>
+    <script type="module" src="./components/demo/demo.js"></script>
   </head>
   <body>
-    <h1>Docs of <code>m3-web-components</code></h1>
+    <main>
+      <h1>Docs of <code>m3-web-components</code></h1>
 
-    <h2>Table of Contents</h2>
+      <h2>Table of Contents</h2>
 
-    <ul id="table-of-contents-list"></ul>
+      <ul id="table-of-contents-list"></ul>
 
-    <h2>Ripple</h2>
+      <h2>Ripple</h2>
 
-    <p>
-      Ripples are state layers used to communicate the status of a component or
-      interactive element.
-    </p>
+      <p>
+        Ripples are state layers used to communicate the status of a component
+        or interactive element.
+      </p>
 
-    <p>
-      A state layer is a semi-transparent covering on an element that indicates
-      its state. A layer can be applied to an entire element or in a circular
-      shape.
-    </p>
+      <p>
+        A state layer is a semi-transparent covering on an element that
+        indicates its state. A layer can be applied to an entire element or in a
+        circular shape.
+      </p>
 
-    <h3>Features</h3>
+      <h3>Features</h3>
 
-    <ul>
-      <li>Optional keyboard support.</li>
-    </ul>
+      <ul>
+        <li>Optional keyboard support.</li>
+      </ul>
 
-    <h3>Bugs</h3>
+      <h3>Bugs</h3>
 
-    <ol>
-      <li>
-        Rounded ripple becomes in the shape of square in Chromium-based
-        browsers, <a href="http://localhost:5173/docs/">reported</a>
-      </li>
-    </ol>
+      <ol>
+        <li>
+          Rounded ripple becomes in the shape of square in Chromium-based
+          browsers, <a href="http://localhost:5173/docs/">reported</a>
+        </li>
+      </ol>
 
-    <h3>Usage</h3>
+      <h3>Usage</h3>
 
-    <p>
-      Ripples display on press pointer interactions. They may be attached to a
-      control in one of three ways.
-    </p>
+      <p>
+        Ripples display on press pointer interactions. They may be attached to a
+        control in one of three ways.
+      </p>
 
-    <ol>
-      <li>
-        Attached to the parent element
-        <figure>
-          <button>
-            <md-ripple></md-ripple>
-            Button
-          </button>
-        </figure>
-      </li>
-      <li>
-        Attached to a referenced element
-        <figure>
-          <div style="display: inline-flex">
-            <md-ripple no-key></md-ripple>
-            <input />
-          </div>
-        </figure>
-      </li>
-      <li>
-        Attached imperatively
-        <figure>Undone yet</figure>
-      </li>
-    </ol>
+      <ol>
+        <li>
+          Attached to the parent element
+          <dc-demo>
+            <button>
+              <md-ripple></md-ripple>
+              Button
+            </button>
+          </dc-demo>
+        </li>
+        <li>
+          Attached to a referenced element
+          <dc-demo>
+            <div style="display: inline-flex">
+              <md-ripple no-key></md-ripple>
+              <input />
+            </div>
+          </dc-demo>
+        </li>
+        <li>
+          Attached imperatively
+          <dc-demo>Undone yet</dc-demo>
+        </li>
+      </ol>
 
-    <h4>Centered</h4>
+      <h4>Centered</h4>
 
-    <figure>
-      <button>
-        <md-ripple centered></md-ripple>
-        Button with Centered Ripple
-      </button>
-    </figure>
+      <dc-demo>
+        <button>
+          <md-ripple centered></md-ripple>
+          Button with Centered Ripple
+        </button>
+      </dc-demo>
 
-    <h4>Unbounded</h4>
+      <h4>Unbounded</h4>
 
-    <figure>
-      <button>
-        <md-ripple unbounded></md-ripple>
-        Button with Unbounded Ripple
-      </button>
-    </figure>
+      <dc-demo>
+        <button>
+          <md-ripple unbounded></md-ripple>
+          Button with Unbounded Ripple
+        </button>
+      </dc-demo>
 
-    <h3>Accessibility</h3>
+      <h3>Accessibility</h3>
 
-    <p>
-      Ripples are visual components and do not have assistive technology
-      requirements.
-    </p>
+      <p>
+        Ripples are visual components and do not have assistive technology
+        requirements.
+      </p>
 
-    <h2>Switch</h2>
+      <h2>Switch</h2>
 
-    <p>
-      Switches are the preferred way to adjust settings. They're used to control
-      binary options – think On/Off or True/False.
-    </p>
+      <p>
+        Switches are the preferred way to adjust settings. They're used to
+        control binary options – think On/Off or True/False.
+      </p>
 
-    <h3>Features</h3>
+      <h3>Features</h3>
 
-    <ul>
-      <li>Draggable.</li>
-    </ul>
+      <ul>
+        <li>Draggable.</li>
+      </ul>
 
-    <h3>Interactive Demo</h3>
+      <h3>Interactive Demo</h3>
 
-    <figure class="switch-labelled">
-      <md-labelled-switch id="switch1" label="RTL"></md-labelled-switch>
-      <md-labelled-switch id="switch2" label="Controlled"></md-labelled-switch>
-      <span class="divider"></span>
-      <md-labelled-switch id="switch3" label="Checked"></md-labelled-switch>
-      <md-labelled-switch id="switch4" label="Disabled"></md-labelled-switch>
+      <dc-demo sidebar>
+        <md-labelled-switch id="switch1" label="RTL"></md-labelled-switch>
+        <md-labelled-switch
+          id="switch2"
+          label="Controlled"
+        ></md-labelled-switch>
+        <md-labelled-switch
+          slot="sidebar"
+          id="switch3"
+          label="Checked"
+        ></md-labelled-switch>
+        <md-labelled-switch
+          slot="sidebar"
+          id="switch4"
+          label="Disabled"
+        ></md-labelled-switch>
+        <input
+          slot="sidebar"
+          type="text"
+          id="input1"
+          placeholder="Label"
+          value="Controlled"
+        />
 
-      <script>
-        const switch1 = document.querySelector('#switch1');
-        const switch2 = document.querySelector('#switch2');
-        const switch3 = document.querySelector('#switch3');
-        const switch4 = document.querySelector('#switch4');
+        <script>
+          const switch1 = document.querySelector('#switch1');
+          const switch2 = document.querySelector('#switch2');
+          const switch3 = document.querySelector('#switch3');
+          const switch4 = document.querySelector('#switch4');
+          const input1 = document.querySelector('#input1');
 
-        switch1.addEventListener(
-          'change',
-          (e) => (document.dir = e.detail ? 'rtl' : 'ltr')
-        );
-        switch3.addEventListener('change', (e) => (switch2.checked = e.detail));
-        switch4.addEventListener(
-          'change',
-          (e) => (switch2.disabled = e.detail)
-        );
-      </script>
-    </figure>
+          switch1.addEventListener(
+            'change',
+            (e) => (document.dir = e.detail ? 'rtl' : 'ltr')
+          );
+          switch3.addEventListener(
+            'change',
+            (e) => (switch2.checked = e.detail)
+          );
+          switch4.addEventListener(
+            'change',
+            (e) => (switch2.disabled = e.detail)
+          );
+          input1.addEventListener(
+            'input',
+            (e) => (switch2.label = input1.value)
+          );
+        </script>
+      </dc-demo>
 
-    <h3>Usage</h3>
+      <h3>Usage</h3>
 
-    <p>Switches may be standalone or pre-checked.</p>
+      <p>Switches may be standalone or pre-checked.</p>
 
-    <figure>
-      <md-switch aria-label="a demo switch"></md-switch>
-      <md-switch aria-label="a pre-checked switch" checked></md-switch>
-      <md-switch aria-label="disabled switch" disabled></md-switch>
-    </figure>
+      <dc-demo>
+        <md-switch aria-label="a unchecked switch"></md-switch>
+        <md-switch aria-label="a pre-checked switch" checked></md-switch>
+        <md-switch aria-label="a disabled switch" disabled></md-switch>
+      </dc-demo>
 
-    <h4>Label</h4>
+      <h4>Label</h4>
 
-    <p>
-      Associate a label with a switch using the
-      <code>&lt;label&gt;</code> element.
-    </p>
+      <p>
+        Associate a label with a switch using the
+        <code>&lt;label&gt;</code> element.
+      </p>
 
-    <figure class="switch-labelled">
-      <md-labelled-switch label="Label 1"></md-labelled-switch>
-      <md-labelled-switch label="Label 2" checked></md-labelled-switch>
-    </figure>
+      <dc-demo>
+        <md-labelled-switch label="Label 1"></md-labelled-switch>
+        <md-labelled-switch label="Label 2" checked></md-labelled-switch>
+      </dc-demo>
 
-    <h3>Accessibility</h3>
+      <h3>Accessibility</h3>
 
-    <p>
-      Add an <code>aria-label</code> attribute to checkboxes without labels or
-      checkboxes whose labels need to be more descriptive.
-    </p>
+      <p>
+        Add an <code>aria-label</code> attribute to checkboxes without labels or
+        checkboxes whose labels need to be more descriptive.
+      </p>
+    </main>
   </body>
 </html>

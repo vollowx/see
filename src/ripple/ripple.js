@@ -215,4 +215,4 @@ export default class MdRippleElement extends BaseElement {
   }
 }
 
-customElements.define('md-ripple', MdRippleElement);
+customElements.define(MdRippleElement.is, MdRippleElement);

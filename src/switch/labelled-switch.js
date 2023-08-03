@@ -103,7 +103,7 @@ export default class MdLabelledSwitchElement extends BaseElement {
    * @param {string} value
    */
   set label(value) {
-    this.setAttribute('checked', value);
+    this.setAttribute('label', value);
   }
   get label() {
     return this.getAttribute('label') || '';
