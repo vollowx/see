@@ -1,6 +1,7 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
+import { html } from '../shared/template.js';
 
 import MdSwitchElement from './switch.js';
 
@@ -25,23 +26,19 @@ import MdLabelledSwitchElementStyle from './labelled-switch.css?inline';
 // };
 
 export default class MdLabelledSwitchElement extends BaseElement {
-  static get is() {
-    return 'md-labelled-switch';
-  }
+  static is = 'md-labelled-switch';
   render() {
-    return `
-      <style>${MdLabelledSwitchElementStyle}</style>
+    return html`
+      <style>
+        ${MdLabelledSwitchElementStyle}
+      </style>
       <md-switch id="control" aria-labelledby="label"></md-switch>
-      <span id="label" aria-hidden="true">${this.getAttribute('label')}</span>
+      <slot id="label" aria-hidden="true"></slot>
     `;
   }
   /** @type {MdSwitchElement} */
   get $control() {
-    return this.$('#control');
-  }
-  /** @type {HTMLSpanElement} */
-  get $label() {
-    return this.$('#label');
+    return this.shadowRoot.querySelector('#control');
   }
   connectedCallback() {
     this.addEventListener('click', this.#handleClick.bind(this));
@@ -50,9 +47,7 @@ export default class MdLabelledSwitchElement extends BaseElement {
       this.#handleControlChange.bind(this)
     );
   }
-  static get observedAttributes() {
-    return ['checked', 'disabled', 'label'];
-  }
+  static observedAttributes = ['checked', 'disabled'];
   /**
    * @param {string} name
    * @param {string|null} _oldValue
@@ -67,9 +62,6 @@ export default class MdLabelledSwitchElement extends BaseElement {
       case 'disabled':
         this.#disabledChanged();
         break;
-
-      case 'label':
-        this.#labelChanged();
 
       default:
         break;
@@ -98,18 +90,6 @@ export default class MdLabelledSwitchElement extends BaseElement {
   }
   #disabledChanged() {
     this.$control.disabled = this.disabled;
-  }
-  /**
-   * @param {string} value
-   */
-  set label(value) {
-    this.setAttribute('label', value);
-  }
-  get label() {
-    return this.getAttribute('label') || '';
-  }
-  #labelChanged() {
-    this.$label.textContent = this.label;
   }
 
   /**
@@ -145,4 +125,5 @@ export default class MdLabelledSwitchElement extends BaseElement {
   }
 }
 
-customElements.define(MdLabelledSwitchElement.is, MdLabelledSwitchElement);
+if (!customElements.get(MdLabelledSwitchElement.is))
+  customElements.define(MdLabelledSwitchElement.is, MdLabelledSwitchElement);

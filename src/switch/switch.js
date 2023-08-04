@@ -1,6 +1,7 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
+import { html } from '../shared/template.js';
 import { assert, isRTL } from '../shared/utils.js';
 
 import MdSwitchElementStyle from './switch.css?inline';
@@ -25,16 +26,22 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 // };
 
 export default class MdSwitchElement extends BaseElement {
-  static get is() {
-    return 'md-switch';
-  }
+  static is = 'md-switch';
   render() {
-    return `
-      <style>${MdSwitchElementStyle}${MdFocusRingElementStyle}</style>
+    return html`
+      <style>
+        ${MdSwitchElementStyle}${MdFocusRingElementStyle}
+      </style>
       <span part="focus-ring"></span>
       <span id="track"></span>
       <span id="thumb"></span>
     `;
+  }
+  /**
+   * @type {HTMLSpanElement}
+   */
+  get $thumb() {
+    return this.shadowRoot.querySelector('#thumb');
   }
   connectedCallback() {
     if (!this.hasAttribute('type')) {
@@ -110,7 +117,7 @@ export default class MdSwitchElement extends BaseElement {
     assert(this.#handlePointerMove);
     this.removeEventListener('pointermove', this.#handlePointerMove);
 
-    const thumbRect = this.$('#thumb').getBoundingClientRect();
+    const thumbRect = this.$thumb.getBoundingClientRect();
     const rootbRect = this.getBoundingClientRect();
     const diff =
       thumbRect.left +
@@ -120,8 +127,8 @@ export default class MdSwitchElement extends BaseElement {
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
     if (this.checked != shouldBeChecked) this.#toggleState();
 
-    this.$('#thumb').style.transitionDuration = '';
-    this.$('#thumb').style.setProperty('--_thumb-diff-pointer', '');
+    this.$thumb.style.transitionDuration = '';
+    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
   }
   /**
    * @param {PointerEvent} e
@@ -146,11 +153,11 @@ export default class MdSwitchElement extends BaseElement {
     const limitedDiff = this.checked
       ? Math.min(0, Math.max(-20, diff))
       : Math.min(20, Math.max(0, diff));
-    this.$('#thumb').style.setProperty(
+    this.$thumb.style.setProperty(
       '--_thumb-diff-pointer',
       `${2 * limitedDiff}px`
     );
-    this.$('#thumb').style.transitionDuration = '0s';
+    this.$thumb.style.transitionDuration = '0s';
   }
   /**
    * @param {PointerEvent} e
@@ -207,4 +214,5 @@ export default class MdSwitchElement extends BaseElement {
   }
 }
 
-customElements.define(MdSwitchElement.is, MdSwitchElement);
+if (!customElements.get(MdSwitchElement.is))
+  customElements.define(MdSwitchElement.is, MdSwitchElement);

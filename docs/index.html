@@ -119,21 +119,14 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo sidebar>
-        <md-labelled-switch id="switch1" label="RTL"></md-labelled-switch>
-        <md-labelled-switch
-          id="switch2"
-          label="Controlled"
-        ></md-labelled-switch>
-        <md-labelled-switch
-          slot="sidebar"
-          id="switch3"
-          label="Checked"
-        ></md-labelled-switch>
-        <md-labelled-switch
-          slot="sidebar"
-          id="switch4"
-          label="Disabled"
-        ></md-labelled-switch>
+        <md-labelled-switch id="switch1">RTL</md-labelled-switch>
+        <md-labelled-switch id="switch2">Controlled</md-labelled-switch>
+        <md-labelled-switch slot="sidebar" id="switch3"
+          >Checked</md-labelled-switch
+        >
+        <md-labelled-switch slot="sidebar" id="switch4"
+          >Disabled</md-labelled-switch
+        >
         <input
           slot="sidebar"
           type="text"
@@ -163,7 +156,7 @@
           );
           input1.addEventListener(
             'input',
-            (e) => (switch2.label = input1.value)
+            (e) => (switch2.textContent = input1.value)
           );
         </script>
       </dc-demo>
@@ -186,8 +179,8 @@
       </p>
 
       <dc-demo>
-        <md-labelled-switch label="Label 1"></md-labelled-switch>
-        <md-labelled-switch label="Label 2" checked></md-labelled-switch>
+        <md-labelled-switch>Label 1</md-labelled-switch>
+        <md-labelled-switch checked>Label 2</md-labelled-switch>
       </dc-demo>
 
       <h3>Accessibility</h3>
