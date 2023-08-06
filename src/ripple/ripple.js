@@ -137,7 +137,7 @@ export default class MdRippleElement extends BaseElement {
 
     this.#ripples.push(ripple);
     // @ts-ignore
-    this.shadowRoot.append(ripple);
+    this.renderRoot.append(ripple);
     ripple.animate(
       {
         boxShadow: [
@@ -164,7 +164,7 @@ export default class MdRippleElement extends BaseElement {
         // @ts-ignore
         if (Math.random() < 0.005) context.fillRect(x, y, 1, 1);
     // @ts-ignore
-    this.shadowRoot.append(scene);
+    this.renderRoot.append(scene);
     const { opacity } = getComputedStyle(scene);
     const animation = scene.animate(
       // @ts-ignore

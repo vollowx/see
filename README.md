@@ -6,5 +6,6 @@ ___* Currently Experiment ONLY___
 
 ## Implemented elements
 
-- Ripple
-- Switch
+- [ ] Button
+- [x] Ripple
+- [ ] Switch

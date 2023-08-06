@@ -1,7 +1,7 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
-import { customElement, property } from '../shared/decorators.js';
+import { customElement, property, query } from '../shared/decorators.js';
 import { html } from '../shared/template.js';
 
 import MdSwitchElement from './switch.js';
@@ -23,9 +23,7 @@ export default class MdLabelledSwitchElement extends BaseElement {
     `;
   }
   /** @type {MdSwitchElement} */
-  get $control() {
-    return this.shadowRoot.querySelector('#control');
-  }
+  @query('#control') $control;
   connectedCallback() {
     this.addEventListener('click', this.#handleClick.bind(this));
     this.$control.addEventListener(

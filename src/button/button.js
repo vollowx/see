@@ -2,7 +2,7 @@
 
 import BaseElement from '../shared/base-element.js';
 import { html } from '../shared/template.js';
-import { customElement, property } from '../shared/decorators.js';
+import { customElement, property, query } from '../shared/decorators.js';
 
 import MdRippleElement from '../ripple/ripple.js';
 
@@ -29,9 +29,7 @@ export default class MdButtonElement extends BaseElement {
     `;
   }
   /** @type {MdRippleElement} */
-  get $ripple() {
-    return this.shadowRoot.querySelector('md-ripple');
-  }
+  @query('md-ripple') $ripple;
   connectedCallback() {
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');

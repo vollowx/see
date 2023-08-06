@@ -1,5 +1,46 @@
 // @ts-check
 
+import BaseElement from './base-element.js';
+
+/**
+ * @typedef {BooleanConstructor|StringConstructor|NumberConstructor} PropertyTypes
+ */
+
+/**
+ * @typedef {boolean|number|string} PropertyValueTypes
+ */
+
+/**
+ * @typedef {Object} PropertyOptions
+ * @property {PropertyTypes} type
+ * @property {?string} attribute
+ */
+
+/** @param {() => void} callback */
+const defer = (callback) => setTimeout(() => callback(), 0);
+
+/**
+ * @param {(name: string, target: BaseElement) => PropertyDescriptor} descriptor
+ */
+function decorateProperty(descriptor) {
+  /**
+   * @param {undefined} _
+   * {{ kind: string, name: string }} options
+   */
+  return function (_, { kind, name }) {
+    if (kind !== 'field') return;
+
+    /**
+     * @param {any} _
+     */
+    return function (_) {
+      const _descriptor = descriptor(name, this);
+      defer(() => Object.defineProperty(this, name, _descriptor));
+      return _descriptor.get?.();
+    };
+  };
+}
+
 /** @param {string} tagName */
 export function customElement(tagName) {
   /**
@@ -11,79 +52,65 @@ export function customElement(tagName) {
   };
 }
 
-/** @param {() => void} callback */
-const defer = (callback) => setTimeout(() => callback(), 0);
+/**
+ * @param {{ type: BooleanConstructor|NumberConstructor|StringConstructor, attribute?: string}} options
+ * @todo Load initial value
+ */
+export function property({ type, attribute }) {
+  return decorateProperty((_, target) => {
+    const setterGetter =
+      type === Boolean
+        ? {
+            get: () => target.hasAttribute(attribute || _),
+            /** @param {boolean} value */
+            set: (value) =>
+              target.toggleAttribute(attribute || _, Boolean(value)),
+          }
+        : type === Number
+        ? {
+            get: () => Number(target.getAttribute(attribute || _)),
+            /** @param {number} value */
+            set: (value) => target.setAttribute(attribute || _, String(value)),
+          }
+        : type === String
+        ? {
+            get: () => target.getAttribute(attribute || _) ?? '',
+            /** @param {string} value */
+            set: (value) => target.setAttribute(attribute || _, String(value)),
+          }
+        : {};
+    return { ...setterGetter, configurable: true, enumerable: true };
+  });
+}
 
 /**
- * User type definition
- * @typedef {Object} PropertyOptions
- * @property {BooleanConstructor|StringConstructor|NumberConstructor} type
- * @property {string?} override
+ * @param {string} selector
+ * @todo Add ability to cache
  */
+export function query(selector) {
+  return decorateProperty((_, target) => {
+    return {
+      get() {
+        return target.renderRoot.querySelector(selector);
+      },
+      configurable: true,
+      enumerable: true,
+    };
+  });
+}
 
 /**
- * @param {PropertyOptions} options
- * @todo Try to remove defer, automatically set initial value, better structure
+ * @param {string} selector
+ * @todo Add ability to cache
  */
-export function property(options) {
-  /**
-   * @param {undefined} _value
-   * @param {{ kind: string, name: string }} options
-   */
-  return function (_value, { kind, name }) {
-    if (kind === 'field') {
-      let attributeName = options.override ?? name;
-      /**
-       * @param {any} _initialValue
-       */
-      return function (_initialValue) {
-        switch (options.type) {
-          case Boolean:
-            defer(() => {
-              Object.defineProperty(this, name, {
-                get() {
-                  return this.hasAttribute(attributeName);
-                },
-                set(flag) {
-                  this.toggleAttribute(attributeName, Boolean(flag));
-                },
-                configurable: true,
-                enumerable: true,
-              });
-            });
-            return this.hasAttribute(attributeName);
-
-          case String:
-            defer(() => {
-              Object.defineProperty(this, name, {
-                get() {
-                  return Number(this.getAttribute(attributeName) ?? '');
-                },
-                set(flag) {
-                  this.setAttribute(attributeName, String(flag));
-                },
-                configurable: true,
-                enumerable: true,
-              });
-            });
-            return Number(this.getAttribute(attributeName) ?? '');
-
-          case String:
-            defer(() => {
-              Object.defineProperty(this, name, {
-                get() {
-                  return this.getAttribute(attributeName) ?? '';
-                },
-                set(flag) {
-                  this.setAttribute(attributeName, flag);
-                },
-                configurable: true,
-                enumerable: true,
-              });
-            });
-            return this.getAttribute(attributeName) ?? '';
-        }
-      };
-    }
-  };
+export function queryAll(selector) {
+  return decorateProperty((_, target) => {
+    return {
+      get() {
+        return target.renderRoot.querySelectorAll(selector);
+      },
+      configurable: true,
+      enumerable: true,
+    };
+  });
 }

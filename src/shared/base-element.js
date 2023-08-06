@@ -5,7 +5,12 @@ export default class BaseElement extends HTMLElement {
     super();
 
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.append(this.render().content.cloneNode(true));
+    this.renderRoot.append(this.render().content.cloneNode(true));
+  }
+
+  /** @type {ShadowRoot|HTMLElement} */
+  get renderRoot() {
+    return /** @type {ShadowRoot} */ (this.shadowRoot);
   }
 
   /**

@@ -2,7 +2,7 @@
 
 import BaseElement from '../shared/base-element.js';
 import { html } from '../shared/template.js';
-import { customElement, property } from '../shared/decorators.js';
+import { customElement, property, query } from '../shared/decorators.js';
 import { assert, isRTL } from '../shared/utils.js';
 
 import MdSwitchElementStyle from './switch.css?inline';
@@ -42,9 +42,7 @@ export default class MdSwitchElement extends BaseElement {
     `;
   }
   /** @type {HTMLSpanElement} */
-  get $thumb() {
-    return this.shadowRoot.querySelector('#thumb');
-  }
+  @query('#thumb') $thumb;
   connectedCallback() {
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
