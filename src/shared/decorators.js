@@ -16,7 +16,7 @@ const defer = (callback) => setTimeout(() => callback(), 0);
 
 /**
  * @param {BooleanConstructor|NumberConstructor|StringConstructor} type
- * @todo Try to remove defer, automatically set initial value, better structure
+ * @todo Try to remove defer, automatically set initial value, better structure, name override
  */
 export function property(type) {
   /**

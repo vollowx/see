@@ -11,7 +11,7 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 import MdStateLayerElementStyle from '../shared/state-layer.css?inline';
 
 /**
- * @todo Icon support
+ * @todo Icon support, ARIA support
  */
 @customElement('md-button')
 export default class MdButtonElement extends BaseElement {
