@@ -55,11 +55,11 @@ export default class MdLabelledSwitchElement extends BaseElement {
   static get observedAttributes() {
     return ['checked', 'disabled'];
   }
-  @property(Boolean) checked = false;
+  @property({ type: Boolean }) checked = false;
   #checkedChanged() {
     this.$control.checked = this.checked;
   }
-  @property(Boolean) disabled = false;
+  @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.$control.disabled = this.disabled;
   }

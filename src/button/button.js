@@ -62,7 +62,7 @@ export default class MdButtonElement extends BaseElement {
   static get observedAttributes() {
     return ['disabled'];
   }
-  @property(Boolean) disabled = false;
+  @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');

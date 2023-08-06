@@ -15,65 +15,73 @@ export function customElement(tagName) {
 const defer = (callback) => setTimeout(() => callback(), 0);
 
 /**
- * @param {BooleanConstructor|NumberConstructor|StringConstructor} type
- * @todo Try to remove defer, automatically set initial value, better structure, name override
+ * User type definition
+ * @typedef {Object} PropertyOptions
+ * @property {BooleanConstructor|StringConstructor|NumberConstructor} type
+ * @property {string?} override
  */
-export function property(type) {
+
+/**
+ * @param {PropertyOptions} options
+ * @todo Try to remove defer, automatically set initial value, better structure
+ */
+export function property(options) {
   /**
    * @param {undefined} _value
-   * @param {{ kind: string, name: string | symbol }} options
+   * @param {{ kind: string, name: string }} options
    */
   return function (_value, { kind, name }) {
     if (kind === 'field') {
+      let attributeName = options.override ?? name;
       /**
        * @param {any} _initialValue
        */
       return function (_initialValue) {
-        switch (type) {
+        switch (options.type) {
           case Boolean:
             defer(() => {
               Object.defineProperty(this, name, {
                 get() {
-                  return this.hasAttribute(name);
+                  return this.hasAttribute(attributeName);
                 },
                 set(flag) {
-                  this.toggleAttribute(name, Boolean(flag));
+                  this.toggleAttribute(attributeName, Boolean(flag));
                 },
                 configurable: true,
                 enumerable: true,
               });
             });
-            return this.hasAttribute(name);
+            return this.hasAttribute(attributeName);
 
           case String:
             defer(() => {
               Object.defineProperty(this, name, {
                 get() {
-                  return Number(this.getAttribute(name) ?? '');
+                  return Number(this.getAttribute(attributeName) ?? '');
                 },
                 set(flag) {
-                  this.setAttribute(name, String(flag));
+                  this.setAttribute(attributeName, String(flag));
                 },
                 configurable: true,
                 enumerable: true,
               });
             });
-            return Number(this.getAttribute(name) ?? '');
+            return Number(this.getAttribute(attributeName) ?? '');
 
           case String:
             defer(() => {
               Object.defineProperty(this, name, {
                 get() {
-                  return this.getAttribute(name) ?? '';
+                  return this.getAttribute(attributeName) ?? '';
                 },
                 set(flag) {
-                  this.setAttribute(name, flag);
+                  this.setAttribute(attributeName, flag);
                 },
                 configurable: true,
                 enumerable: true,
               });
             });
-            return this.getAttribute(name) ?? '';
+            return this.getAttribute(attributeName) ?? '';
         }
       };
     }

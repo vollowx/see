@@ -48,8 +48,8 @@ export default class MdRippleElement extends BaseElement {
   static get observedAttributes() {
     return ['centered', 'nokey'];
   }
-  @property(Boolean) centered = false;
-  @property(Boolean) noKey = false;
+  @property({ type: Boolean }) centered = false;
+  @property({ type: Boolean }) noKey = false;
 
   /**
    * @type {HTMLElement}

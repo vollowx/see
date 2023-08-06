@@ -21,6 +21,7 @@
   height: 40px;
   border-radius: 9999px;
   transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
+  color: var(--_text-color);
 
   /* TODO: Use global variable to control */
   font: 500 0.875rem / 1.25rem 'Roboto Flex';

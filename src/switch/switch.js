@@ -86,11 +86,11 @@ export default class MdSwitchElement extends BaseElement {
   static get observedAttributes() {
     return ['checked', 'disabled'];
   }
-  @property(Boolean) checked = false;
+  @property({ type: Boolean }) checked = false;
   #checkedChanged() {
     this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
   }
-  @property(Boolean) disabled = false;
+  @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
