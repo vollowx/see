@@ -1,6 +1,7 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
+import { property } from '../shared/decorators.js';
 import { html } from '../shared/template.js';
 
 import MdSwitchElement from './switch.js';
@@ -47,7 +48,6 @@ export default class MdLabelledSwitchElement extends BaseElement {
       this.#handleControlChange.bind(this)
     );
   }
-  static observedAttributes = ['checked', 'disabled'];
   /**
    * @param {string} name
    * @param {string|null} _oldValue
@@ -67,27 +67,14 @@ export default class MdLabelledSwitchElement extends BaseElement {
         break;
     }
   }
-  /**
-   * @param {boolean} value
-   */
-  set checked(value) {
-    this.toggleAttribute('checked', value);
+  static get observedAttributes() {
+    return ['checked', 'disabled'];
   }
-  get checked() {
-    return this.hasAttribute('checked');
-  }
+  @property(Boolean) checked = false;
   #checkedChanged() {
     this.$control.checked = this.checked;
   }
-  /**
-   * @param {boolean} value
-   */
-  set disabled(value) {
-    this.toggleAttribute('disabled', value);
-  }
-  get disabled() {
-    return this.hasAttribute('disabled');
-  }
+  @property(Boolean) disabled = false;
   #disabledChanged() {
     this.$control.disabled = this.disabled;
   }

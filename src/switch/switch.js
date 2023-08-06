@@ -2,6 +2,8 @@
 
 import BaseElement from '../shared/base-element.js';
 import { html } from '../shared/template.js';
+import { customElement, property } from '../shared/decorators.js';
+import { log } from '../shared/logger.js';
 import { assert, isRTL } from '../shared/utils.js';
 
 import MdSwitchElementStyle from './switch.css?inline';
@@ -25,8 +27,8 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 //   `;
 // };
 
+@customElement('md-switch')
 export default class MdSwitchElement extends BaseElement {
-  static is = 'md-switch';
   render() {
     return html`
       <style>
@@ -44,6 +46,7 @@ export default class MdSwitchElement extends BaseElement {
     return this.shadowRoot.querySelector('#thumb');
   }
   connectedCallback() {
+    log('info', '[connectedCallback]', 'of', 'called', 'from', this);
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
     }
@@ -62,15 +65,13 @@ export default class MdSwitchElement extends BaseElement {
     this.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
     this.addEventListener('pointerup', this.#handlePointerUp.bind(this));
   }
-  static get observedAttributes() {
-    return ['checked', 'disabled'];
-  }
   /**
    * @param {string} name
    * @param {string|null} _oldValue
    * @param {string|null} _newValue
    */
   attributeChangedCallback(name, _oldValue, _newValue) {
+    log('info', '[attributeChangedCallback]', 'of', 'called', 'from', this);
     switch (name) {
       case 'checked':
         this.#checkedChanged();
@@ -84,27 +85,14 @@ export default class MdSwitchElement extends BaseElement {
         break;
     }
   }
-  /**
-   * @param {boolean} value
-   */
-  set checked(value) {
-    this.toggleAttribute('checked', value);
+  static get observedAttributes() {
+    return ['checked', 'disabled'];
   }
-  get checked() {
-    return this.hasAttribute('checked');
-  }
+  @property(Boolean) checked = false;
   #checkedChanged() {
     this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
   }
-  /**
-   * @param {boolean} value
-   */
-  set disabled(value) {
-    this.toggleAttribute('disabled', value);
-  }
-  get disabled() {
-    return this.hasAttribute('disabled');
-  }
+  @property(Boolean) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
@@ -213,6 +201,3 @@ export default class MdSwitchElement extends BaseElement {
     );
   }
 }
-
-if (!customElements.get(MdSwitchElement.is))
-  customElements.define(MdSwitchElement.is, MdSwitchElement);

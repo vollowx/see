@@ -1,7 +1,8 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
-import { html, css } from '../shared/template.js';
+import { html } from '../shared/template.js';
+import { customElement } from '../shared/decorators.js';
 import { distance } from '../shared/utils.js';
 
 import MdRippleElementStyle from './ripple.css?inline';
@@ -11,10 +12,9 @@ const MIN_DURATION = 300;
 /**
  * https://codepen.io/dffzmxj/pen/XWVxoWE
  */
+@customElement('md-ripple')
 export default class MdRippleElement extends BaseElement {
-  static get is() {
-    return 'md-ripple';
-  }
+  
   render() {
     return html`<style>
       ${MdRippleElementStyle}
@@ -217,6 +217,3 @@ export default class MdRippleElement extends BaseElement {
     }
   }
 }
-
-if (!customElements.get(MdRippleElement.is))
-  customElements.define(MdRippleElement.is, MdRippleElement);
