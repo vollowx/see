@@ -115,7 +115,7 @@
   top: calc(var(--_thumb-diameter_) / 2);
   transform: translate(-50%, -50%);
   transition:
-    left var(--md-sys-motion-overshoot) 300ms,
-    top var(--md-sys-motion-overshoot) 300ms;
+    left var(--md-sys-motion-easing-standard) 250ms,
+    top var(--md-sys-motion-easing-standard) 250ms;
   width: var(--_ripple-size);
 }
