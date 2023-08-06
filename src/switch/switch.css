@@ -64,15 +64,15 @@
 }
 
 #thumb {
-  --_thumb-diameter_: 16px;
+  --_thumb-diameter: 16px;
   --_thumb-center-edge-distance_: 16px;
   --_thumb-diff-default: 20px;
   --_thumb-diff-pointer: 0px;
   background-color: var(--_unchecked-thumb-color);
   border-radius: 50%;
   display: block;
-  width: var(--_thumb-diameter_);
-  height: var(--_thumb-diameter_);
+  width: var(--_thumb-diameter);
+  height: var(--_thumb-diameter);
   position: absolute;
   transition:
     background-color 67ms linear,
@@ -85,7 +85,7 @@
   );
 }
 :host([checked]) #thumb {
-  --_thumb-diameter_: 24px;
+  --_thumb-diameter: 24px;
   --_thumb-diff-default: -20px;
   background-color: var(--_checked-thumb-color);
 }
@@ -93,8 +93,7 @@
   opacity: 0.38;
 }
 :host(:active) #thumb {
-  --_thumb-diameter_: 28px;
-  /* transition-duration: 67ms, 250ms, 250ms, 0s; */
+  --_thumb-diameter: 28px;
 }
 :host(:active) #thumb,
 :host(:hover) #thumb {
@@ -110,9 +109,9 @@
   border-radius: 50%;
   content: '';
   height: var(--_ripple-size);
-  left: calc(var(--_thumb-diameter_) / 2);
+  left: calc(var(--_thumb-diameter) / 2);
   position: absolute;
-  top: calc(var(--_thumb-diameter_) / 2);
+  top: calc(var(--_thumb-diameter) / 2);
   transform: translate(-50%, -50%);
   transition:
     left var(--md-sys-motion-easing-standard) 250ms,

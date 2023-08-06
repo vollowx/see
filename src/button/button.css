@@ -1,0 +1,104 @@
+:host {
+  --_text-color: var(--md-sys-color-primary);
+  --_text-opacity: 1;
+  --_background-color: transparent;
+  --_background-opacity: 1;
+  --_border-color: transparent;
+  --_border-opacity: 1;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: 0;
+  position: relative;
+  vertical-align: top;
+  box-sizing: border-box;
+  user-select: none;
+  padding: 0 12px;
+  min-width: 64px;
+  height: 40px;
+  border-radius: 9999px;
+  transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
+
+  /* TODO: Use global variable to control */
+  font: 500 0.875rem / 1.25rem 'Roboto Flex';
+}
+/* Background */
+:host::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background-color: var(--_background-color);
+  opacity: var(--_background-opacity);
+}
+/* Border */
+:host::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  border: 1px solid var(--_border-color);
+  opacity: var(--_border-opacity);
+}
+
+slot {
+  display: inline-flex;
+  color: var(--_text-color);
+  opacity: var(--_text-opacity);
+}
+
+:host([elevated]) {
+  padding: 0 24px;
+  --_background-color: var(--md-sys-color-surface-container-low);
+}
+:host([filled]) {
+  padding: 0 24px;
+  --_background-color: var(--md-sys-color-primary);
+  --_text-color: var(--md-sys-color-on-primary);
+}
+:host([tonal]) {
+  padding: 0 24px;
+  --_background-color: var(--md-sys-color-secondary);
+  --_text-color: var(--md-sys-color-on-secondary);
+}
+:host([outlined]) {
+  padding: 0 23px;
+  --_border-color: var(--md-sys-color-outline);
+}
+
+:host([elevated]),
+:host([filled]:hover:not(:active)),
+:host([tonal]:hover:not(:active)) {
+  box-shadow: var(--md-sys-elevation-shadow-1);
+}
+:host([elevated]:hover:not(:active)) {
+  box-shadow: var(--md-sys-elevation-shadow-2);
+}
+
+:host([disabled]) {
+  --_text-color: var(--md-sys-color-on-surface);
+  --_text-opacity: 0.38;
+  box-shadow: none;
+
+  cursor: default;
+  pointer-events: none;
+}
+:host([elevated][disabled]),
+:host([filled][disabled]),
+:host([tonal][disabled]) {
+  --_background-color: var(--md-sys-color-on-surface);
+  --_background-opacity: 0.12;
+  --_text-color: var(--md-sys-color-on-surface);
+  --_text-opacity: 0.38;
+}
+:host([outlined][disabled]) {
+  --_border-color: var(--md-sys-color-on-surface);
+  --_border-opacity: 0.12;
+}

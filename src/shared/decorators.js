@@ -18,7 +18,8 @@ const defer = (window.requestIdleCallback || requestAnimationFrame).bind(
 );
 
 /**
- * @param {BooleanConstructor|StringConstructor} type
+ * @param {BooleanConstructor|NumberConstructor|StringConstructor} type
+ * @todo Try to remove defer, automatically set initial value
  */
 export function property(type) {
   /**
@@ -28,31 +29,55 @@ export function property(type) {
   return function (_value, { kind, name }) {
     if (kind === 'field') {
       /**
-       * @param {any} initialValue
+       * @param {any} _initialValue
        */
-      return function (initialValue) {
-        defer(() => {
-          Object.defineProperty(this, name, {
-            get() {
-              if (type === Boolean) {
-                return this.hasAttribute(name);
-              } else if (type === String) {
-                return this.getAttribute(name) ?? '';
-              }
-            },
-            set(flag) {
-              if (type === Boolean) {
-                this.toggleAttribute(name, Boolean(flag));
-              } else if (type === String) {
-                this.setAttribute(name, flag);
-              }
-            },
-            configurable: true,
-            enumerable: true,
-          });
-        });
+      return function (_initialValue) {
+        switch (type) {
+          case Boolean:
+            defer(() => {
+              Object.defineProperty(this, name, {
+                get() {
+                  return this.hasAttribute(name);
+                },
+                set(flag) {
+                  this.toggleAttribute(name, Boolean(flag));
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            });
+            return this.hasAttribute(name);
 
-        return initialValue;
+          case String:
+            defer(() => {
+              Object.defineProperty(this, name, {
+                get() {
+                  return Number(this.getAttribute(name) ?? '');
+                },
+                set(flag) {
+                  this.setAttribute(name, String(flag));
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            });
+            return Number(this.getAttribute(name) ?? '');
+
+          case String:
+            defer(() => {
+              Object.defineProperty(this, name, {
+                get() {
+                  return this.getAttribute(name) ?? '';
+                },
+                set(flag) {
+                  this.setAttribute(name, flag);
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            });
+            return this.getAttribute(name) ?? '';
+        }
       };
     }
   };

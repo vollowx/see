@@ -3,7 +3,6 @@
 import BaseElement from '../shared/base-element.js';
 import { html } from '../shared/template.js';
 import { customElement, property } from '../shared/decorators.js';
-import { log } from '../shared/logger.js';
 import { assert, isRTL } from '../shared/utils.js';
 
 import MdSwitchElementStyle from './switch.css?inline';
@@ -39,14 +38,11 @@ export default class MdSwitchElement extends BaseElement {
       <span id="thumb"></span>
     `;
   }
-  /**
-   * @type {HTMLSpanElement}
-   */
+  /** @type {HTMLSpanElement} */
   get $thumb() {
     return this.shadowRoot.querySelector('#thumb');
   }
   connectedCallback() {
-    log('info', '[connectedCallback]', 'of', 'called', 'from', this);
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
     }
@@ -71,7 +67,6 @@ export default class MdSwitchElement extends BaseElement {
    * @param {string|null} _newValue
    */
   attributeChangedCallback(name, _oldValue, _newValue) {
-    log('info', '[attributeChangedCallback]', 'of', 'called', 'from', this);
     switch (name) {
       case 'checked':
         this.#checkedChanged();

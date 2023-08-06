@@ -1,0 +1,13 @@
+:host [part='state-layer'] {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 67ms linear;
+}
+
+:host(:hover) [part='state-layer'] {
+  opacity: 0.08;
+}

@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index | Docs of MWC</title>
+    <title>Docs of m3-web-components</title>
+    <script type="module" src="../src/button/button.js"></script>
+    <script type="module" src="../src/ripple/ripple.js"></script>
     <script type="module" src="../src/switch/labelled-switch.js"></script>
     <script type="module" src="../src/switch/switch.js"></script>
-    <script type="module" src="../src/ripple/ripple.js"></script>
     <script type="module" src="./main.js"></script>
     <script type="module" src="./components/demo/demo.js"></script>
   </head>
@@ -17,6 +18,55 @@
       <h2>Table of Contents</h2>
 
       <ul id="table-of-contents-list"></ul>
+
+      <h2>Button</h2>
+
+      <p>
+        Buttons communicate actions that users can take. They are typically
+        placed throughout your UI, in places like:
+      </p>
+
+      <ul>
+        <li>Dialogs</li>
+        <li>Modal windows</li>
+        <li>Forms</li>
+        <li>Cards</li>
+        <li>Toolbars</li>
+      </ul>
+
+      <h3>Types</h3>
+
+      <h4>Enabled</h4>
+
+      <dc-demo>
+        <md-button elevated>Elevated Button</md-button>
+        <md-button filled>Filled Button</md-button>
+        <md-button tonal>Tonal Button</md-button>
+        <md-button outlined>Outlined Button</md-button>
+        <md-button>Text Button</md-button>
+      </dc-demo>
+
+      <h4>Disabled</h4>
+
+      <dc-demo>
+        <md-button disabled elevated>Elevated Button</md-button>
+        <md-button disabled filled>Filled Button</md-button>
+        <md-button disabled tonal>Tonal Button</md-button>
+        <md-button disabled outlined>Outlined Button</md-button>
+        <md-button disabled>Text Button</md-button>
+      </dc-demo>
+
+      <h3>Usage</h3>
+
+      <p>
+        Buttons have label text that describes the action that will occur if a
+        user taps a button.
+      </p>
+
+      <dc-demo>
+        <md-button outlined>Back</md-button>
+        <md-button filled>Complete</md-button>
+      </dc-demo>
 
       <h2>Ripple</h2>
 
