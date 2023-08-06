@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "vite --open /docs/"
+    "dev:docs": "vite --open /docs/",
+    "build:docs": "vite build docs",
+    "preview:docs": "vite preview docs"
   },
   "author": "vollow",
   "license": "MIT",
