@@ -1,7 +1,7 @@
 // @ts-check
 
 import BaseElement from '../shared/base-element.js';
-import { property } from '../shared/decorators.js';
+import { customElement, property } from '../shared/decorators.js';
 import { html } from '../shared/template.js';
 
 import MdSwitchElement from './switch.js';
@@ -26,8 +26,8 @@ import MdLabelledSwitchElementStyle from './labelled-switch.css?inline';
 //   `;
 // };
 
+@customElement('md-labelled-switch')
 export default class MdLabelledSwitchElement extends BaseElement {
-  static is = 'md-labelled-switch';
   render() {
     return html`
       <style>
@@ -111,6 +111,3 @@ export default class MdLabelledSwitchElement extends BaseElement {
     this.$control.focus();
   }
 }
-
-if (!customElements.get(MdLabelledSwitchElement.is))
-  customElements.define(MdLabelledSwitchElement.is, MdLabelledSwitchElement);

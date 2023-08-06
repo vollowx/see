@@ -14,7 +14,6 @@ const MIN_DURATION = 300;
  */
 @customElement('md-ripple')
 export default class MdRippleElement extends BaseElement {
-  
   render() {
     return html`<style>
       ${MdRippleElementStyle}
