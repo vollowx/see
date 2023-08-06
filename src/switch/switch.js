@@ -26,6 +26,9 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 //   `;
 // };
 
+/**
+ * @todo Icon support
+ */
 @customElement('md-switch')
 export default class MdSwitchElement extends BaseElement {
   render() {

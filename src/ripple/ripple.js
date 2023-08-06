@@ -2,7 +2,7 @@
 
 import BaseElement from '../shared/base-element.js';
 import { html } from '../shared/template.js';
-import { customElement } from '../shared/decorators.js';
+import { customElement, property } from '../shared/decorators.js';
 import { distance } from '../shared/utils.js';
 
 import MdRippleElementStyle from './ripple.css?inline';
@@ -46,26 +46,10 @@ export default class MdRippleElement extends BaseElement {
     document.removeEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   static get observedAttributes() {
-    return ['centered', 'no-key'];
+    return ['centered', 'nokey'];
   }
-  /**
-   * @param {boolean} value
-   */
-  set centered(value) {
-    this.toggleAttribute('centered', value);
-  }
-  get centered() {
-    return this.hasAttribute('centered');
-  }
-  /**
-   * @param {boolean} value
-   */
-  set noKey(value) {
-    this.toggleAttribute('no-key', value);
-  }
-  get noKey() {
-    return this.hasAttribute('no-key');
-  }
+  @property(Boolean) centered = false;
+  @property(Boolean) noKey = false;
 
   /**
    * @type {HTMLElement}

@@ -1,8 +1,6 @@
 // @ts-check
 
-/**
- * @param {string} tagName
- */
+/** @param {string} tagName */
 export function customElement(tagName) {
   /**
    * @param {any} target
@@ -13,13 +11,12 @@ export function customElement(tagName) {
   };
 }
 
-const defer = (window.requestIdleCallback || requestAnimationFrame).bind(
-  window
-);
+/** @param {() => void} callback */
+const defer = (callback) => setTimeout(() => callback(), 0);
 
 /**
  * @param {BooleanConstructor|NumberConstructor|StringConstructor} type
- * @todo Try to remove defer, automatically set initial value
+ * @todo Try to remove defer, automatically set initial value, better structure
  */
 export function property(type) {
   /**
