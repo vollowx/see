@@ -12,7 +12,7 @@ import MdStateLayerElementStyle from '../shared/state-layer.css?inline';
 import MdTargetElementStyle from '../shared/target.css?inline';
 
 /**
- * @todo Icon support, ARIA support
+ * TODO: Icon support, ARIA support
  */
 @customElement('md-button')
 export default class MdButtonElement extends BaseElement {

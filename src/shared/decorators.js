@@ -54,7 +54,7 @@ export function customElement(tagName) {
 
 /**
  * @param {{ type: BooleanConstructor|NumberConstructor|StringConstructor, attribute?: string}} options
- * @todo Load initial value
+ * TODO: Load initial value
  */
 export function property({ type, attribute }) {
   return decorateProperty((_, target) => {
@@ -85,7 +85,7 @@ export function property({ type, attribute }) {
 
 /**
  * @param {string} selector
- * @todo Add ability to cache
+ * TODO: Add ability to cache
  */
 export function query(selector) {
   return decorateProperty((_, target) => {
@@ -101,7 +101,7 @@ export function query(selector) {
 
 /**
  * @param {string} selector
- * @todo Add ability to cache
+ * TODO: Add ability to cache
  */
 export function queryAll(selector) {
   return decorateProperty((_, target) => {

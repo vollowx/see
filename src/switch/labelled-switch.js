@@ -9,7 +9,7 @@ import MdSwitchElement from './switch.js';
 import MdLabelledSwitchElementStyle from './labelled-switch.css?inline';
 
 /**
- * @todo Icon support
+ * TODO: Icon support
  */
 @customElement('md-labelled-switch')
 export default class MdLabelledSwitchElement extends BaseElement {
@@ -55,7 +55,7 @@ export default class MdLabelledSwitchElement extends BaseElement {
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
-    /** @todo Use `this.$control.checked`, maybe need to remove the defer in decorator */
+    /** TODO: Use `this.$control.checked`, maybe need to remove the defer in decorator */
     this.$control.toggleAttribute('checked', this.checked);
   }
   @property({ type: Boolean }) disabled = false;

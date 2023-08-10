@@ -28,7 +28,7 @@ import MdTargetElementStyle from '../shared/target.css?inline';
 // };
 
 /**
- * @todo Icon support
+ * TODO: Icon support
  */
 @customElement('md-switch')
 export default class MdSwitchElement extends BaseElement {
