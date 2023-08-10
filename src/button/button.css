@@ -5,7 +5,6 @@
   --_background-opacity: 1;
   --_border-color: transparent;
   --_border-opacity: 1;
-
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   display: inline-flex;
@@ -22,7 +21,6 @@
   border-radius: 9999px;
   transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
   color: var(--_text-color);
-
   /* TODO: Use global variable to control */
   font: 500 0.875rem / 1.25rem var(--md-sys-typography-font-family);
 }

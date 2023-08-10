@@ -1,40 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap');
 
-body {
-  accent-color: var(--md-sys-color-primary);
-  background-color: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
-  font-family: var(--md-sys-typography-font-family);
-}
-::selection {
-  background-color: var(--md-sys-color-tertiary-container);
-  color: var(--md-sys-color-on-tertiary-container);
-}
-
 :root {
   color-scheme: dark;
-
-  --md-sys-typography-font-family: 'Google Sans', sans-serif;
-
-  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
-  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
-  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
-  --md-sys-motion-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  --md-sys-elevation-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
-    0px 1px 2px rgba(0, 0, 0, 0.3);
-  --md-sys-elevation-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
-    0px 1px 2px rgba(0, 0, 0, 0.3);
-  --md-sys-elevation-shadow-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
-    0px 1px 3px rgba(0, 0, 0, 0.3);
-  --md-sys-elevation-shadow-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15),
-    0px 2px 3px rgba(0, 0, 0, 0.3);
-  --md-sys-elevation-shadow-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
-    0px 4px 4px rgba(0, 0, 0, 0.3);
 
   --md-sys-color-background: #161217;
   --md-sys-color-on-background: #e8e0e8;
@@ -117,6 +84,42 @@ body {
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-on-error-container: #410002;
+}
+
+:root {
+  --md-sys-typography-font-family: 'Google Sans', sans-serif;
+
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --md-sys-elevation-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+    0px 1px 2px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-shadow-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-shadow-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15),
+    0px 2px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-shadow-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+    0px 4px 4px rgba(0, 0, 0, 0.3);
+
+  scroll-behavior: smooth;
+}
+body {
+  accent-color: var(--md-sys-color-primary);
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--md-sys-typography-font-family);
+}
+::selection {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
 }
 
 a {
