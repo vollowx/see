@@ -55,11 +55,12 @@ export default class MdLabelledSwitchElement extends BaseElement {
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
-    this.$control.checked = this.checked;
+    /** @todo Use `this.$control.checked`, maybe need to remove the defer in decorator */
+    this.$control.toggleAttribute('checked', this.checked);
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
-    this.$control.disabled = this.disabled;
+    this.$control.toggleAttribute('disabled', this.disabled);
   }
 
   /**
