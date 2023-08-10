@@ -7,6 +7,7 @@ import { assert, isRTL } from '../shared/utils.js';
 
 import MdSwitchElementStyle from './switch.css?inline';
 import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
+import MdTargetElementStyle from '../shared/target.css?inline';
 
 // const getOnIcon = () => {
 //   return `
@@ -34,9 +35,12 @@ export default class MdSwitchElement extends BaseElement {
   render() {
     return html`
       <style>
-        ${MdSwitchElementStyle}${MdFocusRingElementStyle}
+        ${MdSwitchElementStyle}
+        ${MdFocusRingElementStyle}
+        ${MdTargetElementStyle}
       </style>
       <span part="focus-ring"></span>
+      <span part="target"></span>
       <span id="track"></span>
       <span id="thumb"></span>
     `;

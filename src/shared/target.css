@@ -1,0 +1,12 @@
+::part(target) {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 100%;
+  min-height: 48px;
+  left: 50%;
+  width: 100%;
+  min-width: 48px;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}

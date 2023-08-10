@@ -9,6 +9,7 @@ import MdRippleElement from '../ripple/ripple.js';
 import MdButtonElementStyle from './button.css?inline';
 import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 import MdStateLayerElementStyle from '../shared/state-layer.css?inline';
+import MdTargetElementStyle from '../shared/target.css?inline';
 
 /**
  * @todo Icon support, ARIA support
@@ -21,9 +22,11 @@ export default class MdButtonElement extends BaseElement {
         ${MdButtonElementStyle}
         ${MdFocusRingElementStyle}
         ${MdStateLayerElementStyle}
+        ${MdTargetElementStyle}
       </style>
       <span part="focus-ring"></span>
       <span part="state-layer"></span>
+      <span part="target"></span>
       <md-ripple></md-ripple>
       <slot></slot>
     `;

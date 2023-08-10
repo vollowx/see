@@ -8,6 +8,8 @@
   transition: opacity 67ms linear;
 }
 
-:host(:hover) [part='state-layer'] {
-  opacity: 0.08;
+@media (hover: hover) and (pointer: fine) {
+  :host(:hover) [part='state-layer'] {
+    opacity: 0.08;
+  }
 }

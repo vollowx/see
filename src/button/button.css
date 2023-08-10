@@ -74,13 +74,18 @@ slot {
   --_border-color: var(--md-sys-color-outline);
 }
 
-:host([elevated]),
-:host([filled]:hover:not(:active)),
-:host([tonal]:hover:not(:active)) {
+:host([elevated]) {
   box-shadow: var(--md-sys-elevation-shadow-1);
 }
-:host([elevated]:hover:not(:active)) {
-  box-shadow: var(--md-sys-elevation-shadow-2);
+
+@media (hover: hover) and (pointer: fine) {
+  :host([filled]:hover:not(:active)),
+  :host([tonal]:hover:not(:active)) {
+    box-shadow: var(--md-sys-elevation-shadow-1);
+  }
+  :host([elevated]:hover:not(:active)) {
+    box-shadow: var(--md-sys-elevation-shadow-2);
+  }
 }
 
 :host([disabled]) {
