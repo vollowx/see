@@ -1,7 +1,7 @@
 :host {
   --_unchecked-outline-color: var(--md-sys-color-outline);
   --_checked-outline-color: var(--md-sys-color-primary);
-  --_unchecked-track-color: var(--md-sys-color-surface-container-highest,);
+  --_unchecked-track-color: var(--md-sys-color-surface-container-highest);
   --_checked-track-color: var(--md-sys-color-primary);
   --_unchecked-thumb-color: var(--md-sys-color-outline);
   --_checked-thumb-color: var(--md-sys-color-on-primary);
