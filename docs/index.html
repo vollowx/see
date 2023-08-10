@@ -169,7 +169,8 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo sidebar>
-        <md-labelled-switch id="switch1">RTL</md-labelled-switch>
+        <md-labelled-switch id="switch-rtl">RTL</md-labelled-switch>
+        <md-labelled-switch id="switch-theme">Light Theme</md-labelled-switch>
         <md-labelled-switch id="switch2">Controlled</md-labelled-switch>
         <md-labelled-switch slot="sidebar" id="switch3"
           >Checked</md-labelled-switch
@@ -186,15 +187,19 @@
         />
 
         <script>
-          const switch1 = document.querySelector('#switch1');
+          const switchRTL = document.querySelector('#switch-rtl');
+          const switchTheme = document.querySelector('#switch-theme');
           const switch2 = document.querySelector('#switch2');
           const switch3 = document.querySelector('#switch3');
           const switch4 = document.querySelector('#switch4');
           const input1 = document.querySelector('#input1');
 
-          switch1.addEventListener(
+          switchRTL.addEventListener(
             'change',
             (e) => (document.dir = e.detail ? 'rtl' : 'ltr')
+          );
+          switchTheme.addEventListener('change', (e) =>
+            document.documentElement.classList.toggle('light')
           );
           switch3.addEventListener(
             'change',

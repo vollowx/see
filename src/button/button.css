@@ -24,7 +24,7 @@
   color: var(--_text-color);
 
   /* TODO: Use global variable to control */
-  font: 500 0.875rem / 1.25rem 'Roboto Flex';
+  font: 500 0.875rem / 1.25rem var(--md-sys-typography-font-family);
 }
 /* Background */
 :host::before {
