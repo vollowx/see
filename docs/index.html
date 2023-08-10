@@ -168,23 +168,14 @@
 
       <h3>Interactive Demo</h3>
 
-      <dc-demo sidebar>
+      <dc-demo>
         <md-labelled-switch id="switch-rtl">RTL</md-labelled-switch>
         <md-labelled-switch id="switch-theme">Light Theme</md-labelled-switch>
         <md-labelled-switch id="switch2">Controlled</md-labelled-switch>
-        <md-labelled-switch slot="sidebar" id="switch3"
-          >Checked</md-labelled-switch
-        >
-        <md-labelled-switch slot="sidebar" id="switch4"
-          >Disabled</md-labelled-switch
-        >
-        <input
-          slot="sidebar"
-          type="text"
-          id="input1"
-          placeholder="Label"
-          value="Controlled"
-        />
+        <span class="divider"></span>
+        <md-labelled-switch id="switch3">Checked</md-labelled-switch>
+        <md-labelled-switch id="switch4">Disabled</md-labelled-switch>
+        <input type="text" id="input1" placeholder="Label" value="Controlled" />
 
         <script>
           const switchRTL = document.querySelector('#switch-rtl');

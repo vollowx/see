@@ -15,7 +15,6 @@ export default class DcDemoElement extends BaseElement {
         ${DcDemoElementStyle}
       </style>
       <div id="contents"><slot></slot></div>
-      <div id="sidebar"><slot name="sidebar"></slot></div>
     `;
   }
 }
