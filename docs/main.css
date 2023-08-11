@@ -108,8 +108,6 @@
     0px 2px 3px rgba(0, 0, 0, 0.3);
   --md-sys-elevation-shadow-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
     0px 4px 4px rgba(0, 0, 0, 0.3);
-
-  scroll-behavior: smooth;
 }
 body {
   accent-color: var(--md-sys-color-primary);
