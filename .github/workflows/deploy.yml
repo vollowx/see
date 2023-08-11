@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies & Build project
         uses: creepinson/pnpm-action@master
         with:
-          arguments: '["install", "run build:docs"]'
+          arguments: '["install", "build:docs"]'
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
