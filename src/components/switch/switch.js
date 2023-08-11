@@ -7,26 +7,8 @@ import MdSwitchElementStyle from './switch.css?inline';
 import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 import MdTargetElementStyle from '../shared/target.css?inline';
 
-// const getOnIcon = () => {
-//   return `
-//     <svg class="icon icon--on" viewBox="0 0 24 24">
-//       <path d="M9.55 18.2 3.65 12.3 5.275 10.675 9.55 14.95 18.725 5.775 20.35 7.4Z" />
-//     </svg>
-//   `;
-// };
-//
-// const getOffIcon = () => {
-//   return `
-//     <svg class="icon icon--off" viewBox="0 0 24 24">
-//       <path
-//         d="M6.4 19.2 4.8 17.6 10.4 12 4.8 6.4 6.4 4.8 12 10.4 17.6 4.8 19.2 6.4 13.6 12 19.2 17.6 17.6 19.2 12 13.6Z"
-//       />
-//     </svg>
-//   `;
-// };
-
 /**
- * TODO: Icon support
+ * TODO: Touch draggable
  */
 @customElement('md-switch')
 export default class MdSwitchElement extends BaseElement {
@@ -37,19 +19,39 @@ export default class MdSwitchElement extends BaseElement {
         ${MdFocusRingElementStyle}
         ${MdTargetElementStyle}
       </style>
-      <div id="switch">
+      <div part="switch">
         <span part="focus-ring"></span>
         <span part="target"></span>
-        <span id="track"></span>
-        <span id="thumb"></span>
+        <span part="track"></span>
+        <span part="thumb">
+          ${this.renderOffIcon()}${this.renderOnIcon()}
+        </span>
       </div>
       <slot></slot>
     `;
   }
+  renderOnIcon() {
+    return html`
+      <svg part="icons icon-on" viewBox="0 0 24 24">
+        <path
+          d="M9.55 18.2 3.65 12.3 5.275 10.675 9.55 14.95 18.725 5.775 20.35 7.4Z"
+        />
+      </svg>
+    `.innerHTML;
+  }
+  renderOffIcon() {
+    return html`
+      <svg part="icons icon-off" viewBox="0 0 24 24">
+        <path
+          d="M6.4 19.2 4.8 17.6 10.4 12 4.8 6.4 6.4 4.8 12 10.4 17.6 4.8 19.2 6.4 13.6 12 19.2 17.6 17.6 19.2 12 13.6Z"
+        />
+      </svg>
+    `.innerHTML;
+  }
   /** @type {HTMLSpanElement} */
-  @query('#switch') $switch;
+  @query('[part~="switch"]') $switch;
   /** @type {HTMLSpanElement} */
-  @query('#thumb') $thumb;
+  @query('[part="thumb"]') $thumb;
   connectedCallback() {
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
@@ -104,11 +106,8 @@ export default class MdSwitchElement extends BaseElement {
   #handledPointerMove = false;
   #pointerDownX = 0;
 
-  /**
-   * @param {PointerEvent} e
-   */
+  /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    console.log('down')
     if (e.button !== 0) {
       return;
     }
@@ -117,11 +116,8 @@ export default class MdSwitchElement extends BaseElement {
     this.#handledPointerMove = false;
     this.addEventListener('pointermove', this.#handlePointerMove);
   }
-  /**
-   * @param {PointerEvent} e
-   */
+  /** @param {PointerEvent} e */
   #handlePointerMove(e) {
-    console.log('move')
     e.preventDefault();
     this.#handledPointerMove = true;
     const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
@@ -135,7 +131,6 @@ export default class MdSwitchElement extends BaseElement {
     this.$thumb.style.transitionDuration = '0s';
   }
   #handlePointerUp() {
-    console.log('up')
     this.removeEventListener('pointermove', this.#handlePointerMove);
 
     const thumbRect = this.$thumb.getBoundingClientRect();
@@ -151,9 +146,7 @@ export default class MdSwitchElement extends BaseElement {
     this.$thumb.style.transitionDuration = '';
     this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
   }
-  /**
-   * @param {PointerEvent} e
-   */
+  /** @param {PointerEvent} e */
   #handleClick(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -162,9 +155,7 @@ export default class MdSwitchElement extends BaseElement {
     }
     this.#toggleState();
   }
-  /**
-   * @param {KeyboardEvent} e
-   */
+  /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (e.key !== ' ' && e.key !== 'Enter') {
       return;
@@ -178,9 +169,7 @@ export default class MdSwitchElement extends BaseElement {
       this.#toggleState();
     }
   }
-  /**
-   * @param {KeyboardEvent} e
-   */
+  /** @param {KeyboardEvent} e */
   #handleKeyUp(e) {
     if (e.key !== ' ' && e.key !== 'Enter') {
       return;
