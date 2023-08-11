@@ -165,7 +165,7 @@
         <li>
           Attached to the parent element
           <dc-demo>
-            <button>
+            <button style="position: relative">
               <md-ripple></md-ripple>
               Button
             </button>
@@ -174,7 +174,7 @@
         <li>
           Attached to a referenced element
           <dc-demo>
-            <div>
+            <div style="position: relative">
               <md-ripple nokey></md-ripple>
               <input />
             </div>
@@ -182,14 +182,27 @@
         </li>
         <li>
           Attached imperatively
-          <dc-demo>Undone yet</dc-demo>
+          <dc-demo>
+            <div class="container" style="position: relative">
+              <md-ripple id="ripple"></md-ripple>
+              <br />
+              <br />
+              <br />
+              <button id="ripple-control">Button</button>
+            </div>
+            <script>
+              const ripple = document.querySelector('#ripple');
+              const control = document.querySelector('#ripple-control');
+              onload = () => ripple.attach(control)
+            </script>
+          </dc-demo>
         </li>
       </ol>
 
       <h4>Centered</h4>
 
       <dc-demo>
-        <button>
+        <button style="position: relative">
           <md-ripple centered></md-ripple>
           Button with Centered Ripple
         </button>
@@ -198,7 +211,7 @@
       <h4>Unbounded</h4>
 
       <dc-demo>
-        <button>
+        <button style="position: relative">
           <md-ripple unbounded></md-ripple>
           Button with Unbounded Ripple
         </button>

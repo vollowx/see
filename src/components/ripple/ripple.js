@@ -5,10 +5,13 @@ import { distance } from '../../utils';
 
 import MdRippleElementStyle from './ripple.css?inline';
 
-const MIN_DURATION = 300;
+const PRESS_GROW_MS = 450;
+const OPACITY_IN_MS = 105;
+const OPACITY_OUT_MS = 375;
+const MINIMUM_PRESS_MS = 225;
 
 /**
- * https://codepen.io/dffzmxj/pen/XWVxoWE
+ * TODO: Manual attaching
  */
 @customElement('md-ripple')
 export default class MdRippleElement extends BaseElement {
@@ -18,42 +21,17 @@ export default class MdRippleElement extends BaseElement {
     </style>`;
   }
   /** @type {HTMLElement} */
-  $parent;
+  $controller;
   /** @type {HTMLSpanElement[]} */
   $ripples = [];
   connectedCallback() {
     // @ts-ignore
-    this.$parent =
+    this.$controller =
       this.parentNode instanceof ShadowRoot
         ? this.parentNode.host
         : this.parentNode;
-    if (getComputedStyle(this.$parent).position === 'static')
-      this.$parent.style.position = 'relative';
 
-    this.$parent.addEventListener(
-      'pointerdown',
-      this.#handlePointerDown.bind(this)
-    );
-    this.$parent.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    this.$parent.addEventListener('touchend', this.#removeRipples.bind(this));
-    this.$parent.addEventListener('pointerup', this.#removeRipples.bind(this));
-    this.$parent.addEventListener('keyup', this.#handleKeyUp.bind(this));
-  }
-  disconnectedCallback() {
-    this.$parent.removeEventListener(
-      'pointerdown',
-      this.#handlePointerDown.bind(this)
-    );
-    this.$parent.removeEventListener('keydown', this.#handleKeyDown.bind(this));
-    this.$parent.removeEventListener(
-      'touchend',
-      this.#removeRipples.bind(this)
-    );
-    this.$parent.removeEventListener(
-      'pointerup',
-      this.#removeRipples.bind(this)
-    );
-    this.$parent.removeEventListener('keyup', this.#handleKeyUp.bind(this));
+    this.attach(this.$controller);
   }
   static get observedAttributes() {
     return ['centered', 'nokey'];
@@ -62,11 +40,12 @@ export default class MdRippleElement extends BaseElement {
   @property({ type: Boolean }) noKey = false;
 
   #spaceKeyDown = false;
+  #lastTime = 0;
 
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    this.$parent.setPointerCapture(e.pointerId);
-    this.#createRipple(e);
+    this.$controller.setPointerCapture(e.pointerId);
+    this.createRipple(e);
   }
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
@@ -76,10 +55,10 @@ export default class MdRippleElement extends BaseElement {
     e.preventDefault();
     e.stopPropagation();
     if (e.key === 'Enter') {
-      this.#createRipple();
-      this.#removeRipples();
+      this.createRipple();
+      this.removeRipples();
     } else if (e.key === ' ') {
-      if (!this.#spaceKeyDown) this.#createRipple();
+      if (!this.#spaceKeyDown) this.createRipple();
       this.#spaceKeyDown = true;
     }
   }
@@ -93,107 +72,126 @@ export default class MdRippleElement extends BaseElement {
     }
     if (this.#spaceKeyDown && e.key === ' ') {
       this.#spaceKeyDown = false;
-      this.#removeRipples();
+      this.removeRipples();
     }
   }
 
+  /**
+   * @param {HTMLElement?} prev
+   * @param {HTMLElement} next
+   * FIXME: Not removing previous element's event handlers
+   */
+  #handleAttach(prev = null, next) {
+    prev?.removeEventListener(
+      'pointerdown',
+      this.#handlePointerDown.bind(this)
+    );
+    prev?.removeEventListener('keydown', this.#handleKeyDown.bind(this));
+    prev?.removeEventListener('touchend', this.removeRipples.bind(this));
+    prev?.removeEventListener('pointerup', this.removeRipples.bind(this));
+    prev?.removeEventListener('keyup', this.#handleKeyUp.bind(this));
+
+    next.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
+    next.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    next.addEventListener('touchend', this.removeRipples.bind(this));
+    next.addEventListener('pointerup', this.removeRipples.bind(this));
+    next.addEventListener('keyup', this.#handleKeyUp.bind(this));
+
+    this.$controller = next;
+  }
+  /** @param {HTMLElement} next */
+  attach(next) {
+    this.#handleAttach(this.$controller, next);
+  }
   /** @param {PointerEvent?} e */
-  #createRipple(e = null) {
-    const box = this.getBoundingClientRect();
-    const boxCenter = {
-      x: box.width / 2,
-      y: box.height / 2,
+  #calculateRipple(e = null) {
+    const containerRect = this.getBoundingClientRect();
+    const containerMiddlePoint = {
+      x: containerRect.width / 2,
+      y: containerRect.height / 2,
     };
     const centered = !e || this.centered;
-    let rippleCenter = { x: 0, y: 0 };
+    let centerPoint = { x: 0, y: 0 };
     if (centered) {
-      rippleCenter.x = boxCenter.x;
-      rippleCenter.y = boxCenter.y;
+      centerPoint.x = containerMiddlePoint.x;
+      centerPoint.y = containerMiddlePoint.y;
     } else {
       // @ts-ignore
       const pointer = e.targetTouches
         ? // @ts-ignore
           Array.prototype.slice.call(e.targetTouches, -1)
         : e;
-      rippleCenter.x = pointer.clientX - box.left;
-      rippleCenter.y = pointer.clientY - box.top;
+      centerPoint.x = pointer.clientX - containerRect.left;
+      centerPoint.y = pointer.clientY - containerRect.top;
     }
     const corners = [
       { x: 0, y: 0 },
-      { x: box.width, y: 0 },
-      { x: 0, y: box.height },
-      { x: box.width, y: box.height },
+      { x: containerRect.width, y: 0 },
+      { x: 0, y: containerRect.height },
+      { x: containerRect.width, y: containerRect.height },
     ];
     const radius = Math.max(
-      ...corners.map((corner) => distance(rippleCenter, corner))
+      ...corners.map((corner) => distance(centerPoint, corner))
     );
+
+    return { centerPoint, radius };
+  }
+  /** @param {PointerEvent?} e */
+  createRipple(e = null) {
+    const { centerPoint, radius } = this.#calculateRipple(e);
+
+    const size = radius * 2 + 'px';
+    const translate = `${centerPoint.x - radius}px ${centerPoint.y - radius}px`;
+
     const ripple = document.createElement('div');
     ripple.setAttribute('part', 'ripple');
-
-    ripple.style.setProperty('--radius', `${radius}px`);
-    ripple.style.left = `${rippleCenter.x}px`;
-    ripple.style.top = `${rippleCenter.y}px`;
-
-    this.$ripples.push(ripple);
     this.renderRoot.append(ripple);
+    this.$ripples.push(ripple);
+
     ripple.animate(
       {
-        boxShadow: [
-          '0 0 80px calc(var(--radius) * 0.2) currentColor',
-          '0 0 80px var(--radius) currentColor',
-        ],
+        opacity: [0, 0.12],
       },
       {
-        duration: Math.max(MIN_DURATION) || 0,
-        easing: 'cubic-bezier(0.1, 0, 0.5, 1)',
+        duration: OPACITY_IN_MS,
+        easing: 'linear',
+        fill: 'forwards',
+      }
+    );
+    ripple.animate(
+      {
+        height: [size, size],
+        width: [size, size],
+        translate: [translate, translate],
+        scale: [0.2, 1.35],
+      },
+      {
+        duration: PRESS_GROW_MS,
+        easing: 'cubic-bezier(0.2, 0, 0, 1)',
         fill: 'forwards',
       }
     );
 
-    // Snowflake effect
-    const scene = document.createElement('canvas');
-    scene.height = box.height;
-    scene.width = box.width;
-    const context = /** @type {CanvasRenderingContext2D} */ (
-      scene.getContext('2d')
-    );
-    context.fillStyle = 'white';
-    for (let x = 0; x < scene.width; x++)
-      for (let y = 0; y < scene.height; y++)
-        if (Math.random() < 0.005) context.fillRect(x, y, 1, 1);
-    this.renderRoot.append(scene);
-    const { opacity } = getComputedStyle(scene);
-    const animation = scene.animate(
-      // @ts-ignore
-      {
-        opacity: [0, opacity, 0],
-      },
-      {
-        duration: Math.max(MIN_DURATION) || 0,
-        easing: 'linear',
-      }
-    );
-    animation.onfinish = animation.oncancel = () => scene.remove();
+    this.#lastTime = Date.now();
   }
-  #removeRipples() {
+  removeRipples() {
     for (const ripple of this.$ripples.splice(0)) {
-      const { opacity } = getComputedStyle(ripple);
-      if (!opacity) {
-        ripple.remove();
-        continue;
-      }
-      const animation = ripple.animate(
-        // @ts-ignore
-        {
-          opacity: [opacity, 0],
+      setTimeout(
+        () => {
+          const animation = ripple.animate(
+            {
+              opacity: [0.12, 0],
+            },
+            {
+              duration: OPACITY_OUT_MS,
+              fill: 'forwards',
+              easing: 'linear',
+            }
+          );
+          animation.onfinish = animation.oncancel = () => ripple.remove();
         },
-        {
-          duration: 800,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.4, 0, 0.7, 0)',
-        }
+        Math.max(MINIMUM_PRESS_MS - (Date.now() - this.#lastTime), 0)
       );
-      animation.onfinish = animation.oncancel = () => ripple.remove();
     }
   }
 }
