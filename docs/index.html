@@ -223,11 +223,11 @@
         <md-switch id="switch3">Checked</md-switch>
         <md-switch id="switch4">Disabled</md-switch>
         <md-switch id="switch5">Icons</md-switch>
-        <md-switch id="switch6">Selected Icon Only</md-switch>
-        <label>
-          Label
+        <md-switch id="switch6">Checked Icon Only</md-switch>
+        <div>
+          <label for="input1" style="display: block">Label</label>
           <input type="text" id="input1" value="Controlled" />
-        </label>
+        </div>
 
         <script>
           const switchRTL = document.querySelector('#switch-rtl');
@@ -257,7 +257,7 @@
           switch5.addEventListener('change', (e) => (switch2.icons = e.detail));
           switch6.addEventListener(
             'change',
-            (e) => (switch2.selectedIconOnly = e.detail)
+            (e) => (switch2.checkedIconOnly = e.detail)
           );
           input1.addEventListener(
             'input',

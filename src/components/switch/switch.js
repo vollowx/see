@@ -91,7 +91,7 @@ export default class MdSwitchElement extends BaseElement {
     }
   }
   static get observedAttributes() {
-    return ['checked', 'disabled', 'icons', 'selectedicononly'];
+    return ['checked', 'disabled', 'icons', 'checkedicononly'];
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
@@ -103,7 +103,7 @@ export default class MdSwitchElement extends BaseElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
   @property({ type: Boolean }) icons = false;
-  @property({ type: Boolean }) selectedIconOnly = false;
+  @property({ type: Boolean }) checkedIconOnly = false;
 
   #handledPointerMove = false;
   #pointerDownX = 0;

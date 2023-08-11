@@ -110,7 +110,7 @@
 :host([checked])::part(icons) {
   fill: var(--_checked-icon-color);
 }
-:host([icons]:not([checked]):not([selectedicononly]))::part(icon-off) {
+:host([icons]:not([checked]):not([checkedicononly]))::part(icon-off) {
   opacity: 1;
 }
 :host([icons][checked])::part(icon-on) {
@@ -120,7 +120,7 @@
   opacity: 0.38;
 }
 
-:host([icons]:not([selectedicononly]))::part(thumb) {
+:host([icons]:not([checkedicononly]))::part(thumb) {
   --_thumb-diameter: 24px;
 }
 :host(:active)::part(thumb) {
