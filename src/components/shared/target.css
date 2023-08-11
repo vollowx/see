@@ -1,4 +1,4 @@
-::part(target) {
+[part~='target'] {
   content: '';
   position: absolute;
   top: 50%;

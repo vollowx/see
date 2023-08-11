@@ -1,4 +1,4 @@
-:host [part='state-layer'] {
+:host [part~='state-layer'] {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -9,7 +9,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :host(:hover) [part='state-layer'] {
+  :host(:hover) [part~='state-layer'] {
     opacity: 0.08;
   }
 }

@@ -31,9 +31,6 @@ export default class MdButtonElement extends BaseElement {
   /** @type {MdRippleElement} */
   @query('md-ripple') $ripple;
   connectedCallback() {
-    if (!this.hasAttribute('type')) {
-      this.setAttribute('type', 'button');
-    }
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'button');
     }

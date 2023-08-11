@@ -51,7 +51,7 @@ export default class MdSwitchElement extends BaseElement {
   /** @type {HTMLSpanElement} */
   @query('[part~="switch"]') $switch;
   /** @type {HTMLSpanElement} */
-  @query('[part="thumb"]') $thumb;
+  @query('[part~="thumb"]') $thumb;
   connectedCallback() {
     if (!this.hasAttribute('type')) {
       this.setAttribute('type', 'button');
