@@ -36,14 +36,14 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-button id="button-minus" text aria-label="minus 1">-</md-button>
+        <md-button id="button-minus" outlined>Minus 1</md-button>
         <span
           id="span-number"
           style="display: inline-flex; align-items: center"
         >
           0
         </span>
-        <md-button id="button-plus" text aria-label="plus 1">+</md-button>
+        <md-button id="button-plus">Plus 1</md-button>
 
         <script>
           const buttonMinus = document.querySelector('#button-minus');
@@ -108,6 +108,20 @@
             />
           </svg>
         </md-button>
+      </dc-demo>
+
+      <h4>Link</h4>
+
+      <p>Undone yet</p>
+
+      <dc-demo>
+        <a
+          href="#docs-of-m3-web-components-button-usage-link"
+          tabindex="-1"
+          aria-labelledby="button-link"
+        >
+          <md-button text id="button-link" aria-hidden="true">Not Working Properly</md-button>
+        </a>
       </dc-demo>
 
       <h2>Ripple</h2>
