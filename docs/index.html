@@ -33,6 +33,34 @@
         <li>Toolbars</li>
       </ul>
 
+      <h3>Interactive Demo</h3>
+
+      <dc-demo>
+        <md-button id="button-minus" aria-label="minus 1">-</md-button>
+        <span
+          id="span-number"
+          style="display: inline-flex; align-items: center"
+        >
+          0
+        </span>
+        <md-button id="button-plus" aria-label="plus 1">+</md-button>
+
+        <script>
+          const buttonMinus = document.querySelector('#button-minus');
+          const buttonPlus = document.querySelector('#button-plus');
+          const spanNumber = document.querySelector('#span-number');
+
+          buttonMinus.onclick = () =>
+            (spanNumber.textContent = String(
+              Number(spanNumber.textContent) - 1
+            ));
+          buttonPlus.onclick = () =>
+            (spanNumber.textContent = String(
+              Number(spanNumber.textContent) + 1
+            ));
+        </script>
+      </dc-demo>
+
       <h3>Types</h3>
 
       <h4>Enabled</h4>

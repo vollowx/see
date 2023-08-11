@@ -42,6 +42,8 @@ export default class MdButtonElement extends BaseElement {
       this.setAttribute('tabindex', '0');
     }
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    this.addEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   /**
    * @param {string} name
@@ -65,5 +67,32 @@ export default class MdButtonElement extends BaseElement {
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+  }
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  #handleKeyDown(e) {
+    if (e.key !== ' ' && e.key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === 'Enter') {
+      this.click();
+    }
+  }
+  /**
+   * @param {KeyboardEvent} e
+   */
+  #handleKeyUp(e) {
+    if (e.key !== ' ' && e.key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === ' ') {
+      this.click();
+    }
   }
 }

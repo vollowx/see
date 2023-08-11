@@ -19,29 +19,29 @@ export default class MdRippleElement extends BaseElement {
   }
   connectedCallback() {
     // @ts-ignore
-    this.#parent =
+    this.$parent =
       this.parentNode instanceof ShadowRoot
         ? this.parentNode.host
         : this.parentNode;
-    if (getComputedStyle(this.#parent).position === 'static')
-      this.#parent.style.position = 'relative';
-    this.#parent.addEventListener('touchstart', this.#spawnRipple.bind(this));
-    this.#parent.addEventListener('mousedown', this.#spawnRipple.bind(this));
-    this.#parent.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    document.addEventListener('touchend', this.#destroyRipples.bind(this));
-    document.addEventListener('mouseup', this.#destroyRipples.bind(this));
-    document.addEventListener('keyup', this.#handleKeyUp.bind(this));
+    if (getComputedStyle(this.$parent).position === 'static')
+      this.$parent.style.position = 'relative';
+    this.$parent.addEventListener('touchstart', this.#spawnRipple.bind(this));
+    this.$parent.addEventListener('mousedown', this.#spawnRipple.bind(this));
+    this.$parent.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    window.addEventListener('touchend', this.#destroyRipples.bind(this));
+    window.addEventListener('mouseup', this.#destroyRipples.bind(this));
+    window.addEventListener('keyup', this.#destroyRipples.bind(this));
   }
   disconnectedCallback() {
-    this.#parent.removeEventListener(
+    this.$parent.removeEventListener(
       'touchstart',
       this.#spawnRipple.bind(this)
     );
-    this.#parent.removeEventListener('mousedown', this.#spawnRipple.bind(this));
-    this.#parent.removeEventListener('keydown', this.#handleKeyDown.bind(this));
-    document.removeEventListener('touchend', this.#destroyRipples.bind(this));
-    document.removeEventListener('mouseup', this.#destroyRipples.bind(this));
-    document.removeEventListener('keyup', this.#handleKeyUp.bind(this));
+    this.$parent.removeEventListener('mousedown', this.#spawnRipple.bind(this));
+    this.$parent.removeEventListener('keydown', this.#handleKeyDown.bind(this));
+    window.removeEventListener('touchend', this.#destroyRipples.bind(this));
+    window.removeEventListener('mouseup', this.#destroyRipples.bind(this));
+    window.removeEventListener('keyup', this.#destroyRipples.bind(this));
   }
   static get observedAttributes() {
     return ['centered', 'nokey'];
@@ -49,15 +49,10 @@ export default class MdRippleElement extends BaseElement {
   @property({ type: Boolean }) centered = false;
   @property({ type: Boolean }) noKey = false;
 
-  /**
-   * @type {HTMLElement}
-   */
-  #parent;
-  /**
-   * @type {HTMLSpanElement[]}
-   */
-  #ripples = [];
-  #spacePressing = false;
+  /** @type {HTMLElement} */
+  $parent;
+  /** @type {HTMLSpanElement[]} */
+  $ripples = [];
 
   /**
    * @param {KeyboardEvent} e
@@ -68,8 +63,7 @@ export default class MdRippleElement extends BaseElement {
     }
     e.preventDefault();
     e.stopPropagation();
-    if (e.key === ' ' && !this.#spacePressing) {
-      this.#spacePressing = true;
+    if (e.key === ' ' && !e.repeat) {
       this.#spawnRipple();
     }
     if (e.key === 'Enter') {
@@ -77,44 +71,26 @@ export default class MdRippleElement extends BaseElement {
       this.#destroyRipples();
     }
   }
-  /**
-   * @param {KeyboardEvent} e
-   */
-  #handleKeyUp(e) {
-    if ((e.key !== ' ' && e.key !== 'Enter') || this.noKey) {
-      return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.key === ' ') {
-      this.#spacePressing = false;
-      this.#destroyRipples();
-    }
-  }
 
-  /**
-   * @param {PointerEvent | undefined} event
-   */
-  #spawnRipple(event = undefined) {
+  /** @param {PointerEvent?} e */
+  #spawnRipple(e = null) {
     const box = this.getBoundingClientRect();
     const boxCenter = {
       x: box.width / 2,
       y: box.height / 2,
     };
-    const centered = !event || this.centered;
+    const centered = !e || this.centered;
     let rippleCenter = { x: 0, y: 0 };
     if (centered) {
       rippleCenter.x = boxCenter.x;
       rippleCenter.y = boxCenter.y;
     } else {
       // @ts-ignore
-      const pointer = event.targetTouches
+      const pointer = e.targetTouches
         ? // @ts-ignore
-          Array.prototype.slice.call(event.targetTouches, -1)
-        : event;
-      // @ts-ignore
+          Array.prototype.slice.call(e.targetTouches, -1)
+        : e;
       rippleCenter.x = pointer.clientX - box.left;
-      // @ts-ignore
       rippleCenter.y = pointer.clientY - box.top;
     }
     const corners = [
@@ -133,7 +109,7 @@ export default class MdRippleElement extends BaseElement {
     ripple.style.left = `${rippleCenter.x}px`;
     ripple.style.top = `${rippleCenter.y}px`;
 
-    this.#ripples.push(ripple);
+    this.$ripples.push(ripple);
     // @ts-ignore
     this.renderRoot.append(ripple);
     ripple.animate(
@@ -154,14 +130,13 @@ export default class MdRippleElement extends BaseElement {
     const scene = document.createElement('canvas');
     scene.height = box.height;
     scene.width = box.width;
-    const context = scene.getContext('2d');
-    // @ts-ignore
+    const context = /** @type {CanvasRenderingContext2D} */ (
+      scene.getContext('2d')
+    );
     context.fillStyle = 'white';
     for (let x = 0; x < scene.width; x++)
       for (let y = 0; y < scene.height; y++)
-        // @ts-ignore
         if (Math.random() < 0.005) context.fillRect(x, y, 1, 1);
-    // @ts-ignore
     this.renderRoot.append(scene);
     const { opacity } = getComputedStyle(scene);
     const animation = scene.animate(
@@ -177,7 +152,7 @@ export default class MdRippleElement extends BaseElement {
     animation.onfinish = animation.oncancel = () => scene.remove();
   }
   #destroyRipples() {
-    for (const ripple of this.#ripples.splice(0)) {
+    for (const ripple of this.$ripples.splice(0)) {
       const { opacity } = getComputedStyle(ripple);
       if (!opacity) {
         ripple.remove();
