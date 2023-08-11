@@ -53,30 +53,31 @@ export function customElement(tagName) {
 }
 
 /**
- * @param {{ type: BooleanConstructor|NumberConstructor|StringConstructor, attribute?: string}} options
+ * @param {{ type: PropertyTypes, overrideName?: string}} options
  * TODO: Load initial value
  */
-export function property({ type, attribute }) {
-  return decorateProperty((_, target) => {
+export function property({ type, overrideName }) {
+  return decorateProperty((name, target) => {
+    const qualifiedName = overrideName || name.toLowerCase();
     const setterGetter =
       type === Boolean
         ? {
-            get: () => target.hasAttribute(attribute || _),
+            get: () => target.hasAttribute(qualifiedName),
             /** @param {boolean} value */
             set: (value) =>
-              target.toggleAttribute(attribute || _, Boolean(value)),
+              target.toggleAttribute(qualifiedName, Boolean(value)),
           }
         : type === Number
         ? {
-            get: () => Number(target.getAttribute(attribute || _)),
+            get: () => Number(target.getAttribute(qualifiedName)),
             /** @param {number} value */
-            set: (value) => target.setAttribute(attribute || _, String(value)),
+            set: (value) => target.setAttribute(qualifiedName, String(value)),
           }
         : type === String
         ? {
-            get: () => target.getAttribute(attribute || _) ?? '',
+            get: () => target.getAttribute(qualifiedName) ?? '',
             /** @param {string} value */
-            set: (value) => target.setAttribute(attribute || _, String(value)),
+            set: (value) => target.setAttribute(qualifiedName, String(value)),
           }
         : {};
     return { ...setterGetter, configurable: true, enumerable: true };
