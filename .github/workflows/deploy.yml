@@ -17,11 +17,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
 
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-
-      - name: Build project
-        run: npm run build
+      - name: Install dependencies & Build project
+        uses: creepinson/pnpm-action@master
+        with:
+          arguments: '["install", "build:docs"]'
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
