@@ -91,7 +91,7 @@ export default class MdSwitchElement extends BaseElement {
     }
   }
   static get observedAttributes() {
-    return ['checked', 'disabled'];
+    return ['checked', 'disabled', 'icons', 'selectedicononly'];
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
@@ -102,6 +102,8 @@ export default class MdSwitchElement extends BaseElement {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
+  @property({ type: Boolean }) icons = false;
+  @property({ type: Boolean }) selectedIconOnly = false;
 
   #handledPointerMove = false;
   #pointerDownX = 0;

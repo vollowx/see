@@ -170,11 +170,21 @@
       <dc-demo>
         <md-switch id="switch-rtl">RTL</md-switch>
         <md-switch id="switch-theme">Light Theme</md-switch>
+
+        <div class="divider"></div>
+
         <md-switch id="switch2">Controlled</md-switch>
-        <span class="divider"></span>
+
+        <div class="divider"></div>
+
         <md-switch id="switch3">Checked</md-switch>
         <md-switch id="switch4">Disabled</md-switch>
-        <input type="text" id="input1" placeholder="Label" value="Controlled" />
+        <md-switch id="switch5">Icons</md-switch>
+        <md-switch id="switch6">Selected Icon Only</md-switch>
+        <label>
+          Label
+          <input type="text" id="input1" value="Controlled" />
+        </label>
 
         <script>
           const switchRTL = document.querySelector('#switch-rtl');
@@ -182,6 +192,8 @@
           const switch2 = document.querySelector('#switch2');
           const switch3 = document.querySelector('#switch3');
           const switch4 = document.querySelector('#switch4');
+          const switch5 = document.querySelector('#switch5');
+          const switch6 = document.querySelector('#switch6');
           const input1 = document.querySelector('#input1');
 
           switchRTL.addEventListener(
@@ -198,6 +210,11 @@
           switch4.addEventListener(
             'change',
             (e) => (switch2.disabled = e.detail)
+          );
+          switch5.addEventListener('change', (e) => (switch2.icons = e.detail));
+          switch6.addEventListener(
+            'change',
+            (e) => (switch2.selectedIconOnly = e.detail)
           );
           input1.addEventListener(
             'input',
@@ -241,36 +258,14 @@
 
         <md-switch
           aria-label="a unchecked switch with on and off icons"
-          icons="all"
+          icons
+          selectedicononly
         ></md-switch>
         <md-switch
           aria-label="a pre-checked switch with on and off icons"
-          icons="all"
-          checked
-        ></md-switch>
-
-        <md-switch
-          aria-label="a disabled unchecked switch with off icon"
           icons
-          disabled
-        ></md-switch>
-        <md-switch
-          aria-label="a disabled pre-checked switch with off icon"
-          icons
+          selectedicononly
           checked
-          disabled
-        ></md-switch>
-
-        <md-switch
-          aria-label="a disabled unchecked switch with on and off icons"
-          icons="all"
-          disabled
-        ></md-switch>
-        <md-switch
-          aria-label="a disabled pre-checked switch with on and off icons"
-          icons="all"
-          checked
-          disabled
         ></md-switch>
       </dc-demo>
 
@@ -297,7 +292,6 @@
 
       <dc-demo>
         <md-switch aria-label="lights"></md-switch>
-
         <md-switch aria-label="all notifications">All</md-switch>
       </dc-demo>
     </main>

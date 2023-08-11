@@ -110,23 +110,17 @@
 :host([checked])::part(icons) {
   fill: var(--_checked-icon-color);
 }
+:host([icons]:not([checked]):not([selectedicononly]))::part(icon-off) {
+  opacity: 1;
+}
 :host([icons][checked])::part(icon-on) {
-  opacity: 1;
-}
-:host([icons='all'])::part(icon-off) {
-  opacity: 1;
-}
-:host([icons='all'][disabled])::part(icon-off) {
   opacity: 1;
 }
 :host([icons][disabled][checked])::part(icon-on) {
   opacity: 0.38;
 }
-:host([icons][checked])::part(icon-off) {
-  opacity: 0;
-}
 
-:host([icons='all'])::part(thumb) {
+:host([icons]:not([selectedicononly]))::part(thumb) {
   --_thumb-diameter: 24px;
 }
 :host(:active)::part(thumb) {
