@@ -69,29 +69,28 @@ export default class MdButtonElement extends BaseElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  /**
-   * @param {KeyboardEvent} e
-   */
+  #spaceKeyDown = false;
+
+  /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
-    if (e.key !== ' ' && e.key !== 'Enter') {
-      return;
-    }
+    if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
+    if (e.repeat) return;
     if (e.key === 'Enter') {
       this.click();
+    } else if (e.key === ' ') {
+      this.#spaceKeyDown = true;
     }
   }
-  /**
-   * @param {KeyboardEvent} e
-   */
+  /** @param {KeyboardEvent} e */
   #handleKeyUp(e) {
-    if (e.key !== ' ' && e.key !== 'Enter') {
-      return;
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
     }
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.key === ' ') {
+    if (this.#spaceKeyDown && e.key === ' ') {
+      this.#spaceKeyDown = false;
       this.click();
     }
   }

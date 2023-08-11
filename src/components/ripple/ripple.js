@@ -17,6 +17,10 @@ export default class MdRippleElement extends BaseElement {
       ${MdRippleElementStyle}
     </style>`;
   }
+  /** @type {HTMLElement} */
+  $parent;
+  /** @type {HTMLSpanElement[]} */
+  $ripples = [];
   connectedCallback() {
     // @ts-ignore
     this.$parent =
@@ -25,23 +29,31 @@ export default class MdRippleElement extends BaseElement {
         : this.parentNode;
     if (getComputedStyle(this.$parent).position === 'static')
       this.$parent.style.position = 'relative';
-    this.$parent.addEventListener('touchstart', this.#spawnRipple.bind(this));
-    this.$parent.addEventListener('mousedown', this.#spawnRipple.bind(this));
+
+    this.$parent.addEventListener(
+      'pointerdown',
+      this.#handlePointerDown.bind(this)
+    );
     this.$parent.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    window.addEventListener('touchend', this.#destroyRipples.bind(this));
-    window.addEventListener('mouseup', this.#destroyRipples.bind(this));
-    window.addEventListener('keyup', this.#destroyRipples.bind(this));
+    this.$parent.addEventListener('touchend', this.#removeRipples.bind(this));
+    this.$parent.addEventListener('pointerup', this.#removeRipples.bind(this));
+    this.$parent.addEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   disconnectedCallback() {
     this.$parent.removeEventListener(
-      'touchstart',
-      this.#spawnRipple.bind(this)
+      'pointerdown',
+      this.#handlePointerDown.bind(this)
     );
-    this.$parent.removeEventListener('mousedown', this.#spawnRipple.bind(this));
     this.$parent.removeEventListener('keydown', this.#handleKeyDown.bind(this));
-    window.removeEventListener('touchend', this.#destroyRipples.bind(this));
-    window.removeEventListener('mouseup', this.#destroyRipples.bind(this));
-    window.removeEventListener('keyup', this.#destroyRipples.bind(this));
+    this.$parent.removeEventListener(
+      'touchend',
+      this.#removeRipples.bind(this)
+    );
+    this.$parent.removeEventListener(
+      'pointerup',
+      this.#removeRipples.bind(this)
+    );
+    this.$parent.removeEventListener('keyup', this.#handleKeyUp.bind(this));
   }
   static get observedAttributes() {
     return ['centered', 'nokey'];
@@ -49,31 +61,45 @@ export default class MdRippleElement extends BaseElement {
   @property({ type: Boolean }) centered = false;
   @property({ type: Boolean }) noKey = false;
 
-  /** @type {HTMLElement} */
-  $parent;
-  /** @type {HTMLSpanElement[]} */
-  $ripples = [];
+  #spaceKeyDown = false;
 
-  /**
-   * @param {KeyboardEvent} e
-   */
+  /** @param {PointerEvent} e */
+  #handlePointerDown(e) {
+    this.$parent.setPointerCapture(e.pointerId);
+    this.#createRipple(e);
+  }
+  /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
-    if ((e.key !== ' ' && e.key !== 'Enter') || this.noKey) {
-      return;
-    }
+    if (this.noKey) return;
+
+    if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
-    if (e.key === ' ' && !e.repeat) {
-      this.#spawnRipple();
-    }
+    if (e.repeat) return;
     if (e.key === 'Enter') {
-      this.#spawnRipple();
-      this.#destroyRipples();
+      this.#createRipple();
+      this.#removeRipples();
+    } else if (e.key === ' ') {
+      if (!this.#spaceKeyDown) this.#createRipple();
+      this.#spaceKeyDown = true;
+    }
+  }
+  /** @param {KeyboardEvent} e */
+  #handleKeyUp(e) {
+    if (this.noKey) return;
+
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (this.#spaceKeyDown && e.key === ' ') {
+      this.#spaceKeyDown = false;
+      this.#removeRipples();
     }
   }
 
   /** @param {PointerEvent?} e */
-  #spawnRipple(e = null) {
+  #createRipple(e = null) {
     const box = this.getBoundingClientRect();
     const boxCenter = {
       x: box.width / 2,
@@ -110,7 +136,6 @@ export default class MdRippleElement extends BaseElement {
     ripple.style.top = `${rippleCenter.y}px`;
 
     this.$ripples.push(ripple);
-    // @ts-ignore
     this.renderRoot.append(ripple);
     ripple.animate(
       {
@@ -151,7 +176,7 @@ export default class MdRippleElement extends BaseElement {
     );
     animation.onfinish = animation.oncancel = () => scene.remove();
   }
-  #destroyRipples() {
+  #removeRipples() {
     for (const ripple of this.$ripples.splice(0)) {
       const { opacity } = getComputedStyle(ripple);
       if (!opacity) {
