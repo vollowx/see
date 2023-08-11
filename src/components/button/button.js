@@ -72,7 +72,6 @@ export default class MdButtonElement extends BaseElement {
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
-    if (e.repeat) return;
     if (e.key === 'Enter') {
       this.click();
     } else if (e.key === ' ') {
