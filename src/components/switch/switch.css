@@ -124,7 +124,7 @@
   --_thumb-diameter: 24px;
 }
 :host(:active)::part(thumb) {
-  --_thumb-diameter: 28px;
+  --_thumb-diameter: 28px !important;
   --_unchecked-thumb-color: var(--md-sys-color-on-surface-variant);
 }
 :host([checked]:active)::part(thumb) {
