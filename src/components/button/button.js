@@ -9,9 +9,6 @@ import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
 import MdStateLayerElementStyle from '../shared/state-layer.css?inline';
 import MdTargetElementStyle from '../shared/target.css?inline';
 
-/**
- * TODO: Icon support, ARIA support
- */
 @customElement('md-button')
 export default class MdButtonElement extends BaseElement {
   render() {
@@ -26,7 +23,9 @@ export default class MdButtonElement extends BaseElement {
       <span part="state-layer"></span>
       <span part="target"></span>
       <md-ripple></md-ripple>
+      <slot name="icon"></slot>
       <slot></slot>
+      <slot name="trailingicon"></slot>
     `;
   }
   /** @type {MdRippleElement} */

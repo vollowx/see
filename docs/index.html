@@ -36,14 +36,14 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-button id="button-minus" aria-label="minus 1">-</md-button>
+        <md-button id="button-minus" text aria-label="minus 1">-</md-button>
         <span
           id="span-number"
           style="display: inline-flex; align-items: center"
         >
           0
         </span>
-        <md-button id="button-plus" aria-label="plus 1">+</md-button>
+        <md-button id="button-plus" text aria-label="plus 1">+</md-button>
 
         <script>
           const buttonMinus = document.querySelector('#button-minus');
@@ -63,24 +63,12 @@
 
       <h3>Types</h3>
 
-      <h4>Enabled</h4>
-
       <dc-demo>
         <md-button elevated>Elevated Button</md-button>
-        <md-button filled>Filled Button</md-button>
+        <md-button>Filled Button</md-button>
         <md-button tonal>Tonal Button</md-button>
         <md-button outlined>Outlined Button</md-button>
-        <md-button>Text Button</md-button>
-      </dc-demo>
-
-      <h4>Disabled</h4>
-
-      <dc-demo>
-        <md-button disabled elevated>Elevated Button</md-button>
-        <md-button disabled filled>Filled Button</md-button>
-        <md-button disabled tonal>Tonal Button</md-button>
-        <md-button disabled outlined>Outlined Button</md-button>
-        <md-button disabled>Text Button</md-button>
+        <md-button text>Text Button</md-button>
       </dc-demo>
 
       <h3>Usage</h3>
@@ -93,6 +81,33 @@
       <dc-demo>
         <md-button outlined>Back</md-button>
         <md-button filled>Complete</md-button>
+      </dc-demo>
+
+      <h4>Icon</h4>
+
+      <p>
+        An icon may optionally be added to a button to help communicate the
+        button's action and help draw attention.
+      </p>
+
+      <dc-demo>
+        <md-button tonal>
+          Send
+          <svg slot="icon" viewBox="0 0 48 48">
+            <path
+              d="M6 40V8l38 16Zm3-4.65L36.2 24 9 12.5v8.4L21.1 24 9 27Zm0 0V12.5 27Z"
+            />
+          </svg>
+        </md-button>
+
+        <md-button text>
+          Open
+          <svg slot="trailingicon" viewBox="0 0 48 48">
+            <path
+              d="M9 42q-1.2 0-2.1-.9Q6 40.2 6 39V9q0-1.2.9-2.1Q7.8 6 9 6h13.95v3H9v30h30V25.05h3V39q0 1.2-.9 2.1-.9.9-2.1.9Zm10.1-10.95L17 28.9 36.9 9H25.95V6H42v16.05h-3v-10.9Z"
+            />
+          </svg>
+        </md-button>
       </dc-demo>
 
       <h2>Ripple</h2>
@@ -143,7 +158,7 @@
         <li>
           Attached to a referenced element
           <dc-demo>
-            <div style="display: inline-flex">
+            <div>
               <md-ripple nokey></md-ripple>
               <input />
             </div>
@@ -258,12 +273,6 @@
       <dc-demo>
         <md-switch aria-label="a unchecked switch"></md-switch>
         <md-switch aria-label="a pre-checked switch" checked></md-switch>
-        <md-switch aria-label="a disabled switch" disabled></md-switch>
-        <md-switch
-          aria-label="a disabled pre-checked switch"
-          checked
-          disabled
-        ></md-switch>
       </dc-demo>
 
       <h4>Icons</h4>
@@ -283,18 +292,6 @@
           icons
           checked
         ></md-switch>
-
-        <md-switch
-          aria-label="a unchecked switch with on and off icons"
-          icons
-          selectedicononly
-        ></md-switch>
-        <md-switch
-          aria-label="a pre-checked switch with on and off icons"
-          icons
-          selectedicononly
-          checked
-        ></md-switch>
       </dc-demo>
 
       <h4>Label</h4>
@@ -307,8 +304,6 @@
       <dc-demo>
         <md-switch>Label 1</md-switch>
         <md-switch checked>Label 2</md-switch>
-        <md-switch disabled>Label 3</md-switch>
-        <md-switch checked disabled>Label 4</md-switch>
       </dc-demo>
 
       <h3>Accessibility</h3>

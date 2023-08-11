@@ -1,7 +1,7 @@
 :host {
-  --_text-color: var(--md-sys-color-primary);
+  --_text-color: var(--md-sys-color-on-primary);
   --_text-opacity: 1;
-  --_background-color: transparent;
+  --_background-color: var(--md-sys-color-primary);
   --_background-opacity: 1;
   --_border-color: transparent;
   --_border-opacity: 1;
@@ -15,7 +15,7 @@
   vertical-align: top;
   box-sizing: border-box;
   user-select: none;
-  padding: 0 12px;
+  padding: 0 24px;
   min-width: 64px;
   height: 40px;
   border-radius: 9999px;
@@ -48,28 +48,27 @@
 }
 
 slot {
-  display: inline-flex;
   color: var(--_text-color);
   opacity: var(--_text-opacity);
 }
 
 :host([elevated]) {
-  padding: 0 24px;
   --_background-color: var(--md-sys-color-surface-container-low);
-}
-:host([filled]) {
-  padding: 0 24px;
-  --_background-color: var(--md-sys-color-primary);
-  --_text-color: var(--md-sys-color-on-primary);
+  --_text-color: var(--md-sys-color-primary);
 }
 :host([tonal]) {
-  padding: 0 24px;
   --_background-color: var(--md-sys-color-secondary);
   --_text-color: var(--md-sys-color-on-secondary);
 }
 :host([outlined]) {
-  padding: 0 23px;
+  --_background-color: transparent !important;
   --_border-color: var(--md-sys-color-outline);
+  --_text-color: var(--md-sys-color-primary);
+}
+:host([text]) {
+  padding: 0 12px;
+  --_background-color: transparent !important;
+  --_text-color: var(--md-sys-color-primary);
 }
 
 :host([elevated]) {
@@ -87,22 +86,38 @@ slot {
 }
 
 :host([disabled]) {
-  --_text-color: var(--md-sys-color-on-surface);
-  --_text-opacity: 0.38;
-  box-shadow: none;
-
-  cursor: default;
-  pointer-events: none;
-}
-:host([elevated][disabled]),
-:host([filled][disabled]),
-:host([tonal][disabled]) {
   --_background-color: var(--md-sys-color-on-surface);
   --_background-opacity: 0.12;
   --_text-color: var(--md-sys-color-on-surface);
   --_text-opacity: 0.38;
+
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
 }
 :host([outlined][disabled]) {
   --_border-color: var(--md-sys-color-on-surface);
   --_border-opacity: 0.12;
+}
+
+::slotted([slot='icon']),
+::slotted([slot='trailingicon']) {
+  inline-size: 18px;
+  block-size: 18px;
+  fill: currentcolor;
+  font-size: 18px;
+}
+::slotted([slot='icon']) {
+  margin-inline-start: -8px;
+  margin-inline-end: 8px;
+}
+::slotted([slot='trailingicon']) {
+  margin-inline-start: 8px;
+  margin-inline-end: -8px;
+}
+:host([text]) ::slotted([name='icon']) {
+  margin-inline-start: 0px;
+}
+:host([text]) ::slotted([slot='trailingicon']) {
+  margin-inline-end: 0px;
 }
