@@ -10,10 +10,11 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
   outline: 0;
   position: relative;
   vertical-align: top;
+  user-select: none;
 }
 @media (forced-colors: active) {
   :host {
@@ -29,6 +30,13 @@
   --_checked-thumb-color: var(--md-sys-color-on-surface);
   cursor: default;
   pointer-events: none;
+}
+
+#switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #track {

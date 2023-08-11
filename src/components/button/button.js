@@ -1,8 +1,6 @@
 // @ts-check
 
-import BaseElement from '../shared/base-element.js';
-import { html } from '../shared/template.js';
-import { customElement, property, query } from '../shared/decorators.js';
+import { BaseElement, html, customElement, property, query } from '../base';
 
 import MdRippleElement from '../ripple/ripple.js';
 

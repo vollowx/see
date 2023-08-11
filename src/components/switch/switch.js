@@ -1,9 +1,7 @@
 // @ts-check
 
-import BaseElement from '../shared/base-element.js';
-import { html } from '../shared/template.js';
-import { customElement, property, query } from '../shared/decorators.js';
-import { assert, isRTL } from '../shared/utils.js';
+import { BaseElement, html, customElement, property, query } from '../base';
+import { isRTL } from '../../utils';
 
 import MdSwitchElementStyle from './switch.css?inline';
 import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
@@ -39,12 +37,17 @@ export default class MdSwitchElement extends BaseElement {
         ${MdFocusRingElementStyle}
         ${MdTargetElementStyle}
       </style>
-      <span part="focus-ring"></span>
-      <span part="target"></span>
-      <span id="track"></span>
-      <span id="thumb"></span>
+      <div id="switch">
+        <span part="focus-ring"></span>
+        <span part="target"></span>
+        <span id="track"></span>
+        <span id="thumb"></span>
+      </div>
+      <slot></slot>
     `;
   }
+  /** @type {HTMLSpanElement} */
+  @query('#switch') $switch;
   /** @type {HTMLSpanElement} */
   @query('#thumb') $thumb;
   connectedCallback() {
@@ -101,40 +104,24 @@ export default class MdSwitchElement extends BaseElement {
   #handledPointerMove = false;
   #pointerDownX = 0;
 
-  #handlePointerUp() {
-    assert(this.#handlePointerMove);
-    this.removeEventListener('pointermove', this.#handlePointerMove);
-
-    const thumbRect = this.$thumb.getBoundingClientRect();
-    const rootbRect = this.getBoundingClientRect();
-    const diff =
-      thumbRect.left +
-      thumbRect.width / 2 -
-      rootbRect.left -
-      rootbRect.width / 2;
-    const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
-    if (this.checked != shouldBeChecked) this.#toggleState();
-
-    this.$thumb.style.transitionDuration = '';
-    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
-  }
   /**
    * @param {PointerEvent} e
    */
   #handlePointerDown(e) {
+    console.log('down')
     if (e.button !== 0) {
       return;
     }
     this.setPointerCapture(e.pointerId);
     this.#pointerDownX = e.clientX;
     this.#handledPointerMove = false;
-    assert(this.#handlePointerMove);
     this.addEventListener('pointermove', this.#handlePointerMove);
   }
   /**
    * @param {PointerEvent} e
    */
   #handlePointerMove(e) {
+    console.log('move')
     e.preventDefault();
     this.#handledPointerMove = true;
     const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
@@ -146,6 +133,23 @@ export default class MdSwitchElement extends BaseElement {
       `${2 * limitedDiff}px`
     );
     this.$thumb.style.transitionDuration = '0s';
+  }
+  #handlePointerUp() {
+    console.log('up')
+    this.removeEventListener('pointermove', this.#handlePointerMove);
+
+    const thumbRect = this.$thumb.getBoundingClientRect();
+    const rootbRect = this.$switch.getBoundingClientRect();
+    const diff =
+      thumbRect.left +
+      thumbRect.width / 2 -
+      rootbRect.left -
+      rootbRect.width / 2;
+    const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
+    if (this.checked != shouldBeChecked) this.#toggleState();
+
+    this.$thumb.style.transitionDuration = '';
+    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
   }
   /**
    * @param {PointerEvent} e

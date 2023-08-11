@@ -1,9 +1,7 @@
 // @ts-check
 
-import BaseElement from '../shared/base-element.js';
-import { html } from '../shared/template.js';
-import { customElement, property } from '../shared/decorators.js';
-import { distance } from '../shared/utils.js';
+import { BaseElement, html, customElement, property } from '../base';
+import { distance } from '../../utils';
 
 import MdRippleElementStyle from './ripple.css?inline';
 

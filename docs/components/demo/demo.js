@@ -1,7 +1,7 @@
 // @ts-check
 
-import BaseElement from '../../../src/shared/base-element.js';
-import { html } from '../../../src/shared/template.js';
+import BaseElement from '../../../src/components/base/base-element.js';
+import { html } from '../../../src/components/base/template.js';
 
 import DcDemoElementStyle from './demo.css?inline';
 
