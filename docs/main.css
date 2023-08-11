@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap');
-
 :root {
   color-scheme: dark;
 
@@ -125,6 +123,9 @@ a {
 }
 a:not(:hover):not(:focus-visible) {
   text-decoration: none;
+}
+li {
+  padding-block: 2px;
 }
 
 body {

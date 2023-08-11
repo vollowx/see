@@ -4,11 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Docs of m3-web-components</title>
+    <meta
+      name="description"
+      content="Documents of the web components library m3-web-components."
+    />
     <script type="module" src="../src/components/button/button.js"></script>
     <script type="module" src="../src/components/ripple/ripple.js"></script>
     <script type="module" src="../src/components/switch/switch.js"></script>
     <script type="module" src="./main.js"></script>
     <script type="module" src="./components/demo/demo.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
@@ -115,7 +126,7 @@
       <p>Undone yet</p>
 
       <dc-demo>
-        <a
+        <!-- <a
           href="#docs-of-m3-web-components-button-usage-link"
           tabindex="-1"
           aria-labelledby="button-link"
@@ -123,7 +134,7 @@
           <md-button text id="button-link" aria-hidden="true"
             >Not Working Properly</md-button
           >
-        </a>
+        </a> -->
       </dc-demo>
 
       <h2>Ripple</h2>
@@ -176,7 +187,7 @@
           <dc-demo>
             <div style="position: relative">
               <md-ripple nokey></md-ripple>
-              <input />
+              <input placeholder="No keys'll make ripple" />
             </div>
           </dc-demo>
         </li>
@@ -193,7 +204,7 @@
             <script>
               const ripple = document.querySelector('#ripple');
               const control = document.querySelector('#ripple-control');
-              onload = () => ripple.attach(control)
+              onload = () => ripple.attach(control);
             </script>
           </dc-demo>
         </li>
