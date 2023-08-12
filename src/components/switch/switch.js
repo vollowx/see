@@ -177,7 +177,8 @@ export default class MdSwitchElement extends BaseElement {
       '--_thumb-diff-pointer',
       `${2 * limitedDiff}px`
     );
-    // FIXME: Lost `active` => `checked` transition in Chromium-based
+    // Thumb will lose its `:active` status before pointer up event
+    this.$thumb.style.setProperty('--_thumb-diameter', '28px');
     this.$thumb.style.transitionDuration = '0s';
   }
   #handlePointerUp() {
@@ -191,10 +192,11 @@ export default class MdSwitchElement extends BaseElement {
       rootbRect.left -
       rootbRect.width / 2;
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
-    if (this.checked != shouldBeChecked) this.#toggleState();
 
-    this.$thumb.style.transitionDuration = '';
+    if (this.checked != shouldBeChecked) this.#toggleState();
     this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
+    this.$thumb.style.setProperty('--_thumb-diameter', '');
+    this.$thumb.style.transitionDuration = '';
   }
 
   #toggleState() {

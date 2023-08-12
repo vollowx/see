@@ -94,32 +94,6 @@
 :host([disabled][checked]) [part~='thumb'] {
   opacity: 1;
 }
-
-[part~='icons'] {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 16px;
-  height: 16px;
-  fill: var(--_unchecked-icon-color);
-  transition:
-    fill 67ms linear,
-    opacity 33ms linear;
-  opacity: 0;
-}
-:host([checked]) [part~='icons'] {
-  fill: var(--_checked-icon-color);
-}
-:host([icons]:not([checked]):not([checkedicononly])) [part~='icon-off'] {
-  opacity: 1;
-}
-:host([icons][checked]) [part~='icon-on'] {
-  opacity: 1;
-}
-:host([icons][disabled][checked]) [part~='icon-on'] {
-  opacity: 0.38;
-}
-
 :host([icons]:not([checkedicononly])) [part~='thumb'] {
   --_thumb-diameter: 24px;
 }
@@ -148,8 +122,33 @@
     top: calc(var(--_thumb-diameter) / 2);
     transform: translate(-50%, -50%);
     transition:
-      left var(--md-sys-motion-easing-standard) 250ms,
-      top var(--md-sys-motion-easing-standard) 250ms;
+      left 250ms var(--md-sys-motion-easing-standard),
+      top 250ms var(--md-sys-motion-easing-standard);
     width: var(--_ripple-size);
   }
+}
+
+[part~='icons'] {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 16px;
+  height: 16px;
+  fill: var(--_unchecked-icon-color);
+  transition:
+    fill 67ms linear,
+    opacity 33ms linear;
+  opacity: 0;
+}
+:host([checked]) [part~='icons'] {
+  fill: var(--_checked-icon-color);
+}
+:host([icons]:not([checked]):not([checkedicononly])) [part~='icon-off'] {
+  opacity: 1;
+}
+:host([icons][checked]) [part~='icon-on'] {
+  opacity: 1;
+}
+:host([icons][disabled][checked]) [part~='icon-on'] {
+  opacity: 0.38;
 }
