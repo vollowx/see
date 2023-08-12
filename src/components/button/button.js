@@ -34,9 +34,9 @@ export default class MdButton extends BaseElement {
       <span part="state-layer"></span>
       <span part="target"></span>
       <md-ripple></md-ripple>
-      <slot name="icon" aria-hidden="true"></slot>
+      <slot name="icon"></slot>
       <slot></slot>
-      <slot name="trailingicon" aria-hidden="true"></slot>
+      <slot name="trailingicon"></slot>
     `;
   }
   /** @type {MdRipple} */
