@@ -1,5 +1,14 @@
 import BaseElement from './base-element';
-import { html } from './template';
+import { html, css, sheetsFromCss } from './template';
 import { customElement, property, query, queryAll } from './decorators';
 
-export { BaseElement, html, customElement, property, query, queryAll };
+export {
+  BaseElement,
+  html,
+  css,
+  sheetsFromCss,
+  customElement,
+  property,
+  query,
+  queryAll,
+};

@@ -1,9 +1,9 @@
 // @ts-check
 
-import { BaseElement, html, customElement, property } from '../base';
+import { BaseElement, sheetsFromCss, customElement, property } from '../base';
 import { distance } from '../../utils';
 
-import MdRippleElementStyle from './ripple.css?inline';
+import MdRippleStyle from './ripple.css?inline';
 
 const PRESS_GROW_MS = 450;
 const OPACITY_IN_MS = 105;
@@ -14,11 +14,9 @@ const MINIMUM_PRESS_MS = 225;
  * TODO: Manual attaching
  */
 @customElement('md-ripple')
-export default class MdRippleElement extends BaseElement {
-  render() {
-    return html`<style>
-      ${MdRippleElementStyle}
-    </style>`;
+export default class MdRipple extends BaseElement {
+  get styles() {
+    return [...sheetsFromCss([MdRippleStyle])];
   }
   /** @type {HTMLElement} */
   $controller;

@@ -1,34 +1,45 @@
 // @ts-check
 
-import { BaseElement, html, customElement, property, query } from '../base';
+import {
+  BaseElement,
+  html,
+  sheetsFromCss,
+  customElement,
+  property,
+  query,
+} from '../base';
 
-import MdRippleElement from '../ripple/ripple.js';
+import MdRipple from '../ripple/ripple.js';
 
-import MdButtonElementStyle from './button.css?inline';
-import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
-import MdStateLayerElementStyle from '../shared/state-layer.css?inline';
-import MdTargetElementStyle from '../shared/target.css?inline';
+import MdButtonStyle from './button.css?inline';
+import MdFocusRingStyle from '../shared/focus-ring.css?inline';
+import MdStateLayerStyle from '../shared/state-layer.css?inline';
+import MdTargetStyle from '../shared/target.css?inline';
 
 @customElement('md-button')
-export default class MdButtonElement extends BaseElement {
+export default class MdButton extends BaseElement {
+  get styles() {
+    return [
+      ...sheetsFromCss([
+        MdButtonStyle,
+        MdFocusRingStyle,
+        MdStateLayerStyle,
+        MdTargetStyle,
+      ]),
+    ];
+  }
   render() {
     return html`
-      <style>
-        ${MdButtonElementStyle}
-        ${MdFocusRingElementStyle}
-        ${MdStateLayerElementStyle}
-        ${MdTargetElementStyle}
-      </style>
       <span part="focus-ring"></span>
       <span part="state-layer"></span>
       <span part="target"></span>
       <md-ripple></md-ripple>
-      <slot name="icon"></slot>
+      <slot name="icon" aria-hidden="true"></slot>
       <slot></slot>
-      <slot name="trailingicon"></slot>
+      <slot name="trailingicon" aria-hidden="true"></slot>
     `;
   }
-  /** @type {MdRippleElement} */
+  /** @type {MdRipple} */
   @query('md-ripple') $ripple;
   connectedCallback() {
     if (!this.hasAttribute('role')) {

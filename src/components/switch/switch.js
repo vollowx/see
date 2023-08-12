@@ -1,24 +1,29 @@
 // @ts-check
 
-import { BaseElement, html, customElement, property, query } from '../base';
+import {
+  BaseElement,
+  html,
+  sheetsFromCss,
+  customElement,
+  property,
+  query,
+} from '../base';
 import { isRTL } from '../../utils';
 
-import MdSwitchElementStyle from './switch.css?inline';
-import MdFocusRingElementStyle from '../shared/focus-ring.css?inline';
-import MdTargetElementStyle from '../shared/target.css?inline';
+import MdSwitchStyle from './switch.css?inline';
+import MdFocusRingStyle from '../shared/focus-ring.css?inline';
+import MdTargetStyle from '../shared/target.css?inline';
 
 /**
  * TODO: Touch draggable
  */
 @customElement('md-switch')
-export default class MdSwitchElement extends BaseElement {
+export default class MdSwitch extends BaseElement {
+  get styles() {
+    return [...sheetsFromCss([MdSwitchStyle, MdFocusRingStyle, MdTargetStyle])];
+  }
   render() {
     return html`
-      <style>
-        ${MdSwitchElementStyle}
-        ${MdFocusRingElementStyle}
-        ${MdTargetElementStyle}
-      </style>
       <div part="switch">
         <span part="focus-ring"></span>
         <span part="target"></span>

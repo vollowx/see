@@ -5,18 +5,20 @@ export default class BaseElement extends HTMLElement {
     super();
 
     this.attachShadow({ mode: 'open' });
+    this.renderRoot.adoptedStyleSheets = this.styles;
     this.renderRoot.append(this.render().content.cloneNode(true));
   }
 
-  /** @type {ShadowRoot|HTMLElement} */
   get renderRoot() {
     return /** @type {ShadowRoot} */ (this.shadowRoot);
   }
 
-  /**
-   * @returns {HTMLTemplateElement}
-   */
+  /** @type {CSSStyleSheet[]} */
+  get styles() {
+    return [];
+  }
+  /** @returns {HTMLTemplateElement} */
   render() {
-    return new HTMLTemplateElement();
+    return document.createElement('template');
   }
 }
