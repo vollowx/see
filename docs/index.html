@@ -83,16 +83,13 @@
           const switch1 = document.querySelector('#btn-switch1');
           const btnInput1 = document.querySelector('#btn-input1');
 
-          switch1.addEventListener(
-            'change',
-            (e) => (buttons.forEach(button => button.disabled = e.detail))
+          switch1.addEventListener('change', (e) =>
+            buttons.forEach((button) => (button.disabled = e.detail))
           );
-          btnInput1.addEventListener(
-            'input',
-            (e) => (buttons.forEach(button => button.textContent = btnInput1.value))
+          btnInput1.addEventListener('input', (e) =>
+            buttons.forEach((button) => (button.textContent = btnInput1.value))
           );
         </script>
-        </md-button>
       </dc-demo>
 
       <h3>Types</h3>
@@ -162,7 +159,10 @@
 
       <h3>Accessibility</h3>
 
-      <p>Add an <code>aria-label</code> attribute to buttons whose labels need a more descriptive label.</p>
+      <p>
+        Add an <code>aria-label</code> attribute to buttons whose labels need a
+        more descriptive label.
+      </p>
 
       <dc-demo>
         <md-button aria-label="Add a new contact">Add</md-button>

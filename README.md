@@ -38,7 +38,7 @@
 | Select                        |   ❌   |
 | Slider                        |   ❌   |
 | Snackbar                      |   ❌   |
-| Switch                        |   🟡   |
+| Switch                        |   ✅   |
 | Tabs                          |   ❌   |
 | Text field                    |   ❌   |
 | Time picker                   |   ❌   |

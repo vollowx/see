@@ -14,9 +14,6 @@ import MdSwitchStyle from './switch.css?inline';
 import MdFocusRingStyle from '../shared/focus-ring.css?inline';
 import MdTargetStyle from '../shared/target.css?inline';
 
-/**
- * TODO: Touch draggable
- */
 @customElement('md-switch')
 export default class MdSwitch extends BaseElement {
   get styles() {
@@ -162,18 +159,19 @@ export default class MdSwitch extends BaseElement {
   }
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    if (e.button !== 0) {
-      return;
-    }
-    this.setPointerCapture(e.pointerId);
+    if (e.button !== 0) return;
+
     this.#pointerDownX = e.clientX;
     this.#handledPointerMove = false;
+
+    this.setPointerCapture(e.pointerId);
     this.addEventListener('pointermove', this.#boundPointerMove);
   }
   /** @param {PointerEvent} e */
   #handlePointerMove(e) {
-    e.preventDefault();
     this.#handledPointerMove = true;
+    e.preventDefault();
+
     const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
     const limitedDiff = this.checked
       ? Math.min(0, Math.max(-20, diff))
@@ -182,12 +180,14 @@ export default class MdSwitch extends BaseElement {
       '--_thumb-diff-pointer',
       `${2 * limitedDiff}px`
     );
-    // Thumb will lose its `:active` status before pointer up event
+    // Thumb loses its `:active` status before pointer up event
     this.$thumb.style.setProperty('--_thumb-diameter', '28px');
     this.$thumb.style.transitionDuration = '0s';
   }
-  #handlePointerUp() {
+  /** @param {PointerEvent} e */
+  #handlePointerUp(e) {
     this.removeEventListener('pointermove', this.#boundPointerMove);
+    this.releasePointerCapture(e.pointerId);
 
     const thumbRect = this.$thumb.getBoundingClientRect();
     const rootbRect = this.$switch.getBoundingClientRect();

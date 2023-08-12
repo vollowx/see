@@ -17,6 +17,7 @@
   position: relative;
   vertical-align: top;
   user-select: none;
+  touch-action: none;
 }
 @media (forced-colors: active) {
   :host {
