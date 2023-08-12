@@ -49,6 +49,22 @@
         </span>
         <md-button id="button-plus">Plus 1</md-button>
 
+        <div class="divider"></div>
+
+        <md-button class="buttons">Filled</md-button>
+        <md-button class="buttons" tonal>Tonal</md-button>
+        <md-button class="buttons" elevated>Elevated</md-button>
+        <md-button class="buttons" outlined>Outlined</md-button>
+        <md-button class="buttons" text>Text</md-button>
+
+        <div class="divider"></div>
+
+        <md-switch id="btn-switch1">Disabled</md-switch>
+        <div>
+          <label for="btn-input1" style="display: block">Label</label>
+          <input type="text" id="btn-input1" />
+        </div>
+
         <script>
           const buttonMinus = document.querySelector('#button-minus');
           const buttonPlus = document.querySelector('#button-plus');
@@ -62,17 +78,31 @@
             (spanNumber.textContent = String(
               Number(spanNumber.textContent) + 1
             ));
+
+          const buttons = document.querySelectorAll('.buttons');
+          const switch1 = document.querySelector('#btn-switch1');
+          const btnInput1 = document.querySelector('#btn-input1');
+
+          switch1.addEventListener(
+            'change',
+            (e) => (buttons.forEach(button => button.disabled = e.detail))
+          );
+          btnInput1.addEventListener(
+            'input',
+            (e) => (buttons.forEach(button => button.textContent = btnInput1.value))
+          );
         </script>
+        </md-button>
       </dc-demo>
 
       <h3>Types</h3>
 
       <dc-demo>
-        <md-button elevated>Elevated Button</md-button>
-        <md-button>Filled Button</md-button>
-        <md-button tonal>Tonal Button</md-button>
-        <md-button outlined>Outlined Button</md-button>
-        <md-button text>Text Button</md-button>
+        <md-button>Filled</md-button>
+        <md-button tonal>Tonal</md-button>
+        <md-button elevated>Elevated</md-button>
+        <md-button outlined>Outlined</md-button>
+        <md-button text>Text</md-button>
       </dc-demo>
 
       <h3>Usage</h3>
@@ -130,6 +160,14 @@
         </a> -->
       </dc-demo>
 
+      <h3>Accessibility</h3>
+
+      <p>Add an <code>aria-label</code> attribute to buttons whose labels need a more descriptive label.</p>
+
+      <dc-demo>
+        <md-button aria-label="Add a new contact">Add</md-button>
+      </dc-demo>
+
       <h2>Ripple</h2>
 
       <p>
@@ -148,15 +186,6 @@
       <ul>
         <li>Optional keyboard support.</li>
       </ul>
-
-      <h3>Bugs</h3>
-
-      <ol>
-        <li>
-          Rounded ripple becomes in the shape of square in Chromium-based
-          browsers, <a href="http://localhost:5173/docs/">reported</a>
-        </li>
-      </ol>
 
       <h3>Usage</h3>
 

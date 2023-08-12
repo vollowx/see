@@ -48,6 +48,7 @@
 }
 
 slot {
+  display: inline-flex;
   color: var(--_text-color);
   opacity: var(--_text-opacity);
 }
