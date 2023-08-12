@@ -65,11 +65,18 @@ export default class MdSwitchElement extends BaseElement {
     this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
 
-    this.addEventListener('click', this.#handleClick.bind(this));
-    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    this.addEventListener('keyup', this.#handleKeyUp.bind(this));
-    this.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
-    this.addEventListener('pointerup', this.#handlePointerUp.bind(this));
+    this.addEventListener('click', this.#boundClick);
+    this.addEventListener('keydown', this.#boundKeyDown);
+    this.addEventListener('keyup', this.#boundKeyUp);
+    this.addEventListener('pointerdown', this.#boundPointerDown);
+    this.addEventListener('pointerup', this.#boundPointerUp);
+  }
+  disconnectedCallback() {
+    this.removeEventListener('click', this.#boundClick);
+    this.removeEventListener('keydown', this.#boundKeyDown);
+    this.removeEventListener('keyup', this.#boundKeyUp);
+    this.removeEventListener('pointerdown', this.#boundPointerDown);
+    this.removeEventListener('pointerup', this.#boundPointerUp);
   }
   /**
    * @param {string} name
@@ -108,46 +115,12 @@ export default class MdSwitchElement extends BaseElement {
   #handledPointerMove = false;
   #pointerDownX = 0;
 
-  /** @param {PointerEvent} e */
-  #handlePointerDown(e) {
-    if (e.button !== 0) {
-      return;
-    }
-    this.setPointerCapture(e.pointerId);
-    this.#pointerDownX = e.clientX;
-    this.#handledPointerMove = false;
-    this.addEventListener('pointermove', this.#handlePointerMove);
-  }
-  /** @param {PointerEvent} e */
-  #handlePointerMove(e) {
-    e.preventDefault();
-    this.#handledPointerMove = true;
-    const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
-    const limitedDiff = this.checked
-      ? Math.min(0, Math.max(-20, diff))
-      : Math.min(20, Math.max(0, diff));
-    this.$thumb.style.setProperty(
-      '--_thumb-diff-pointer',
-      `${2 * limitedDiff}px`
-    );
-    this.$thumb.style.transitionDuration = '0s';
-  }
-  #handlePointerUp() {
-    this.removeEventListener('pointermove', this.#handlePointerMove);
-
-    const thumbRect = this.$thumb.getBoundingClientRect();
-    const rootbRect = this.$switch.getBoundingClientRect();
-    const diff =
-      thumbRect.left +
-      thumbRect.width / 2 -
-      rootbRect.left -
-      rootbRect.width / 2;
-    const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
-    if (this.checked != shouldBeChecked) this.#toggleState();
-
-    this.$thumb.style.transitionDuration = '';
-    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
-  }
+  #boundClick = this.#handleClick.bind(this);
+  #boundKeyDown = this.#handleKeyDown.bind(this);
+  #boundKeyUp = this.#handleKeyUp.bind(this);
+  #boundPointerDown = this.#handlePointerDown.bind(this);
+  #boundPointerMove = this.#handlePointerMove.bind(this);
+  #boundPointerUp = this.#handlePointerUp.bind(this);
   /** @param {PointerEvent} e */
   #handleClick(e) {
     e.stopPropagation();
@@ -156,6 +129,17 @@ export default class MdSwitchElement extends BaseElement {
       return;
     }
     this.#toggleState();
+  }
+  /** @param {KeyboardEvent} e */
+  #handleKeyUp(e) {
+    if (e.key !== ' ' && e.key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === ' ') {
+      this.#toggleState();
+    }
   }
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
@@ -171,17 +155,48 @@ export default class MdSwitchElement extends BaseElement {
       this.#toggleState();
     }
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyUp(e) {
-    if (e.key !== ' ' && e.key !== 'Enter') {
+  /** @param {PointerEvent} e */
+  #handlePointerDown(e) {
+    if (e.button !== 0) {
       return;
     }
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.key === ' ') {
-      this.#toggleState();
-    }
+    this.setPointerCapture(e.pointerId);
+    this.#pointerDownX = e.clientX;
+    this.#handledPointerMove = false;
+    this.addEventListener('pointermove', this.#boundPointerMove);
   }
+  /** @param {PointerEvent} e */
+  #handlePointerMove(e) {
+    e.preventDefault();
+    this.#handledPointerMove = true;
+    const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
+    const limitedDiff = this.checked
+      ? Math.min(0, Math.max(-20, diff))
+      : Math.min(20, Math.max(0, diff));
+    this.$thumb.style.setProperty(
+      '--_thumb-diff-pointer',
+      `${2 * limitedDiff}px`
+    );
+    // FIXME: Lost `active` => `checked` transition in Chromium-based
+    this.$thumb.style.transitionDuration = '0s';
+  }
+  #handlePointerUp() {
+    this.removeEventListener('pointermove', this.#boundPointerMove);
+
+    const thumbRect = this.$thumb.getBoundingClientRect();
+    const rootbRect = this.$switch.getBoundingClientRect();
+    const diff =
+      thumbRect.left +
+      thumbRect.width / 2 -
+      rootbRect.left -
+      rootbRect.width / 2;
+    const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
+    if (this.checked != shouldBeChecked) this.#toggleState();
+
+    this.$thumb.style.transitionDuration = '';
+    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
+  }
+
   #toggleState() {
     if (this.disabled) {
       return;

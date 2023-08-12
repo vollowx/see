@@ -38,8 +38,12 @@ export default class MdButtonElement extends BaseElement {
       this.setAttribute('tabindex', '0');
     }
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    this.addEventListener('keyup', this.#handleKeyUp.bind(this));
+    this.addEventListener('keydown', this.#boundKeyDown);
+    this.addEventListener('keyup', this.#boundKeyUp);
+  }
+  disconnectedCallback() {
+    this.removeEventListener('keydown', this.#boundKeyDown);
+    this.removeEventListener('keyup', this.#boundKeyUp);
   }
   /**
    * @param {string} name
@@ -67,6 +71,8 @@ export default class MdButtonElement extends BaseElement {
 
   #spaceKeyDown = false;
 
+  #boundKeyDown = this.#handleKeyDown.bind(this);
+  #boundKeyUp = this.#handleKeyUp.bind(this);
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (e.key !== ' ' && e.key !== 'Enter') return;

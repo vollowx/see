@@ -42,6 +42,11 @@ export default class MdRippleElement extends BaseElement {
   #spaceKeyDown = false;
   #lastTime = 0;
 
+  #boundKeyDown = this.#handleKeyDown.bind(this);
+  #boundKeyUp = this.#handleKeyUp.bind(this);
+  #boundPointerDown = this.#handlePointerDown.bind(this);
+  #boundPointerUp = this.#handlePointerUp.bind(this);
+  #boundTouchEnd = this.#handleTouchEnd.bind(this);
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
     this.$controller.setPointerCapture(e.pointerId);
@@ -75,27 +80,29 @@ export default class MdRippleElement extends BaseElement {
       this.removeRipples();
     }
   }
+  #handlePointerUp() {
+    this.removeRipples();
+  }
+  #handleTouchEnd() {
+    this.removeRipples();
+  }
 
   /**
    * @param {HTMLElement?} prev
    * @param {HTMLElement} next
-   * FIXME: Not removing previous element's event handlers
    */
   #handleAttach(prev = null, next) {
-    prev?.removeEventListener(
-      'pointerdown',
-      this.#handlePointerDown.bind(this)
-    );
-    prev?.removeEventListener('keydown', this.#handleKeyDown.bind(this));
-    prev?.removeEventListener('touchend', this.removeRipples.bind(this));
-    prev?.removeEventListener('pointerup', this.removeRipples.bind(this));
-    prev?.removeEventListener('keyup', this.#handleKeyUp.bind(this));
+    prev?.removeEventListener('keydown', this.#boundKeyDown);
+    prev?.removeEventListener('keyup', this.#boundKeyUp);
+    prev?.removeEventListener('pointerdown', this.#boundPointerDown);
+    prev?.removeEventListener('pointerup', this.#boundPointerUp);
+    prev?.removeEventListener('touchend', this.#boundTouchEnd);
 
-    next.addEventListener('pointerdown', this.#handlePointerDown.bind(this));
-    next.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    next.addEventListener('touchend', this.removeRipples.bind(this));
-    next.addEventListener('pointerup', this.removeRipples.bind(this));
-    next.addEventListener('keyup', this.#handleKeyUp.bind(this));
+    next.addEventListener('keydown', this.#boundKeyDown);
+    next.addEventListener('keyup', this.#boundKeyUp);
+    next.addEventListener('pointerdown', this.#boundPointerDown);
+    next.addEventListener('pointerup', this.#boundPointerUp);
+    next.addEventListener('touchend', this.#boundTouchEnd);
 
     this.$controller = next;
   }
