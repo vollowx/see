@@ -14,11 +14,11 @@
   "author": "vollow",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/plugin-proposal-decorators": "^7.22.7",
-    "@babel/preset-env": "^7.22.9",
+    "@babel/core": "^7.22.10",
+    "@babel/plugin-proposal-decorators": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "@rollup/plugin-babel": "^6.0.3",
     "puppeteer": "^20.9.0",
-    "vite": "^4.4.7"
+    "vite": "^4.4.9"
   }
 }
