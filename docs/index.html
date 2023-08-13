@@ -173,6 +173,13 @@
 
       <h2>Checkbox</h2>
 
+      <p>
+        Checkboxes allow users to select one or more items from a set.
+        Checkboxes can turn an option on or off.
+      </p>
+
+      <h3>Interactive Demo</h3>
+
       <dc-demo>
         <md-checkbox id="checkbox1">Controlled</md-checkbox>
 
@@ -218,6 +225,40 @@
             (e) => (checkbox1.textContent = checkboxInput1.value)
           );
         </script>
+      </dc-demo>
+
+      <h3>Usage</h3>
+
+      <p>Checkboxes may be standalone, pre-checked, or indeterminate.</p>
+
+      <dc-demo>
+        <md-checkbox></md-checkbox>
+        <md-checkbox checked></md-checkbox>
+        <md-checkbox indeterminate></md-checkbox>
+      </dc-demo>
+
+      <h4>Label</h4>
+
+      <p>Associate a label with a switch by writing inside it.</p>
+
+      <dc-demo>
+        <md-checkbox>Checkbox one</md-checkbox>
+        <md-checkbox checked>Checkbox two</md-checkbox>
+      </dc-demo>
+
+      <h3>Accessibility</h3>
+
+      <p>
+        Add an <code>aria-label</code> attribute to checkboxes without labels or
+        checkboxes whose labels need to be more descriptive.
+      </p>
+
+      <dc-demo>
+        <md-checkbox aria-label="Select all checkboxes"></md-checkbox>
+
+        <md-checkbox aria-label="Agree to terms and conditions">
+          Agree
+        </md-checkbox>
       </dc-demo>
 
       <h2>Ripple</h2>
@@ -424,10 +465,7 @@
 
       <h4>Label</h4>
 
-      <p>
-        Associate a label with a switch using the
-        <code>&lt;label&gt;</code> element.
-      </p>
+      <p>Associate a label with a switch by writing inside it.</p>
 
       <dc-demo>
         <md-switch>Label 1</md-switch>
