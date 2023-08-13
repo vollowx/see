@@ -6,6 +6,16 @@
 
 ## Implementations
 
+### Base
+
+| Components |
+| ---------- |
+| Button     |
+| Checkbox   |
+| Switch     |
+
+### M3
+
 | Components                    | Functionality | ARIA | Style | Restyle |
 | ----------------------------- | :-----------: | :--: | :---: | :-----: |
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
