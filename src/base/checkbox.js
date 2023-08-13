@@ -9,16 +9,16 @@ export default class Checkbox extends ReactiveElement {
     return html`<slot></slot>`;
   }
   connectedCallback() {
-    if (!this.hasAttribute('type')) {
-      this.setAttribute('type', 'button');
-    }
     if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'button');
+      this.setAttribute('role', this._role);
     }
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
+    this.setAttribute(
+      this._ariaState,
+      this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
+    );
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
 
     this.addEventListener('click', this.#boundClick);
@@ -39,6 +39,10 @@ export default class Checkbox extends ReactiveElement {
         this.#checkedChanged();
         break;
 
+      case 'indeterminate':
+        this.#indeterminateChanged();
+        break;
+
       case 'disabled':
         this.#disabledChanged();
         break;
@@ -48,11 +52,21 @@ export default class Checkbox extends ReactiveElement {
     }
   }
   static get observedAttributes() {
-    return ['checked', 'disabled'];
+    return ['checked', 'indeterminate', 'disabled'];
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
-    this.setAttribute('aria-pressed', this.checked ? 'true' : 'false');
+    this.setAttribute(
+      this._ariaState,
+      this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
+    );
+  }
+  @property({ type: Boolean }) indeterminate = false;
+  #indeterminateChanged() {
+    this.setAttribute(
+      this._ariaState,
+      this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
+    );
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
@@ -62,6 +76,8 @@ export default class Checkbox extends ReactiveElement {
 
   #boundClick = this.#handleClick.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
+  _role = 'checkbox';
+  _ariaState = 'aria-checked';
   _ignoreClick = false;
   /** @param {PointerEvent} e */
   #handleClick(e) {
@@ -88,6 +104,7 @@ export default class Checkbox extends ReactiveElement {
       return;
     }
     this.checked = !this.checked;
+    this.indeterminate = false;
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,

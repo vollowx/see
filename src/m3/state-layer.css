@@ -1,6 +1,7 @@
-:host [part~='state-layer'] {
+[part~='state-layer'] {
   position: absolute;
   inset: 0;
+  display: block;
   pointer-events: none;
   border-radius: inherit;
   background-color: currentColor;

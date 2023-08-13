@@ -7,7 +7,8 @@
   --_checked-thumb-color: var(--md-sys-color-on-primary);
   --_unchecked-icon-color: var(--md-sys-color-surface-container-highest);
   --_checked-icon-color: var(--md-sys-color-on-primary-container);
-  --_ripple-size: 40px;
+  --_unchecked-ripple-color: var(--md-sys-color-on-surface);
+  --_checked-ripple-color: var(--md-sys-color-primary);
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   display: inline-flex;
@@ -22,6 +23,12 @@
 @media (forced-colors: active) {
   :host {
     forced-color-adjust: none;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  :host(:hover) {
+    --_unchecked-thumb-color: var(--md-sys-color-on-surface-variant);
+    --_checked-thumb-color: var(--md-sys-color-primary-container);
   }
 }
 :host([disabled]) {
@@ -105,29 +112,6 @@
 :host([checked]:active) [part~='thumb'] {
   --_checked-thumb-color: var(--md-sys-color-primary-container);
 }
-@media (hover: hover) and (pointer: fine) {
-  :host(:hover) [part~='thumb'] {
-    --_unchecked-thumb-color: var(--md-sys-color-on-surface-variant);
-  }
-  :host([checked]:hover) [part~='thumb'] {
-    --_checked-thumb-color: var(--md-sys-color-primary-container);
-  }
-  :host(:hover) [part~='thumb']::before {
-    background-color: currentColor;
-    opacity: 0.08;
-    border-radius: 50%;
-    content: '';
-    height: var(--_ripple-size);
-    left: calc(var(--_thumb-diameter) / 2);
-    position: absolute;
-    top: calc(var(--_thumb-diameter) / 2);
-    transform: translate(-50%, -50%);
-    transition:
-      left 250ms var(--md-sys-motion-easing-standard),
-      top 250ms var(--md-sys-motion-easing-standard);
-    width: var(--_ripple-size);
-  }
-}
 
 [part~='icons'] {
   position: absolute;
@@ -152,4 +136,21 @@
 }
 :host([icons][disabled][checked]) [part~='icon-on'] {
   opacity: 0.38;
+}
+
+[part~='state-layer'] {
+  /* Using `left` and `top` instead of `transform` is because `transform` will make state layers shake */
+  left: calc(var(--_thumb-diameter) / 2);
+  top: calc(var(--_thumb-diameter) / 2);
+  width: 40px;
+  height: 40px;
+  color: var(--_unchecked-ripple-color);
+  transform: translate(-50%, -50%);
+  transition:
+    color 67ms linear,
+    left 250ms var(--md-sys-motion-easing-standard),
+    top 250ms var(--md-sys-motion-easing-standard);
+}
+:host([checked]) [part~='state-layer'] {
+  color: var(--_checked-ripple-color);
 }

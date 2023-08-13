@@ -1,15 +1,18 @@
-:host(:focus-visible) [part~='focus-ring'] {
+[part~='focus-ring'] {
   position: absolute;
   inset: 0;
+  display: block;
   pointer-events: none;
+
+  border-radius: var(--md-focus-ring-radius, 9999px);
+}
+:host(:focus-visible) [part~='focus-ring'] {
   outline: 3px solid var(--md-sys-color-secondary);
   outline-offset: 2px;
   animation-name: outward-grow, outward-shrink;
   animation-timing-function: var(--md-sys-motion-easing-standard);
   animation-delay: 0s, 150ms;
   animation-duration: 150ms, 450ms;
-
-  border-radius: var(--md-focus-ring-radius, 9999px);
 }
 
 @keyframes outward-grow {

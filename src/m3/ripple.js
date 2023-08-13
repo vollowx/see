@@ -15,6 +15,9 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
   return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
 }
 
+/**
+ * TODO: `for` attribute to auto re-attach
+ */
 @customElement('md-ripple')
 export default class MdRipple extends ReactiveElement {
   get styles() {

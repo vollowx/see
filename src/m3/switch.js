@@ -6,6 +6,7 @@ import { customElement, property, query } from '../core/decorators.js';
 
 import MdSwitchStyle from './switch.css?inline';
 import MdFocusRingStyle from './focus-ring.css?inline';
+import MdStateLayerStyle from './state-layer.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 function isRTL() {
@@ -17,7 +18,12 @@ export default class MdSwitch extends Checkbox {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss([MdSwitchStyle, MdFocusRingStyle, MdTargetStyle]),
+      ...sheetsFromCss([
+        MdFocusRingStyle,
+        MdStateLayerStyle,
+        MdTargetStyle,
+        MdSwitchStyle,
+      ]),
     ];
   }
   get template() {
@@ -27,6 +33,7 @@ export default class MdSwitch extends Checkbox {
         <span part="target"></span>
         <span part="track"></span>
         <span part="thumb">
+          <span part="state-layer"></span>
           ${this.templateOffIcon}${this.templateOnIcon}
         </span>
       </div>
@@ -72,6 +79,8 @@ export default class MdSwitch extends Checkbox {
   @property({ type: Boolean }) checkedIconOnly = false;
 
   #pointerDownX = 0;
+  _role = 'switch';
+  _ariaState = 'aria-pressed';
 
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerMove = this.#handlePointerMove.bind(this);

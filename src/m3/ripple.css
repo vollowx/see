@@ -2,8 +2,8 @@
   position: absolute;
   inset: 0;
   display: block;
-  border-radius: inherit;
   pointer-events: none;
+  border-radius: inherit;
 }
 :host(:not([unbounded])) {
   overflow: hidden;
@@ -11,20 +11,10 @@
 
 [part~='ripple'] {
   position: absolute;
+  transform-origin: center, center;
   background-image: radial-gradient(
     closest-side,
-    currentColor max(calc(100% - 70px), 65%),
+    var(--md-ripple-color, currentColor) max(calc(100% - 70px), 65%),
     transparent 100%
   );
-  opacity: var(--_opacity, 0.18);
-  transition: opacity 375ms linear;
-  transform-origin: center, center;
-}
-canvas {
-  position: absolute;
-  inset: 0;
-}
-[part~='ripple'],
-:host([circle]) {
-  border-radius: 50%;
 }

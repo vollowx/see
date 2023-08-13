@@ -17,10 +17,10 @@ export default class MdButton extends Button {
     return [
       ...super.styles,
       ...sheetsFromCss([
-        MdButtonStyle,
         MdFocusRingStyle,
         MdStateLayerStyle,
         MdTargetStyle,
+        MdButtonStyle,
       ]),
     ];
   }
