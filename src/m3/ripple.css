@@ -11,7 +11,8 @@
 
 [part~='ripple'] {
   position: absolute;
-  transform-origin: center, center;
+  left: 0;
+  top: 0;
   background-image: radial-gradient(
     closest-side,
     var(--md-ripple-color, currentColor) max(calc(100% - 70px), 65%),
