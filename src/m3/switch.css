@@ -140,6 +140,7 @@
 
 [part~='state-layer'] {
   /* Using `left` and `top` instead of `transform` is because `transform` will make state layers shake */
+  writing-mode: horizontal-tb;
   left: calc(var(--_thumb-diameter) / 2);
   top: calc(var(--_thumb-diameter) / 2);
   width: 40px;
