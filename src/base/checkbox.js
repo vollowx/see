@@ -25,10 +25,12 @@ export default class Checkbox extends ReactiveElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
 
     this.addEventListener('click', this.#boundClick);
+    this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
     this.removeEventListener('click', this.#boundClick);
+    this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
   }
   /**
@@ -72,6 +74,7 @@ export default class Checkbox extends ReactiveElement {
   }
 
   #boundClick = this.#handleClick.bind(this);
+  #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
   _role = 'checkbox';
   _ariaState = 'aria-checked';
@@ -83,6 +86,17 @@ export default class Checkbox extends ReactiveElement {
     // For switch-like behavior
     if (this._ignoreClick) return;
     this._toggleState();
+  }
+  /** @param {KeyboardEvent} e */
+  #handleKeyDown(e) {
+    if (e.key !== ' ' && e.key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.repeat) {
+      return;
+    }
   }
   /** @param {KeyboardEvent} e */
   #handleKeyUp(e) {
