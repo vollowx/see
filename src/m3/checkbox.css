@@ -124,20 +124,20 @@
   width: 0px;
   transition-property: transform, width;
 }
-:host(:not([checked]):not([indeterminate])[prev='indeterminate'])
+:host(:not([checked]):not([indeterminate])[data-last-status='indeterminate'])
   [part~='mark-short'],
-:host(:not([checked]):not([indeterminate])[prev='indeterminate'])
+:host(:not([checked]):not([indeterminate])[data-last-status='indeterminate'])
   [part~='mark-long'] {
   transition-delay: 150ms;
 }
-:host(:not([checked]):not([indeterminate])[prev='checked'])
+:host(:not([checked]):not([indeterminate])[data-last-status='checked'])
   [part~='mark-short'] {
   transition-delay: 150ms;
 }
 :host([checked]) [part~='mark-short'] {
   height: 5.6568542495px;
 }
-:host([checked][prev='unchecked']) [part~='mark-short'] {
+:host([checked][data-last-status='unchecked']) [part~='mark-short'] {
   transition-property: none;
 }
 :host([checked]) [part~='mark-long'] {
@@ -149,10 +149,10 @@
 :host([indeterminate]) [part~='mark-long'] {
   width: 10px;
 }
-:host([indeterminate]:not([prev='checked'])) [part~='mark-short'] {
+:host([indeterminate]:not([data-last-status='checked'])) [part~='mark-short'] {
   transition-property: height;
 }
-:host([indeterminate]:not([prev='checked'])) [part~='mark-long'] {
+:host([indeterminate]:not([data-last-status='checked'])) [part~='mark-long'] {
   transition-property: width;
 }
 

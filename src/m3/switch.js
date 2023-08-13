@@ -1,6 +1,6 @@
 // @ts-check
 
-import Checkbox from '../base/checkbox.js';
+import Switch from '../base/switch.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property, query } from '../core/decorators.js';
 
@@ -15,7 +15,7 @@ function isRTL() {
 }
 
 @customElement('md-switch')
-export default class MdSwitch extends Checkbox {
+export default class MdSwitch extends Switch {
   get styles() {
     return [
       ...super.styles,
@@ -38,7 +38,7 @@ export default class MdSwitch extends Checkbox {
   }
   get templateOnIcon() {
     return html`
-      <svg part="icons icon-on" viewBox="0 0 24 24">
+      <svg part="icons icon-on" viewBox="0 0 24 24" aria-hidden="true">
         <path
           d="M9.55 18.2 3.65 12.3 5.275 10.675 9.55 14.95 18.725 5.775 20.35 7.4Z"
         />
@@ -47,7 +47,7 @@ export default class MdSwitch extends Checkbox {
   }
   get templateOffIcon() {
     return html`
-      <svg part="icons icon-off" viewBox="0 0 24 24">
+      <svg part="icons icon-off" viewBox="0 0 24 24" aria-hidden="true">
         <path
           d="M6.4 19.2 4.8 17.6 10.4 12 4.8 6.4 6.4 4.8 12 10.4 17.6 4.8 19.2 6.4 13.6 12 19.2 17.6 17.6 19.2 12 13.6Z"
         />
@@ -75,8 +75,6 @@ export default class MdSwitch extends Checkbox {
   @property({ type: Boolean }) checkedIconOnly = false;
 
   #pointerDownX = 0;
-  _role = 'switch';
-  _ariaState = 'aria-pressed';
 
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerMove = this.#handlePointerMove.bind(this);
@@ -122,7 +120,7 @@ export default class MdSwitch extends Checkbox {
       rootbRect.width / 2;
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
 
-    if (this.checked != shouldBeChecked) this._toggleState();
+    if (this.checked != shouldBeChecked) this._toggleStatus();
     this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
     this.$thumb.style.setProperty('--_thumb-diameter', '');
     this.$thumb.style.transitionDuration = '';

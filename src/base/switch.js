@@ -4,32 +4,26 @@ import ReactiveElement from '../core/reactive-element.js';
 import { html } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
-const PROPERTY_FROM_ARIA_CHECKED = {
-  true: 'checked',
-  false: 'unchecked',
-  mixed: 'indeterminate',
-};
-
 export default class Checkbox extends ReactiveElement {
   get template() {
     return html`<slot></slot>`;
   }
   connectedCallback() {
     if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'checkbox');
+      this.setAttribute('role', 'switch');
     }
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this.#updateAriaStatus();
+    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
 
     this.addEventListener('click', this.#boundClick);
-    this.addEventListener('keyup', this.#boundKeyUp);
+    this.addEventListener('keydown', this.#boundKeyDown);
   }
   disconnectedCallback() {
     this.removeEventListener('click', this.#boundClick);
-    this.removeEventListener('keyup', this.#boundKeyUp);
+    this.removeEventListener('keydown', this.#boundKeyDown);
   }
   /**
    * @param {string} name
@@ -42,10 +36,6 @@ export default class Checkbox extends ReactiveElement {
         this.#checkedChanged();
         break;
 
-      case 'indeterminate':
-        this.#indeterminateChanged();
-        break;
-
       case 'disabled':
         this.#disabledChanged();
         break;
@@ -55,15 +45,11 @@ export default class Checkbox extends ReactiveElement {
     }
   }
   static get observedAttributes() {
-    return ['checked', 'indeterminate', 'disabled'];
+    return ['checked', 'disabled'];
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
-    this.#updateAriaStatus();
-  }
-  @property({ type: Boolean }) indeterminate = false;
-  #indeterminateChanged() {
-    this.#updateAriaStatus();
+    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
@@ -72,38 +58,29 @@ export default class Checkbox extends ReactiveElement {
   }
 
   #boundClick = this.#handleClick.bind(this);
-  #boundKeyUp = this.#handleKeyUp.bind(this);
+  #boundKeyDown = this.#handleKeyDown.bind(this);
+  _ignoreClick = false;
   /** @param {PointerEvent} e */
   #handleClick(e) {
     e.stopPropagation();
     e.preventDefault();
+    if (this._ignoreClick) return;
     this._toggleStatus();
   }
   /** @param {KeyboardEvent} e */
-  #handleKeyUp(e) {
-    if (e.key === ' ') {
+  #handleKeyDown(e) {
+    if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
       this._toggleStatus();
     }
   }
 
-  #updateAriaStatus() {
-    this.setAttribute(
-      'data-last-status',
-      PROPERTY_FROM_ARIA_CHECKED[this.getAttribute('aria-checked') || 'false']
-    );
-    this.setAttribute(
-      'aria-checked',
-      this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
-    );
-  }
   _toggleStatus() {
     if (this.disabled) {
       return;
     }
     this.checked = !this.checked;
-    this.indeterminate = false;
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,
