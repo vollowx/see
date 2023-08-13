@@ -19,3 +19,20 @@
     transparent 100%
   );
 }
+
+:host::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  background-color: currentColor;
+  transition: opacity 67ms linear;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :host([hover])::before {
+    opacity: 0.08;
+  }
+}

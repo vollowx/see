@@ -8,7 +8,6 @@ import MdRipple from './ripple.js';
 
 import MdCheckboxStyle from './checkbox.css?inline';
 import MdFocusRingStyle from './focus-ring.css?inline';
-import MdStateLayerStyle from './state-layer.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 @customElement('md-checkbox')
@@ -18,7 +17,6 @@ export default class MdCheckbox extends Checkbox {
       ...super.styles,
       ...sheetsFromCss([
         MdFocusRingStyle,
-        MdStateLayerStyle,
         MdTargetStyle,
         MdCheckboxStyle,
       ]),
@@ -28,7 +26,6 @@ export default class MdCheckbox extends Checkbox {
     return html`
       <div part="container">
         <span part="focus-ring"></span>
-        <span part="state-layer"></span>
         <span part="target"></span>
         <md-ripple></md-ripple>
         ${this.templateIcon}

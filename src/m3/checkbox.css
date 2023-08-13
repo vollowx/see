@@ -54,7 +54,6 @@
   place-items: center;
   height: var(--_checkbox-size);
   position: relative;
-  transform: none;
   width: var(--_checkbox-size);
   margin: 15px;
 }
@@ -162,7 +161,6 @@
   height: 40px;
   inset: unset;
 }
-[part~='state-layer'],
 md-ripple {
   width: 40px;
   height: 40px;
@@ -170,6 +168,6 @@ md-ripple {
   border-radius: 9999px;
   color: var(--_unchecked-ripple-color);
 }
-:host([checked]) [part~='state-layer'] {
+:host([checked]) md-ripple {
   color: var(--_checked-ripple-color);
 }

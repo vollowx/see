@@ -47,6 +47,8 @@ export default class MdRipple extends ReactiveElement {
 
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
+  #boundMouseEnter = this.#handleMouseEnter.bind(this);
+  #boundMouseLeave = this.#handleMouseLeave.bind(this);
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerUp = this.#handlePointerUp.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
@@ -83,6 +85,12 @@ export default class MdRipple extends ReactiveElement {
       this.removeRipples();
     }
   }
+  #handleMouseEnter() {
+    this.toggleAttribute('hover', true);
+  }
+  #handleMouseLeave() {
+    this.toggleAttribute('hover', false);
+  }
   #handlePointerUp() {
     this.removeRipples();
   }
@@ -97,12 +105,16 @@ export default class MdRipple extends ReactiveElement {
   #handleAttach(prev = null, next) {
     prev?.removeEventListener('keydown', this.#boundKeyDown);
     prev?.removeEventListener('keyup', this.#boundKeyUp);
+    prev?.removeEventListener('mouseenter', this.#boundMouseEnter);
+    prev?.removeEventListener('mouseleave', this.#boundMouseLeave);
     prev?.removeEventListener('pointerdown', this.#boundPointerDown);
     prev?.removeEventListener('pointerup', this.#boundPointerUp);
     prev?.removeEventListener('touchend', this.#boundTouchEnd);
 
     next.addEventListener('keydown', this.#boundKeyDown);
     next.addEventListener('keyup', this.#boundKeyUp);
+    next.addEventListener('mouseenter', this.#boundMouseEnter);
+    next.addEventListener('mouseleave', this.#boundMouseLeave);
     next.addEventListener('pointerdown', this.#boundPointerDown);
     next.addEventListener('pointerup', this.#boundPointerUp);
     next.addEventListener('touchend', this.#boundTouchEnd);

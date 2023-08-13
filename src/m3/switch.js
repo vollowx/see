@@ -4,9 +4,10 @@ import Checkbox from '../base/checkbox.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property, query } from '../core/decorators.js';
 
+import MdRipple from './ripple.js';
+
 import MdSwitchStyle from './switch.css?inline';
 import MdFocusRingStyle from './focus-ring.css?inline';
-import MdStateLayerStyle from './state-layer.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 function isRTL() {
@@ -18,12 +19,7 @@ export default class MdSwitch extends Checkbox {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss([
-        MdFocusRingStyle,
-        MdStateLayerStyle,
-        MdTargetStyle,
-        MdSwitchStyle,
-      ]),
+      ...sheetsFromCss([MdFocusRingStyle, MdTargetStyle, MdSwitchStyle]),
     ];
   }
   get template() {
@@ -33,7 +29,7 @@ export default class MdSwitch extends Checkbox {
         <span part="target"></span>
         <span part="track"></span>
         <span part="thumb">
-          <span part="state-layer"></span>
+          <md-ripple></md-ripple>
           ${this.templateOffIcon}${this.templateOnIcon}
         </span>
       </div>
@@ -58,12 +54,15 @@ export default class MdSwitch extends Checkbox {
       </svg>
     `.innerHTML;
   }
+  /** @type {MdRipple} */
+  @query('md-ripple') $ripple;
   /** @type {HTMLSpanElement} */
   @query('[part~="switch"]') $switch;
   /** @type {HTMLSpanElement} */
   @query('[part~="thumb"]') $thumb;
   connectedCallback() {
     super.connectedCallback();
+    this.$ripple.attach(this);
     this.addEventListener('pointerdown', this.#boundPointerDown);
     this.addEventListener('pointerup', this.#boundPointerUp);
   }

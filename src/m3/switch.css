@@ -77,7 +77,9 @@
   --_thumb-diff-pointer: 0px;
   background-color: var(--_unchecked-thumb-color);
   border-radius: 50%;
-  display: block;
+  display: grid;
+  place-content: center;
+  place-items: center;
   width: var(--_thumb-diameter);
   height: var(--_thumb-diameter);
   position: absolute;
@@ -138,20 +140,12 @@
   opacity: 0.38;
 }
 
-[part~='state-layer'] {
-  /* Using `left` and `top` instead of `transform` is because `transform` will make state layers shake */
-  writing-mode: horizontal-tb;
-  left: calc(var(--_thumb-diameter) / 2);
-  top: calc(var(--_thumb-diameter) / 2);
+md-ripple {
   width: 40px;
   height: 40px;
+  inset: unset;
   color: var(--_unchecked-ripple-color);
-  transform: translate(-50%, -50%);
-  transition:
-    color 67ms linear,
-    left 250ms var(--md-sys-motion-easing-standard),
-    top 250ms var(--md-sys-motion-easing-standard);
 }
-:host([checked]) [part~='state-layer'] {
+:host([checked]) md-ripple {
   color: var(--_checked-ripple-color);
 }
