@@ -15,11 +15,7 @@ export default class MdCheckbox extends Checkbox {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss([
-        MdFocusRingStyle,
-        MdTargetStyle,
-        MdCheckboxStyle,
-      ]),
+      ...sheetsFromCss([MdFocusRingStyle, MdTargetStyle, MdCheckboxStyle]),
     ];
   }
   get template() {

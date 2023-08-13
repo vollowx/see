@@ -15,11 +15,7 @@ export default class MdButton extends Button {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss([
-        MdFocusRingStyle,
-        MdTargetStyle,
-        MdButtonStyle,
-      ]),
+      ...sheetsFromCss([MdFocusRingStyle, MdTargetStyle, MdButtonStyle]),
     ];
   }
   get template() {
