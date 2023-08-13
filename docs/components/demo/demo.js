@@ -1,22 +1,22 @@
 // @ts-check
 
-import BaseElement from '../../../src/components/base/base-element.js';
-import { html } from '../../../src/components/base/template.js';
+import ReactiveElement from '../../../src/core/reactive-element.js';
+import { html, sheetsFromCss } from '../../../src/core/template.js';
+import { customElement } from '../../../src/core/decorators.js';
 
-import DcDemoElementStyle from './demo.css?inline';
+import DcDemoStyle from './demo.css?inline';
 
-export default class DcDemoElement extends BaseElement {
-  static get is() {
-    return 'dc-demo';
+@customElement('dc-demo')
+export default class DcDemo extends ReactiveElement {
+  get styles() {
+    return [...sheetsFromCss([DcDemoStyle])];
   }
   render() {
     return html`
       <style>
-        ${DcDemoElementStyle}
+        ${DcDemoStyle}
       </style>
       <div id="contents"><slot></slot></div>
     `;
   }
 }
-
-customElements.define(DcDemoElement.is, DcDemoElement);

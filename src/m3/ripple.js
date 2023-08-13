@@ -1,7 +1,8 @@
 // @ts-check
 
-import { BaseElement, sheetsFromCss, customElement, property } from '../base';
-import { distance } from '../../utils';
+import ReactiveElement from '../core/reactive-element.js';
+import { sheetsFromCss } from '../core/template.js';
+import { customElement, property } from '../core/decorators.js';
 
 import MdRippleStyle from './ripple.css?inline';
 
@@ -10,11 +11,12 @@ const OPACITY_IN_MS = 105;
 const OPACITY_OUT_MS = 375;
 const MINIMUM_PRESS_MS = 225;
 
-/**
- * TODO: Manual attaching
- */
+function distance({ x: ax, y: ay }, { x: bx, y: by }) {
+  return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
+}
+
 @customElement('md-ripple')
-export default class MdRipple extends BaseElement {
+export default class MdRipple extends ReactiveElement {
   get styles() {
     return [...sheetsFromCss([MdRippleStyle])];
   }

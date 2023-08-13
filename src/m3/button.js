@@ -1,23 +1,18 @@
 // @ts-check
 
-import {
-  BaseElement,
-  html,
-  sheetsFromCss,
-  customElement,
-  property,
-  query,
-} from '../base';
+import ReactiveElement from '../core/reactive-element.js';
+import { html, sheetsFromCss } from '../core/template.js';
+import { customElement, property, query } from '../core/decorators.js';
 
-import MdRipple from '../ripple/ripple.js';
+import MdRipple from './ripple.js';
 
 import MdButtonStyle from './button.css?inline';
-import MdFocusRingStyle from '../shared/focus-ring.css?inline';
-import MdStateLayerStyle from '../shared/state-layer.css?inline';
-import MdTargetStyle from '../shared/target.css?inline';
+import MdFocusRingStyle from './focus-ring.css?inline';
+import MdStateLayerStyle from './state-layer.css?inline';
+import MdTargetStyle from './target.css?inline';
 
 @customElement('md-button')
-export default class MdButton extends BaseElement {
+export default class MdButton extends ReactiveElement {
   get styles() {
     return [
       ...sheetsFromCss([

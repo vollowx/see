@@ -1,6 +1,6 @@
 // @ts-check
 
-import BaseElement from './base-element.js';
+import ReactiveElement from './reactive-element.js';
 
 /**
  * @typedef {BooleanConstructor|StringConstructor|NumberConstructor} PropertyTypes
@@ -20,7 +20,7 @@ import BaseElement from './base-element.js';
 const defer = (callback) => setTimeout(() => callback(), 0);
 
 /**
- * @param {(name: string, target: BaseElement) => PropertyDescriptor} descriptor
+ * @param {(name: string, target: ReactiveElement) => PropertyDescriptor} descriptor
  */
 function decorateProperty(descriptor) {
   /**

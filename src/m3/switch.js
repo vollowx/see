@@ -1,21 +1,19 @@
 // @ts-check
-
-import {
-  BaseElement,
-  html,
-  sheetsFromCss,
-  customElement,
-  property,
-  query,
-} from '../base';
-import { isRTL } from '../../utils';
+//
+import ReactiveElement from '../core/reactive-element.js';
+import { html, sheetsFromCss } from '../core/template.js';
+import { customElement, property, query } from '../core/decorators.js';
 
 import MdSwitchStyle from './switch.css?inline';
-import MdFocusRingStyle from '../shared/focus-ring.css?inline';
-import MdTargetStyle from '../shared/target.css?inline';
+import MdFocusRingStyle from './focus-ring.css?inline';
+import MdTargetStyle from './target.css?inline';
+
+function isRTL() {
+  return document.documentElement.dir === 'rtl';
+}
 
 @customElement('md-switch')
-export default class MdSwitch extends BaseElement {
+export default class MdSwitch extends ReactiveElement {
   get styles() {
     return [...sheetsFromCss([MdSwitchStyle, MdFocusRingStyle, MdTargetStyle])];
   }
