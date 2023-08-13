@@ -23,7 +23,7 @@ export default class MdRipple extends ReactiveElement {
   get styles() {
     return [...sheetsFromCss([MdRippleStyle])];
   }
-  /** @type {HTMLElement} */
+  /** @type {HTMLElement?} */
   $controller;
   /** @type {HTMLSpanElement[]} */
   $ripples = [];
@@ -34,7 +34,10 @@ export default class MdRipple extends ReactiveElement {
         ? this.parentNode.host
         : this.parentNode;
 
-    this.attach(this.$controller);
+    this.attach(/** @type {HTMLElement} */ (this.$controller));
+  }
+  disconnectedCallback() {
+    this.detach();
   }
   static get observedAttributes() {
     return ['centered', 'nokey'];
@@ -54,7 +57,9 @@ export default class MdRipple extends ReactiveElement {
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    this.$controller.setPointerCapture(e.pointerId);
+    /** @type {HTMLElement} */ (this.$controller).setPointerCapture(
+      e.pointerId
+    );
     this.createRipple(e);
   }
   /** @param {KeyboardEvent} e */
@@ -100,9 +105,9 @@ export default class MdRipple extends ReactiveElement {
 
   /**
    * @param {HTMLElement?} prev
-   * @param {HTMLElement} next
+   * @param {HTMLElement?} next
    */
-  #handleAttach(prev = null, next) {
+  #handleAttach(prev = null, next = null) {
     prev?.removeEventListener('keydown', this.#boundKeyDown);
     prev?.removeEventListener('keyup', this.#boundKeyUp);
     prev?.removeEventListener('mouseenter', this.#boundMouseEnter);
@@ -111,19 +116,22 @@ export default class MdRipple extends ReactiveElement {
     prev?.removeEventListener('pointerup', this.#boundPointerUp);
     prev?.removeEventListener('touchend', this.#boundTouchEnd);
 
-    next.addEventListener('keydown', this.#boundKeyDown);
-    next.addEventListener('keyup', this.#boundKeyUp);
-    next.addEventListener('mouseenter', this.#boundMouseEnter);
-    next.addEventListener('mouseleave', this.#boundMouseLeave);
-    next.addEventListener('pointerdown', this.#boundPointerDown);
-    next.addEventListener('pointerup', this.#boundPointerUp);
-    next.addEventListener('touchend', this.#boundTouchEnd);
+    next?.addEventListener('keydown', this.#boundKeyDown);
+    next?.addEventListener('keyup', this.#boundKeyUp);
+    next?.addEventListener('mouseenter', this.#boundMouseEnter);
+    next?.addEventListener('mouseleave', this.#boundMouseLeave);
+    next?.addEventListener('pointerdown', this.#boundPointerDown);
+    next?.addEventListener('pointerup', this.#boundPointerUp);
+    next?.addEventListener('touchend', this.#boundTouchEnd);
 
     this.$controller = next;
   }
   /** @param {HTMLElement} next */
   attach(next) {
     this.#handleAttach(this.$controller, next);
+  }
+  detach() {
+    this.#handleAttach(this.$controller);
   }
   /** @param {PointerEvent?} e */
   #calculateRipple(e = null) {
