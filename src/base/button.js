@@ -47,8 +47,6 @@ export default class Button extends ReactiveElement {
     this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
   }
 
-  #spaceKeyDown = false;
-
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
   /** @param {KeyboardEvent} e */
@@ -58,18 +56,13 @@ export default class Button extends ReactiveElement {
     e.stopPropagation();
     if (e.key === 'Enter') {
       this.click();
-    } else if (e.key === ' ') {
-      this.#spaceKeyDown = true;
     }
   }
   /** @param {KeyboardEvent} e */
   #handleKeyUp(e) {
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
-    }
-    if (this.#spaceKeyDown && e.key === ' ') {
-      this.#spaceKeyDown = false;
       this.click();
     }
   }

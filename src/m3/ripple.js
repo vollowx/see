@@ -66,9 +66,6 @@ export default class MdRipple extends ReactiveElement {
   #handleKeyDown(e) {
     if (this.noKey) return;
 
-    if (e.key !== ' ' && e.key !== 'Enter') return;
-    e.preventDefault();
-    e.stopPropagation();
     if (e.key === 'Enter') {
       this.createRipple();
       this.removeRipples();
@@ -81,10 +78,6 @@ export default class MdRipple extends ReactiveElement {
   #handleKeyUp(e) {
     if (this.noKey) return;
 
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
-    }
     if (this.#spaceKeyDown && e.key === ' ') {
       this.#spaceKeyDown = false;
       this.removeRipples();
