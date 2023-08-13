@@ -23,9 +23,9 @@ export default class MdButton extends Button {
       <span part="focus-ring"></span>
       <span part="target"></span>
       <md-ripple></md-ripple>
-      <slot name="icon"></slot>
+      <slot name="icon" aria-hidden="true"></slot>
       ${super.template.innerHTML}
-      <slot name="trailingicon"></slot>
+      <slot name="trailingicon" aria-hidden="true"></slot>
     `;
   }
   /** @type {MdRipple} */
