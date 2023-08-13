@@ -172,12 +172,48 @@
       <h2>Checkbox</h2>
 
       <dc-demo>
-        <md-checkbox>Label</md-checkbox>
-        <md-checkbox checked>Label</md-checkbox>
-        <md-checkbox disabled>Label</md-checkbox>
-        <md-checkbox disabled checked>Label</md-checkbox>
-        <md-checkbox indeterminate>Label</md-checkbox>
-        <md-checkbox error>Label</md-checkbox>
+        <md-checkbox id="checkbox1">Controlled</md-checkbox>
+
+        <div class="divider"></div>
+
+        <md-checkbox id="checkbox2">Checked</md-checkbox>
+        <md-checkbox id="checkbox3">Indeterminate</md-checkbox>
+        <md-checkbox id="checkbox4">Error</md-checkbox>
+        <md-checkbox id="checkbox5">Disabled</md-checkbox>
+        <div>
+          <label for="checkbox-input1" style="display: block">Label</label>
+          <input type="text" id="checkbox-input1" value="Controlled" />
+        </div>
+
+        <script>
+          const checkbox1 = document.querySelector('#checkbox1');
+          const checkbox2 = document.querySelector('#checkbox2');
+          const checkbox3 = document.querySelector('#checkbox3');
+          const checkbox4 = document.querySelector('#checkbox4');
+          const checkbox5 = document.querySelector('#checkbox5');
+          const checkboxInput1 = document.querySelector('#checkbox-input1');
+
+          checkbox2.addEventListener(
+            'change',
+            (e) => (checkbox1.checked = e.detail)
+          );
+          checkbox3.addEventListener(
+            'change',
+            (e) => (checkbox1.indeterminate = e.detail)
+          );
+          checkbox4.addEventListener(
+            'change',
+            (e) => (checkbox1.error = e.detail)
+          );
+          checkbox5.addEventListener(
+            'change',
+            (e) => (checkbox1.disabled = e.detail)
+          );
+          checkboxInput1.addEventListener(
+            'input',
+            (e) => (checkbox1.textContent = checkboxInput1.value)
+          );
+        </script>
       </dc-demo>
 
       <h2>Ripple</h2>

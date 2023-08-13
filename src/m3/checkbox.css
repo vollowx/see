@@ -32,6 +32,7 @@
   --_checked-outline-color: var(--md-sys-color-error);
   --_unchecked-mark-color: var(--md-sys-color-surface-container-highest);
   --_checked-mark-color: var(--md-sys-color-on-error);
+  --_unchecked-ripple-color: var(--md-sys-color-error);
   --_checked-ripple-color: var(--md-sys-color-error);
 }
 :host([disabled]) {
@@ -100,30 +101,60 @@
   inset: 0;
   height: 18px;
   width: 18px;
+  transition: opacity 50ms linear;
   fill: var(--_checked-mark-color);
 }
 :host(:not([checked]):not([indeterminate])) [part~='icon'] {
   opacity: 0;
 }
-[part~='mark-short'] {
-  height: 2px;
-  width: 2px;
-}
-[part~='mark-long'] {
-  height: 2px;
-  width: 10px;
-}
-:host([checked]:not([indeterminate])) [part~='mark-short'] {
-  height: 5.6568542495px;
-}
-:host([checked]:not([indeterminate])) [part~='mark-long'] {
-  width: 11.313708499px;
-}
-:host([checked]) [part~='mark'] {
-  transform: scaley(-1) translate(7px, -14px) rotate(45deg);
+[part~='mark'] {
+  transition-duration: 150ms;
+  transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
+  transform: scaleY(-1) translate(7px, -14px) rotate(45deg);
 }
 :host([indeterminate]) [part~='mark'] {
   transform: scaleY(-1) translate(4px, -10px) rotate(0deg);
+}
+[part~='mark-short'] {
+  height: 0px;
+  width: 2px;
+  transition-property: transform, height;
+}
+[part~='mark-long'] {
+  height: 2px;
+  width: 0px;
+  transition-property: transform, width;
+}
+:host(:not([checked]):not([indeterminate])[prev='indeterminate'])
+  [part~='mark-short'],
+:host(:not([checked]):not([indeterminate])[prev='indeterminate'])
+  [part~='mark-long'] {
+  transition-delay: 150ms;
+}
+:host(:not([checked]):not([indeterminate])[prev='checked'])
+  [part~='mark-short'] {
+  transition-delay: 150ms;
+}
+:host([checked]) [part~='mark-short'] {
+  height: 5.6568542495px;
+}
+:host([checked][prev='unchecked']) [part~='mark-short'] {
+  transition-property: none;
+}
+:host([checked]) [part~='mark-long'] {
+  width: 11.313708499px;
+}
+:host([indeterminate]) [part~='mark-short'] {
+  height: 2px;
+}
+:host([indeterminate]) [part~='mark-long'] {
+  width: 10px;
+}
+:host([indeterminate]:not([prev='checked'])) [part~='mark-short'] {
+  transition-property: height;
+}
+:host([indeterminate]:not([prev='checked'])) [part~='mark-long'] {
+  transition-property: width;
 }
 
 [part~='focus-ring'] {
@@ -137,7 +168,7 @@ md-ripple {
   height: 40px;
   inset: unset;
   border-radius: 9999px;
-  color: var(--_ripple-color);
+  color: var(--_unchecked-ripple-color);
 }
 :host([checked]) [part~='state-layer'] {
   color: var(--_checked-ripple-color);

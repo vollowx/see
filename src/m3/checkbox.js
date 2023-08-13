@@ -2,7 +2,7 @@
 
 import Checkbox from '../base/checkbox.js';
 import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, query } from '../core/decorators.js';
+import { customElement, property, query } from '../core/decorators.js';
 
 import MdRipple from './ripple.js';
 
@@ -50,4 +50,5 @@ export default class MdCheckbox extends Checkbox {
     super.connectedCallback();
     this.$ripple.attach(this);
   }
+  @property({ type: Boolean }) error = false;
 }

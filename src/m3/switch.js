@@ -72,9 +72,6 @@ export default class MdSwitch extends Checkbox {
     this.removeEventListener('pointerdown', this.#boundPointerDown);
     this.removeEventListener('pointerup', this.#boundPointerUp);
   }
-  static get observedAttributes() {
-    return [...super.observedAttributes, 'icons', 'checkedicononly'];
-  }
   @property({ type: Boolean }) icons = false;
   @property({ type: Boolean }) checkedIconOnly = false;
 
