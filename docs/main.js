@@ -4,7 +4,7 @@ import './main.css';
 
 function generateToC() {
   const root = document.body;
-  const headings = root.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  const headings = root.querySelectorAll('h2, h3, h4, h5, h6');
 
   const tocContainer = document.getElementById('table-of-contents-list');
 
@@ -16,7 +16,7 @@ function generateToC() {
   let higherIds = [];
 
   headings.forEach((heading) => {
-    let level = parseInt(heading.localName.replace('h', ''));
+    let level = Number(heading.localName.replace('h', '')) - 1;
     let title = heading.textContent;
 
     let selfId = (heading.textContent || '').toLowerCase().replace(/ /g, '-');
