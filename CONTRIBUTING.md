@@ -1,5 +1,9 @@
 # Contributing
 
+## Behavior
+
+See [W3C](https://www.w3.org/WAI/ARIA/apg/example-index/)
+
 ## Styling
 
 ### Element selector
