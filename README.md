@@ -1,6 +1,7 @@
 ```
-Wait, this project is stopped. Don't star.
-Maybe I will rebuild it in huge-pancake/detailed-components, I don't have much time.
+Project stopped.
+Don't star.
+Maybe you will be interested in https://github.com/vollowx/m3-web-components
 ```
 
 # tiny-material
