@@ -17,20 +17,20 @@ export default class MdSwitch extends ReactiveElement {
   get styles() {
     return [...sheetsFromCss([MdSwitchStyle, MdFocusRingStyle, MdTargetStyle])];
   }
-  render() {
+  get template() {
     return html`
       <div part="switch">
         <span part="focus-ring"></span>
         <span part="target"></span>
         <span part="track"></span>
         <span part="thumb">
-          ${this.renderOffIcon()}${this.renderOnIcon()}
+          ${this.templateOffIcon}${this.templateOnIcon}
         </span>
       </div>
       <slot></slot>
     `;
   }
-  renderOnIcon() {
+  get templateOnIcon() {
     return html`
       <svg part="icons icon-on" viewBox="0 0 24 24">
         <path
@@ -39,7 +39,7 @@ export default class MdSwitch extends ReactiveElement {
       </svg>
     `.innerHTML;
   }
-  renderOffIcon() {
+  get templateOffIcon() {
     return html`
       <svg part="icons icon-off" viewBox="0 0 24 24">
         <path

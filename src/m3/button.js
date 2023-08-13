@@ -23,7 +23,7 @@ export default class MdButton extends ReactiveElement {
       ]),
     ];
   }
-  render() {
+  get template() {
     return html`
       <span part="focus-ring"></span>
       <span part="state-layer"></span>

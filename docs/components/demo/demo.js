@@ -11,7 +11,7 @@ export default class DcDemo extends ReactiveElement {
   get styles() {
     return [...sheetsFromCss([DcDemoStyle])];
   }
-  render() {
+  get template() {
     return html`
       <style>
         ${DcDemoStyle}
