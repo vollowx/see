@@ -9,7 +9,7 @@
 | Components                    | Functionality | ARIA | Style | Restyle |
 | ----------------------------- | :-----------: | :--: | :---: | :-----: |
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
-| Button                        |      ✅       |  ✅  |  ✅   |   ❌    |
+| Button                        |      🟡       |  ✅  |  ✅   |   ❌    |
 | FAB                           |      ❌       |  ❌  |  ❌   |   ❌    |
 | Icon button                   |      ❌       |  ❌  |  ❌   |   ❌    |
 | Segmented button              |      ❌       |  ❌  |  ❌   |   ❌    |
@@ -18,7 +18,7 @@
 | Bottom app bar                |      ❌       |  ❌  |  ❌   |   ❌    |
 | Bottom sheet                  |      ❌       |  ❌  |  ❌   |   ❌    |
 | Card                          |      ❌       |  ❌  |  ❌   |   ❌    |
-| Checkbox                      |      🟡       |  🟡  |  ✅   |   ❌    |
+| Checkbox                      |      ✅       |  ✅  |  ✅   |   ❌    |
 | Chips                         |      ❌       |  ❌  |  ❌   |   ❌    |
 | Data table                    |      ❌       |  ❌  |  ❌   |   ❌    |
 | Date picker                   |      ❌       |  ❌  |  ❌   |   ❌    |
@@ -38,7 +38,7 @@
 | Select                        |      ❌       |  ❌  |  ❌   |   ❌    |
 | Slider                        |      ❌       |  ❌  |  ❌   |   ❌    |
 | Snackbar                      |      ❌       |  ❌  |  ❌   |   ❌    |
-| Switch                        |      🟡       |  ✅  |  ✅   |   ❌    |
+| Switch                        |      ✅       |  ✅  |  ✅   |   ❌    |
 | Tabs                          |      ❌       |  ❌  |  ❌   |   ❌    |
 | Text field                    |      ❌       |  ❌  |  ❌   |   ❌    |
 | Time picker                   |      ❌       |  ❌  |  ❌   |   ❌    |
