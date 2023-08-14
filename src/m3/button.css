@@ -21,13 +21,13 @@
   font: 500 0.875rem / 1.25rem var(--md-sys-typography-font-family);
   background-color: color-mix(
     in srgb,
-    var(--_background-color),
-    transparent calc(100% - var(--_background-opacity, 100%))
+    var(--_background-color) var(--_background-opacity, 100%),
+    transparent
   );
   color: color-mix(
     in srgb,
-    var(--_text-color),
-    transparent calc(100% - var(--_text-opacity, 100%))
+    var(--_text-color) var(--_text-opacity, 100%),
+    transparent
   );
 }
 :host([elevated]) {
@@ -43,8 +43,8 @@
   border: 1px solid
     color-mix(
       in srgb,
-      var(--_outline-color),
-      transparent calc(100% - var(--_outline-opacity, 100%))
+      var(--_outline-color) var(--_outline-opacity, 100%),
+      transparent
     );
   --_background-color: transparent !important;
   --_text-color: var(--md-sys-color-primary);

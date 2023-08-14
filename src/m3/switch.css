@@ -73,21 +73,21 @@
 [part~='track'] {
   background-color: color-mix(
     in srgb,
-    var(--_track-color),
-    transparent calc(100% - var(--_track-opacity, 100%))
+    var(--_track-color) var(--_track-opacity, 100%),
+    transparent
   );
   border: 2px solid
     color-mix(
       in srgb,
-      var(--_outline-color),
-      transparent calc(100% - var(--_outline-opacity, 100%))
+      var(--_outline-color) var(--_outline-opacity, 100%),
+      transparent
     );
   border-radius: 50px;
   height: 32px;
   position: initial;
   transition:
-    background-color 300ms var(--md-sys-motion-overshoot),
-    border-color 300ms var(--md-sys-motion-overshoot);
+    background-color 67ms linear,
+    border-color 67ms linear;
   width: 52px;
   box-sizing: border-box;
   display: block;
@@ -115,8 +115,8 @@
   );
   background-color: color-mix(
     in srgb,
-    var(--_thumb-color),
-    transparent calc(100% - var(--_thumb-opacity, 100%))
+    var(--_thumb-color) var(--_thumb-opacity, 100%),
+    transparent
   );
 }
 :host([checked]) [part~='thumb'] {
@@ -143,8 +143,8 @@
   height: 16px;
   fill: color-mix(
     in srgb,
-    var(--_icon-color),
-    transparent calc(100% - var(--_icon-opacity, 0%))
+    var(--_icon-color) var(--_icon-opacity, 0%),
+    transparent
   );
   transition: fill 67ms linear;
 }

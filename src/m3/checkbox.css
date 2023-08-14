@@ -75,14 +75,14 @@
     border-color 50ms linear;
   background-color: color-mix(
     in srgb,
-    var(--_container-color),
-    transparent calc(100% - var(--_container-opacity, 100%))
+    var(--_container-color) var(--_container-opacity, 100%),
+    transparent
   );
   border: var(--md-checkbox-outline-width, 2px) solid
     color-mix(
       in srgb,
-      var(--_outline-color),
-      transparent calc(100% - var(--_outline-opacity, 100%))
+      var(--_outline-color) var(--_outline-opacity, 100%),
+      transparent
     );
 }
 
@@ -100,8 +100,8 @@
   transition: fill 50ms linear;
   fill: color-mix(
     in srgb,
-    var(--_mark-color),
-    transparent calc(100% - var(--_mark-opacity, 0%))
+    var(--_mark-color) var(--_mark-opacity, 0%),
+    transparent
   );
 }
 [part~='mark'] {
