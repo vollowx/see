@@ -1,14 +1,9 @@
 :host {
-  --_unchecked-outline-color: var(--md-sys-color-outline);
-  --_checked-outline-color: var(--md-sys-color-primary);
-  --_unchecked-track-color: var(--md-sys-color-surface-container-highest);
-  --_checked-track-color: var(--md-sys-color-primary);
-  --_unchecked-thumb-color: var(--md-sys-color-outline);
-  --_checked-thumb-color: var(--md-sys-color-on-primary);
-  --_unchecked-icon-color: var(--md-sys-color-surface-container-highest);
-  --_checked-icon-color: var(--md-sys-color-on-primary-container);
-  --_unchecked-ripple-color: var(--md-sys-color-on-surface);
-  --_checked-ripple-color: var(--md-sys-color-primary);
+  --_outline-color: var(--md-sys-color-outline);
+  --_track-color: var(--md-sys-color-surface-container-highest);
+  --_thumb-color: var(--md-sys-color-outline);
+  --_icon-color: var(--md-sys-color-surface-container-highest);
+  --_ripple-color: var(--md-sys-color-on-surface);
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   display: inline-flex;
@@ -20,28 +15,52 @@
   user-select: none;
   touch-action: none;
 }
+:host([checked]) {
+  --_outline-color: var(--md-sys-color-primary);
+  --_track-color: var(--md-sys-color-primary);
+  --_thumb-color: var(--md-sys-color-on-primary);
+  --_icon-color: var(--md-sys-color-on-primary-container);
+  --_ripple-color: var(--md-sys-color-primary);
+}
+:host([disabled]) {
+  --_outline-color: var(--md-sys-color-on-surface);
+  --_outline-opacity: 12%;
+  --_track-color: var(--md-sys-color-surface-variant);
+  --_track-opacity: 12%;
+  --_thumb-color: var(--md-sys-color-on-surface);
+  --_thumb-opacity: 38%;
+  --_icon-color: var(--md-sys-color-surface-container-highest);
+  cursor: default;
+  pointer-events: none;
+}
+:host([disabled][checked]) {
+  --_outline-color: var(--md-sys-color-surface);
+  --_track-color: var(--md-sys-color-on-surface);
+  --_thumb-color: var(--md-sys-color-surface);
+  --_thumb-opacity: 100%;
+  --_icon-color: var(--md-sys-color-on-surface);
+}
+:host([icons]:not([checked]):not([checkedicononly])) [part~='icon-off'] {
+  --_icon-opacity: 100%;
+}
+:host([icons][checked]) [part~='icon-on'] {
+  --_icon-opacity: 100%;
+}
+:host([icons][checked][disabled]) [part~='icon-on'] {
+  --_icon-opacity: 38%;
+}
+@media (hover: hover) and (pointer: fine) {
+  :host(:hover) {
+    --_thumb-color: var(--md-sys-color-on-surface-variant);
+  }
+  :host([checked]:hover) {
+    --_thumb-color: var(--md-sys-color-primary-container);
+  }
+}
 @media (forced-colors: active) {
   :host {
     forced-color-adjust: none;
   }
-}
-@media (hover: hover) and (pointer: fine) {
-  :host(:hover) {
-    --_unchecked-thumb-color: var(--md-sys-color-on-surface-variant);
-    --_checked-thumb-color: var(--md-sys-color-primary-container);
-  }
-}
-:host([disabled]) {
-  --_unchecked-outline-color: var(--md-sys-color-on-surface);
-  --_checked-outline-color: var(--md-sys-color-surface);
-  --_unchecked-track-color: var(--md-sys-color-surface-variant);
-  --_checked-track-color: var(--md-sys-color-on-surface);
-  --_unchecked-thumb-color: var(--md-sys-color-on-surface);
-  --_checked-thumb-color: var(--md-sys-color-surface);
-  --_unchecked-icon-color: var(--md-sys-color-surface-container-highest);
-  --_checked-icon-color: var(--md-sys-color-on-surface);
-  cursor: default;
-  pointer-events: none;
 }
 
 [part~='switch'] {
@@ -52,30 +71,32 @@
 }
 
 [part~='track'] {
-  background-color: var(--_unchecked-track-color);
-  border: 2px solid var(--_unchecked-outline-color);
+  background-color: color-mix(
+    in srgb,
+    var(--_track-color),
+    transparent calc(100% - var(--_track-opacity, 100%))
+  );
+  border: 2px solid
+    color-mix(
+      in srgb,
+      var(--_outline-color),
+      transparent calc(100% - var(--_outline-opacity, 100%))
+    );
   border-radius: 50px;
   height: 32px;
   position: initial;
-  transition: background-color var(--md-sys-motion-overshoot) 300ms;
+  transition:
+    background-color 300ms var(--md-sys-motion-overshoot),
+    border-color 300ms var(--md-sys-motion-overshoot);
   width: 52px;
   box-sizing: border-box;
   display: block;
-}
-:host([checked]) [part~='track'] {
-  background-color: var(--_checked-track-color);
-  border-color: var(--_checked-outline-color);
-}
-:host([disabled]) [part~='track'] {
-  opacity: 0.12;
 }
 
 [part~='thumb'] {
   --_thumb-diameter: 16px;
   --_thumb-center-edge-distance_: 16px;
   --_thumb-diff-default: 20px;
-  --_thumb-diff-pointer: 0px;
-  background-color: var(--_unchecked-thumb-color);
   border-radius: 50%;
   display: grid;
   place-content: center;
@@ -90,29 +111,28 @@
     margin 300ms var(--md-sys-motion-overshoot);
   z-index: 1;
   margin-inline-start: calc(
-    var(--_thumb-diff-pointer) - var(--_thumb-diff-default)
+    var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
+  );
+  background-color: color-mix(
+    in srgb,
+    var(--_thumb-color),
+    transparent calc(100% - var(--_thumb-opacity, 100%))
   );
 }
 :host([checked]) [part~='thumb'] {
   --_thumb-diameter: 24px;
   --_thumb-diff-default: -20px;
-  background-color: var(--_checked-thumb-color);
-}
-:host([disabled]) [part~='thumb'] {
-  opacity: 0.38;
-}
-:host([disabled][checked]) [part~='thumb'] {
-  opacity: 1;
+  background-color: var(--_thumb-color);
 }
 :host([icons]:not([checkedicononly])) [part~='thumb'] {
   --_thumb-diameter: 24px;
 }
 :host(:active) [part~='thumb'] {
   --_thumb-diameter: 28px !important;
-  --_unchecked-thumb-color: var(--md-sys-color-on-surface-variant);
+  --_thumb-color: var(--md-sys-color-on-surface-variant);
 }
 :host([checked]:active) [part~='thumb'] {
-  --_checked-thumb-color: var(--md-sys-color-primary-container);
+  --_thumb-color: var(--md-sys-color-primary-container);
 }
 
 [part~='icons'] {
@@ -121,31 +141,17 @@
   margin: auto;
   width: 16px;
   height: 16px;
-  fill: var(--_unchecked-icon-color);
-  transition:
-    fill 67ms linear,
-    opacity 33ms linear;
-  opacity: 0;
-}
-:host([checked]) [part~='icons'] {
-  fill: var(--_checked-icon-color);
-}
-:host([icons]:not([checked]):not([checkedicononly])) [part~='icon-off'] {
-  opacity: 1;
-}
-:host([icons][checked]) [part~='icon-on'] {
-  opacity: 1;
-}
-:host([icons][disabled][checked]) [part~='icon-on'] {
-  opacity: 0.38;
+  fill: color-mix(
+    in srgb,
+    var(--_icon-color),
+    transparent calc(100% - var(--_icon-opacity, 0%))
+  );
+  transition: fill 67ms linear;
 }
 
 md-ripple {
   width: 40px;
   height: 40px;
   inset: unset;
-  color: var(--_unchecked-ripple-color);
-}
-:host([checked]) md-ripple {
-  color: var(--_checked-ripple-color);
+  color: var(--_ripple-color);
 }

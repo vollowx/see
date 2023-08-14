@@ -1,10 +1,7 @@
 :host {
   --_text-color: var(--md-sys-color-on-primary);
-  --_text-opacity: 1;
   --_background-color: var(--md-sys-color-primary);
-  --_background-opacity: 1;
-  --_border-color: transparent;
-  --_border-opacity: 1;
+  --_outline-color: var(--md-sys-color-outline);
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   display: inline-flex;
@@ -20,39 +17,19 @@
   height: 40px;
   border-radius: 9999px;
   transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
-  color: var(--_text-color);
   /* TODO: Use global variable to control */
   font: 500 0.875rem / 1.25rem var(--md-sys-typography-font-family);
+  background-color: color-mix(
+    in srgb,
+    var(--_background-color),
+    transparent calc(100% - var(--_background-opacity, 100%))
+  );
+  color: color-mix(
+    in srgb,
+    var(--_text-color),
+    transparent calc(100% - var(--_text-opacity, 100%))
+  );
 }
-/* Background */
-:host::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: -1;
-  background-color: var(--_background-color);
-  opacity: var(--_background-opacity);
-}
-/* Border */
-:host::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: -1;
-  border: 1px solid var(--_border-color);
-  opacity: var(--_border-opacity);
-}
-
-slot {
-  display: inline-flex;
-  color: var(--_text-color);
-  opacity: var(--_text-opacity);
-}
-
 :host([elevated]) {
   --_background-color: var(--md-sys-color-surface-container-low);
   --_text-color: var(--md-sys-color-primary);
@@ -62,8 +39,14 @@ slot {
   --_text-color: var(--md-sys-color-on-secondary);
 }
 :host([outlined]) {
+  padding: 0 23px;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--_outline-color),
+      transparent calc(100% - var(--_outline-opacity, 100%))
+    );
   --_background-color: transparent !important;
-  --_border-color: var(--md-sys-color-outline);
   --_text-color: var(--md-sys-color-primary);
 }
 :host([text]) {
@@ -75,7 +58,19 @@ slot {
 :host([elevated]) {
   box-shadow: var(--md-sys-elevation-shadow-1);
 }
-
+:host([disabled]) {
+  --_background-color: var(--md-sys-color-on-surface);
+  --_background-opacity: 12%;
+  --_text-color: var(--md-sys-color-on-surface);
+  --_text-opacity: 38%;
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+:host([outlined][disabled]) {
+  --_outline-color: var(--md-sys-color-on-surface);
+  --_outline-opacity: 12%;
+}
 @media (hover: hover) and (pointer: fine) {
   :host([filled]:hover:not(:active)),
   :host([tonal]:hover:not(:active)) {
@@ -84,21 +79,6 @@ slot {
   :host([elevated]:hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
-}
-
-:host([disabled]) {
-  --_background-color: var(--md-sys-color-on-surface);
-  --_background-opacity: 0.12;
-  --_text-color: var(--md-sys-color-on-surface);
-  --_text-opacity: 0.38;
-
-  box-shadow: none;
-  cursor: default;
-  pointer-events: none;
-}
-:host([outlined][disabled]) {
-  --_border-color: var(--md-sys-color-on-surface);
-  --_border-opacity: 0.12;
 }
 
 ::slotted([slot='icon']),
