@@ -43,7 +43,7 @@
       <dc-demo>
         <md-button id="button-minus" outlined>Minus 1</md-button>
         <span
-          id="span-number"
+          id="number-display"
           style="display: inline-flex; align-items: center"
         >
           0
@@ -61,37 +61,37 @@
         <div class="divider"></div>
 
         <div role="group" aria-label="button options">
-          <md-switch id="btn-switch1">Disabled</md-switch>
+          <md-checkbox id="button-opt-disabled">Disabled</md-checkbox>
           <div>
-            <label for="btn-input1" style="display: block">Label</label>
-            <input type="text" id="btn-input1" />
+            <label for="button-opt-label" style="display: block">Label</label>
+            <input type="text" id="button-opt-label" />
           </div>
         </div>
 
         <script>
-          const buttonMinus = document.querySelector('#button-minus');
-          const buttonPlus = document.querySelector('#button-plus');
-          const spanNumber = document.querySelector('#span-number');
-
-          buttonMinus.onclick = () =>
-            (spanNumber.textContent = String(
-              Number(spanNumber.textContent) - 1
+          const numDisplay = document.querySelector('#number-display');
+          document.querySelector('#button-minus').onclick = () =>
+            (numDisplay.textContent = String(
+              Number(numDisplay.textContent) - 1
             ));
-          buttonPlus.onclick = () =>
-            (spanNumber.textContent = String(
-              Number(spanNumber.textContent) + 1
+          document.querySelector('#button-plus').onclick = () =>
+            (numDisplay.textContent = String(
+              Number(numDisplay.textContent) + 1
             ));
 
-          const buttons = document.querySelectorAll('.buttons');
-          const switch1 = document.querySelector('#btn-switch1');
-          const btnInput1 = document.querySelector('#btn-input1');
-
-          switch1.addEventListener('change', (e) =>
-            buttons.forEach((button) => (button.disabled = e.detail))
-          );
-          btnInput1.addEventListener('input', (e) =>
-            buttons.forEach((button) => (button.textContent = btnInput1.value))
-          );
+          const cButtons = document.querySelectorAll('.buttons');
+          document
+            .querySelector('#button-opt-disabled')
+            .addEventListener('change', (e) =>
+              cButtons.forEach((button) => (button.disabled = e.detail))
+            );
+          document
+            .querySelector('#button-opt-label')
+            .addEventListener('input', (e) =>
+              cButtons.forEach(
+                (button) => (button.textContent = e.target.value)
+              )
+            );
         </script>
       </dc-demo>
 
@@ -181,49 +181,46 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-checkbox id="checkbox1">Controlled</md-checkbox>
+        <md-checkbox id="checkbox-controlled">Controlled</md-checkbox>
 
         <div class="divider"></div>
 
         <div role="group" aria-label="checkbox options">
-          <md-checkbox id="checkbox2">Checked</md-checkbox>
-          <md-checkbox id="checkbox3">Indeterminate</md-checkbox>
-          <md-checkbox id="checkbox4">Error</md-checkbox>
-          <md-checkbox id="checkbox5">Disabled</md-checkbox>
+          <md-checkbox id="checkbox-opt-checked">Checked</md-checkbox>
+          <md-checkbox id="checkbox-opt-indeterminate"
+            >Indeterminate</md-checkbox
+          >
+          <md-checkbox id="checkbox-opt-disabled">Disabled</md-checkbox>
+          <md-checkbox id="checkbox-opt-error">Error</md-checkbox>
           <div>
-            <label for="checkbox-input1" style="display: block">Label</label>
-            <input type="text" id="checkbox-input1" value="Controlled" />
+            <label for="checkbox-opt-label" style="display: block">Label</label>
+            <input type="text" id="checkbox-opt-label" value="Controlled" />
           </div>
         </div>
 
         <script>
-          const checkbox1 = document.querySelector('#checkbox1');
-          const checkbox2 = document.querySelector('#checkbox2');
-          const checkbox3 = document.querySelector('#checkbox3');
-          const checkbox4 = document.querySelector('#checkbox4');
-          const checkbox5 = document.querySelector('#checkbox5');
-          const checkboxInput1 = document.querySelector('#checkbox-input1');
-
-          checkbox2.addEventListener(
-            'change',
-            (e) => (checkbox1.checked = e.detail)
-          );
-          checkbox3.addEventListener(
-            'change',
-            (e) => (checkbox1.indeterminate = e.detail)
-          );
-          checkbox4.addEventListener(
-            'change',
-            (e) => (checkbox1.error = e.detail)
-          );
-          checkbox5.addEventListener(
-            'change',
-            (e) => (checkbox1.disabled = e.detail)
-          );
-          checkboxInput1.addEventListener(
-            'input',
-            (e) => (checkbox1.textContent = checkboxInput1.value)
-          );
+          const cCheckbox = document.querySelector('#checkbox-controlled');
+          document
+            .querySelector('#checkbox-opt-checked')
+            .addEventListener('change', (e) => (cCheckbox.checked = e.detail));
+          document
+            .querySelector('#checkbox-opt-indeterminate')
+            .addEventListener(
+              'change',
+              (e) => (cCheckbox.indeterminate = e.detail)
+            );
+          document
+            .querySelector('#checkbox-opt-disabled')
+            .addEventListener('change', (e) => (cCheckbox.disabled = e.detail));
+          document
+            .querySelector('#checkbox-opt-error')
+            .addEventListener('change', (e) => (cCheckbox.error = e.detail));
+          document
+            .querySelector('#checkbox-opt-label')
+            .addEventListener(
+              'input',
+              (e) => (cCheckbox.textContent = e.target.value)
+            );
         </script>
       </dc-demo>
 
@@ -366,60 +363,46 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-switch id="switch-rtl">RTL</md-switch>
-        <md-switch id="switch-theme">Light Theme</md-switch>
-
-        <div class="divider"></div>
-
-        <md-switch id="switch2">Controlled</md-switch>
+        <md-switch id="switch-controlled">Controlled</md-switch>
 
         <div class="divider"></div>
 
         <div role="group" aria-label="switch options">
-          <md-switch id="switch3">Checked</md-switch>
-          <md-switch id="switch4">Disabled</md-switch>
-          <md-switch id="switch5">Icons</md-switch>
-          <md-switch id="switch6">Checked Icon Only</md-switch>
+          <md-checkbox id="switch-opt-checked">Checked</md-checkbox>
+          <md-checkbox id="switch-opt-disabled">Disabled</md-checkbox>
+          <md-checkbox id="switch-opt-icons">Icons</md-checkbox>
+          <md-checkbox id="switch-opt-checkedicononly"
+            >Checked Icon Only</md-checkbox
+          >
           <div>
-            <label for="input1" style="display: block">Label</label>
-            <input type="text" id="input1" value="Controlled" />
+            <label for="switch-opt-label" style="display: block">Label</label>
+            <input type="text" id="switch-opt-label" value="Controlled" />
           </div>
         </div>
 
         <script>
-          const switchRTL = document.querySelector('#switch-rtl');
-          const switchTheme = document.querySelector('#switch-theme');
-          const switch2 = document.querySelector('#switch2');
-          const switch3 = document.querySelector('#switch3');
-          const switch4 = document.querySelector('#switch4');
-          const switch5 = document.querySelector('#switch5');
-          const switch6 = document.querySelector('#switch6');
-          const input1 = document.querySelector('#input1');
-
-          switchRTL.addEventListener(
-            'change',
-            (e) => (document.dir = e.detail ? 'rtl' : 'ltr')
-          );
-          switchTheme.addEventListener('change', (e) =>
-            document.documentElement.classList.toggle('light')
-          );
-          switch3.addEventListener(
-            'change',
-            (e) => (switch2.checked = e.detail)
-          );
-          switch4.addEventListener(
-            'change',
-            (e) => (switch2.disabled = e.detail)
-          );
-          switch5.addEventListener('change', (e) => (switch2.icons = e.detail));
-          switch6.addEventListener(
-            'change',
-            (e) => (switch2.checkedIconOnly = e.detail)
-          );
-          input1.addEventListener(
-            'input',
-            (e) => (switch2.textContent = input1.value)
-          );
+          const cSwitch = document.querySelector('#switch-controlled');
+          document
+            .querySelector('#switch-opt-checked')
+            .addEventListener('change', (e) => (cSwitch.checked = e.detail));
+          document
+            .querySelector('#switch-opt-disabled')
+            .addEventListener('change', (e) => (cSwitch.disabled = e.detail));
+          document
+            .querySelector('#switch-opt-icons')
+            .addEventListener('change', (e) => (cSwitch.icons = e.detail));
+          document
+            .querySelector('#switch-opt-checkedicononly')
+            .addEventListener(
+              'change',
+              (e) => (cSwitch.checkedIconOnly = e.detail)
+            );
+          document
+            .querySelector('#switch-opt-label')
+            .addEventListener(
+              'input',
+              (e) => (cSwitch.textContent = e.target.value)
+            );
         </script>
       </dc-demo>
 
