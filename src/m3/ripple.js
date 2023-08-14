@@ -163,7 +163,7 @@ export default class MdRipple extends ReactiveElement {
   createRipple(e = null) {
     const { centerPoint, radius } = this.#calculateRipple(e);
 
-    const size = radius * 2 + 'px';
+    const diameter = radius * 2 + 'px';
     const translate = `${centerPoint.x - radius}px ${centerPoint.y - radius}px`;
 
     const ripple = document.createElement('div');
@@ -183,8 +183,8 @@ export default class MdRipple extends ReactiveElement {
     );
     ripple.animate(
       {
-        height: [size, size],
-        width: [size, size],
+        height: [diameter, diameter],
+        width: [diameter, diameter],
         translate: [translate, translate],
         scale: [0.2, 1.35],
       },
