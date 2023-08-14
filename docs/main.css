@@ -153,3 +153,7 @@ main {
     padding-right: 24px;
   }
 }
+
+[test~='layout'] * {
+  outline: 1px solid red;
+}

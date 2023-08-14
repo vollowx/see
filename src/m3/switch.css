@@ -63,14 +63,18 @@
   }
 }
 
-[part~='switch'] {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 [part~='track'] {
+  position: relative;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  height: 32px;
+  width: 52px;
+  box-sizing: border-box;
+  border-radius: 9999px;
+  transition:
+    background-color 67ms linear,
+    border-color 67ms linear;
   background-color: color-mix(
     in srgb,
     var(--_track-color) var(--_track-opacity, 100%),
@@ -82,37 +86,27 @@
       var(--_outline-color) var(--_outline-opacity, 100%),
       transparent
     );
-  border-radius: 50px;
-  height: 32px;
-  position: initial;
-  transition:
-    background-color 67ms linear,
-    border-color 67ms linear;
-  width: 52px;
-  box-sizing: border-box;
-  display: block;
 }
 
 [part~='thumb'] {
   --_thumb-diameter: 16px;
-  --_thumb-center-edge-distance_: 16px;
   --_thumb-diff-default: 20px;
-  border-radius: 50%;
+  position: absolute;
+  margin-inline-start: calc(
+    var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
+  );
   display: grid;
   place-content: center;
   place-items: center;
-  width: var(--_thumb-diameter);
   height: var(--_thumb-diameter);
-  position: absolute;
+  width: var(--_thumb-diameter);
+  border-radius: 50%;
   transition:
     background-color 67ms linear,
     width 250ms var(--md-sys-motion-easing-standard),
     height 250ms var(--md-sys-motion-easing-standard),
     margin 300ms var(--md-sys-motion-overshoot);
   z-index: 1;
-  margin-inline-start: calc(
-    var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
-  );
   background-color: color-mix(
     in srgb,
     var(--_thumb-color) var(--_thumb-opacity, 100%),
@@ -137,8 +131,6 @@
 
 [part~='icons'] {
   position: absolute;
-  inset: 0;
-  margin: auto;
   width: 16px;
   height: 16px;
   fill: color-mix(
@@ -154,4 +146,11 @@ md-ripple {
   height: 40px;
   inset: unset;
   color: var(--_ripple-color);
+}
+[part~='focus-ring'] {
+  inset: -2px;
+}
+
+:host-context([test~='layout']) * {
+  outline: 1px solid red;
 }

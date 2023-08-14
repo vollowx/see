@@ -24,14 +24,13 @@ export default class MdSwitch extends Switch {
   }
   get template() {
     return html`
-      <div part="switch">
+      <div part="track">
         <span part="focus-ring"></span>
-        <span part="target"></span>
-        <span part="track"></span>
-        <span part="thumb">
+        <div part="thumb">
+          <span part="target"></span>
           <md-ripple></md-ripple>
           ${this.templateOffIcon}${this.templateOnIcon}
-        </span>
+        </div>
       </div>
       ${super.template.innerHTML}
     `;
@@ -57,7 +56,7 @@ export default class MdSwitch extends Switch {
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
   /** @type {HTMLSpanElement} */
-  @query('[part~="switch"]') $switch;
+  @query('[part~="track"]') $track;
   /** @type {HTMLSpanElement} */
   @query('[part~="thumb"]') $thumb;
   connectedCallback() {
@@ -111,13 +110,13 @@ export default class MdSwitch extends Switch {
     this.removeEventListener('pointermove', this.#boundPointerMove);
     this.releasePointerCapture(e.pointerId);
 
+    const trackRect = this.$track.getBoundingClientRect();
     const thumbRect = this.$thumb.getBoundingClientRect();
-    const rootbRect = this.$switch.getBoundingClientRect();
     const diff =
       thumbRect.left +
       thumbRect.width / 2 -
-      rootbRect.left -
-      rootbRect.width / 2;
+      trackRect.left -
+      trackRect.width / 2;
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
 
     if (this.checked != shouldBeChecked) this._toggleStatus();
