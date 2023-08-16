@@ -75,8 +75,7 @@
   --_outline-opacity: 12%;
 }
 @media (hover: hover) and (pointer: fine) {
-  :host([filled]:hover:not(:active)),
-  :host([tonal]:hover:not(:active)) {
+  :host(:not([elevated]):not([outlined]):not([text]):hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
   :host([elevated]:hover:not(:active)) {
