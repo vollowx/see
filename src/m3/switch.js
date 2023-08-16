@@ -28,7 +28,7 @@ export default class MdSwitch extends Switch {
         <span part="focus-ring"></span>
         <div part="thumb">
           <span part="target"></span>
-          <md-ripple></md-ripple>
+          <md-ripple spacebehavior="always"></md-ripple>
           ${this.templateOffIcon}${this.templateOnIcon}
         </div>
       </div>

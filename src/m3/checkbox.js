@@ -23,7 +23,7 @@ export default class MdCheckbox extends Checkbox {
       <div part="container">
         <span part="focus-ring"></span>
         <span part="target"></span>
-        <md-ripple></md-ripple>
+        <md-ripple enterbehavior="none"></md-ripple>
         ${this.templateIcon}
       </div>
       ${super.template.innerHTML}

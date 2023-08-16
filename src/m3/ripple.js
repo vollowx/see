@@ -40,10 +40,13 @@ export default class MdRipple extends ReactiveElement {
     this.detach();
   }
   static get observedAttributes() {
-    return ['centered', 'nokey'];
+    return ['centered'];
   }
   @property({ type: Boolean }) centered = false;
-  @property({ type: Boolean }) noKey = false;
+  /** @type {'always'|'none'} */
+  @property({ type: String }) enterBehavior = 'always';
+  /** @type {'always'|'once'|'none'} */
+  @property({ type: String }) spaceBehavior = 'once';
 
   #spaceKeyDown = false;
   #lastTime = 0;
@@ -64,21 +67,20 @@ export default class MdRipple extends ReactiveElement {
   }
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
-    if (this.noKey) return;
-
-    if (e.key === 'Enter') {
+    if (
+      (e.key === 'Enter' && this.enterBehavior === 'always') ||
+      (e.key === ' ' && this.spaceBehavior === 'always')
+    ) {
       this.createRipple();
       this.removeRipples();
-    } else if (e.key === ' ') {
+    } else if (e.key === ' ' && this.spaceBehavior === 'once') {
       if (!this.#spaceKeyDown) this.createRipple();
       this.#spaceKeyDown = true;
     }
   }
   /** @param {KeyboardEvent} e */
   #handleKeyUp(e) {
-    if (this.noKey) return;
-
-    if (this.#spaceKeyDown && e.key === ' ') {
+    if (e.key === ' ' && this.spaceBehavior === 'once') {
       this.#spaceKeyDown = false;
       this.removeRipples();
     }

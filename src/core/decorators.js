@@ -13,14 +13,14 @@ import ReactiveElement from './reactive-element.js';
 /**
  * @typedef {Object} PropertyOptions
  * @property {PropertyTypes} type
- * @property {?string} attribute
+ * @property {?string} override
  */
 
 /** @param {() => void} callback */
 const defer = (callback) => setTimeout(() => callback(), 0);
 
 /**
- * @param {(name: string, target: ReactiveElement) => PropertyDescriptor} descriptor
+ * @param {(name: string, target: ReactiveElement, initialValue: any) => PropertyDescriptor} descriptor
  */
 function decorateProperty(descriptor) {
   /**
@@ -31,10 +31,10 @@ function decorateProperty(descriptor) {
     if (kind !== 'field') return;
 
     /**
-     * @param {any} _
+     * @param {any} initialValue
      */
-    return function (_) {
-      const _descriptor = descriptor(name, this);
+    return function (initialValue) {
+      const _descriptor = descriptor(name, this, initialValue);
       defer(() => Object.defineProperty(this, name, _descriptor));
       return _descriptor.get?.();
     };
@@ -53,29 +53,30 @@ export function customElement(tagName) {
 }
 
 /**
- * @param {{ type: PropertyTypes, overrideName?: string}} options
- * TODO: Load initial value
+ * @param {{ type: PropertyTypes, override?: string}} options
+ * TODO: Add option to load initial value by the way of setting attribute
  */
-export function property({ type, overrideName }) {
-  return decorateProperty((name, target) => {
-    const qualifiedName = overrideName || name.toLowerCase();
+export function property({ type, override }) {
+  return decorateProperty((name, target, initialValue) => {
+    const qualifiedName = override || name.toLowerCase();
     const setterGetter =
       type === Boolean
         ? {
-            get: () => target.hasAttribute(qualifiedName),
+            get: () => target.hasAttribute(qualifiedName) ?? initialValue,
             /** @param {boolean} value */
             set: (value) =>
               target.toggleAttribute(qualifiedName, Boolean(value)),
           }
         : type === Number
         ? {
-            get: () => Number(target.getAttribute(qualifiedName)),
+            get: () =>
+              Number(target.getAttribute(qualifiedName)) ?? initialValue,
             /** @param {number} value */
             set: (value) => target.setAttribute(qualifiedName, String(value)),
           }
         : type === String
         ? {
-            get: () => target.getAttribute(qualifiedName) ?? '',
+            get: () => target.getAttribute(qualifiedName) ?? initialValue,
             /** @param {string} value */
             set: (value) => target.setAttribute(qualifiedName, String(value)),
           }
