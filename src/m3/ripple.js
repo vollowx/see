@@ -39,9 +39,6 @@ export default class MdRipple extends ReactiveElement {
   disconnectedCallback() {
     this.detach();
   }
-  static get observedAttributes() {
-    return ['centered'];
-  }
   @property({ type: Boolean }) centered = false;
   /** @type {'always'|'none'} */
   @property({ type: String }) enterBehavior = 'always';

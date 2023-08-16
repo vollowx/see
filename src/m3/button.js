@@ -2,7 +2,7 @@
 
 import Button from '../base/button.js';
 import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, query } from '../core/decorators.js';
+import { customElement, property, query } from '../core/decorators.js';
 
 import MdRipple from './ripple.js';
 
@@ -30,4 +30,8 @@ export default class MdButton extends Button {
   }
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
+  @property({ type: Boolean }) tonal = false;
+  @property({ type: Boolean }) elevated = false;
+  @property({ type: Boolean }) outlined = false;
+  @property({ type: Boolean }) text = false;
 }
