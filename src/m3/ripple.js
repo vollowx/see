@@ -55,13 +55,6 @@ export default class MdRipple extends ReactiveElement {
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerUp = this.#handlePointerUp.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
-  /** @param {PointerEvent} e */
-  #handlePointerDown(e) {
-    /** @type {HTMLElement} */ (this.$controller).setPointerCapture(
-      e.pointerId
-    );
-    this.createRipple(e);
-  }
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (
@@ -87,6 +80,15 @@ export default class MdRipple extends ReactiveElement {
   }
   #handleMouseLeave() {
     this.toggleAttribute('hover', false);
+  }
+  /** @param {PointerEvent} e */
+  #handlePointerDown(e) {
+    /** @type {HTMLElement} */ (this.$controller).setPointerCapture(
+      e.pointerId
+    );
+    // Do not handle right click
+    if (e.button === 2) return;
+    this.createRipple(e);
   }
   #handlePointerUp() {
     this.removeRipples();
