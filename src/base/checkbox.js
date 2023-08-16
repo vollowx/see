@@ -1,8 +1,10 @@
 // @ts-check
 
 import ReactiveElement from '../core/reactive-element.js';
-import { html } from '../core/template.js';
+import { html, sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
+
+import HiddenStyles from './hidden.css?inline';
 
 const PROPERTY_FROM_ARIA_CHECKED = {
   true: 'checked',
@@ -11,6 +13,9 @@ const PROPERTY_FROM_ARIA_CHECKED = {
 };
 
 export default class Checkbox extends ReactiveElement {
+  get styles() {
+    return [...super.styles, ...sheetsFromCss(HiddenStyles)];
+  }
   get template() {
     return html`<slot></slot>`;
   }

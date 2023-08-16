@@ -1,10 +1,15 @@
 // @ts-check
 
 import ReactiveElement from '../core/reactive-element.js';
-import { html } from '../core/template.js';
+import { html, sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
+import HiddenStyles from './hidden.css?inline';
+
 export default class Button extends ReactiveElement {
+  get styles() {
+    return [...super.styles, ...sheetsFromCss(HiddenStyles)];
+  }
   get template() {
     return html`<slot></slot>`;
   }

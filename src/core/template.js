@@ -26,7 +26,7 @@ export function css(strings, ...substitutions) {
  * @param {string[]} csss
  * @returns {CSSStyleSheet[]}
  */
-export function sheetsFromCss(csss) {
+export function sheetsFromCss(...csss) {
   let sheets = [];
   csss.map((css) => {
     let sheet = new CSSStyleSheet();

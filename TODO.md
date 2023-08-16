@@ -1,4 +1,4 @@
 # Todo
 
 - [ ] Unify component variable rules
-- [ ] `hidden` support
+- [x] `hidden` support

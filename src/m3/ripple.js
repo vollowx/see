@@ -21,7 +21,7 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
 @customElement('md-ripple')
 export default class MdRipple extends ReactiveElement {
   get styles() {
-    return [...sheetsFromCss([MdRippleStyle])];
+    return [...sheetsFromCss(MdRippleStyle)];
   }
   /** @type {HTMLElement?} */
   $controller;

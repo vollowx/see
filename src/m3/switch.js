@@ -19,7 +19,7 @@ export default class MdSwitch extends Switch {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss([MdFocusRingStyle, MdTargetStyle, MdSwitchStyle]),
+      ...sheetsFromCss(MdFocusRingStyle, MdTargetStyle, MdSwitchStyle),
     ];
   }
   get template() {
