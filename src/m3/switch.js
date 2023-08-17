@@ -60,13 +60,13 @@ export default class MdSwitch extends Switch {
   /** @type {HTMLSpanElement} */
   @query('[part~="thumb"]') $thumb;
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback?.();
     this.$ripple.attach(this);
     this.addEventListener('pointerdown', this.#boundPointerDown);
     this.addEventListener('pointerup', this.#boundPointerUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback();
+    super.disconnectedCallback?.();
     this.removeEventListener('pointerdown', this.#boundPointerDown);
     this.removeEventListener('pointerup', this.#boundPointerUp);
   }

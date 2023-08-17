@@ -4,9 +4,11 @@ import ReactiveElement from '../core/reactive-element.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
+import FocusDetectingMixin from './focus-detecting-mixin.js';
+
 import HiddenStyles from './hidden.css?inline';
 
-export default class Checkbox extends ReactiveElement {
+export default class Checkbox extends FocusDetectingMixin(ReactiveElement) {
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
@@ -14,6 +16,7 @@ export default class Checkbox extends ReactiveElement {
     return html`<slot></slot>`;
   }
   connectedCallback() {
+    super.connectedCallback?.();
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'switch');
     }
@@ -27,6 +30,7 @@ export default class Checkbox extends ReactiveElement {
     this.addEventListener('keydown', this.#boundKeyDown);
   }
   disconnectedCallback() {
+    super.disconnectedCallback?.();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
   }

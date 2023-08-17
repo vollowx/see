@@ -6,7 +6,7 @@
 
   border-radius: var(--md-focus-ring-radius, 9999px);
 }
-:host(:focus-visible) [part~='focus-ring'] {
+:host([focus='key']) [part~='focus-ring'] {
   outline: 3px solid var(--md-sys-color-secondary);
   outline-offset: 2px;
   animation-name: outward-grow, outward-shrink;

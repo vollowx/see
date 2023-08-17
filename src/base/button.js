@@ -4,9 +4,11 @@ import ReactiveElement from '../core/reactive-element.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
+import FocusDetectingMixin from './focus-detecting-mixin.js';
+
 import HiddenStyles from './hidden.css?inline';
 
-export default class Button extends ReactiveElement {
+export default class Button extends FocusDetectingMixin(ReactiveElement) {
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
@@ -14,6 +16,7 @@ export default class Button extends ReactiveElement {
     return html`<slot></slot>`;
   }
   connectedCallback() {
+    super.connectedCallback?.();
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'button');
     }
@@ -25,6 +28,7 @@ export default class Button extends ReactiveElement {
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
+    super.disconnectedCallback?.();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
   }

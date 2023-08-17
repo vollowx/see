@@ -4,6 +4,8 @@ import ReactiveElement from '../core/reactive-element.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
+import FocusDetectingMixin from './focus-detecting-mixin.js';
+
 import HiddenStyles from './hidden.css?inline';
 
 const PROPERTY_FROM_ARIA_CHECKED = {
@@ -12,7 +14,7 @@ const PROPERTY_FROM_ARIA_CHECKED = {
   mixed: 'indeterminate',
 };
 
-export default class Checkbox extends ReactiveElement {
+export default class Checkbox extends FocusDetectingMixin(ReactiveElement) {
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
@@ -20,6 +22,7 @@ export default class Checkbox extends ReactiveElement {
     return html`<slot></slot>`;
   }
   connectedCallback() {
+    super.connectedCallback?.();
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'checkbox');
     }
@@ -34,6 +37,7 @@ export default class Checkbox extends ReactiveElement {
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
+    super.disconnectedCallback?.();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);

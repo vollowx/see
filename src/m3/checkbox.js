@@ -40,7 +40,7 @@ export default class MdCheckbox extends Checkbox {
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback?.();
     this.$ripple.attach(this);
   }
   @property({ type: Boolean }) error = false;
