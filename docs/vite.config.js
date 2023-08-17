@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import babel from '@rollup/plugin-babel';
 
 export default defineConfig({
-  base: '/m3-web-components/', // For GitHub pages
+  base: '/mixed-components/', // For GitHub pages
   build: {
     minify: true,
     target: 'ESNext',

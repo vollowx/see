@@ -1,20 +1,26 @@
-# m3-web-components
+# mixed-components
 
-> Web Components, with Material You design guidelines.
+Web Components with any styles.
 
-**_\* Currently an Experiment ONLY_**
+**Resources**
+
+- [Documents](https://vollowx.github.io/mixed-components/)
 
 ## Implementations
 
-### Base
+- ❌ Not started
+- 🟡 In progress
+- ✅ Complete
 
-| Components |
-| ---------- |
-| Button     |
-| Checkbox   |
-| Switch     |
+### Base (base)
 
-### M3
+| Components | Functionality | ARIA |
+| ---------- | :-----------: | :--: |
+| Button     |      🟡       |  ✅  |
+| Checkbox   |      ✅       |  ✅  |
+| Switch     |      ✅       |  ✅  |
+
+### Material You (m3)
 
 | Components                    | Functionality | ARIA | Style | Restyle |
 | ----------------------------- | :-----------: | :--: | :---: | :-----: |
