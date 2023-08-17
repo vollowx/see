@@ -10,12 +10,6 @@ import ReactiveElement from './reactive-element.js';
  * @typedef {boolean|number|string} PropertyValueTypes
  */
 
-/**
- * @typedef {Object} PropertyOptions
- * @property {PropertyTypes} type
- * @property {?string} override
- */
-
 /** @param {() => void} callback */
 const defer = (callback) => setTimeout(() => callback(), 0);
 
@@ -53,57 +47,65 @@ export function customElement(tagName) {
 }
 
 /**
- * @param {{ type: PropertyTypes, override?: string}} options
+ * @param {{ type?: PropertyTypes, override?: string }?} options
  * TODO: Add option to load initial value by the way of setting attribute
  */
-export function property({ type, override }) {
+export function property(options = null) {
   return decorateProperty((name, target, initialValue) => {
-    const qualifiedName = override || name.toLowerCase();
+    const qualifiedName = options?.override || name.toLowerCase();
+
     const setterGetter =
-      type === Boolean
+      options?.type === Boolean
         ? {
             get: () => target.hasAttribute(qualifiedName) ?? initialValue,
             /** @param {boolean} value */
             set: (value) =>
               target.toggleAttribute(qualifiedName, Boolean(value)),
           }
-        : type === Number
+        : options?.type === Number
         ? {
             get: () =>
               Number(target.getAttribute(qualifiedName)) ?? initialValue,
             /** @param {number} value */
             set: (value) => target.setAttribute(qualifiedName, String(value)),
           }
-        : type === String
-        ? {
+        : {
             get: () => target.getAttribute(qualifiedName) ?? initialValue,
             /** @param {string} value */
             set: (value) => target.setAttribute(qualifiedName, String(value)),
-          }
-        : {};
+          };
     return { ...setterGetter, configurable: true, enumerable: true };
   });
 }
 
 /**
  * @param {string} selector
- * TODO: Add ability to cache
+ * @param {boolean?} cache
  */
-export function query(selector) {
+export function query(selector, cache = true) {
   return decorateProperty((_, target) => {
-    return {
-      get() {
-        return target.renderRoot.querySelector(selector);
-      },
-      configurable: true,
-      enumerable: true,
-    };
+    const getter = cache
+      ? {
+          get() {
+            if (target.queryCache.get(selector) === undefined)
+              target.queryCache.set(
+                selector,
+                target.renderRoot.querySelector(selector)
+              );
+            return target.queryCache.get(selector);
+          },
+        }
+      : {
+          get() {
+            return target.renderRoot.querySelector(selector);
+          },
+        };
+    return { ...getter, configurable: true, enumerable: true };
   });
 }
 
 /**
  * @param {string} selector
- * TODO: Add ability to cache
  */
 export function queryAll(selector) {
   return decorateProperty((_, target) => {

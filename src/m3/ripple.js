@@ -41,9 +41,9 @@ export default class MdRipple extends ReactiveElement {
   }
   @property({ type: Boolean }) centered = false;
   /** @type {'always'|'none'} */
-  @property({ type: String }) enterBehavior = 'always';
+  @property() enterBehavior = 'always';
   /** @type {'always'|'once'|'none'} */
-  @property({ type: String }) spaceBehavior = 'once';
+  @property() spaceBehavior = 'once';
 
   #spaceKeyDown = false;
   #lastTime = 0;
