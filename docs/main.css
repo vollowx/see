@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap');
-
 :root {
   color-scheme: dark;
 
@@ -87,17 +85,76 @@
 }
 
 :root {
-  --md-sys-typography-font-family: 'Google Sans', sans-serif;
+  --md-sys-typography-family: 'Roboto', sans-serif;
 
-  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-typography-display-large: 400 3.5625rem / 4rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-display-medium: 400 2.8125rem / 3.5rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-display-small: 400 2.25rem / 3rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-headline-large: 400 2.5rem / 3.125rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-headline-medium: 400 2.25rem / 2.75rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-headline-small: 400 2rem / 2.5rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-title-large: 400 1.375rem / 1.75rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-title-medium: 500 1rem / 1.25rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-title-small: 500 0.875rem / 1.125rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-label-large: 500 0.875rem / 1.25rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-label-medium: 500 0.75rem / 1rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-label-small: 500 0.6875rem / 0.875rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-body-large: 400 1rem / 1.5rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-body-medium: 400 0.875rem / 1.25rem
+    var(--md-sys-typography-family);
+  --md-sys-typography-body-small: 400 0.75rem / 1rem
+    var(--md-sys-typography-family);
+
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  --md-sys-motion-duration-extra-long1: 700ms;
+  --md-sys-motion-duration-extra-long2: 800ms;
+  --md-sys-motion-duration-extra-long3: 900ms;
+  --md-sys-motion-duration-extra-long4: 1000ms;
+
   --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
   --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0, 1, 1);
   --md-sys-motion-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+  --md-sys-motion-path: linear;
+
+  --md-sys-elevation-level-0: 0;
+  --md-sys-elevation-level-1: 1;
+  --md-sys-elevation-level-2: 3;
+  --md-sys-elevation-level-3: 6;
+  --md-sys-elevation-level-4: 8;
+  --md-sys-elevation-level-5: 12;
   --md-sys-elevation-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
     0px 1px 2px rgba(0, 0, 0, 0.3);
   --md-sys-elevation-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
@@ -113,7 +170,7 @@ body {
   accent-color: var(--md-sys-color-primary);
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
-  font-family: var(--md-sys-typography-font-family);
+  font-family: var(--md-sys-typography-family);
 }
 ::selection {
   background-color: var(--md-sys-color-tertiary-container);
@@ -126,13 +183,11 @@ a {
 a:not(:hover):not(:focus-visible) {
   text-decoration: none;
 }
-li {
-  padding-block: 2px;
-}
 
 body {
   margin: 0;
   min-height: 100vh;
+  font: var(--md-sys-typography-body-large);
 }
 main {
   margin-inline: auto;
@@ -152,6 +207,19 @@ main {
     padding-left: 24px;
     padding-right: 24px;
   }
+}
+
+h1 {
+  font: var(--md-sys-typography-headline-large);
+}
+h2 {
+  font: var(--md-sys-typography-headline-medium);
+}
+h3 {
+  font: var(--md-sys-typography-headline-small);
+}
+h4 {
+  font: var(--md-sys-typography-title-large);
 }
 
 [test~='layout'] * {

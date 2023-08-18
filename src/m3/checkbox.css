@@ -154,6 +154,10 @@
   transition-property: width;
 }
 
+[part~='label'] {
+  font: var(--md-sys-typography-label-large);
+}
+
 [part~='focus-ring'] {
   width: 40px;
   height: 40px;

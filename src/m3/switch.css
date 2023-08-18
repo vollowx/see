@@ -141,6 +141,10 @@
   transition: fill 67ms linear;
 }
 
+[part~='label'] {
+  font: var(--md-sys-typography-label-large);
+}
+
 md-ripple {
   width: 40px;
   height: 40px;
