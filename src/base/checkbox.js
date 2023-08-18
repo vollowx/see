@@ -1,7 +1,7 @@
 // @ts-check
 
 import ReactiveElement from '../core/reactive-element.js';
-import { html, sheetsFromCss } from '../core/template.js';
+import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
@@ -17,9 +17,6 @@ const PROPERTY_FROM_ARIA_CHECKED = {
 export default class Checkbox extends FocusDetectingMixin(ReactiveElement) {
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
-  }
-  get template() {
-    return html`<slot></slot>`;
   }
   connectedCallback() {
     super.connectedCallback?.();

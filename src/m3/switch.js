@@ -14,6 +14,13 @@ function isRTL() {
   return document.documentElement.dir === 'rtl';
 }
 
+/**
+ * @element md-switch
+ *
+ * @csspart track
+ * @csspart thumb
+ * @csspart label
+ */
 @customElement('md-switch')
 export default class MdSwitch extends Switch {
   get styles() {
@@ -32,7 +39,7 @@ export default class MdSwitch extends Switch {
           ${this.templateOffIcon}${this.templateOnIcon}
         </div>
       </div>
-      ${super.template.innerHTML}
+      <slot part="label"></slot>
     `;
   }
   get templateOnIcon() {

@@ -10,6 +10,16 @@ import MdCheckboxStyle from './checkbox.css?inline';
 import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
+/**
+ * @element md-checkbox
+ *
+ * @csspart container
+ * @csspart icon
+ * @csspart mark
+ * @csspart mark-short
+ * @csspart mark-long
+ * @csspart label
+ */
 @customElement('md-checkbox')
 export default class MdCheckbox extends Checkbox {
   get styles() {
@@ -26,7 +36,7 @@ export default class MdCheckbox extends Checkbox {
         <md-ripple enterbehavior="none"></md-ripple>
         ${this.templateIcon}
       </div>
-      ${super.template.innerHTML}
+      <slot part="label"></slot>
     `;
   }
   get templateIcon() {

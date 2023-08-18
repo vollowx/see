@@ -16,6 +16,10 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
 }
 
 /**
+ * @element md-ripple
+ *
+ * @cssprop --md-ripple-color
+ *
  * TODO: `for` attribute to auto re-attach
  */
 @customElement('md-ripple')

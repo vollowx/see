@@ -10,6 +10,13 @@ import MdButtonStyle from './button.css?inline';
 import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
+/**
+ * @element md-button
+ *
+ * @csspart label
+ * @csspart icon
+ * @csspart trailingicon
+ */
 @customElement('md-button')
 export default class MdButton extends Button {
   get styles() {
@@ -23,9 +30,9 @@ export default class MdButton extends Button {
       <span part="focus-ring"></span>
       <span part="target"></span>
       <md-ripple></md-ripple>
-      <slot name="icon" aria-hidden="true"></slot>
-      ${super.template.innerHTML}
-      <slot name="trailingicon" aria-hidden="true"></slot>
+      <slot part="icon" name="icon" aria-hidden="true"></slot>
+      <slot part="label"></slot>
+      <slot part="trailingicon" name="trailingicon" aria-hidden="true"></slot>
     `;
   }
   /** @type {MdRipple} */
