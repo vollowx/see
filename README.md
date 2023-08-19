@@ -1,7 +1,6 @@
 ```
 Project stopped.
-Don't star.
-Maybe you will be interested in https://github.com/vollowx/m3-web-components
+You may be interested in https://github.com/vollowx/mixed-components
 ```
 
 # tiny-material
@@ -25,7 +24,7 @@ By the way, `iconify-icon` maybe will not work on safari. So you may need anothe
 
 ## Stars
 
-[![Star History Chart](https://api.star-history.com/svg?repos=huge-pancake/tiny-material&type=Date)](https://star-history.com/#huge-pancake/tiny-material&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=vollowx/tiny-material&type=Date)](https://star-history.com/#vollowx/tiny-material&Date)
 
 If you like this project, give a star please!
 
