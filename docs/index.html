@@ -279,6 +279,68 @@
         <li>Optional keyboard support.</li>
       </ul>
 
+      <h3>Interactive Demo</h3>
+
+      <dc-demo>
+        <style>
+          .row {
+            align-items: center;
+            display: flex;
+            gap: 32px;
+          }
+
+          .container {
+            align-items: center;
+            border-radius: 24px;
+            display: flex;
+            height: 64px;
+            justify-content: center;
+            outline: 1px solid var(--md-sys-color-outline);
+            padding: 16px;
+            position: relative;
+            width: 64px;
+          }
+
+          .container:has(.unbounded) {
+            border-radius: 50%;
+            outline-style: dashed;
+          }
+
+          .anchor {
+            background: var(--md-sys-color-primary-container);
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+
+            /* Recommended styles for an unbounded ripple's anchor. */
+            display: grid;
+            place-items: center;
+            position: relative;
+          }
+
+          md-ripple.unbounded {
+            height: 64px;
+            width: 64px;
+
+            /* Recommended styles for an unbounded ripple. */
+            border-radius: 50%;
+            inset: unset;
+          }
+        </style>
+        <div class="row">
+          <div class="container">
+            <md-ripple></md-ripple>
+          </div>
+
+          <div class="container" id="touch">
+            <div class="anchor">
+              <md-ripple for="touch" class="unbounded"></md-ripple>
+            </div>
+          </div>
+        </div>
+      </dc-demo>
+
       <h3>Usage</h3>
 
       <p>
@@ -300,15 +362,19 @@
           Attached to a referenced element
           <dc-demo>
             <div style="position: relative">
-              <md-ripple enterbehavior="none" spacebehavior="none"></md-ripple>
-              <input placeholder="No keys'll make ripple" />
+              <md-ripple
+                for="ripple-control-input"
+                enterbehavior="none"
+                spacebehavior="none"
+              ></md-ripple>
+              <input id="ripple-control-input" />
             </div>
           </dc-demo>
         </li>
         <li>
           Attached imperatively
           <dc-demo>
-            <div class="container" style="position: relative">
+            <div style="position: relative">
               <md-ripple id="ripple"></md-ripple>
               <br />
               <button id="ripple-control">Button</button>
@@ -330,15 +396,6 @@
         <button style="position: relative">
           <md-ripple centered></md-ripple>
           Button with Centered Ripple
-        </button>
-      </dc-demo>
-
-      <h4>Unbounded</h4>
-
-      <dc-demo>
-        <button style="position: relative">
-          <md-ripple unbounded></md-ripple>
-          Button with Unbounded Ripple
         </button>
       </dc-demo>
 

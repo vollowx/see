@@ -4,6 +4,8 @@ import ReactiveElement from '../core/reactive-element.js';
 import { sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
 
+import AttachableMixin from '../base/attachable-mixin.js';
+
 import MdRippleStyle from './ripple.css?inline';
 
 const PRESS_GROW_MS = 450;
@@ -19,30 +21,14 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
  * @element md-ripple
  *
  * @cssprop --md-ripple-color
- *
- * TODO: `for` attribute to auto re-attach
  */
 @customElement('md-ripple')
-export default class MdRipple extends ReactiveElement {
+export default class MdRipple extends AttachableMixin(ReactiveElement) {
   get styles() {
     return [...sheetsFromCss(MdRippleStyle)];
   }
-  /** @type {HTMLElement?} */
-  $controller;
   /** @type {HTMLSpanElement[]} */
   $ripples = [];
-  connectedCallback() {
-    // @ts-ignore
-    this.$controller =
-      this.parentNode instanceof ShadowRoot
-        ? this.parentNode.host
-        : this.parentNode;
-
-    this.attach(/** @type {HTMLElement} */ (this.$controller));
-  }
-  disconnectedCallback() {
-    this.detach();
-  }
   @property({ type: Boolean }) centered = false;
   /** @type {'always'|'none'} */
   @property() enterBehavior = 'always';
@@ -87,9 +73,7 @@ export default class MdRipple extends ReactiveElement {
   }
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    /** @type {HTMLElement} */ (this.$controller).setPointerCapture(
-      e.pointerId
-    );
+    /** @type {HTMLElement} */ (this.$control).setPointerCapture(e.pointerId);
     // Do not handle right click
     if (e.button === 2) return;
     this.createRipple(e);
@@ -105,31 +89,21 @@ export default class MdRipple extends ReactiveElement {
    * @param {HTMLElement?} prev
    * @param {HTMLElement?} next
    */
-  #handleAttach(prev = null, next = null) {
-    prev?.removeEventListener('keydown', this.#boundKeyDown);
-    prev?.removeEventListener('keyup', this.#boundKeyUp);
-    prev?.removeEventListener('mouseenter', this.#boundMouseEnter);
-    prev?.removeEventListener('mouseleave', this.#boundMouseLeave);
-    prev?.removeEventListener('pointerdown', this.#boundPointerDown);
-    prev?.removeEventListener('pointerup', this.#boundPointerUp);
-    prev?.removeEventListener('touchend', this.#boundTouchEnd);
+  handleControlChange(prev = null, next = null) {
+    const eventHandlers = {
+      keydown: this.#boundKeyDown,
+      keyup: this.#boundKeyUp,
+      mouseenter: this.#boundMouseEnter,
+      mouseleave: this.#boundMouseLeave,
+      pointerdown: this.#boundPointerDown,
+      pointerup: this.#boundPointerUp,
+      touchend: this.#boundTouchEnd,
+    };
 
-    next?.addEventListener('keydown', this.#boundKeyDown);
-    next?.addEventListener('keyup', this.#boundKeyUp);
-    next?.addEventListener('mouseenter', this.#boundMouseEnter);
-    next?.addEventListener('mouseleave', this.#boundMouseLeave);
-    next?.addEventListener('pointerdown', this.#boundPointerDown);
-    next?.addEventListener('pointerup', this.#boundPointerUp);
-    next?.addEventListener('touchend', this.#boundTouchEnd);
-
-    this.$controller = next;
-  }
-  /** @param {HTMLElement} next */
-  attach(next) {
-    this.#handleAttach(this.$controller, next);
-  }
-  detach() {
-    this.#handleAttach(this.$controller);
+    Object.keys(eventHandlers).forEach((eventName) => {
+      prev?.removeEventListener(eventName, eventHandlers[eventName]);
+      next?.addEventListener(eventName, eventHandlers[eventName]);
+    });
   }
   /** @param {PointerEvent?} e */
   #calculateRipple(e = null) {

@@ -4,8 +4,6 @@
   display: block;
   pointer-events: none;
   border-radius: inherit;
-}
-:host(:not([unbounded])) {
   overflow: hidden;
 }
 
