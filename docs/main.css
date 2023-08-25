@@ -171,6 +171,10 @@ body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
   font-family: var(--md-sys-typography-family);
+
+  transition-property: background-color, color;
+  transition-duration: 67ms;
+  transition-timing-function: linear;
 }
 ::selection {
   background-color: var(--md-sys-color-tertiary-container);
@@ -210,16 +214,27 @@ main {
 }
 
 h1 {
-  font: var(--md-sys-typography-headline-large);
-}
-h2 {
   font: var(--md-sys-typography-headline-medium);
 }
-h3 {
+h2 {
   font: var(--md-sys-typography-headline-small);
 }
-h4 {
+h3 {
   font: var(--md-sys-typography-title-large);
+}
+h4 {
+  font: var(--md-sys-typography-title-medium);
+}
+
+code {
+  margin-inline: 2px;
+  padding-inline: 2px;
+  border-radius: 2px;
+  font: var(--md-sys-typography-body-large);
+
+  background-color: var(--md-sys-color-surface-variant);
+  outline: 2px solid var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 [test~='layout'] * {
