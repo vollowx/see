@@ -36,6 +36,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   @property() spaceBehavior = 'once';
 
   #spaceKeyDown = false;
+  #pointerDown = false;
   #lastTime = 0;
 
   #boundKeyDown = this.#handleKeyDown.bind(this);
@@ -44,17 +45,16 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   #boundMouseLeave = this.#handleMouseLeave.bind(this);
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerUp = this.#handlePointerUp.bind(this);
-  #boundTouchEnd = this.#handleTouchEnd.bind(this);
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (
       (e.key === 'Enter' && this.enterBehavior === 'always') ||
       (e.key === ' ' && this.spaceBehavior === 'always')
     ) {
-      this.createRipple();
-      this.removeRipples();
+      this.addRipple();
+      this.removeRippleAll();
     } else if (e.key === ' ' && this.spaceBehavior === 'once') {
-      if (!this.#spaceKeyDown) this.createRipple();
+      if (!this.#spaceKeyDown) this.addRipple();
       this.#spaceKeyDown = true;
     }
   }
@@ -62,27 +62,37 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   #handleKeyUp(e) {
     if (e.key === ' ' && this.spaceBehavior === 'once') {
       this.#spaceKeyDown = false;
-      this.removeRipples();
+      this.removeRippleAll();
     }
   }
-  #handleMouseEnter() {
+  /** @param {MouseEvent} e */
+  #handleMouseEnter(e) {
     this.toggleAttribute('hover', true);
+    if (this.#pointerDown) this.addRipple(e);
   }
   #handleMouseLeave() {
     this.toggleAttribute('hover', false);
+    if (this.#pointerDown) this.removeRippleAll();
   }
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    /** @type {HTMLElement} */ (this.$control).setPointerCapture(e.pointerId);
-    // Do not handle right click
+    if (e.pointerType === 'mouse') this.#pointerDown = true;
+    document.addEventListener('pointerup', this.#boundPointerUp);
+    document.addEventListener('touchcancel', this.#boundPointerUp);
+    document.addEventListener('touchend', this.#boundPointerUp);
+    document.addEventListener('touchmove', this.#boundPointerUp);
+
     if (e.button === 2) return;
-    this.createRipple(e);
+    this.addRipple(e);
   }
   #handlePointerUp() {
-    this.removeRipples();
-  }
-  #handleTouchEnd() {
-    this.removeRipples();
+    this.#pointerDown = false;
+    document.removeEventListener('pointerup', this.#boundPointerUp);
+    document.removeEventListener('touchcancel', this.#boundPointerUp);
+    document.removeEventListener('touchend', this.#boundPointerUp);
+    document.removeEventListener('touchmove', this.#boundPointerUp);
+
+    this.removeRippleAll();
   }
 
   /**
@@ -96,8 +106,6 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       mouseenter: this.#boundMouseEnter,
       mouseleave: this.#boundMouseLeave,
       pointerdown: this.#boundPointerDown,
-      pointerup: this.#boundPointerUp,
-      touchend: this.#boundTouchEnd,
     };
 
     Object.keys(eventHandlers).forEach((eventName) => {
@@ -105,7 +113,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       next?.addEventListener(eventName, eventHandlers[eventName]);
     });
   }
-  /** @param {PointerEvent?} e */
+  /** @param {MouseEvent?} e */
   #calculateRipple(e = null) {
     const containerRect = this.getBoundingClientRect();
     const containerMiddlePoint = {
@@ -118,13 +126,8 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       centerPoint.x = containerMiddlePoint.x;
       centerPoint.y = containerMiddlePoint.y;
     } else {
-      // @ts-ignore
-      const pointer = e.targetTouches
-        ? // @ts-ignore
-          Array.prototype.slice.call(e.targetTouches, -1)
-        : e;
-      centerPoint.x = pointer.clientX - containerRect.left;
-      centerPoint.y = pointer.clientY - containerRect.top;
+      centerPoint.x = e.clientX - containerRect.left;
+      centerPoint.y = e.clientY - containerRect.top;
     }
     const corners = [
       { x: 0, y: 0 },
@@ -138,8 +141,8 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     return { centerPoint, radius };
   }
-  /** @param {PointerEvent?} e */
-  createRipple(e = null) {
+  /** @param {MouseEvent?} e */
+  addRipple(e = null) {
     const { centerPoint, radius } = this.#calculateRipple(e);
 
     const diameter = radius * 2 + 'px';
@@ -169,6 +172,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       },
       {
         duration: PRESS_GROW_MS,
+        // TODO: Control by global variables
         easing: 'cubic-bezier(0.2, 0, 0, 1)',
         fill: 'forwards',
       }
@@ -176,24 +180,26 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     this.#lastTime = Date.now();
   }
-  removeRipples() {
-    for (const ripple of this.$ripples.splice(0)) {
-      setTimeout(
-        () => {
-          const animation = ripple.animate(
-            {
-              opacity: [0.12, 0],
-            },
-            {
-              duration: OPACITY_OUT_MS,
-              fill: 'forwards',
-              easing: 'linear',
-            }
-          );
-          animation.onfinish = animation.oncancel = () => ripple.remove();
-        },
-        Math.max(MINIMUM_PRESS_MS - (Date.now() - this.#lastTime), 0)
-      );
-    }
+  /** @param {HTMLSpanElement} ripple */
+  removeRipple(ripple) {
+    setTimeout(
+      () => {
+        const animation = ripple.animate(
+          {
+            opacity: [getComputedStyle(ripple).opacity, '0'],
+          },
+          {
+            duration: OPACITY_OUT_MS,
+            fill: 'forwards',
+            easing: 'linear',
+          }
+        );
+        animation.onfinish = animation.oncancel = () => ripple.remove();
+      },
+      Math.max(MINIMUM_PRESS_MS - (Date.now() - this.#lastTime), 0)
+    );
+  }
+  removeRippleAll() {
+    for (const ripple of this.$ripples.splice(0)) this.removeRipple(ripple);
   }
 }
