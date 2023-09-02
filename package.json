@@ -14,9 +14,9 @@
   "author": "vollow",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.22.10",
+    "@babel/core": "^7.22.11",
     "@babel/plugin-proposal-decorators": "^7.22.10",
-    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-env": "^7.22.14",
     "@rollup/plugin-babel": "^6.0.3",
     "puppeteer": "^20.9.0",
     "vite": "^4.4.9"
