@@ -4,9 +4,9 @@ Web Components library with any styles.
 
 **Resources**
 
-- [Documentations](https://vollowx.github.io/mixed-components/)
-- [W3C](https://www.w3.org/WAI/ARIA/apg/example-index/)
-- [Material You](https://m3.material.io/)
+- [Documentations](https://vollowx.github.io/mixed-components/).
+- [Contributing specification](./CONTRIBUTING.md).
+- [Global todos](./TODO.md).
 
 ## Implementations
 
