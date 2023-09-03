@@ -47,4 +47,5 @@ import '../src/m3/button.js';
 import '../src/m3/checkbox.js';
 import '../src/m3/ripple.js';
 import '../src/m3/switch.js';
+import '../src/m3/tooltip.js';
 import './components/demo/demo.js';

@@ -65,7 +65,7 @@ export function property(options = null) {
         : options?.type === Number
         ? {
             get: () =>
-              Number(target.getAttribute(qualifiedName)) ?? initialValue,
+              Number(target.getAttribute(qualifiedName) ?? initialValue),
             /** @param {number} value */
             set: (value) => target.setAttribute(qualifiedName, String(value)),
           }

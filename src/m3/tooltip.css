@@ -1,0 +1,20 @@
+:host {
+  position: absolute;
+  padding-inline: 8px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-radius: 4px;
+  transition: opacity 67ms linear;
+  transition-delay: var(--_transition-delay);
+  font: var(--md-sys-typography-body-small);
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+}
+:host(:not([visible])) {
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0ms;
+}

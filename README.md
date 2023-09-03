@@ -19,6 +19,7 @@ Web Components with any styles.
 | Button     |      🟡       |  ✅  |
 | Checkbox   |      ✅       |  ✅  |
 | Switch     |      ✅       |  ✅  |
+| Tooltip    |      🟡       |  🟡  |
 
 ### Material You (m3)
 
@@ -58,5 +59,5 @@ Web Components with any styles.
 | Tabs                          |      ❌       |  ❌  |  ❌   |   ❌    |
 | Text field                    |      ❌       |  ❌  |  ❌   |   ❌    |
 | Time picker                   |      ❌       |  ❌  |  ❌   |   ❌    |
-| Tooltip                       |      ❌       |  ❌  |  ❌   |   ❌    |
+| Tooltip                       |      🟡       |  🟡  |  🟡   |   ❌    |
 | Top app bar                   |      ❌       |  ❌  |  ❌   |   ❌    |
