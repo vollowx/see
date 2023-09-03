@@ -1,10 +1,12 @@
 # mixed-components
 
-Web Components with any styles.
+Web Components library with any styles.
 
 **Resources**
 
-- [Documents](https://vollowx.github.io/mixed-components/)
+- [Documentations](https://vollowx.github.io/mixed-components/)
+- [W3C](https://www.w3.org/WAI/ARIA/apg/example-index/)
+- [Material You](https://m3.material.io/)
 
 ## Implementations
 
