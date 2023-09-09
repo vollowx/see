@@ -237,6 +237,19 @@ code {
   color: var(--md-sys-color-on-surface-variant);
 }
 
+label:has(md-checkbox) {
+  font: var(--md-sys-typography-label-large);
+  display: inline-flex;
+  align-items: center;
+}
+label:has(md-switch) {
+  font: var(--md-sys-typography-label-large);
+  display: inline-flex;
+  place-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 [test~='layout'] * {
   outline: 1px solid red;
 }

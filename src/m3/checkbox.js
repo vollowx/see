@@ -13,12 +13,10 @@ import MdTargetStyle from './target.css?inline';
 /**
  * @element md-checkbox
  *
- * @csspart container
  * @csspart icon
  * @csspart mark
  * @csspart mark-short
  * @csspart mark-long
- * @csspart label
  */
 @customElement('md-checkbox')
 export default class MdCheckbox extends Checkbox {
@@ -30,13 +28,10 @@ export default class MdCheckbox extends Checkbox {
   }
   get template() {
     return html`
-      <div part="container">
-        <span part="focus-ring"></span>
-        <span part="target"></span>
-        <md-ripple enterbehavior="none"></md-ripple>
-        ${this.templateIcon}
-      </div>
-      <slot part="label"></slot>
+      <span part="focus-ring"></span>
+      <span part="target"></span>
+      <md-ripple enterbehavior="none"></md-ripple>
+      ${this.templateIcon}
     `;
   }
   get templateIcon() {

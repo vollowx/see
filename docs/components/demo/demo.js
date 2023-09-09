@@ -9,7 +9,7 @@ import DcDemoStyle from './demo.css?inline';
 @customElement('dc-demo')
 export default class DcDemo extends ReactiveElement {
   get styles() {
-    return [...sheetsFromCss([DcDemoStyle])];
+    return [...sheetsFromCss(DcDemoStyle)];
   }
   get template() {
     return html`

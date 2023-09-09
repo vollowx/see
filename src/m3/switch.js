@@ -17,7 +17,6 @@ function isRTL() {
 /**
  * @element md-switch
  *
- * @csspart track
  * @csspart thumb
  * @csspart label
  */
@@ -31,15 +30,12 @@ export default class MdSwitch extends Switch {
   }
   get template() {
     return html`
-      <div part="track">
-        <span part="focus-ring"></span>
-        <div part="thumb">
-          <span part="target"></span>
-          <md-ripple spacebehavior="always"></md-ripple>
-          ${this.templateOffIcon}${this.templateOnIcon}
-        </div>
+      <span part="focus-ring"></span>
+      <div part="thumb">
+        <span part="target"></span>
+        <md-ripple spacebehavior="always"></md-ripple>
+        ${this.templateOffIcon}${this.templateOnIcon}
       </div>
-      <slot part="label"></slot>
     `;
   }
   get templateOnIcon() {
@@ -62,8 +58,6 @@ export default class MdSwitch extends Switch {
   }
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
-  /** @type {HTMLSpanElement} */
-  @query('[part~="track"]') $track;
   /** @type {HTMLSpanElement} */
   @query('[part~="thumb"]') $thumb;
   connectedCallback() {
@@ -117,7 +111,7 @@ export default class MdSwitch extends Switch {
     this.removeEventListener('pointermove', this.#boundPointerMove);
     this.releasePointerCapture(e.pointerId);
 
-    const trackRect = this.$track.getBoundingClientRect();
+    const trackRect = this.getBoundingClientRect();
     const thumbRect = this.$thumb.getBoundingClientRect();
     const diff =
       thumbRect.left +

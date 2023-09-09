@@ -5,10 +5,13 @@ import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
+import FormMixin from './form-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
-export default class Button extends FocusDetectingMixin(ReactiveElement) {
+const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+
+export default class Button extends Base {
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }

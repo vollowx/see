@@ -65,11 +65,10 @@
         <div class="divider"></div>
 
         <div role="group" aria-label="button options">
-          <md-checkbox id="button-opt-disabled">Disabled</md-checkbox>
-          <div>
-            <label for="button-opt-label" style="display: block">Label</label>
-            <input type="text" id="button-opt-label" />
-          </div>
+          <label for="button-opt-disabled">
+            <md-checkbox id="button-opt-disabled"></md-checkbox>
+            Disabled
+          </label>
         </div>
 
         <script>
@@ -88,13 +87,6 @@
             .querySelector('#button-opt-disabled')
             .addEventListener('change', (e) =>
               cButtons.forEach((button) => (button.disabled = e.detail))
-            );
-          document
-            .querySelector('#button-opt-label')
-            .addEventListener('input', (e) =>
-              cButtons.forEach(
-                (button) => (button.textContent = e.target.value)
-              )
             );
         </script>
       </dc-demo>
@@ -183,21 +175,30 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-checkbox id="checkbox-controlled">Controlled</md-checkbox>
+        <label for="checkbox-controlled">
+          <md-checkbox id="checkbox-controlled"></md-checkbox>
+          Controlled
+        </label>
 
         <div class="divider"></div>
 
         <div role="group" aria-label="checkbox options">
-          <md-checkbox id="checkbox-opt-checked">Checked</md-checkbox>
-          <md-checkbox id="checkbox-opt-indeterminate"
-            >Indeterminate</md-checkbox
-          >
-          <md-checkbox id="checkbox-opt-disabled">Disabled</md-checkbox>
-          <md-checkbox id="checkbox-opt-error">Error</md-checkbox>
-          <div>
-            <label for="checkbox-opt-label" style="display: block">Label</label>
-            <input type="text" id="checkbox-opt-label" value="Controlled" />
-          </div>
+          <label for="checkbox-opt-checked">
+            <md-checkbox id="checkbox-opt-checked"></md-checkbox>
+            Checked
+          </label>
+          <label for="checkbox-opt-indeterminate">
+            <md-checkbox id="checkbox-opt-indeterminate"></md-checkbox>
+            Indeterminate
+          </label>
+          <label for="checkbox-opt-disabled">
+            <md-checkbox id="checkbox-opt-disabled"></md-checkbox>
+            Disabled
+          </label>
+          <label for="checkbox-opt-error">
+            <md-checkbox id="checkbox-opt-error"></md-checkbox>
+            Error
+          </label>
         </div>
 
         <script>
@@ -217,12 +218,6 @@
           document
             .querySelector('#checkbox-opt-error')
             .addEventListener('change', (e) => (cCheckbox.error = e.detail));
-          document
-            .querySelector('#checkbox-opt-label')
-            .addEventListener(
-              'input',
-              (e) => (cCheckbox.textContent = e.target.value)
-            );
         </script>
       </dc-demo>
 
@@ -238,11 +233,19 @@
 
       <h4>Label</h4>
 
-      <p>Associate a label with a switch by writing inside it.</p>
+      <p>
+        Associate a label with a checkbox using the
+        <code>&lt;label&gt;</code> element.
+      </p>
 
       <dc-demo>
-        <md-checkbox>Checkbox one</md-checkbox>
-        <md-checkbox checked>Checkbox two</md-checkbox>
+        <label>
+          <md-checkbox></md-checkbox>
+          Checkbox one
+        </label>
+
+        <md-checkbox id="checkbox-two"></md-checkbox>
+        <label for="checkbox-two">Checkbox two</label>
       </dc-demo>
 
       <h3>Accessibility</h3>
@@ -255,10 +258,17 @@
       <dc-demo>
         <md-checkbox aria-label="Select all checkboxes"></md-checkbox>
 
-        <md-checkbox aria-label="Agree to terms and conditions">
+        <label>
+          <md-checkbox aria-label="Agree to terms and conditions"></md-checkbox>
           Agree
-        </md-checkbox>
+        </label>
       </dc-demo>
+
+      <p>
+        Note: checkboxes are not automatically labelled by
+        <code>&lt;label&gt;</code> elements and always need an
+        <code>aria-label</code>.
+      </p>
 
       <h2>Ripple</h2>
 
@@ -410,21 +420,30 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo>
-        <md-switch id="switch-controlled">Controlled</md-switch>
+        <label for="switch-controlled">
+          <md-switch id="switch-controlled"></md-switch>
+          Controlled
+        </label>
 
         <div class="divider"></div>
 
         <div role="group" aria-label="switch options">
-          <md-checkbox id="switch-opt-checked">Checked</md-checkbox>
-          <md-checkbox id="switch-opt-disabled">Disabled</md-checkbox>
-          <md-checkbox id="switch-opt-icons">Icons</md-checkbox>
-          <md-checkbox id="switch-opt-checkedicononly"
-            >Checked Icon Only</md-checkbox
-          >
-          <div>
-            <label for="switch-opt-label" style="display: block">Label</label>
-            <input type="text" id="switch-opt-label" value="Controlled" />
-          </div>
+          <label for="switch-opt-checked">
+            <md-checkbox id="switch-opt-checked"></md-checkbox>
+            Checked
+          </label>
+          <label for="switch-opt-disabled">
+            <md-checkbox id="switch-opt-disabled"></md-checkbox>
+            Disabled
+          </label>
+          <label for="switch-opt-icons">
+            <md-checkbox id="switch-opt-icons"></md-checkbox>
+            Icons
+          </label>
+          <label for="switch-opt-checkedicononly">
+            <md-checkbox id="switch-opt-checkedicononly"></md-checkbox>
+            Checked Icon Only
+          </label>
         </div>
 
         <script>
@@ -443,12 +462,6 @@
             .addEventListener(
               'change',
               (e) => (cSwitch.checkedIconOnly = e.detail)
-            );
-          document
-            .querySelector('#switch-opt-label')
-            .addEventListener(
-              'input',
-              (e) => (cSwitch.textContent = e.target.value)
             );
         </script>
       </dc-demo>
@@ -470,49 +483,53 @@
       </p>
 
       <dc-demo>
-        <md-switch
-          aria-label="a unchecked switch with off icon"
-          icons
-        ></md-switch>
-        <md-switch
-          aria-label="a pre-checked switch with off icon"
-          icons
-          checked
-        ></md-switch>
+        <md-switch icons></md-switch>
+        <md-switch icons checked></md-switch>
 
-        <md-switch
-          aria-label="a unchecked switch with off icon"
-          icons
-          checkedicononly
-        ></md-switch>
-        <md-switch
-          aria-label="a pre-checked switch with off icon"
-          icons
-          checkedicononly
-          checked
-        ></md-switch>
+        <md-switch icons checkedicononly></md-switch>
+        <md-switch icons checkedicononly checked></md-switch>
       </dc-demo>
 
       <h4>Label</h4>
 
-      <p>Associate a label with a switch by writing inside it.</p>
+      <p>
+        Associate a label with a checkbox using the
+        <code>&lt;label&gt;</code> element.
+      </p>
 
       <dc-demo>
-        <md-switch>Label 1</md-switch>
-        <md-switch checked>Label 2</md-switch>
+        <label>
+          Wi-Fi
+          <md-switch checked></md-switch>
+        </label>
+
+        <label for="switch-bluetooth">Bluetooth</label>
+        <md-switch id="switch-bluetooth"></md-switch>
       </dc-demo>
 
       <h3>Accessibility</h3>
 
       <p>
-        Add an <code>aria-label</code> attribute to checkboxes without labels or
-        checkboxes whose labels need to be more descriptive.
+        Add an
+        <code>aria-label</code>
+        attribute to switches without labels or switches whose labels need to be
+        more descriptive.
       </p>
 
       <dc-demo>
-        <md-switch aria-label="lights"></md-switch>
-        <md-switch aria-label="all notifications">All</md-switch>
+        <md-switch aria-label="Lights"></md-switch>
+
+        <label>
+          All
+          <md-switch aria-label="All notifications"></md-switch>
+        </label>
       </dc-demo>
+
+      <p>
+        Note: switches are not automatically labelled by
+        <code>&lt;label&gt;</code> elements and always need an
+        <code>aria-label</code>.
+      </p>
 
       <h2>Tooltip</h2>
 
@@ -559,12 +576,15 @@
         by Google.
       </p>
 
-      <md-checkbox style="display: flex" id="docs-opt-dark" checked
-        >Dark mode</md-checkbox
-      >
-      <md-checkbox style="display: flex" id="docs-opt-rtl"
-        >Right to left</md-checkbox
-      >
+      <label for="docs-opt-dark">
+        <md-checkbox id="docs-opt-dark" checked></md-checkbox>
+        Dark mode
+      </label>
+
+      <label for="docs-opt-rtl">
+        <md-checkbox id="docs-opt-rtl"></md-checkbox>
+        Right to left
+      </label>
 
       <script>
         document
@@ -579,6 +599,26 @@
             (e) => (document.documentElement.dir = e.detail ? 'rtl' : 'ltr')
           );
       </script>
+
+      <h2>Tests</h2>
+
+      <dc-demo>
+        <form aria-label="test form">
+          <input type="text" name="username" />
+          <label for="checkbox-in-form">
+            <md-checkbox
+              id="checkbox-in-form"
+              name="agreed-to-license"
+            ></md-checkbox>
+            Agree
+          </label>
+          <md-button type="submit" onclick="this.form.submit()"
+            >
+            Submit
+          </md-button
+          >
+        </form>
+      </dc-demo>
     </main>
   </body>
 </html>

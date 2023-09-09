@@ -6,12 +6,33 @@
   --_checkbox-size: 18px;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
+  display: inline-grid;
+  place-content: center;
+  place-items: center;
+  margin: 15px;
+  height: var(--_checkbox-size);
+  width: var(--_checkbox-size);
+  border-radius: 2px;
   outline: 0;
   position: relative;
-  vertical-align: top;
+  box-sizing: border-box;
+  vertical-align: middle;
   user-select: none;
+  cursor: pointer;
+  transition:
+    background-color 50ms linear,
+    border-color 50ms linear;
+  background-color: color-mix(
+    in srgb,
+    var(--_container-color) var(--_container-opacity, 100%),
+    transparent
+  );
+  border: var(--md-checkbox-outline-width, 2px) solid
+    color-mix(
+      in srgb,
+      var(--_outline-color) var(--_outline-opacity, 100%),
+      transparent
+    );
 }
 :host([checked]),
 :host([indeterminate]) {
@@ -57,33 +78,6 @@
   :host {
     forced-color-adjust: none;
   }
-}
-
-[part~='container'] {
-  border-radius: 2px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: grid;
-  place-content: center;
-  place-items: center;
-  height: var(--_checkbox-size);
-  position: relative;
-  width: var(--_checkbox-size);
-  margin: 15px;
-  transition:
-    background-color 50ms linear,
-    border-color 50ms linear;
-  background-color: color-mix(
-    in srgb,
-    var(--_container-color) var(--_container-opacity, 100%),
-    transparent
-  );
-  border: var(--md-checkbox-outline-width, 2px) solid
-    color-mix(
-      in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
-      transparent
-    );
 }
 
 :host([disabled]) {
@@ -150,10 +144,6 @@
 }
 :host([indeterminate][data-last-status='unchecked']) [part~='mark-long'] {
   transition-property: width;
-}
-
-[part~='label'] {
-  font: var(--md-sys-typography-label-large);
 }
 
 [part~='focus-ring'] {
