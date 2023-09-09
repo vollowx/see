@@ -9,7 +9,6 @@
   display: inline-grid;
   place-content: center;
   place-items: center;
-  gap: 8px;
   position: relative;
   height: 32px;
   width: 52px;
