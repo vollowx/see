@@ -558,6 +558,14 @@
       </p>
 
       <p>
+        As this project is not production-ready nor the style systems exist, we
+        have not provided CSS variables generator yet, either. You could use the
+        color system generator from
+        <a href="https://md-ncm.vercel.app/">another applications</a> for just
+        now.
+      </p>
+
+      <p>
         As this project does not use native elements like <code>button</code>,
         <code>input[type="checkbox"]</code> or <code>select</code> for better
         customizations and fewer 2-way attribute bindings, it also brings a
@@ -566,10 +574,11 @@
       </p>
 
       <p>
-        If you really need form features, you can check
-        <a href="https://github.com/elix/elix">Elix</a>, or if you like Material
-        You design guidelines and you don't mind using
-        <a href="https://lit.dev/">Lit</a>, try
+        You can also check
+        <a href="https://github.com/elix/elix">Elix</a> for using native
+        elements inside web components, or if you like Material You design
+        guidelines and you don't mind using <a href="https://lit.dev/">Lit</a>,
+        try
         <a href="https://github.com/material-components/material-web"
           >Material Web</a
         >
@@ -612,11 +621,9 @@
             ></md-checkbox>
             Agree
           </label>
-          <md-button type="submit" onclick="this.form.submit()"
-            >
+          <md-button type="submit" onclick="this.form.submit()">
             Submit
-          </md-button
-          >
+          </md-button>
         </form>
       </dc-demo>
     </main>
