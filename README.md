@@ -6,7 +6,7 @@ Web Components library with any styles.
 
 - [Documentations](https://vollowx.github.io/mixed-components/).
 - [Contributing specification](./CONTRIBUTING.md).
-- [Global todos](./TODO.md).
+- [Global TODOs](./TODO.md).
 
 ## Implementations
 
