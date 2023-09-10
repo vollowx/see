@@ -4,24 +4,6 @@
   --_thumb-color: var(--md-sys-color-outline);
   --_icon-color: var(--md-sys-color-surface-container-highest);
   --_ripple-color: var(--md-sys-color-on-surface);
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-  display: inline-grid;
-  place-content: center;
-  place-items: center;
-  position: relative;
-  height: 32px;
-  width: 52px;
-  outline: 0;
-  border-radius: 9999px;
-  vertical-align: top;
-  user-select: none;
-  touch-action: none;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition:
-    background-color 67ms linear,
-    border-color 67ms linear;
   background-color: color-mix(
     in srgb,
     var(--_track-color) var(--_track-opacity, 100%),
@@ -33,6 +15,24 @@
       var(--_outline-color) var(--_outline-opacity, 100%),
       transparent
     );
+  border-radius: 9999px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-grid;
+  height: 32px;
+  outline: 0;
+  place-content: center;
+  place-items: center;
+  position: relative;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none;
+  transition:
+    background-color 67ms linear,
+    border-color 67ms linear;
+  user-select: none;
+  vertical-align: top;
+  width: 52px;
 }
 :host([checked]) {
   --_outline-color: var(--md-sys-color-primary);
@@ -85,27 +85,27 @@
 [part~='thumb'] {
   --_thumb-diameter: 16px;
   --_thumb-diff-default: 20px;
-  position: absolute;
-  margin-inline-start: calc(
-    var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
-  );
-  display: grid;
-  place-content: center;
-  place-items: center;
-  height: var(--_thumb-diameter);
-  width: var(--_thumb-diameter);
-  border-radius: 50%;
-  transition:
-    background-color 67ms linear,
-    width 250ms var(--md-sys-motion-easing-standard),
-    height 250ms var(--md-sys-motion-easing-standard),
-    margin 300ms var(--md-sys-motion-overshoot);
-  z-index: 1;
   background-color: color-mix(
     in srgb,
     var(--_thumb-color) var(--_thumb-opacity, 100%),
     transparent
   );
+  border-radius: 50%;
+  display: grid;
+  height: var(--_thumb-diameter);
+  margin-inline-start: calc(
+    var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
+  );
+  place-content: center;
+  place-items: center;
+  position: absolute;
+  transition:
+    background-color 67ms linear,
+    width 250ms var(--md-sys-motion-easing-standard),
+    height 250ms var(--md-sys-motion-easing-standard),
+    margin 300ms var(--md-sys-motion-overshoot);
+  width: var(--_thumb-diameter);
+  z-index: 1;
 }
 :host([checked]) [part~='thumb'] {
   --_thumb-diameter: 24px;
@@ -124,22 +124,22 @@
 }
 
 [part~='icons'] {
-  position: absolute;
-  width: 16px;
-  height: 16px;
   fill: color-mix(
     in srgb,
     var(--_icon-color) var(--_icon-opacity, 0%),
     transparent
   );
+  height: 16px;
+  position: absolute;
   transition: fill 67ms linear;
+  width: 16px;
 }
 
 md-ripple {
-  width: 40px;
+  color: var(--_ripple-color);
   height: 40px;
   inset: unset;
-  color: var(--_ripple-color);
+  width: 40px;
 }
 [part~='focus-ring'] {
   inset: -2px;

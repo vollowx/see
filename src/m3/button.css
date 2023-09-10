@@ -2,32 +2,32 @@
   --_text-color: var(--md-sys-color-on-primary);
   --_background-color: var(--md-sys-color-primary);
   --_outline-color: var(--md-sys-color-outline);
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  outline: 0;
-  position: relative;
-  vertical-align: top;
-  box-sizing: border-box;
-  user-select: none;
-  padding: 0 24px;
-  min-width: 64px;
-  height: 40px;
-  border-radius: 9999px;
-  transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
-  font: var(--md-sys-typography-label-large);
   background-color: color-mix(
     in srgb,
     var(--_background-color) var(--_background-opacity, 100%),
     transparent
   );
+  border-radius: 9999px;
+  box-sizing: border-box;
   color: color-mix(
     in srgb,
     var(--_text-color) var(--_text-opacity, 100%),
     transparent
   );
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--md-sys-typography-label-large);
+  height: 40px;
+  justify-content: center;
+  min-width: 64px;
+  outline: 0;
+  padding: 0 24px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
+  user-select: none;
+  vertical-align: top;
 }
 :host([elevated]) {
   --_background-color: var(--md-sys-color-surface-container-low);
@@ -38,23 +38,23 @@
   --_text-color: var(--md-sys-color-on-secondary);
 }
 :host([outlined]) {
-  padding-inline: 23px;
+  --_background-color: transparent !important;
+  --_text-color: var(--md-sys-color-primary);
   border: 1px solid
     color-mix(
       in srgb,
       var(--_outline-color) var(--_outline-opacity, 100%),
       transparent
     );
-  --_background-color: transparent !important;
-  --_text-color: var(--md-sys-color-primary);
+  padding-inline: 23px;
 }
 :host([outlined]) [part~='focus-ring'] {
   inset: -1px;
 }
 :host([text]) {
-  padding-inline: 12px;
   --_background-color: transparent !important;
   --_text-color: var(--md-sys-color-primary);
+  padding-inline: 12px;
 }
 
 :host([elevated]) {
@@ -84,18 +84,18 @@
 
 ::slotted([slot='icon']),
 ::slotted([slot='trailingicon']) {
-  inline-size: 18px;
   block-size: 18px;
   fill: currentcolor;
   font-size: 18px;
+  inline-size: 18px;
 }
 ::slotted([slot='icon']) {
-  margin-inline-start: -8px;
   margin-inline-end: 8px;
+  margin-inline-start: -8px;
 }
 ::slotted([slot='trailingicon']) {
-  margin-inline-start: 8px;
   margin-inline-end: -8px;
+  margin-inline-start: 8px;
 }
 :host([text]) ::slotted([name='icon']) {
   margin-inline-start: 0px;

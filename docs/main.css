@@ -1,6 +1,4 @@
 :root {
-  color-scheme: dark;
-
   --md-sys-color-background: #0f1511;
   --md-sys-color-on-background: #dfe4dd;
   --md-sys-color-surface: #0f1511;
@@ -39,11 +37,10 @@
   --md-sys-color-on-error: #690005;
   --md-sys-color-error-container: #93000a;
   --md-sys-color-on-error-container: #ffdad6;
+  color-scheme: dark;
 }
 
 :root.light {
-  color-scheme: light;
-
   --md-sys-color-background: #f6fbf4;
   --md-sys-color-on-background: #171d19;
   --md-sys-color-surface: #f6fbf4;
@@ -82,6 +79,7 @@
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-on-error-container: #410002;
+  color-scheme: light;
 }
 
 :root {
@@ -171,9 +169,8 @@ body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
   font-family: var(--md-sys-typography-family);
-
-  transition-property: background-color, color;
   transition-duration: 67ms;
+  transition-property: background-color, color;
   transition-timing-function: linear;
 }
 ::selection {
@@ -189,14 +186,14 @@ a:not(:hover):not(:focus-visible) {
 }
 
 body {
+  font: var(--md-sys-typography-body-large);
   margin: 0;
   min-height: 100vh;
-  font: var(--md-sys-typography-body-large);
 }
 main {
   margin-inline: auto;
-  padding: 32px 16px;
   max-width: 105ch;
+  padding: 32px 16px;
 }
 
 @media (min-width: 1200px) {
@@ -227,27 +224,26 @@ h4 {
 }
 
 code {
-  margin-inline: 2px;
-  padding-inline: 2px;
-  border-radius: 2px;
-  font: var(--md-sys-typography-body-large);
-
   background-color: var(--md-sys-color-surface-variant);
-  outline: 2px solid var(--md-sys-color-surface-variant);
+  border-radius: 2px;
   color: var(--md-sys-color-on-surface-variant);
+  font: var(--md-sys-typography-body-large);
+  margin-inline: 2px;
+  outline: 2px solid var(--md-sys-color-surface-variant);
+  padding-inline: 2px;
 }
 
 label:has(md-checkbox) {
-  font: var(--md-sys-typography-label-large);
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
+  font: var(--md-sys-typography-label-large);
 }
 label:has(md-switch) {
-  font: var(--md-sys-typography-label-large);
   display: inline-flex;
-  place-items: center;
-  justify-content: space-between;
+  font: var(--md-sys-typography-label-large);
   gap: 8px;
+  justify-content: space-between;
+  place-items: center;
 }
 
 [test~='layout'] * {

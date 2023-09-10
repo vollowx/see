@@ -4,24 +4,6 @@
   --_mark-color: var(--md-sys-color-surface-container-highest);
   --_ripple-color: var(--md-sys-color-on-surface);
   --_checkbox-size: 18px;
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
-  display: inline-grid;
-  place-content: center;
-  place-items: center;
-  margin: 15px;
-  height: var(--_checkbox-size);
-  width: var(--_checkbox-size);
-  border-radius: 2px;
-  outline: 0;
-  position: relative;
-  box-sizing: border-box;
-  vertical-align: top;
-  user-select: none;
-  cursor: pointer;
-  transition:
-    background-color 50ms linear,
-    border-color 50ms linear;
   background-color: color-mix(
     in srgb,
     var(--_container-color) var(--_container-opacity, 100%),
@@ -33,6 +15,24 @@
       var(--_outline-color) var(--_outline-opacity, 100%),
       transparent
     );
+  border-radius: 2px;
+  box-sizing: border-box;
+  cursor: pointer;
+  cursor: pointer;
+  display: inline-grid;
+  height: var(--_checkbox-size);
+  margin: 15px;
+  outline: 0;
+  place-content: center;
+  place-items: center;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 50ms linear,
+    border-color 50ms linear;
+  user-select: none;
+  vertical-align: top;
+  width: var(--_checkbox-size);
 }
 :host([checked]),
 :host([indeterminate]) {
@@ -85,21 +85,21 @@
 }
 
 [part~='icon'] {
-  position: absolute;
-  inset: -2px;
-  height: 18px;
-  width: 18px;
-  transition: fill 50ms linear;
   fill: color-mix(
     in srgb,
     var(--_mark-color) var(--_mark-opacity, 0%),
     transparent
   );
+  height: 18px;
+  inset: -2px;
+  position: absolute;
+  transition: fill 50ms linear;
+  width: 18px;
 }
 [part~='mark'] {
+  transform: scaleY(-1) translate(7px, -14px) rotate(45deg);
   transition-duration: 150ms;
   transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
-  transform: scaleY(-1) translate(7px, -14px) rotate(45deg);
 }
 :host([indeterminate]) [part~='mark'] {
   transform: scaleY(-1) translate(4px, -10px) rotate(0deg);
@@ -110,13 +110,13 @@
 }
 [part~='mark-short'] {
   height: 0px;
-  width: 2px;
   transition-property: transform, height;
+  width: 2px;
 }
 [part~='mark-long'] {
   height: 2px;
-  width: 0px;
   transition-property: transform, width;
+  width: 0px;
 }
 :host(:not([checked]):not([indeterminate])[data-last-status='checked'])
   [part~='mark'],
@@ -147,14 +147,14 @@
 }
 
 [part~='focus-ring'] {
-  width: 40px;
   height: 40px;
   inset: unset;
+  width: 40px;
 }
 md-ripple {
-  width: 40px;
+  --md-ripple-color: var(--_ripple-color);
+  border-radius: 9999px;
   height: 40px;
   inset: unset;
-  border-radius: 9999px;
-  --md-ripple-color: var(--_ripple-color);
+  width: 40px;
 }
