@@ -6,31 +6,33 @@ import { property } from '../core/decorators.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
+import InternalsMixin, { internals } from './internals-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FocusDetectingMixin(FormMixin(InternalsMixin(ReactiveElement)));
 
 export default class Switch extends Base {
+  constructor() {
+    super();
+    this[internals].role = 'switch';
+  }
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
-    super.connectedCallback?.();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'switch');
-    }
+    super.connectedCallback();
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this[internals].ariaChecked = this.checked ? 'true' : 'false';
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
 
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
   }
@@ -58,12 +60,12 @@ export default class Switch extends Base {
   }
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    this[internals].ariaChecked = this.checked ? 'true' : 'false';
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }
 
   #boundClick = this.#handleClick.bind(this);

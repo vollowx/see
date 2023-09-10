@@ -6,29 +6,32 @@ import { property } from '../core/decorators.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
+import InternalsMixin, { internals } from './internals-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FocusDetectingMixin(FormMixin(InternalsMixin(ReactiveElement)));
 
 export default class Button extends Base {
+  constructor() {
+    super();
+    this[internals].role = 'button';
+  }
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
-    super.connectedCallback?.();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'button');
-    }
+    super.connectedCallback();
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
   }
@@ -53,7 +56,7 @@ export default class Button extends Base {
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }
 
   #boundKeyDown = this.#handleKeyDown.bind(this);

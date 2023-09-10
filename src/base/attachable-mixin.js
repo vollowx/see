@@ -4,12 +4,14 @@ import { property } from '../core/decorators.js';
 import ReactiveElement from '../core/reactive-element.js';
 
 /** @param {new () => ReactiveElement} Base */
-export default function AttachableMixin(Base) {
-  return class extends Base {
+const AttachableMixin = (Base) =>
+  class Attachable extends Base {
     connectedCallback() {
+      super.connectedCallback?.();
       this.attach();
     }
     disconnectedCallback() {
+      super.disconnectedCallback?.();
       this.detach();
     }
 
@@ -76,4 +78,5 @@ export default function AttachableMixin(Base) {
      */
     handleControlChange(prev = null, next = null) {}
   };
-}
+
+export default AttachableMixin;

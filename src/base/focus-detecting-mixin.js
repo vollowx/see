@@ -20,8 +20,8 @@ window.addEventListener(
 );
 
 /** @param {new () => ReactiveElement} Base */
-export default function FocusDetectingMixin(Base) {
-  return class extends Base {
+const FocusDetectingMixin = (Base) =>
+  class FocusDetecting extends Base {
     connectedCallback() {
       super.connectedCallback?.();
       this.addEventListener('focusin', this.#boundFocusIn);
@@ -42,4 +42,5 @@ export default function FocusDetectingMixin(Base) {
       this.removeAttribute('focus');
     }
   };
-}
+
+export default FocusDetectingMixin;

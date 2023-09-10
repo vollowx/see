@@ -5,18 +5,19 @@ import { html } from '../core/template.js';
 import { property } from '../core/decorators.js';
 
 import AttachableMixin from './attachable-mixin.js';
+import InternalsMixin, { internals } from './internals-mixin.js';
 
 let lastTime = 0;
 
-export default class Tooltip extends AttachableMixin(ReactiveElement) {
+const Base = AttachableMixin(InternalsMixin(ReactiveElement));
+
+export default class Tooltip extends Base {
+  constructor() {
+    super();
+    this[internals].role = 'tooltip';
+  }
   get template() {
     return html`<slot></slot>`;
-  }
-  connectedCallback() {
-    super.connectedCallback?.();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'tooltip');
-    }
   }
 
   @property({ type: Boolean }) visible = false;

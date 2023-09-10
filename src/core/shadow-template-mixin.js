@@ -1,8 +1,8 @@
 // @ts-check
 
 /** @param {new () => HTMLElement} Base */
-export default function ShadowTemplateMixin(Base) {
-  return class extends Base {
+const ShadowTemplateMixin = (Base) =>
+  class ShadowTemplate extends Base {
     constructor() {
       super();
 
@@ -24,4 +24,5 @@ export default function ShadowTemplateMixin(Base) {
       return document.createElement('template');
     }
   };
-}
+
+export default ShadowTemplateMixin;

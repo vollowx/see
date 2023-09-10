@@ -6,6 +6,7 @@ import { property } from '../core/decorators.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
+import InternalsMixin, { internals } from './internals-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
@@ -15,29 +16,30 @@ const PROPERTY_FROM_ARIA_CHECKED = {
   mixed: 'indeterminate',
 };
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FocusDetectingMixin(FormMixin(InternalsMixin(ReactiveElement)));
 
 export default class Checkbox extends Base {
+  constructor() {
+    super();
+    this[internals].role = 'checkbox';
+  }
   get styles() {
     return [...super.styles, ...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
-    super.connectedCallback?.();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'checkbox');
-    }
+    super.connectedCallback();
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this.#updateAriaStatus();
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.#valueChanged();
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
 
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
@@ -50,11 +52,11 @@ export default class Checkbox extends Base {
   attributeChangedCallback(name, _oldValue, _newValue) {
     switch (name) {
       case 'checked':
-        this.#checkedChanged();
+        this.#valueChanged();
         break;
 
       case 'indeterminate':
-        this.#indeterminateChanged();
+        this.#valueChanged();
         break;
 
       case 'disabled':
@@ -69,17 +71,22 @@ export default class Checkbox extends Base {
     return ['checked', 'indeterminate', 'disabled'];
   }
   @property({ type: Boolean }) checked = false;
-  #checkedChanged() {
-    this.#updateAriaStatus();
-  }
   @property({ type: Boolean }) indeterminate = false;
-  #indeterminateChanged() {
-    this.#updateAriaStatus();
+  #valueChanged() {
+    this.setAttribute(
+      'data-last-status',
+      PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked || 'false']
+    );
+    this[internals].ariaChecked = this.indeterminate
+      ? 'mixed'
+      : this.checked
+      ? 'true'
+      : 'false';
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }
 
   #boundClick = this.#handleClick.bind(this);
@@ -107,16 +114,6 @@ export default class Checkbox extends Base {
     }
   }
 
-  #updateAriaStatus() {
-    this.setAttribute(
-      'data-last-status',
-      PROPERTY_FROM_ARIA_CHECKED[this.getAttribute('aria-checked') || 'false']
-    );
-    this.setAttribute(
-      'aria-checked',
-      this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
-    );
-  }
   _toggleStatus() {
     if (this.disabled) {
       return;
