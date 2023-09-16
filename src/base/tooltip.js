@@ -9,6 +9,10 @@ import AttachableMixin from './attachable-mixin.js';
 
 let lastTime = 0;
 
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
 const Base = AttachableMixin(ReactiveElement);
 
 export default class Tooltip extends Base {
@@ -26,27 +30,67 @@ export default class Tooltip extends Base {
   @property({ type: Number }) marginTop = 4;
   @property({ type: Number }) offset = 4;
 
-  #boundFocusIn = this.#handleFocusIn.bind(this);
-  #boundFocusOut = this.#handleFocusOut.bind(this);
+  /** @type {number|undefined} */
+  #timeOutMouse = undefined;
+  /** @type {number|undefined} */
+  #timeOutTouchShow = undefined;
+  /** @type {number|undefined} */
+  #timeOutTouchHide = undefined;
+  #touching = false;
+
+  // #boundFocusIn = this.#handleFocusIn.bind(this);
+  // #boundFocusOut = this.#handleFocusOut.bind(this);
   #boundMouseEnter = this.#handleMouseEnter.bind(this);
   #boundMouseLeave = this.#handleMouseLeave.bind(this);
-  #handleFocusIn() {
-    this.#updatePosition();
-    this.#updateDelay();
-    this.visible = true;
-  }
-  #handleFocusOut() {
-    this.visible = false;
-    lastTime = Date.now();
-  }
+  #boundTouchStart = this.#handleTouchStart.bind(this);
+  #boundTouchEnd = this.#handleTouchEnd.bind(this);
+  // #handleFocusIn() {
+  //   clearTimeout(this.#timeOutMouse);
+  //   this.#timeOutMouse = setTimeout(
+  //     () => {
+  //       this.#updatePosition();
+  //       this.visible = true;
+  //     },
+  //     Math.max(Date.now() - lastTime < 800 ? 0 : 100)
+  //   );
+  // }
+  // #handleFocusOut() {
+  //   lastTime = Date.now();
+  //   this.visible = false;
+  //   clearTimeout(this.#timeOutMouse);
+  // }
   #handleMouseEnter() {
-    this.#updatePosition();
-    this.#updateDelay();
-    this.visible = true;
+    if (isTouchDevice()) return;
+    clearTimeout(this.#timeOutMouse);
+    this.#timeOutMouse = setTimeout(
+      () => {
+        this.#updatePosition();
+        this.visible = true;
+      },
+      Math.max(Date.now() - lastTime < 800 ? 0 : 100)
+    );
   }
   #handleMouseLeave() {
-    this.visible = false;
+    if (isTouchDevice()) return;
     lastTime = Date.now();
+    this.visible = false;
+    clearTimeout(this.#timeOutMouse);
+  }
+  #handleTouchStart() {
+    this.#touching = true;
+    clearTimeout(this.#timeOutTouchHide);
+    this.#timeOutTouchShow = setTimeout(() => {
+      if (!this.#touching) return;
+      this.#updatePosition();
+      this.visible = true;
+    }, 700);
+  }
+  #handleTouchEnd() {
+    this.#touching = false;
+    clearTimeout(this.#timeOutTouchShow);
+    this.#timeOutTouchHide = setTimeout(() => {
+      this.visible = false;
+    }, 1500);
   }
 
   /**
@@ -55,10 +99,12 @@ export default class Tooltip extends Base {
    */
   handleControlChange(prev = null, next = null) {
     const eventHandlers = {
-      focusin: this.#boundFocusIn,
-      focusout: this.#boundFocusOut,
+      // focusin: this.#boundFocusIn,
+      // focusout: this.#boundFocusOut,
       mouseenter: this.#boundMouseEnter,
       mouseleave: this.#boundMouseLeave,
+      touchstart: this.#boundTouchStart,
+      touchend: this.#boundTouchEnd,
     };
 
     Object.keys(eventHandlers).forEach((eventName) => {
@@ -146,10 +192,5 @@ export default class Tooltip extends Base {
       if (ancestor.tagName === 'BODY') return ancestor;
     }
     return null;
-  }
-  #updateDelay() {
-    this.style.transitionDelay = `${Math.max(
-      Date.now() - lastTime < 800 ? 0 : 100
-    )}ms`;
   }
 }
