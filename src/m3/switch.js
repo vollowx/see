@@ -6,9 +6,9 @@ import { customElement, property, query } from '../core/decorators.js';
 
 import MdRipple from './ripple.js';
 
-import MdSwitchStyle from './switch.css?inline';
-import MdFocusRingStyle from './focus-ring.css?inline';
-import MdTargetStyle from './target.css?inline';
+import MdSwitchStyle from './switch.css' with { type: 'css' };
+import MdFocusRingStyle from './focus-ring.css' with { type: 'css' };
+import MdTargetStyle from './target.css' with { type: 'css' };
 
 function isRTL() {
   return document.documentElement.dir === 'rtl';

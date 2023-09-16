@@ -238,7 +238,7 @@ label:has(md-checkbox) {
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
 }
-label:has(md-checkbox[disabled]) {
+label:has(md-checkbox:disabled) {
   pointer-events: none;
 }
 label:has(md-switch) {
@@ -248,7 +248,7 @@ label:has(md-switch) {
   justify-content: space-between;
   place-items: center;
 }
-label:has(md-switch[disabled]) {
+label:has(md-switch:disabled) {
   pointer-events: none;
 }
 

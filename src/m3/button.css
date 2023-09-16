@@ -60,7 +60,7 @@
 :host([elevated]) {
   box-shadow: var(--md-sys-elevation-shadow-1);
 }
-:host([disabled]) {
+:host(:disabled) {
   --_background-color: var(--md-sys-color-on-surface);
   --_background-opacity: 12%;
   --_text-color: var(--md-sys-color-on-surface);
@@ -69,7 +69,7 @@
   cursor: default;
   pointer-events: none;
 }
-:host([outlined][disabled]) {
+:host([outlined]:disabled) {
   --_outline-color: var(--md-sys-color-on-surface);
   --_outline-opacity: 12%;
 }
@@ -97,7 +97,7 @@
   margin-inline-end: -8px;
   margin-inline-start: 8px;
 }
-:host([text]) ::slotted([name='icon']) {
+:host([text]) ::slotted([slot='icon']) {
   margin-inline-start: 0px;
 }
 :host([text]) ::slotted([slot='trailingicon']) {

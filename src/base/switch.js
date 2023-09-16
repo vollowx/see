@@ -8,7 +8,7 @@ import { internals } from '../core/symbols.js';
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
 
-import HiddenStyles from './hidden.css?inline';
+import HiddenStyles from './hidden.css' with { type: 'css' };
 
 const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
 

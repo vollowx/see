@@ -41,7 +41,7 @@
   --_icon-color: var(--md-sys-color-on-primary-container);
   --_ripple-color: var(--md-sys-color-primary);
 }
-:host([disabled]) {
+:host(:disabled) {
   --_outline-color: var(--md-sys-color-on-surface);
   --_outline-opacity: 12%;
   --_track-color: var(--md-sys-color-surface-variant);
@@ -52,7 +52,7 @@
   cursor: default;
   pointer-events: none;
 }
-:host([disabled][checked]) {
+:host(:disabled[checked]) {
   --_outline-color: var(--md-sys-color-surface);
   --_track-color: var(--md-sys-color-on-surface);
   --_thumb-color: var(--md-sys-color-surface);
@@ -65,7 +65,7 @@
 :host([icons][checked]) [part~='icon-on'] {
   --_icon-opacity: 100%;
 }
-:host([icons][checked][disabled]) [part~='icon-on'] {
+:host([icons][checked]:disabled) [part~='icon-on'] {
   --_icon-opacity: 38%;
 }
 @media (hover: hover) and (pointer: fine) {

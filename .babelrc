@@ -1,3 +1,6 @@
 {
-  "plugins": [["@babel/plugin-proposal-decorators", { "version": "2023-05" }]]
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "version": "2023-05" }],
+    "@babel/plugin-syntax-import-attributes"
+  ]
 }

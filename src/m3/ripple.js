@@ -6,7 +6,7 @@ import { customElement, property } from '../core/decorators.js';
 
 import AttachableMixin from '../base/attachable-mixin.js';
 
-import MdRippleStyle from './ripple.css?inline';
+import MdRippleStyle from './ripple.css' with { type: 'css' };
 
 const PRESS_GROW_MS = 450;
 const OPACITY_IN_MS = 105;

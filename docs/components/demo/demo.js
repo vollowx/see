@@ -4,7 +4,7 @@ import ReactiveElement from '../../../src/core/reactive-element.js';
 import { html, sheetsFromCss } from '../../../src/core/template.js';
 import { customElement } from '../../../src/core/decorators.js';
 
-import DcDemoStyle from './demo.css?inline';
+import DcDemoStyle from './demo.css' with { type: 'css' };
 
 @customElement('dc-demo')
 export default class DcDemo extends ReactiveElement {

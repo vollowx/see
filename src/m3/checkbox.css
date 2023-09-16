@@ -54,15 +54,15 @@
   --_mark-color: var(--md-sys-color-on-error);
   --_ripple-color: var(--md-sys-color-error);
 }
-:host([disabled]) {
+:host(:disabled) {
   --_outline-color: var(--md-sys-color-on-surface);
   --_outline-opacity: 38%;
   --_mark-color: var(--md-sys-color-surface-container-highest);
   cursor: default;
   pointer-events: none;
 }
-:host([disabled][checked]),
-:host([disabled][indeterminate]) {
+:host(:disabled[checked]),
+:host(:disabled[indeterminate]) {
   --_container-color: var(--md-sys-color-on-surface);
   --_container-opacity: 38%;
   --_outline-color: var(--md-sys-color-surface);
@@ -80,7 +80,7 @@
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --_unchecked-container-opacity: 38%;
 }
 
