@@ -4,9 +4,6 @@ import ReactiveElement from './reactive-element.js';
 
 /**
  * @typedef {BooleanConstructor|StringConstructor|NumberConstructor} PropertyTypes
- */
-
-/**
  * @typedef {boolean|number|string} PropertyValueTypes
  */
 
@@ -90,14 +87,14 @@ export function query(selector, cache = true) {
             if (target.queryCache.get(selector) === undefined)
               target.queryCache.set(
                 selector,
-                target.renderRoot.querySelector(selector)
+                target.shadowRoot?.querySelector(selector)
               );
             return target.queryCache.get(selector);
           },
         }
       : {
           get() {
-            return target.renderRoot.querySelector(selector);
+            return target.shadowRoot?.querySelector(selector);
           },
         };
     return { ...getter, configurable: true, enumerable: true };
@@ -111,7 +108,7 @@ export function queryAll(selector) {
   return decorateProperty((_, target) => {
     return {
       get() {
-        return target.renderRoot.querySelectorAll(selector);
+        return target.shadowRoot?.querySelectorAll(selector);
       },
       configurable: true,
       enumerable: true,

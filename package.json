@@ -2,33 +2,33 @@
   "name": "mixed-components",
   "version": "0.0.0",
   "description": "Web Components, with Material You design guidelines.",
+  "author": "vollow",
+  "license": "MIT",
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {
-    "dev:docs": "vite --open /docs/",
+    "dev:docs": "vite /docs/",
     "build:docs": "vite build docs",
     "preview:docs": "vite preview docs",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --check --write",
     "lint:style": "stylelint '**/*.css'",
-    "lint:style:fix": "stylelint '**/*.css' --fix"
+    "lint:style:fix": "stylelint '**/*.css' --fix",
+    "lint:type": "tsc"
   },
-  "author": "vollow",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.22.19",
     "@babel/plugin-proposal-decorators": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
     "@rollup/plugin-babel": "^6.0.3",
+    "element-internals-polyfill": "^1.3.8",
     "prettier": "^3.0.3",
     "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-order": "^6.0.3",
+    "typescript": "^5.2.2",
     "vite": "^4.4.9"
-  },
-  "dependencies": {
-    "element-internals-polyfill": "^1.3.8"
   }
 }

@@ -18,7 +18,7 @@ export default class Switch extends Base {
     this[internals].role = 'switch';
   }
   get styles() {
-    return [...super.styles, ...sheetsFromCss(HiddenStyles)];
+    return [...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
     super.connectedCallback();
@@ -55,9 +55,7 @@ export default class Switch extends Base {
         break;
     }
   }
-  static get observedAttributes() {
-    return ['checked', 'disabled'];
-  }
+  static observedAttributes = ['checked', 'disabled'];
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
     this[internals].ariaChecked = this.checked ? 'true' : 'false';
@@ -71,7 +69,7 @@ export default class Switch extends Base {
   #boundClick = this.#handleClick.bind(this);
   #boundKeyDown = this.#handleKeyDown.bind(this);
   _ignoreClick = false;
-  /** @param {PointerEvent} e */
+  /** @param {Event} e */
   #handleClick(e) {
     e.stopPropagation();
     e.preventDefault();

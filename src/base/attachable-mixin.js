@@ -1,9 +1,9 @@
 // @ts-check
 
-import { property } from '../core/decorators.js';
 import ReactiveElement from '../core/reactive-element.js';
+import { property } from '../core/decorators.js';
 
-/** @param {new () => ReactiveElement} Base */
+/** @param {Constructor<ReactiveElement>} Base */
 const AttachableMixin = (Base) =>
   class Attachable extends Base {
     connectedCallback() {
@@ -54,9 +54,7 @@ const AttachableMixin = (Base) =>
           break;
       }
     }
-    static get observedAttributes() {
-      return [...(super.observedAttributes || []), 'for'];
-    }
+    static observedAttributes = [...(super.observedAttributes ?? []), 'for'];
     /** @type {string?} */
     @property({ override: 'for' }) htmlFor;
     #forChanged() {

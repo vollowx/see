@@ -18,7 +18,7 @@ export default class Button extends Base {
     this[internals].role = 'button';
   }
   get styles() {
-    return [...super.styles, ...sheetsFromCss(HiddenStyles)];
+    return [...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
     super.connectedCallback();
@@ -50,9 +50,7 @@ export default class Button extends Base {
         break;
     }
   }
-  static get observedAttributes() {
-    return ['disabled'];
-  }
+  static observedAttributes = ['disabled'];
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');

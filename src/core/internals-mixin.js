@@ -2,7 +2,7 @@
 
 import { internals } from './symbols.js';
 
-/** @param {new () => HTMLElement} Base */
+/** @param {Constructor<CustomElement>} Base */
 const InternalsMixin = (Base) =>
   class Form extends Base {
     constructor() {

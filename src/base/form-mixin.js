@@ -3,12 +3,10 @@
 import ReactiveElement from '../core/reactive-element.js';
 import { internals } from '../core/symbols.js';
 
-/** @param {new () => ReactiveElement} Base */
+/** @param {Constructor<ReactiveElement>} Base */
 const FormMixin = (Base) =>
   class Form extends Base {
-    static get formAssociated() {
-      return true;
-    }
+    static formAssociated = true;
 
     get form() {
       return this[internals].form;

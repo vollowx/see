@@ -19,7 +19,7 @@ window.addEventListener(
   { capture: true }
 );
 
-/** @param {new () => ReactiveElement} Base */
+/** @param {Constructor<ReactiveElement>} Base */
 const FocusDetectingMixin = (Base) =>
   class FocusDetecting extends Base {
     connectedCallback() {

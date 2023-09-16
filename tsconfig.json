@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "noImplicitAny": false, // For ReactiveElement[internals]
+    "noImplicitReturns": true,
+    "strictPropertyInitialization": false, // For decorators
+    "noUnusedLocals": true,
+    "strict": true,
+    "target": "ES2019"
+  },
+  "include": ["src/**/*.js", "docs/**/*.js"]
+}

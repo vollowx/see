@@ -1,18 +1,14 @@
 // @ts-check
 
-/** @param {new () => HTMLElement} Base */
+/** @param {Constructor<CustomElement>} Base */
 const ShadowTemplateMixin = (Base) =>
   class ShadowTemplate extends Base {
     constructor() {
       super();
 
       this.attachShadow({ mode: 'open' });
-      this.renderRoot.adoptedStyleSheets = this.styles;
-      this.renderRoot.append(this.template.content.cloneNode(true));
-    }
-
-    get renderRoot() {
-      return /** @type {ShadowRoot} */ (this.shadowRoot);
+      this.shadowRoot.adoptedStyleSheets = this.styles;
+      this.shadowRoot.append(this.template.content.cloneNode(true));
     }
 
     /** @type {CSSStyleSheet[]} */

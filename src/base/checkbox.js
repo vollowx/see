@@ -24,7 +24,7 @@ export default class Checkbox extends Base {
     this[internals].role = 'checkbox';
   }
   get styles() {
-    return [...super.styles, ...sheetsFromCss(HiddenStyles)];
+    return [...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
     super.connectedCallback();
@@ -67,9 +67,7 @@ export default class Checkbox extends Base {
         break;
     }
   }
-  static get observedAttributes() {
-    return ['checked', 'indeterminate', 'disabled'];
-  }
+  static observedAttributes = ['checked', 'indeterminate', 'disabled'];
   @property({ type: Boolean }) checked = false;
   @property({ type: Boolean }) indeterminate = false;
   #valueChanged() {
@@ -92,7 +90,7 @@ export default class Checkbox extends Base {
   #boundClick = this.#handleClick.bind(this);
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
-  /** @param {PointerEvent} e */
+  /** @param {Event} e */
   #handleClick(e) {
     e.stopPropagation();
     e.preventDefault();
