@@ -9,7 +9,7 @@
     "test": "tests"
   },
   "scripts": {
-    "dev:docs": "vite /docs/",
+    "dev:docs": "vite --open /docs/",
     "build:docs": "vite build docs",
     "preview:docs": "vite preview docs",
     "prettier": "prettier . --check",
