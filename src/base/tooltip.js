@@ -3,13 +3,13 @@
 import ReactiveElement from '../core/reactive-element.js';
 import { html } from '../core/template.js';
 import { property } from '../core/decorators.js';
+import { internals } from '../core/symbols.js';
 
 import AttachableMixin from './attachable-mixin.js';
-import InternalsMixin, { internals } from './internals-mixin.js';
 
 let lastTime = 0;
 
-const Base = AttachableMixin(InternalsMixin(ReactiveElement));
+const Base = AttachableMixin(ReactiveElement);
 
 export default class Tooltip extends Base {
   constructor() {

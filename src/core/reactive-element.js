@@ -1,7 +1,10 @@
 // @ts-check
 
+import InternalsMixin from './internals-mixin.js';
 import ShadowTemplateMixin from './shadow-template-mixin.js';
 
-export default class ReactiveElement extends ShadowTemplateMixin(HTMLElement) {
+const Base = InternalsMixin(ShadowTemplateMixin(HTMLElement));
+
+export default class ReactiveElement extends Base {
   queryCache = new Map();
 }

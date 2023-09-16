@@ -1,10 +1,8 @@
 // @ts-check
 
-import ReactiveElement from '../core/reactive-element.js';
+import { internals } from './symbols.js';
 
-export const internals = Symbol('internals');
-
-/** @param {new () => ReactiveElement} Base */
+/** @param {new () => HTMLElement} Base */
 const InternalsMixin = (Base) =>
   class Form extends Base {
     constructor() {

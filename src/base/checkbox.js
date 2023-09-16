@@ -3,10 +3,10 @@
 import ReactiveElement from '../core/reactive-element.js';
 import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
+import { internals } from '../core/symbols.js';
 
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
-import InternalsMixin, { internals } from './internals-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
@@ -16,7 +16,7 @@ const PROPERTY_FROM_ARIA_CHECKED = {
   mixed: 'indeterminate',
 };
 
-const Base = FocusDetectingMixin(FormMixin(InternalsMixin(ReactiveElement)));
+const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
 
 export default class Checkbox extends Base {
   constructor() {

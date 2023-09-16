@@ -1,7 +1,7 @@
 // @ts-check
 
 import ReactiveElement from '../core/reactive-element.js';
-import { internals } from './internals-mixin.js';
+import { internals } from '../core/symbols.js';
 
 /** @param {new () => ReactiveElement} Base */
 const FormMixin = (Base) =>
