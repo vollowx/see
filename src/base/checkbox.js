@@ -8,7 +8,7 @@ import { internals } from '../core/symbols.js';
 import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
 
-import HiddenStyles from './hidden.css' with { type: 'css' };
+import HiddenStyles from './hidden.css?inline';
 
 const PROPERTY_FROM_ARIA_CHECKED = {
   true: 'checked',

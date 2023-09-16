@@ -6,9 +6,9 @@ import { customElement, property, query } from '../core/decorators.js';
 
 import MdRipple from './ripple.js';
 
-import MdButtonStyle from './button.css' with { type: 'css' };
-import MdFocusRingStyle from './focus-ring.css' with { type: 'css' };
-import MdTargetStyle from './target.css' with { type: 'css' };
+import MdButtonStyle from './button.css?inline';
+import MdFocusRingStyle from './focus-ring.css?inline';
+import MdTargetStyle from './target.css?inline';
 
 /**
  * @element md-button
