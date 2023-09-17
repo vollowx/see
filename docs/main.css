@@ -251,7 +251,3 @@ label:has(md-switch) {
 label:has(md-switch:disabled) {
   pointer-events: none;
 }
-
-[test~='layout'] * {
-  outline: 1px solid red;
-}

@@ -10,6 +10,11 @@ import FormMixin from './form-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
+const PROPERTY_FROM_ARIA_CHECKED = {
+  true: 'checked',
+  false: 'unchecked',
+};
+
 const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
 
 export default class Switch extends Base {
@@ -58,7 +63,12 @@ export default class Switch extends Base {
   static observedAttributes = ['checked', 'disabled'];
   @property({ type: Boolean }) checked = false;
   #checkedChanged() {
+    this[internals].states.delete('--unchecked');
+    this[internals].states.delete('--checked');
     this[internals].ariaChecked = this.checked ? 'true' : 'false';
+    this[internals].states.add(
+      `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+    );
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
