@@ -71,15 +71,18 @@ export default class Checkbox extends Base {
   @property({ type: Boolean }) checked = false;
   @property({ type: Boolean }) indeterminate = false;
   #valueChanged() {
-    this.setAttribute(
-      'data-last-status',
-      PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked || 'false']
+    this[internals].states.clear();
+    this[internals].states.add(
+      `--was-${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
     this[internals].ariaChecked = this.indeterminate
       ? 'mixed'
       : this.checked
       ? 'true'
       : 'false';
+    this[internals].states.add(
+      `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+    );
   }
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
