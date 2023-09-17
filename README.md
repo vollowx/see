@@ -30,7 +30,7 @@ Web Components library with any styles.
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
 | Button                        |      🟡       |  ✅  |  ✅   |   ❌    |
 | FAB                           |      ❌       |  ❌  |  ❌   |   ❌    |
-| Icon button                   |      ❌       |  ❌  |  ❌   |   ❌    |
+| Icon button                   |      🟡       |  🟡  |  🟡   |   ❌    |
 | Segmented button              |      ❌       |  ❌  |  ❌   |   ❌    |
 | Badge                         |      ❌       |  ❌  |  ❌   |   ❌    |
 | Banner                        |      ❌       |  ❌  |  ❌   |   ❌    |
