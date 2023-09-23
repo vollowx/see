@@ -29,11 +29,13 @@ export default class Button extends Base {
 
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
+    this.addEventListener('click', this.#boundClick);
   }
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
+    this.removeEventListener('click', this.#boundClick);
   }
   /**
    * @param {string} name
@@ -51,6 +53,8 @@ export default class Button extends Base {
     }
   }
   static observedAttributes = ['disabled'];
+  /** @type {'button'|'submit'|'reset'} */
+  @property() type = 'button';
   @property({ type: Boolean }) disabled = false;
   #disabledChanged() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
@@ -59,6 +63,7 @@ export default class Button extends Base {
 
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
+  #boundClick = this.#handleClick.bind(this);
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (e.key !== ' ' && e.key !== 'Enter') return;
@@ -75,5 +80,8 @@ export default class Button extends Base {
       e.stopPropagation();
       this.click();
     }
+  }
+  #handleClick() {
+    if (this.type !== 'button') this[internals].form?.[this.type]();
   }
 }

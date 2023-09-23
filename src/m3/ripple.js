@@ -14,6 +14,11 @@ const OPACITY_IN_MS = 105;
 const OPACITY_OUT_MS = 375;
 const MINIMUM_PRESS_MS = 225;
 
+/**
+ * @param {{ x: number, y: number }} a
+ * @param {{ x: number, y: number }} b
+ * @returns {number}
+ */
 function distance({ x: ax, y: ay }, { x: bx, y: by }) {
   return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
 }

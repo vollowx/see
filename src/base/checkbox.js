@@ -133,5 +133,6 @@ export default class Checkbox extends Base {
         detail: this.checked,
       })
     );
+    this[internals].setFormValue(this.checked ? 'on' : null);
   }
 }
