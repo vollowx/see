@@ -11,10 +11,8 @@
   pointer-events: none;
   position: absolute;
   transition: opacity 67ms linear;
-  transition-delay: var(--_transition-delay);
 }
 :host(:not([visible])) {
   opacity: 0;
-  transition-delay: 0ms;
   visibility: hidden;
 }
