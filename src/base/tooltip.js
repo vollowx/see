@@ -83,6 +83,9 @@ export default class Tooltip extends Base {
       if (!this.#touching) return;
       this.#updatePosition();
       this.visible = true;
+      this.addEventListener('pointerdown', () => {
+        this.visible = false;
+      });
     }, 700);
   }
   #handleTouchEnd() {
