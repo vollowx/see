@@ -44,6 +44,7 @@ export default class Tooltip extends Base {
   #boundMouseLeave = this.#handleMouseLeave.bind(this);
   #boundTouchStart = this.#handleTouchStart.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
+  #boundOutsidePointerDown = this.#handleOutsidePointerDown.bind(this);
   // #handleFocusIn() {
   //   clearTimeout(this.#timeOutMouse);
   //   this.#timeOutMouse = setTimeout(
@@ -83,9 +84,7 @@ export default class Tooltip extends Base {
       if (!this.#touching) return;
       this.#updatePosition();
       this.visible = true;
-      this.addEventListener('pointerdown', () => {
-        this.visible = false;
-      });
+      addEventListener('pointerdown', this.#boundOutsidePointerDown);
     }, 700);
   }
   #handleTouchEnd() {
@@ -94,6 +93,10 @@ export default class Tooltip extends Base {
     this.#timeOutTouchHide = setTimeout(() => {
       this.visible = false;
     }, 1500);
+  }
+  #handleOutsidePointerDown() {
+    this.visible = false;
+    removeEventListener('pointerdown', this.#boundOutsidePointerDown);
   }
 
   /**
