@@ -167,9 +167,6 @@ body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
   font-family: var(--md-sys-typography-family);
-  transition-duration: 67ms;
-  transition-property: background-color, color;
-  transition-timing-function: linear;
 }
 ::selection {
   background-color: var(--md-sys-color-tertiary-container);

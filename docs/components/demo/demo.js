@@ -16,7 +16,15 @@ export default class DcDemo extends ReactiveElement {
       <style>
         ${DcDemoStyle}
       </style>
-      <div id="contents"><slot></slot></div>
+      <div part="contents"><slot></slot></div>
+      <div part="controls">
+        <div part="controls-header">
+          <h3>Playground</h3>
+        </div>
+        <div part="controls-body">
+          <slot name="controls"></slot>
+        </div>
+      </div>
     `;
   }
 }

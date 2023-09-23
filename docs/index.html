@@ -44,44 +44,19 @@
 
       <h3>Interactive Demo</h3>
 
-      <dc-demo>
-        <md-button id="button-minus" outlined>Minus 1</md-button>
-        <span
-          id="number-display"
-          style="display: inline-flex; align-items: center"
-        >
-          0
-        </span>
-        <md-button id="button-plus">Plus 1</md-button>
-
-        <div class="divider"></div>
-
+      <dc-demo hascontrols>
         <md-button class="buttons">Filled</md-button>
         <md-button class="buttons" tonal>Tonal</md-button>
         <md-button class="buttons" elevated>Elevated</md-button>
         <md-button class="buttons" outlined>Outlined</md-button>
         <md-button class="buttons" text>Text</md-button>
 
-        <div class="divider"></div>
-
-        <div role="group" aria-label="button options">
-          <label for="button-opt-disabled">
-            <md-checkbox id="button-opt-disabled"></md-checkbox>
-            Disabled
-          </label>
-        </div>
+        <label slot="controls" for="button-opt-disabled">
+          Disabled
+          <md-switch id="button-opt-disabled"></md-switch>
+        </label>
 
         <script>
-          const numDisplay = document.querySelector('#number-display');
-          document.querySelector('#button-minus').onclick = () =>
-            (numDisplay.textContent = String(
-              Number(numDisplay.textContent) - 1
-            ));
-          document.querySelector('#button-plus').onclick = () =>
-            (numDisplay.textContent = String(
-              Number(numDisplay.textContent) + 1
-            ));
-
           const cButtons = document.querySelectorAll('.buttons');
           document
             .querySelector('#button-opt-disabled')
@@ -236,32 +211,28 @@
 
       <h3>Interactive Demo</h3>
 
-      <dc-demo>
+      <dc-demo hascontrols>
         <label for="checkbox-controlled">
           <md-checkbox id="checkbox-controlled"></md-checkbox>
           Controlled
         </label>
 
-        <div class="divider"></div>
-
-        <div role="group" aria-label="checkbox options">
-          <label for="checkbox-opt-checked">
-            <md-checkbox id="checkbox-opt-checked"></md-checkbox>
-            Checked
-          </label>
-          <label for="checkbox-opt-indeterminate">
-            <md-checkbox id="checkbox-opt-indeterminate"></md-checkbox>
-            Indeterminate
-          </label>
-          <label for="checkbox-opt-disabled">
-            <md-checkbox id="checkbox-opt-disabled"></md-checkbox>
-            Disabled
-          </label>
-          <label for="checkbox-opt-error">
-            <md-checkbox id="checkbox-opt-error"></md-checkbox>
-            Error
-          </label>
-        </div>
+        <label slot="controls" for="checkbox-opt-checked">
+          Checked
+          <md-switch id="checkbox-opt-checked"></md-switch>
+        </label>
+        <label slot="controls" for="checkbox-opt-indeterminate">
+          Indeterminate
+          <md-switch id="checkbox-opt-indeterminate"></md-switch>
+        </label>
+        <label slot="controls" for="checkbox-opt-disabled">
+          Disabled
+          <md-switch id="checkbox-opt-disabled"></md-switch>
+        </label>
+        <label slot="controls" for="checkbox-opt-error">
+          Error
+          <md-switch id="checkbox-opt-error"></md-switch>
+        </label>
 
         <script>
           const cCheckbox = document.querySelector('#checkbox-controlled');
@@ -456,15 +427,6 @@
         </li>
       </ol>
 
-      <h4>Centered</h4>
-
-      <dc-demo>
-        <button style="position: relative">
-          <md-ripple centered></md-ripple>
-          Button with Centered Ripple
-        </button>
-      </dc-demo>
-
       <h3>Accessibility</h3>
 
       <p>
@@ -481,32 +443,28 @@
 
       <h3>Interactive Demo</h3>
 
-      <dc-demo>
+      <dc-demo hascontrols>
         <label for="switch-controlled">
           <md-switch id="switch-controlled"></md-switch>
           Controlled
         </label>
 
-        <div class="divider"></div>
-
-        <div role="group" aria-label="switch options">
-          <label for="switch-opt-checked">
-            <md-checkbox id="switch-opt-checked"></md-checkbox>
-            Checked
-          </label>
-          <label for="switch-opt-disabled">
-            <md-checkbox id="switch-opt-disabled"></md-checkbox>
-            Disabled
-          </label>
-          <label for="switch-opt-icons">
-            <md-checkbox id="switch-opt-icons"></md-checkbox>
-            Icons
-          </label>
-          <label for="switch-opt-checkedicononly">
-            <md-checkbox id="switch-opt-checkedicononly"></md-checkbox>
-            Checked Icon Only
-          </label>
-        </div>
+        <label slot="controls" for="switch-opt-checked">
+          Checked
+          <md-switch id="switch-opt-checked"></md-switch>
+        </label>
+        <label slot="controls" for="switch-opt-disabled">
+          Disabled
+          <md-switch id="switch-opt-disabled"></md-switch>
+        </label>
+        <label slot="controls" for="switch-opt-icons">
+          Icons
+          <md-switch id="switch-opt-icons"></md-switch>
+        </label>
+        <label slot="controls" for="switch-opt-checkedicononly">
+          Checked Icon Only
+          <md-switch id="switch-opt-checkedicononly"></md-switch>
+        </label>
 
         <script>
           const cSwitch = document.querySelector('#switch-controlled');
