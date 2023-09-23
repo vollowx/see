@@ -94,7 +94,10 @@ export default class Tooltip extends Base {
       this.visible = false;
     }, 1500);
   }
-  #handleOutsidePointerUp() {
+  /** @param {PointerEvent} e */
+  #handleOutsidePointerUp(e) {
+    if (e.composedPath().includes(/** @type {HTMLElement} */ (this.$control)))
+      return;
     this.visible = false;
     removeEventListener('pointerup', this.#boundOutsidePointerUp);
   }
