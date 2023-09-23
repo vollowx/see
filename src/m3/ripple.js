@@ -7,6 +7,7 @@ import { customElement, property } from '../core/decorators.js';
 import AttachableMixin from '../base/attachable-mixin.js';
 
 import MdRippleStyle from './ripple.css?inline';
+import { internals } from '../core/symbols.js';
 
 const PRESS_GROW_MS = 450;
 const OPACITY_IN_MS = 105;
@@ -24,6 +25,10 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
  */
 @customElement('md-ripple')
 export default class MdRipple extends AttachableMixin(ReactiveElement) {
+  constructor() {
+    super();
+    this[internals].ariaHidden = 'true';
+  }
   get styles() {
     return [...sheetsFromCss(MdRippleStyle)];
   }
@@ -41,8 +46,8 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
-  #boundMouseEnter = this.#handleMouseEnter.bind(this);
-  #boundMouseLeave = this.#handleMouseLeave.bind(this);
+  #boundPointerEnter = this.#handlePointerEnter.bind(this);
+  #boundPointerLeave = this.#handlePointerLeave.bind(this);
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerUp = this.#handlePointerUp.bind(this);
   /** @param {KeyboardEvent} e */
@@ -65,13 +70,14 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       this.removeRippleAll();
     }
   }
-  /** @param {MouseEvent} e */
-  #handleMouseEnter(e) {
-    this.toggleAttribute('hover', true);
+  /** @param {PointerEvent} e */
+  #handlePointerEnter(e) {
+    if (e.pointerType === 'touch') return;
+    this[internals].states.add('--hover');
     if (this.#pointerDown) this.addRipple(e);
   }
-  #handleMouseLeave() {
-    this.toggleAttribute('hover', false);
+  #handlePointerLeave() {
+    this[internals].states.delete('--hover');
     if (this.#pointerDown) this.removeRippleAll();
   }
   /** @param {PointerEvent} e */
@@ -103,8 +109,8 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
     const eventHandlers = {
       keydown: this.#boundKeyDown,
       keyup: this.#boundKeyUp,
-      mouseenter: this.#boundMouseEnter,
-      mouseleave: this.#boundMouseLeave,
+      pointerenter: this.#boundPointerEnter,
+      pointerleave: this.#boundPointerLeave,
       pointerdown: this.#boundPointerDown,
     };
 
