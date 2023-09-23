@@ -71,9 +71,6 @@ export default class Checkbox extends Base {
   @property({ type: Boolean }) checked = false;
   @property({ type: Boolean }) indeterminate = false;
   #valueChanged() {
-    this[internals].states.delete('--unchecked');
-    this[internals].states.delete('--checked');
-    this[internals].states.delete('--indeterminate');
     this[internals].states.delete('--was-unchecked');
     this[internals].states.delete('--was-checked');
     this[internals].states.delete('--was-indeterminate');
@@ -85,6 +82,9 @@ export default class Checkbox extends Base {
       : this.checked
       ? 'true'
       : 'false';
+    this[internals].states.delete('--unchecked');
+    this[internals].states.delete('--checked');
+    this[internals].states.delete('--indeterminate');
     this[internals].states.add(
       `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
