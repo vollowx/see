@@ -19,12 +19,12 @@
   display: inline-flex;
   height: 40px;
   justify-content: center;
-  width: 40px;
   outline: 0;
   position: relative;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   vertical-align: top;
+  width: 40px;
 }
 :host([filled]) {
   --_text-color: var(--md-sys-color-on-primary);

@@ -1,16 +1,20 @@
 [part~='focus-ring'] {
+  animation-delay: 0s, 150ms;
+  animation-duration: 150ms, 450ms;
   border-radius: var(--md-focus-ring-radius, 9999px);
-  display: block;
+  box-sizing: border-box;
+  color: var(--md-sys-color-secondary);
+  display: none;
   inset: 0;
   pointer-events: none;
   position: absolute;
+  z-index: 1;
 }
 :host([focus='key']) [part~='focus-ring'] {
-  animation-delay: 0s, 150ms;
-  animation-duration: 150ms, 450ms;
   animation-name: outward-grow, outward-shrink;
   animation-timing-function: var(--md-sys-motion-easing-standard);
-  outline: 3px solid var(--md-sys-color-secondary);
+  display: flex;
+  outline: 3px solid currentColor;
   outline-offset: 2px;
 }
 
