@@ -9,6 +9,8 @@ type CustomElement = HTMLElement & {
   ): void;
   connectedCallback?(): void;
   disconnectedCallback?(): void;
+  update?(): void;
+  update?({}: { first?: boolean; dispatch?: boolean }): void;
   shadowRoot: ShadowRoot;
 };
 

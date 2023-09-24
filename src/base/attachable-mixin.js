@@ -41,24 +41,25 @@ const AttachableMixin = (Base) =>
     #currentControl;
     /**
      * @param {string} name
-     * @param {string|null} _oldValue
-     * @param {string|null} _newValue
+     * @param {string|null} oldValue
+     * @param {string|null} newValue
      */
-    attributeChangedCallback(name, _oldValue, _newValue) {
+    attributeChangedCallback(name, oldValue, newValue) {
       switch (name) {
         case 'for':
-          this.#forChanged();
+          this.#update();
           break;
 
         default:
+          super.attributeChangedCallback?.(name, oldValue, newValue);
           break;
       }
     }
     static observedAttributes = [...(super.observedAttributes ?? []), 'for'];
     /** @type {string?} */
     @property({ override: 'for' }) htmlFor;
-    #forChanged() {
-      this.attach();
+    #update() {
+      this.attach(this.$control);
     }
 
     /** @param {HTMLElement?} next */

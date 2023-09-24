@@ -22,11 +22,6 @@ export default class Button extends Base {
   }
   connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
-    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
-
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
     this.addEventListener('click', this.#boundClick);
@@ -37,26 +32,14 @@ export default class Button extends Base {
     this.removeEventListener('keyup', this.#boundKeyUp);
     this.removeEventListener('click', this.#boundClick);
   }
-  /**
-   * @param {string} name
-   * @param {string|null} _oldValue
-   * @param {string|null} _newValue
-   */
-  attributeChangedCallback(name, _oldValue, _newValue) {
-    switch (name) {
-      case 'disabled':
-        this.#disabledChanged();
-        break;
 
-      default:
-        break;
-    }
-  }
   static observedAttributes = ['disabled'];
   /** @type {'button'|'submit'|'reset'} */
   @property() type = 'button';
   @property({ type: Boolean }) disabled = false;
-  #disabledChanged() {
+
+  update({ first = false, dispatch = false } = {}) {
+    super.update?.({ first, dispatch });
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }

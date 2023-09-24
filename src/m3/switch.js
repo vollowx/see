@@ -61,13 +61,13 @@ export default class MdSwitch extends Switch {
   /** @type {HTMLSpanElement} */
   @query('[part~="thumb"]') $thumb;
   connectedCallback() {
-    super.connectedCallback?.();
+    super.connectedCallback();
     this.$ripple.attach(this);
     this.addEventListener('pointerdown', this.#boundPointerDown);
     this.addEventListener('pointerup', this.#boundPointerUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('pointerdown', this.#boundPointerDown);
     this.removeEventListener('pointerup', this.#boundPointerUp);
   }
@@ -81,18 +81,16 @@ export default class MdSwitch extends Switch {
   #boundPointerUp = this.#handlePointerUp.bind(this);
   /** @param {PointerEvent} e */
   #handlePointerDown(e) {
-    if (e.button !== 0) return;
-
-    this.#pointerDownX = e.clientX;
     this._ignoreClick = false;
 
+    if (e.button !== 0) return;
+    this.#pointerDownX = e.clientX;
     this.setPointerCapture(e.pointerId);
     this.addEventListener('pointermove', this.#boundPointerMove);
   }
   /** @param {PointerEvent} e */
   #handlePointerMove(e) {
     this._ignoreClick = true;
-    e.preventDefault();
 
     const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
     const limitedDiff = this.checked
@@ -120,7 +118,7 @@ export default class MdSwitch extends Switch {
       trackRect.width / 2;
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
 
-    if (this.checked != shouldBeChecked) this._toggleStatus();
+    if (this.checked != shouldBeChecked) this.__toggleStatus();
     this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
     this.$thumb.style.setProperty('--_thumb-diameter', '');
     this.$thumb.style.transitionDuration = '';

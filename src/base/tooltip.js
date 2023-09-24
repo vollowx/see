@@ -65,7 +65,7 @@ export default class Tooltip extends Base {
     clearTimeout(this.#timeOutMouse);
     this.#timeOutMouse = setTimeout(
       () => {
-        this.#updatePosition();
+        this.#setPosition();
         this.visible = true;
       },
       Math.max(Date.now() - lastTime < 800 ? 0 : 100)
@@ -82,7 +82,7 @@ export default class Tooltip extends Base {
     clearTimeout(this.#timeOutTouchHide);
     this.#timeOutTouchShow = setTimeout(() => {
       if (!this.#touching) return;
-      this.#updatePosition();
+      this.#setPosition();
       this.visible = true;
       addEventListener('pointerup', this.#boundOutsidePointerUp);
     }, 700);
@@ -121,7 +121,7 @@ export default class Tooltip extends Base {
       next?.addEventListener(eventName, eventHandlers[eventName]);
     });
   }
-  #updatePosition() {
+  #setPosition() {
     if (!this.$control) return;
     var offsetParent = this.#composedOffsetParent();
     if (!offsetParent) return;

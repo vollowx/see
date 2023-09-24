@@ -1,14 +1,8 @@
 // @ts-check
 
-/// <reference path="shared.d.ts" />
-
-import InternalsMixin from './internals-mixin.js';
-import ShadowTemplateMixin from './shadow-template-mixin.js';
+import ReactiveMixin from './reactive-mixin';
 
 // @ts-ignore
-// For the shadowRoot is not attached by default
-const Base = InternalsMixin(ShadowTemplateMixin(HTMLElement));
+const Base = ReactiveMixin(HTMLElement);
 
-export default class ReactiveElement extends Base {
-  queryCache = new Map();
-}
+export default class ReactiveElement extends Base {}

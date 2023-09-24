@@ -43,37 +43,46 @@ export default class Switch extends Base {
   }
   /**
    * @param {string} name
-   * @param {string|null} _oldValue
-   * @param {string|null} _newValue
+   * @param {string|null} oldValue
+   * @param {string|null} newValue
    */
-  attributeChangedCallback(name, _oldValue, _newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'checked':
-        this.#checkedChanged();
-        break;
-
-      case 'disabled':
-        this.#disabledChanged();
+        this.update({ dispatch: true });
         break;
 
       default:
+        super.attributeChangedCallback?.(name, oldValue, newValue);
         break;
     }
   }
   static observedAttributes = ['checked', 'disabled'];
   @property({ type: Boolean }) checked = false;
-  #checkedChanged() {
+  @property({ type: Boolean }) disabled = false;
+
+  update({ first = false, dispatch = false } = {}) {
+    super.update?.({ first, dispatch });
     this[internals].states.delete('--unchecked');
     this[internals].states.delete('--checked');
     this[internals].ariaChecked = this.checked ? 'true' : 'false';
     this[internals].states.add(
       `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
-  }
-  @property({ type: Boolean }) disabled = false;
-  #disabledChanged() {
+
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+
+    this[internals].setFormValue(this.checked ? 'on' : null);
+
+    if (dispatch)
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          bubbles: true,
+          composed: true,
+          detail: this.checked,
+        })
+      );
   }
 
   #boundClick = this.#handleClick.bind(this);
@@ -84,29 +93,21 @@ export default class Switch extends Base {
     e.stopPropagation();
     e.preventDefault();
     if (this._ignoreClick) return;
-    this._toggleStatus();
+    this.__toggleStatus();
   }
   /** @param {KeyboardEvent} e */
   #handleKeyDown(e) {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
-      this._toggleStatus();
+      this.__toggleStatus();
     }
   }
 
-  _toggleStatus() {
+  __toggleStatus() {
     if (this.disabled) {
       return;
     }
     this.checked = !this.checked;
-    this.dispatchEvent(
-      new CustomEvent('change', {
-        bubbles: true,
-        composed: true,
-        detail: this.checked,
-      })
-    );
-    this[internals].setFormValue(this.checked ? 'on' : null);
   }
 }

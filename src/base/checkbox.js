@@ -28,12 +28,6 @@ export default class Checkbox extends Base {
   }
   connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
-    this.#valueChanged();
-    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
-
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
@@ -46,31 +40,28 @@ export default class Checkbox extends Base {
   }
   /**
    * @param {string} name
-   * @param {string|null} _oldValue
-   * @param {string|null} _newValue
+   * @param {string|null} oldValue
+   * @param {string|null} newValue
    */
-  attributeChangedCallback(name, _oldValue, _newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case 'checked':
-        this.#valueChanged();
-        break;
-
       case 'indeterminate':
-        this.#valueChanged();
-        break;
-
-      case 'disabled':
-        this.#disabledChanged();
+        this.update({ dispatch: true });
         break;
 
       default:
+        super.attributeChangedCallback?.(name, oldValue, newValue);
         break;
     }
   }
   static observedAttributes = ['checked', 'indeterminate', 'disabled'];
   @property({ type: Boolean }) checked = false;
   @property({ type: Boolean }) indeterminate = false;
-  #valueChanged() {
+  @property({ type: Boolean }) disabled = false;
+
+  update({ first = false, dispatch = false } = {}) {
+    super.update?.({ first, dispatch });
     this[internals].states.delete('--was-unchecked');
     this[internals].states.delete('--was-checked');
     this[internals].states.delete('--was-indeterminate');
@@ -88,11 +79,20 @@ export default class Checkbox extends Base {
     this[internals].states.add(
       `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
-  }
-  @property({ type: Boolean }) disabled = false;
-  #disabledChanged() {
+
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+
+    this[internals].setFormValue(this.checked ? 'on' : null);
+
+    if (dispatch)
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          bubbles: true,
+          composed: true,
+          detail: this.checked,
+        })
+      );
   }
 
   #boundClick = this.#handleClick.bind(this);
@@ -121,18 +121,9 @@ export default class Checkbox extends Base {
   }
 
   _toggleStatus() {
-    if (this.disabled) {
-      return;
-    }
+    if (this.disabled) return;
+
     this.checked = !this.checked;
     this.indeterminate = false;
-    this.dispatchEvent(
-      new CustomEvent('change', {
-        bubbles: true,
-        composed: true,
-        detail: this.checked,
-      })
-    );
-    this[internals].setFormValue(this.checked ? 'on' : null);
   }
 }
