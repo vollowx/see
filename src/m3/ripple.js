@@ -10,9 +10,9 @@ import MdRippleStyle from './ripple.css?inline';
 import { internals } from '../core/symbols.js';
 
 const PRESS_GROW_MS = 450;
+const MINIMUM_PRESS_MS = 225;
 const OPACITY_IN_MS = 105;
 const OPACITY_OUT_MS = 375;
-const MINIMUM_PRESS_MS = 225;
 
 /**
  * @param {{ x: number, y: number }} a
@@ -39,7 +39,6 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   }
   /** @type {HTMLSpanElement[]} */
   $ripples = [];
-  @property({ type: Boolean }) centered = false;
   /** @type {'always'|'none'} */
   @property() enterBehavior = 'always';
   /** @type {'always'|'once'|'none'} */
@@ -127,18 +126,18 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   /** @param {MouseEvent?} e */
   #calculateRipple(e = null) {
     const containerRect = this.getBoundingClientRect();
-    const containerMiddlePoint = {
+    const containerMiddle = {
       x: containerRect.width / 2,
       y: containerRect.height / 2,
     };
-    const centered = !e || this.centered;
-    let centerPoint = { x: 0, y: 0 };
+    const centered = !e;
+    const endCenter = containerMiddle;
+    let startCenter = {};
     if (centered) {
-      centerPoint.x = containerMiddlePoint.x;
-      centerPoint.y = containerMiddlePoint.y;
+      startCenter = endCenter;
     } else {
-      centerPoint.x = e.clientX - containerRect.left;
-      centerPoint.y = e.clientY - containerRect.top;
+      startCenter.x = e.clientX - containerRect.left;
+      startCenter.y = e.clientY - containerRect.top;
     }
     const corners = [
       { x: 0, y: 0 },
@@ -147,17 +146,20 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       { x: containerRect.width, y: containerRect.height },
     ];
     const radius = Math.max(
-      ...corners.map((corner) => distance(centerPoint, corner))
+      ...corners.map((corner) => distance(endCenter, corner))
     );
 
-    return { centerPoint, radius };
+    return { startCenter, endCenter, radius };
   }
   /** @param {MouseEvent?} e */
   addRipple(e = null) {
-    const { centerPoint, radius } = this.#calculateRipple(e);
+    const { startCenter, endCenter, radius } = this.#calculateRipple(e);
 
     const diameter = radius * 2 + 'px';
-    const translate = `${centerPoint.x - radius}px ${centerPoint.y - radius}px`;
+    const translateStart = `${startCenter.x - radius}px ${
+      startCenter.y - radius
+    }px`;
+    const translateEnd = `${endCenter.x - radius}px ${endCenter.y - radius}px`;
 
     const ripple = document.createElement('div');
     ripple.setAttribute('part', 'ripple');
@@ -178,7 +180,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       {
         height: [diameter, diameter],
         width: [diameter, diameter],
-        translate: [translate, translate],
+        translate: [translateStart, translateEnd],
         scale: [0.2, 1.35],
       },
       {
