@@ -30,6 +30,15 @@ window.addEventListener(
   { capture: true }
 );
 
+/** @type {Tooltip[]} */
+var visibleTooltips = [];
+
+window.addEventListener('scroll', () => {
+  visibleTooltips.forEach((tooltip) => {
+    tooltip.updatePosition();
+  });
+});
+
 const Base = AttachableMixin(ReactiveElement);
 
 export default class Tooltip extends Base {
@@ -41,11 +50,21 @@ export default class Tooltip extends Base {
     return html`<slot></slot>`;
   }
 
+  static observedAttributes = ['visible'];
   @property({ type: Boolean }) visible = false;
   /** @type {'top'|'bottom'|'left'|'right'} */
   @property() position = 'top';
   @property({ type: Number }) marginTop = 4;
   @property({ type: Number }) offset = 4;
+
+  update({ first = false, dispatch = false } = {}) {
+    super.update?.({ first, dispatch });
+    if (this.visible) {
+      visibleTooltips.push(this);
+    } else {
+      visibleTooltips = visibleTooltips.filter((tooltip) => tooltip !== this);
+    }
+  }
 
   moudeShowDelay = 100;
   moudeHideDelay = 0;
@@ -73,7 +92,7 @@ export default class Tooltip extends Base {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
-        this.#setPosition();
+        this.updatePosition();
         this.visible = true;
       },
       Math.max(
@@ -95,7 +114,7 @@ export default class Tooltip extends Base {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
-        this.#setPosition();
+        this.updatePosition();
         this.visible = true;
       },
       Math.max(
@@ -116,7 +135,7 @@ export default class Tooltip extends Base {
   #handleTouchStart() {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(() => {
-      this.#setPosition();
+      this.updatePosition();
       this.visible = true;
       addEventListener('click', this.#boundOutsideClick);
     }, this.touchShowDelay);
@@ -157,8 +176,9 @@ export default class Tooltip extends Base {
     if (prev) prev.removeAttribute('aria-label');
     if (next) next.setAttribute('aria-label', this.textContent ?? '');
   }
-  #setPosition() {
+  updatePosition() {
     if (!this.$control) return;
+
     var offsetParent = this.#composedOffsetParent();
     if (!offsetParent) return;
     var offset = this.offset;
@@ -206,25 +226,32 @@ export default class Tooltip extends Base {
     }
   }
   #composedOffsetParent() {
-    /** @param {Element} element */
-    function flatTreeParent(element) {
+    /**
+     * @param {Element} element
+     * @returns {Element?}
+     */
+    function getNextAncestor(element) {
       if (element.assignedSlot) {
         return element.assignedSlot;
       }
       if (element.parentNode instanceof ShadowRoot) {
         return element.parentNode.host;
       }
-      return element.parentNode;
+      return /** @type {Element?} */ (element.parentNode);
     }
 
-    for (let ancestor = this; ancestor; ancestor = flatTreeParent(ancestor)) {
+    for (
+      let ancestor = /** @type {Element?} */ (this);
+      ancestor;
+      ancestor = getNextAncestor(ancestor)
+    ) {
       if (!(ancestor instanceof Element)) continue;
       if (getComputedStyle(ancestor).display === 'none') return null;
     }
     for (
-      let ancestor = flatTreeParent(this);
+      let ancestor = getNextAncestor(this);
       ancestor;
-      ancestor = flatTreeParent(ancestor)
+      ancestor = getNextAncestor(ancestor)
     ) {
       if (!(ancestor instanceof Element)) continue;
       const style = getComputedStyle(ancestor);
