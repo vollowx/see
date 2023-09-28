@@ -13,6 +13,23 @@ function isTouchDevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
+var fromKeyboard = false;
+
+window.addEventListener(
+  'keydown',
+  () => {
+    fromKeyboard = true;
+  },
+  { capture: true }
+);
+window.addEventListener(
+  'mousedown',
+  () => {
+    fromKeyboard = false;
+  },
+  { capture: true }
+);
+
 const Base = AttachableMixin(ReactiveElement);
 
 export default class Tooltip extends Base {
@@ -38,28 +55,29 @@ export default class Tooltip extends Base {
   #timeOutTouchHide = undefined;
   #touching = false;
 
-  // #boundFocusIn = this.#handleFocusIn.bind(this);
-  // #boundFocusOut = this.#handleFocusOut.bind(this);
+  #boundFocusIn = this.#handleFocusIn.bind(this);
+  #boundFocusOut = this.#handleFocusOut.bind(this);
   #boundMouseEnter = this.#handleMouseEnter.bind(this);
   #boundMouseLeave = this.#handleMouseLeave.bind(this);
   #boundTouchStart = this.#handleTouchStart.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
   #boundOutsidePointerUp = this.#handleOutsidePointerUp.bind(this);
-  // #handleFocusIn() {
-  //   clearTimeout(this.#timeOutMouse);
-  //   this.#timeOutMouse = setTimeout(
-  //     () => {
-  //       this.#updatePosition();
-  //       this.visible = true;
-  //     },
-  //     Math.max(Date.now() - lastTime < 800 ? 0 : 100)
-  //   );
-  // }
-  // #handleFocusOut() {
-  //   lastTime = Date.now();
-  //   this.visible = false;
-  //   clearTimeout(this.#timeOutMouse);
-  // }
+  #handleFocusIn() {
+    if (!fromKeyboard) return;
+    clearTimeout(this.#timeOutMouse);
+    this.#timeOutMouse = setTimeout(
+      () => {
+        this.#setPosition();
+        this.visible = true;
+      },
+      Math.max(Date.now() - lastTime < 800 ? 0 : 100)
+    );
+  }
+  #handleFocusOut() {
+    lastTime = Date.now();
+    this.visible = false;
+    clearTimeout(this.#timeOutMouse);
+  }
   #handleMouseEnter() {
     if (isTouchDevice()) return;
     clearTimeout(this.#timeOutMouse);
@@ -108,8 +126,8 @@ export default class Tooltip extends Base {
    */
   handleControlChange(prev = null, next = null) {
     const eventHandlers = {
-      // focusin: this.#boundFocusIn,
-      // focusout: this.#boundFocusOut,
+      focusin: this.#boundFocusIn,
+      focusout: this.#boundFocusOut,
       mouseenter: this.#boundMouseEnter,
       mouseleave: this.#boundMouseLeave,
       touchstart: this.#boundTouchStart,
