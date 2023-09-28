@@ -232,6 +232,8 @@ label:has(md-checkbox) {
   align-items: center;
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 label:has(md-checkbox:disabled) {
   pointer-events: none;
@@ -242,6 +244,8 @@ label:has(md-switch) {
   gap: 8px;
   justify-content: space-between;
   place-items: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 label:has(md-switch:disabled) {
   pointer-events: none;
