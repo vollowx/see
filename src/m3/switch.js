@@ -118,9 +118,10 @@ export default class MdSwitch extends Switch {
       trackRect.width / 2;
     const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
 
-    if (this.checked != shouldBeChecked) this.__toggleStatus();
     this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
     this.$thumb.style.setProperty('--_thumb-diameter', '');
     this.$thumb.style.transitionDuration = '';
+
+    if (this.checked != shouldBeChecked) this.__toggleStatus();
   }
 }
