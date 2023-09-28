@@ -47,13 +47,18 @@ export default class Tooltip extends Base {
   @property({ type: Number }) marginTop = 4;
   @property({ type: Number }) offset = 4;
 
+  moudeShowDelay = 100;
+  moudeHideDelay = 0;
+  focusShowDelay = 100;
+  focusHideDelay = 0;
+  touchShowDelay = 700;
+  touchHideDelay = 1500;
+  recentlyShowedDelay = 800;
+
   /** @type {number|undefined} */
-  #timeOutMouse = undefined;
+  #timeOutShow = undefined;
   /** @type {number|undefined} */
-  #timeOutTouchShow = undefined;
-  /** @type {number|undefined} */
-  #timeOutTouchHide = undefined;
-  #touching = false;
+  #timeOutHide = undefined;
 
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
@@ -61,63 +66,73 @@ export default class Tooltip extends Base {
   #boundMouseLeave = this.#handleMouseLeave.bind(this);
   #boundTouchStart = this.#handleTouchStart.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
-  #boundOutsidePointerUp = this.#handleOutsidePointerUp.bind(this);
+  #boundOutsideClick = this.#handleOutsideClick.bind(this);
+
   #handleFocusIn() {
     if (!fromKeyboard) return;
-    clearTimeout(this.#timeOutMouse);
-    this.#timeOutMouse = setTimeout(
+    clearTimeout(this.#timeOutHide);
+    this.#timeOutShow = setTimeout(
       () => {
         this.#setPosition();
         this.visible = true;
       },
-      Math.max(Date.now() - lastTime < 800 ? 0 : 100)
+      Math.max(
+        Date.now() - lastTime < this.recentlyShowedDelay
+          ? 0
+          : this.focusShowDelay
+      )
     );
   }
   #handleFocusOut() {
     lastTime = Date.now();
-    this.visible = false;
-    clearTimeout(this.#timeOutMouse);
+    clearTimeout(this.#timeOutShow);
+    this.#timeOutHide = setTimeout(() => {
+      this.visible = false;
+    }, this.focusHideDelay);
   }
   #handleMouseEnter() {
     if (isTouchDevice()) return;
-    clearTimeout(this.#timeOutMouse);
-    this.#timeOutMouse = setTimeout(
+    clearTimeout(this.#timeOutHide);
+    this.#timeOutShow = setTimeout(
       () => {
         this.#setPosition();
         this.visible = true;
       },
-      Math.max(Date.now() - lastTime < 800 ? 0 : 100)
+      Math.max(
+        Date.now() - lastTime < this.recentlyShowedDelay
+          ? 0
+          : this.moudeShowDelay
+      )
     );
   }
   #handleMouseLeave() {
     if (isTouchDevice()) return;
     lastTime = Date.now();
-    this.visible = false;
-    clearTimeout(this.#timeOutMouse);
+    clearTimeout(this.#timeOutShow);
+    this.#timeOutHide = setTimeout(() => {
+      this.visible = false;
+    }, this.moudeHideDelay);
   }
   #handleTouchStart() {
-    this.#touching = true;
-    clearTimeout(this.#timeOutTouchHide);
-    this.#timeOutTouchShow = setTimeout(() => {
-      if (!this.#touching) return;
+    clearTimeout(this.#timeOutHide);
+    this.#timeOutShow = setTimeout(() => {
       this.#setPosition();
       this.visible = true;
-      addEventListener('pointerup', this.#boundOutsidePointerUp);
-    }, 700);
+      addEventListener('click', this.#boundOutsideClick);
+    }, this.touchShowDelay);
   }
   #handleTouchEnd() {
-    this.#touching = false;
-    clearTimeout(this.#timeOutTouchShow);
-    this.#timeOutTouchHide = setTimeout(() => {
+    clearTimeout(this.#timeOutShow);
+    this.#timeOutHide = setTimeout(() => {
       this.visible = false;
-    }, 1500);
+    }, this.touchHideDelay);
   }
-  /** @param {PointerEvent} e */
-  #handleOutsidePointerUp(e) {
+  /** @param {MouseEvent} e */
+  #handleOutsideClick(e) {
     if (e.composedPath().includes(/** @type {HTMLElement} */ (this.$control)))
       return;
     this.visible = false;
-    removeEventListener('pointerup', this.#boundOutsidePointerUp);
+    removeEventListener('pointerup', this.#boundOutsideClick);
   }
 
   /**
