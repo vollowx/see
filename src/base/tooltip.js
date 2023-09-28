@@ -120,6 +120,9 @@ export default class Tooltip extends Base {
       prev?.removeEventListener(eventName, eventHandlers[eventName]);
       next?.addEventListener(eventName, eventHandlers[eventName]);
     });
+
+    if (prev) prev.removeAttribute('aria-label');
+    if (next) next.setAttribute('aria-label', this.textContent ?? '');
   }
   #setPosition() {
     if (!this.$control) return;
