@@ -12,6 +12,7 @@
   pointer-events: none;
   position: absolute;
   transition: opacity 67ms linear;
+  z-index: 9999;
 }
 /* TODO: grow animation */
 :host(:not([visible])) {
