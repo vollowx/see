@@ -163,7 +163,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     const ripple = document.createElement('div');
     ripple.setAttribute('part', 'ripple');
-    this.shadowRoot.append(ripple);
+    this.shadowRoot?.append(ripple);
     this.$ripples.push(ripple);
 
     ripple.animate(

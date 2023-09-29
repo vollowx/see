@@ -95,7 +95,20 @@
       <h3>Interactive Demo</h3>
 
       <dc-demo hascontrols>
-        <md-button id="button-controlled">
+        <md-button id="button-controlled" tabindex="0">
+          <template shadowrootmode="open">
+            <link rel="stylesheet" href="../src/m3/button.css" />
+            <span part="focus-ring"></span>
+            <span part="target"></span>
+            <md-ripple></md-ripple>
+            <slot part="icon" name="icon" aria-hidden="true"></slot>
+            <slot part="label"></slot>
+            <slot
+              part="trailingicon"
+              name="trailingicon"
+              aria-hidden="true"
+            ></slot>
+          </template>
           <md-icon slot="icon">search</md-icon>
           Controlled
         </md-button>

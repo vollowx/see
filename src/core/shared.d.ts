@@ -11,7 +11,6 @@ type CustomElement = HTMLElement & {
   disconnectedCallback?(): void;
   update?(): void;
   update?({}: { first?: boolean; dispatch?: boolean }): void;
-  shadowRoot: ShadowRoot;
 };
 
 type Mixin<BaseMembers, MixinMembers> = <T extends HTMLElement & BaseMembers>(

@@ -11,9 +11,13 @@ const ReactiveMixin = (Base) => {
       super();
       this[internals] = this.attachInternals();
 
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.adoptedStyleSheets = this.styles;
-      this.shadowRoot.append(this.template.content.cloneNode(true));
+      let shadowRoot = this[internals].shadowRoot;
+
+      if (!shadowRoot) {
+        shadowRoot = this.attachShadow({ mode: 'open' });
+        shadowRoot.append(this.template.content.cloneNode(true));
+        shadowRoot.adoptedStyleSheets = this.styles;
+      }
     }
 
     /** @type {CSSStyleSheet[]} */
