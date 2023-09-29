@@ -386,22 +386,22 @@
       <h3>Types</h3>
 
       <dc-demo>
-        <md-icon-button>
+        <md-icon-button aria-label="Done">
           <svg viewBox="0 -960 960 960">
             <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
           </svg>
         </md-icon-button>
-        <md-icon-button filled>
+        <md-icon-button filled aria-label="Done">
           <svg viewBox="0 -960 960 960">
             <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
           </svg>
         </md-icon-button>
-        <md-icon-button tonal>
+        <md-icon-button tonal aria-label="Done">
           <svg viewBox="0 -960 960 960">
             <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
           </svg>
         </md-icon-button>
-        <md-icon-button outlined>
+        <md-icon-button outlined aria-label="Done">
           <svg viewBox="0 -960 960 960">
             <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
           </svg>
@@ -870,15 +870,17 @@
         by Google.
       </p>
 
-      <label for="docs-opt-dark">
-        <md-checkbox id="docs-opt-dark" checked></md-checkbox>
-        Dark mode
-      </label>
+      <div>
+        <label for="docs-opt-dark">
+          <md-checkbox id="docs-opt-dark" checked></md-checkbox>
+          Dark mode
+        </label>
 
-      <label for="docs-opt-rtl">
-        <md-checkbox id="docs-opt-rtl"></md-checkbox>
-        Right to left
-      </label>
+        <label for="docs-opt-rtl">
+          <md-checkbox id="docs-opt-rtl"></md-checkbox>
+          Right to left
+        </label>
+      </div>
 
       <script>
         document
