@@ -17,9 +17,6 @@ devDependencies:
   '@rollup/plugin-babel':
     specifier: ^6.0.3
     version: 6.0.3(@babel/core@7.22.19)
-  element-internals-polyfill:
-    specifier: ^1.3.8
-    version: 1.3.8
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -1816,10 +1813,6 @@ packages:
 
   /electron-to-chromium@1.4.523:
     resolution: {integrity: sha512-9AreocSUWnzNtvLcbpng6N+GkXnCcBR80IQkxRC9Dfdyg4gaWNUPBujAHUpKkiUkoSoR9UlhA4zD/IgBklmhzg==}
-    dev: true
-
-  /element-internals-polyfill@1.3.8:
-    resolution: {integrity: sha512-nymTA/NftVOlS6UjLCL8lKUm8MEgt6TXntQqGGKt+er4dzS9eU88zaGUHLTYVgdfifQ8JQFGbQERMvxse5GMrA==}
     dev: true
 
   /emoji-regex@8.0.0:

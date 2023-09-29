@@ -43,8 +43,6 @@ function generateToC() {
 
 generateToC();
 
-import 'element-internals-polyfill';
-
 import '../src/m3/button.js';
 import '../src/m3/icon-button.js';
 import '../src/m3/checkbox.js';
