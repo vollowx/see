@@ -6,8 +6,8 @@
   color: var(--md-sys-color-inverse-on-surface);
   display: flex;
   font: var(--md-sys-typography-body-small);
-  min-height: 24px;
   max-width: var(--_max-width, 300px);
+  min-height: 24px;
   padding: 4px 8px;
   pointer-events: none;
   position: absolute;
