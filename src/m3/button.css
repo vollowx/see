@@ -65,7 +65,7 @@
   --_background-opacity: 12%;
   --_text-color: var(--md-sys-color-on-surface);
   --_text-opacity: 38%;
-  box-shadow: none;
+  box-shadow: var(--md-sys-elevation-shadow-2);
   cursor: default;
   pointer-events: none;
 }

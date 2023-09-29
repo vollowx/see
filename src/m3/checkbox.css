@@ -1,4 +1,6 @@
 :host {
+  --md-focus-ring-radius: 9999px;
+
   --_container-color: transparent;
   --_outline-color: var(--md-sys-color-on-surface-variant);
   --_mark-color: var(--md-sys-color-surface-container-highest);
@@ -17,7 +19,6 @@
     );
   border-radius: 2px;
   box-sizing: border-box;
-  cursor: pointer;
   cursor: pointer;
   display: inline-grid;
   height: var(--_checkbox-size);

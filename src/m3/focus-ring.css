@@ -1,7 +1,7 @@
 [part~='focus-ring'] {
   animation-delay: 0s, 150ms;
   animation-duration: 150ms, 450ms;
-  border-radius: var(--md-focus-ring-radius, 9999px);
+  border-radius: var(--md-focus-ring-radius, inherit);
   box-sizing: border-box;
   color: var(--md-sys-color-secondary);
   display: none;
