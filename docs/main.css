@@ -257,7 +257,8 @@ label:has(md-checkbox) {
 label:has(md-checkbox:disabled) {
   pointer-events: none;
 }
-label:has(md-switch) {
+label:has(md-switch),
+label:has(select) {
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
   gap: 8px;
