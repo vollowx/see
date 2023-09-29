@@ -37,8 +37,8 @@ export default class MdButton extends Button {
   }
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
-  @property({ type: Boolean }) tonal = false;
-  @property({ type: Boolean }) elevated = false;
-  @property({ type: Boolean }) outlined = false;
-  @property({ type: Boolean }) text = false;
+  /** @type {'filled'|'tonal'|'elevated'|'outlined'|'text'} */
+  @property() variant = 'filled';
+  /** @type {'primary'|'secondary'|'tertiary'} */
+  @property() color = 'primary';
 }
