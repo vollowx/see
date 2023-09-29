@@ -81,7 +81,7 @@
 }
 
 :root {
-  --md-sys-typography-family: 'Roboto', sans-serif;
+  --md-sys-typography-family: 'Google Sans', sans-serif;
 
   --md-sys-typography-display-large: 400 3.5625rem / 4rem
     var(--md-sys-typography-family);
