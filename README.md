@@ -29,7 +29,7 @@ Web Components library with any styles.
 | ----------------------------- | :-----------: | :--: | :---: | :-----: |
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
 | Button                        |      🟡       |  ✅  |  ✅   |   ❌    |
-| FAB                           |      🟡       |  ✅  |  🟡   |   ❌    |
+| FAB                           |      🟡       |  ✅  |  ✅   |   ❌    |
 | Icon button                   |      🟡       |  🟡  |  🟡   |   ❌    |
 | Segmented button              |      ❌       |  ❌  |  ❌   |   ❌    |
 | Badge                         |      ❌       |  ❌  |  ❌   |   ❌    |
