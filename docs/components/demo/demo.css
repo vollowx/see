@@ -25,6 +25,13 @@
   gap: 16px;
   min-width: 250px;
 }
+:host-context([dir='rtl']) [part~='controls'] {
+  border-bottom-left-radius: 12px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 [part~='controls-header'] {
   border-bottom: 1px solid var(--md-sys-color-outline);
   padding: 24px;
