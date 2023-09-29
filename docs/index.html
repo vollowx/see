@@ -86,10 +86,16 @@
             .addEventListener('change', (e) => (cButton.disabled = e.detail));
           document
             .querySelector('#button-opt-variant')
-            .addEventListener('change', (e) => (cButton.variant = e.target.value));
+            .addEventListener(
+              'change',
+              (e) => (cButton.variant = e.target.value)
+            );
           document
             .querySelector('#button-opt-color')
-            .addEventListener('change', (e) => (cButton.color = e.target.value));
+            .addEventListener(
+              'change',
+              (e) => (cButton.color = e.target.value)
+            );
         </script>
       </dc-demo>
 
@@ -176,35 +182,204 @@
 
       <h2>Floating action button (FAB)</h2>
 
+      <h3>Types</h3>
+
       <dc-demo>
-        <md-fab variant="primary">
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+        <md-fab color="primary" aria-label="Accessibility">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M320-80q-83 0-141.5-58.5T120-280q0-83 58.5-141.5T320-480v80q-50 0-85 35t-35 85q0 50 35 85t85 35q50 0 85-35t35-85h80q0 83-58.5 141.5T320-80Zm360-40v-200H440q-44 0-68-37.5t-6-78.5l74-164h-91l-24 62-77-22 28-72q9-23 29.5-35.5T350-680h208q45 0 68.5 36.5T632-566l-66 146h114q33 0 56.5 23.5T760-340v220h-80Zm-40-580q-33 0-56.5-23.5T560-780q0-33 23.5-56.5T640-860q33 0 56.5 23.5T720-780q0 33-23.5 56.5T640-700Z"
+            />
           </svg>
         </md-fab>
-        <md-fab size="small" variant="tertiary">
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+        <md-fab size="small" color="tertiary" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
           </svg>
         </md-fab>
-        <md-fab size="large">
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+        <md-fab size="large" aria-label="Color palette">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"
+            />
           </svg>
         </md-fab>
-        <md-fab lower>
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
-        </md-fab>
-        <md-fab disabled>
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
-          Post
-        </md-fab>
-        <md-fab>Extended</md-fab>
       </dc-demo>
+
+      <h4>Extended FAB</h4>
+
+      <dc-demo>
+        <md-fab>
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="m200-120-40-40 320-720 320 720-40 40-280-120-280 120Zm84-124 196-84 196 84-196-440-196 440Zm196-84Z"
+            />
+          </svg>
+          Navigation
+        </md-fab>
+        <md-fab>Reroute</md-fab>
+      </dc-demo>
+
+      <h3>Usage</h3>
+
+      <p>
+        FABs should have an icon, such as a font <code>md-icon</code>, an
+        <code>svg</code>, or an <code>img</code>.
+      </p>
+
+      <dc-demo>
+        <md-fab aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+      </dc-demo>
+
+      <h4>Lowered</h4>
+
+      <p>
+        FABs can be set to a lower elevation with the
+        <code>lowered</code> attribute.
+      </p>
+
+      <dc-demo>
+        <md-fab lowered aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+      </dc-demo>
+
+      <h4>Colors</h4>
+
+      <p>
+        FAB colors may be changed with the <code>color</code> attribute. It can
+        be set to "surface" (default), "primary", "secondary", or "tertiary".
+      </p>
+
+      <dc-demo>
+        <md-fab color="primary" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+        <md-fab color="secondary" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+        <md-fab color="tertiary" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+      </dc-demo>
+
+      <h4>Sizes</h4>
+
+      <p>
+        FABs may be small, medium (default), or large by setting the
+        <code>size</code> attribute.
+      </p>
+
+      <dc-demo>
+        <md-fab size="small" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+        <md-fab aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+        <md-fab size="large" aria-label="Edit">
+          <svg
+            slot="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -960 960 960"
+          >
+            <path
+              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
+            />
+          </svg>
+        </md-fab>
+      </dc-demo>
+
+      <h3>Accessibility</h3>
+
+      <p>
+        Icon-only FABs must include an <code>aria-label</code> that describes
+        its action. Otherwise if <code>aria-label</code> is not provided, the
+        FAB will default to announcing its visible contents.
+      </p>
+
+      <p>
+        Extended FABs use their <code>label</code> for accessibility. Add an
+        <code>aria-label</code> for additional context if needed. By supplying
+        the <code>label</code> attribute, the extended FAB will make sure that
+        the icon is not announced.
+      </p>
 
       <h2>Icon Button</h2>
 

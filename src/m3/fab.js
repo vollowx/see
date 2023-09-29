@@ -38,5 +38,5 @@ export default class MdFAB extends Button {
   /** @type {'small'|'medium'|'large'} */
   @property({ type: Boolean }) size = 'medium';
   /** @type {'surface'|'primary'|'secondary'|'tertiary'} */
-  @property({ type: Boolean }) variant = 'surface';
+  @property({ type: Boolean }) color = 'surface';
 }
