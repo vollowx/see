@@ -1,0 +1,23 @@
+:host(:--checked) [part~='icon-unchecked'] {
+  display: none;
+}
+:host(:not(:--checked)) [part~='icon-checked'] {
+  display: none;
+}
+
+:host(:not([filled]):not([tonal]):not([outlined]):--checked) {
+  --_text-color: var(--md-sys-color-primary);
+}
+:host([filled]:not(:--checked)) {
+  --_background-color: var(--md-sys-color-surface-container-highest);
+  --_text-color: var(--md-sys-color-primary);
+}
+:host([tonal]:not(:--checked)) {
+  --_background-color: var(--md-sys-color-surface-container-highest);
+  --_text-color: var(--md-sys-color-on-surface-variant);
+}
+:host([outlined]:--checked) {
+  --_background-color: var(--md-sys-color-inverse-surface);
+  --_border-color: var(--md-sys-color-inverse-surface);
+  --_text-color: var(--md-sys-color-inverse-on-surface);
+}
