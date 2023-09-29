@@ -31,6 +31,38 @@
 
       <ul id="table-of-contents-list"></ul>
 
+      <h2>Settings</h2>
+
+      <div>
+        <md-icon-button-toggle id="docs-opt-dark" checked>
+          <md-icon aria-label="Turn off the light">light_mode</md-icon>
+          <md-icon slot="checked" aria-label="Turn on the light"
+            >dark_mode</md-icon
+          >
+        </md-icon-button-toggle>
+
+        <md-icon-button-toggle id="docs-opt-rtl">
+          <md-icon aria-label="Set direction to LTR">format_align_left</md-icon>
+          <md-icon slot="checked" aria-label="Set direction to RTL"
+            >format_align_right</md-icon
+          >
+        </md-icon-button-toggle>
+      </div>
+
+      <script>
+        document
+          .querySelector('#docs-opt-dark')
+          .addEventListener('change', (e) =>
+            document.documentElement.classList.toggle('light', !e.detail)
+          );
+        document
+          .querySelector('#docs-opt-rtl')
+          .addEventListener(
+            'change',
+            (e) => (document.documentElement.dir = e.detail ? 'rtl' : 'ltr')
+          );
+      </script>
+
       <h2>Button</h2>
 
       <p>
@@ -264,22 +296,22 @@
       <h3>Types</h3>
 
       <dc-demo>
-        <md-icon-button aria-label="Add to Favorites">
+        <md-icon-button aria-label="Add to favorites">
           <md-icon>favorite</md-icon>
         </md-icon-button>
         <md-icon-button-toggle checked>
-          <md-icon aria-label="Add to Bookmarks">bookmark</md-icon>
-          <md-icon slot="checked" aria-label="Remove from Bookmarks"
+          <md-icon aria-label="Add to bookmarks">bookmark</md-icon>
+          <md-icon slot="checked" aria-label="Remove from bookmarks"
             >bookmark</md-icon
           >
         </md-icon-button-toggle>
-        <md-icon-button filled aria-label="Start Video Meeting">
+        <md-icon-button filled aria-label="Start video meeting">
           <md-icon>videocam</md-icon>
         </md-icon-button>
         <md-icon-button tonal aria-label="Settings">
           <md-icon>Settings</md-icon>
         </md-icon-button>
-        <md-icon-button outlined aria-label="More Options">
+        <md-icon-button outlined aria-label="More options">
           <md-icon>more_vert</md-icon>
         </md-icon-button>
       </dc-demo>
@@ -358,7 +390,7 @@
       <h3>Accessibility</h3>
 
       <dc-demo>
-        <md-icon-button aria-label="Search for Contact">
+        <md-icon-button aria-label="Search for contact">
           <md-icon>search</md-icon>
         </md-icon-button>
       </dc-demo>
@@ -671,8 +703,8 @@
       <p>Switches may be standalone or pre-checked.</p>
 
       <dc-demo>
-        <md-switch aria-label="a unchecked switch"></md-switch>
-        <md-switch aria-label="a pre-checked switch" checked></md-switch>
+        <md-switch aria-label="unchecked switch"></md-switch>
+        <md-switch aria-label="pre-checked switch" checked></md-switch>
       </dc-demo>
 
       <h4>Icons</h4>
@@ -739,7 +771,7 @@
         <md-icon-button id="tooltip-anchor">
           <md-icon>search</md-icon>
         </md-icon-button>
-        <md-tooltip for="tooltip-anchor">Search for Contact</md-tooltip>
+        <md-tooltip for="tooltip-anchor">Search for contact</md-tooltip>
         <md-icon-button id="tooltip-anchor-2">
           <md-icon>settings</md-icon>
         </md-icon-button>
@@ -767,16 +799,12 @@
 
       <p>
         This is currently experimental only. Although most of the components are
-        fully tested, you shouldn't use this in production environment. (Not
-        published to NPM yet, so you're not able to do so actually)
+        fully tested, you shouldn't use this in production environment.
       </p>
 
       <p>
         As this project is not production-ready nor the style systems exist, we
-        have not provided CSS variables generator yet, either. You could use the
-        color system generator from
-        <a href="https://md-ncm.vercel.app/">another applications</a> for just
-        now.
+        have not provided CSS variables generator yet, either.
       </p>
 
       <p>
@@ -784,7 +812,8 @@
         <code>input[type="checkbox"]</code> or <code>select</code> for better
         customizations and fewer 2-way attribute bindings, it also brings a
         problem of unable to perform native form events, but you are still able
-        to do the same things with custom events.
+        to do the same things with custom events and
+        <code>Element.attachInternals()</code>.
       </p>
 
       <p>
@@ -798,45 +827,6 @@
         >
         by Google.
       </p>
-
-      <div>
-        <label for="docs-opt-dark">
-          <md-checkbox id="docs-opt-dark" checked></md-checkbox>
-          Dark mode
-        </label>
-
-        <label for="docs-opt-rtl">
-          <md-checkbox id="docs-opt-rtl"></md-checkbox>
-          Right to left
-        </label>
-      </div>
-
-      <script>
-        document
-          .querySelector('#docs-opt-dark')
-          .addEventListener('change', (e) =>
-            document.documentElement.classList.toggle('light', !e.detail)
-          );
-        document
-          .querySelector('#docs-opt-rtl')
-          .addEventListener(
-            'change',
-            (e) => (document.documentElement.dir = e.detail ? 'rtl' : 'ltr')
-          );
-      </script>
-
-      <h2>Tests</h2>
-
-      <dc-demo>
-        <form aria-label="test form">
-          <input type="text" name="username" />
-          <label for="checkbox-in-form">
-            <md-checkbox id="checkbox-in-form" name="agreed"></md-checkbox>
-            Agree
-          </label>
-          <md-button type="submit">Submit</md-button>
-        </form>
-      </dc-demo>
     </main>
   </body>
 </html>
