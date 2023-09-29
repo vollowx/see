@@ -36,6 +36,7 @@
 }
 
 :host([lower]) {
+  --_background-color: var(--md-sys-color-surface-container-low);
   box-shadow: var(--md-sys-elevation-shadow-1);
 }
 
