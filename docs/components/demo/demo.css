@@ -27,9 +27,9 @@
 }
 :host-context([dir='rtl']) [part~='controls'] {
   border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 0;
   border-top-left-radius: 12px;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 [part~='controls-header'] {

@@ -11,8 +11,8 @@
     transparent
   );
   border-radius: var(--_border-radius);
-  box-sizing: border-box;
   box-shadow: var(--md-sys-elevation-shadow-3);
+  box-sizing: border-box;
   color: color-mix(
     in srgb,
     var(--_text-color) var(--_text-opacity, 100%),
@@ -26,8 +26,8 @@
   justify-content: center;
   min-width: var(--_size);
   outline: 0;
-  padding-inline-start: calc((var(--_size) - var(--_icon-size)) / 2 + 4px);
   padding-inline-end: calc((var(--_size) - var(--_icon-size)) / 2 + 4px);
+  padding-inline-start: calc((var(--_size) - var(--_icon-size)) / 2 + 4px);
   position: relative;
   -webkit-tap-highlight-color: transparent;
   transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
@@ -85,12 +85,12 @@ slot[name='icon'] {
   display: inline-flex;
   fill: currentcolor;
   font-size: var(--_icon-size);
-  margin-inline-start: -4px;
   margin-inline-end: -8px;
+  margin-inline-start: -4px;
 }
 ::slotted([slot='icon']) {
-  display: inline-flex;
   block-size: var(--_icon-size);
+  display: inline-flex;
   inline-size: var(--_icon-size);
   margin-inline-end: 4px;
 }

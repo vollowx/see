@@ -69,8 +69,8 @@
 :host([variant='text']) {
   --_background-color: transparent !important;
   --_text-color: var(--_color);
-  padding-inline: 12px;
   box-shadow: none !important;
+  padding-inline: 12px;
 }
 
 :host(:disabled) {
