@@ -155,20 +155,6 @@
         </md-button>
       </dc-demo>
 
-      <h4>Links</h4>
-
-      <p>Undone yet.</p>
-
-      <dc-demo>
-        <a
-          href="#button-usage-links"
-          tabindex="-1"
-          style="text-decoration: none"
-        >
-          <md-button>Not Working Normally</md-button>
-        </a>
-      </dc-demo>
-
       <h3>Accessibility</h3>
 
       <p>
@@ -425,7 +411,26 @@
 
       <h4>Links</h4>
 
-      <p>Undone yet.</p>
+      <p>Currently have no native solution.</p>
+
+      <dc-demo>
+        <md-icon-button id="link-icon-button">
+          <svg viewBox="0 -960 960 960">
+            <path
+              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+            />
+          </svg>
+        </md-icon-button>
+        <md-tooltip for="link-icon-button">google.com</md-tooltip>
+
+        <script>
+          document
+            .querySelector('#link-icon-button')
+            .addEventListener('click', () => {
+              location.href = 'https://google.com';
+            });
+        </script>
+      </dc-demo>
 
       <h3>Accessibility</h3>
 

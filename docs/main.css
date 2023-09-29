@@ -247,6 +247,13 @@ code {
   padding-inline: 2px;
 }
 
+a:has(md-button),
+a:has(md-fab),
+a:has(md-icon-button) {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
 label:has(md-checkbox) {
   align-items: center;
   display: inline-flex;

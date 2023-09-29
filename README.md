@@ -18,7 +18,7 @@ Web Components library with any styles.
 
 | Components | Functionality | ARIA |
 | ---------- | :-----------: | :--: |
-| Button     |      🟡       |  ✅  |
+| Button     |      ✅       |  ✅  |
 | Checkbox   |      ✅       |  ✅  |
 | Switch     |      ✅       |  ✅  |
 | Tooltip    |      🟡       |  🟡  |
@@ -28,8 +28,8 @@ Web Components library with any styles.
 | Components                    | Functionality | ARIA | Style | Restyle |
 | ----------------------------- | :-----------: | :--: | :---: | :-----: |
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
-| Button                        |      🟡       |  ✅  |  ✅   |   ❌    |
-| FAB                           |      🟡       |  ✅  |  ✅   |   ❌    |
+| Button                        |      ✅       |  ✅  |  ✅   |   ❌    |
+| FAB                           |      ✅       |  ✅  |  ✅   |   ❌    |
 | Icon button                   |      🟡       |  🟡  |  🟡   |   ❌    |
 | Segmented button              |      ❌       |  ❌  |  ❌   |   ❌    |
 | Badge                         |      ❌       |  ❌  |  ❌   |   ❌    |
@@ -52,7 +52,7 @@ Web Components library with any styles.
 | Progress indicator (circular) |      ❌       |  ❌  |  ❌   |   ❌    |
 | Progress indicator (linear)   |      ❌       |  ❌  |  ❌   |   ❌    |
 | Radio                         |      ❌       |  ❌  |  ❌   |   ❌    |
-| Ripple                        |      🟡       |  ✅  |  ✅   |   🟡    |
+| Ripple                        |      ✅       |  ✅  |  ✅   |   🟡    |
 | Search                        |      ❌       |  ❌  |  ❌   |   ❌    |
 | Select                        |      ❌       |  ❌  |  ❌   |   ❌    |
 | Slider                        |      ❌       |  ❌  |  ❌   |   ❌    |
