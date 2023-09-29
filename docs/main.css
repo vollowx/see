@@ -277,3 +277,17 @@ label:has(select) {
 label:has(md-switch:disabled) {
   pointer-events: none;
 }
+
+/* Fake web component */
+md-icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}

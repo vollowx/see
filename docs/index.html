@@ -18,6 +18,10 @@
       href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
@@ -46,11 +50,7 @@
 
       <dc-demo hascontrols>
         <md-button id="button-controlled">
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-            />
-          </svg>
+          <md-icon slot="icon">search</md-icon>
           Controlled
         </md-button>
 
@@ -105,11 +105,7 @@
         <md-button>Filled</md-button>
         <md-button variant="tonal">Tonal</md-button>
         <md-button class="buttons" variant="elevated">
-          <svg slot="icon" viewBox="0 -960 960 960">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-            />
-          </svg>
+          <md-icon slot="icon">search</md-icon>
           Elevated
         </md-button>
         <md-button variant="outlined">Outlined</md-button>
@@ -138,20 +134,12 @@
       <dc-demo>
         <md-button variant="tonal">
           Send
-          <svg slot="icon" viewBox="0 0 48 48">
-            <path
-              d="M6 40V8l38 16Zm3-4.65L36.2 24 9 12.5v8.4L21.1 24 9 27Zm0 0V12.5 27Z"
-            />
-          </svg>
+          <md-icon slot="icon">send</md-icon>
         </md-button>
 
         <md-button variant="text">
           Open
-          <svg slot="trailingicon" viewBox="0 0 48 48">
-            <path
-              d="M9 42q-1.2 0-2.1-.9Q6 40.2 6 39V9q0-1.2.9-2.1Q7.8 6 9 6h13.95v3H9v30h30V25.05h3V39q0 1.2-.9 2.1-.9.9-2.1.9Zm10.1-10.95L17 28.9 36.9 9H25.95V6H42v16.05h-3v-10.9Z"
-            />
-          </svg>
+          <md-icon slot="trailingicon">open_in_new</md-icon>
         </md-button>
       </dc-demo>
 
@@ -172,37 +160,13 @@
 
       <dc-demo>
         <md-fab color="primary" aria-label="Accessibility">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M320-80q-83 0-141.5-58.5T120-280q0-83 58.5-141.5T320-480v80q-50 0-85 35t-35 85q0 50 35 85t85 35q50 0 85-35t35-85h80q0 83-58.5 141.5T320-80Zm360-40v-200H440q-44 0-68-37.5t-6-78.5l74-164h-91l-24 62-77-22 28-72q9-23 29.5-35.5T350-680h208q45 0 68.5 36.5T632-566l-66 146h114q33 0 56.5 23.5T760-340v220h-80Zm-40-580q-33 0-56.5-23.5T560-780q0-33 23.5-56.5T640-860q33 0 56.5 23.5T720-780q0 33-23.5 56.5T640-700Z"
-            />
-          </svg>
+          <md-icon slot="icon">accessible_forward</md-icon>
         </md-fab>
         <md-fab size="small" color="tertiary" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
         <md-fab size="large" aria-label="Color palette">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"
-            />
-          </svg>
+          <md-icon slot="icon">palette</md-icon>
         </md-fab>
       </dc-demo>
 
@@ -210,15 +174,7 @@
 
       <dc-demo>
         <md-fab>
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="m200-120-40-40 320-720 320 720-40 40-280-120-280 120Zm84-124 196-84 196 84-196-440-196 440Zm196-84Z"
-            />
-          </svg>
+          <md-icon slot="icon">navigation</md-icon>
           Navigation
         </md-fab>
         <md-fab>Reroute</md-fab>
@@ -233,15 +189,7 @@
 
       <dc-demo>
         <md-fab aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
       </dc-demo>
 
@@ -254,15 +202,7 @@
 
       <dc-demo>
         <md-fab lowered aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
       </dc-demo>
 
@@ -275,37 +215,13 @@
 
       <dc-demo>
         <md-fab color="primary" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
         <md-fab color="secondary" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
         <md-fab color="tertiary" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
       </dc-demo>
 
@@ -318,37 +234,13 @@
 
       <dc-demo>
         <md-fab size="small" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
         <md-fab aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
         <md-fab size="large" aria-label="Edit">
-          <svg
-            slot="icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-          >
-            <path
-              d="M200-200h56l345-345-56-56-345 345v56Zm572-403L602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Zm-141-29-28-28 56 56-28-28Z"
-            />
-          </svg>
+          <md-icon slot="icon">edit</md-icon>
         </md-fab>
       </dc-demo>
 
@@ -372,33 +264,23 @@
       <h3>Types</h3>
 
       <dc-demo>
-        <md-icon-button aria-label="Done">
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+        <md-icon-button aria-label="Add to Favorites">
+          <md-icon>favorite</md-icon>
         </md-icon-button>
-        <md-icon-button-toggle aria-label="Done" checked>
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
-          <svg slot="checked" viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+        <md-icon-button-toggle checked>
+          <md-icon aria-label="Add to Bookmarks">bookmark</md-icon>
+          <md-icon slot="checked" aria-label="Remove from Bookmarks"
+            >bookmark</md-icon
+          >
         </md-icon-button-toggle>
-        <md-icon-button filled aria-label="Done">
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+        <md-icon-button filled aria-label="Start Video Meeting">
+          <md-icon>videocam</md-icon>
         </md-icon-button>
-        <md-icon-button tonal aria-label="Done">
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+        <md-icon-button tonal aria-label="Settings">
+          <md-icon>Settings</md-icon>
         </md-icon-button>
-        <md-icon-button outlined aria-label="Done">
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+        <md-icon-button outlined aria-label="More Options">
+          <md-icon>more_vert</md-icon>
         </md-icon-button>
       </dc-demo>
 
@@ -418,118 +300,38 @@
       <dc-demo>
         <div>
           <md-icon-button-toggle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle filled>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle tonal>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle outlined>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
         </div>
         <div>
           <md-icon-button-toggle checked>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle filled checked>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle tonal checked>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
           <md-icon-button-toggle outlined checked>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              aria-label="Unchecked"
-            >
-              <path
-                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-              />
-            </svg>
-            <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-            </svg>
+            <md-icon aria-label="Unchecked">close</md-icon>
+            <md-icon slot="checked" aria-label="Checked">done</md-icon>
           </md-icon-button-toggle>
         </div>
       </dc-demo>
@@ -540,11 +342,7 @@
 
       <dc-demo>
         <md-icon-button id="link-icon-button">
-          <svg viewBox="0 -960 960 960">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-            />
-          </svg>
+          <md-icon>search</md-icon>
         </md-icon-button>
         <md-tooltip for="link-icon-button">google.com</md-tooltip>
 
@@ -561,11 +359,7 @@
 
       <dc-demo>
         <md-icon-button aria-label="Search for Contact">
-          <svg viewBox="0 -960 960 960">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-            />
-          </svg>
+          <md-icon>search</md-icon>
         </md-icon-button>
       </dc-demo>
 
@@ -577,18 +371,8 @@
 
       <dc-demo>
         <md-icon-button-toggle>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            aria-label="Unchecked"
-          >
-            <path
-              d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-            />
-          </svg>
-          <svg viewBox="0 -960 960 960" slot="checked" aria-label="Checked">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+          <md-icon aria-label="Unchecked">close</md-icon>
+          <md-icon slot="checked" aria-label="Checked">done</md-icon>
         </md-icon-button-toggle>
       </dc-demo>
 
@@ -953,21 +737,17 @@
 
       <dc-demo>
         <md-icon-button id="tooltip-anchor">
-          <svg viewBox="0 -960 960 960">
-            <path
-              d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
-            />
-          </svg>
+          <md-icon>search</md-icon>
         </md-icon-button>
         <md-tooltip for="tooltip-anchor">Search for Contact</md-tooltip>
         <md-icon-button id="tooltip-anchor-2">
-          <svg viewBox="0 -960 960 960">
-            <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-          </svg>
+          <md-icon>settings</md-icon>
         </md-icon-button>
-        <md-tooltip for="tooltip-anchor-2">Apply Settings</md-tooltip>
-
-        <md-button id="tooltip-anchor-3">Max Width</md-button>
+        <md-tooltip for="tooltip-anchor-2">Settings</md-tooltip>
+        <md-button id="tooltip-anchor-3">
+          Max Width
+          <md-icon slot="icon">width</md-icon>
+        </md-button>
         <md-tooltip for="tooltip-anchor-3"
           >Aliquam eget finibus ante, non facilisis lectus. Sed vitae dignissim
           est, vel aliquam tellus. Praesent non nunc mollis, fermentum neque at,
