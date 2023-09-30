@@ -33,8 +33,6 @@ export default class MdIconButton extends Button {
   }
   /** @type {MdRipple} */
   @query('md-ripple') $ripple;
-  @property({ type: Boolean }) tonal = false;
-  @property({ type: Boolean }) elevated = false;
-  @property({ type: Boolean }) outlined = false;
-  @property({ type: Boolean }) text = false;
+  /** @type {'standard'|'filled'|'tonal'|'outlined'} */
+  @property() variant = 'standard';
 }

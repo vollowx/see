@@ -5,18 +5,20 @@
   display: none;
 }
 
-:host(:not([filled]):not([tonal]):not([outlined]):--checked) {
+:host(:not([variant]):--checked),
+:host([variant='standard']:--checked) {
   --_text-color: var(--md-sys-color-primary);
 }
-:host([filled]:not(:--checked)) {
+
+:host([variant='filled']:not(:--checked)) {
   --_background-color: var(--md-sys-color-surface-container-highest);
   --_text-color: var(--md-sys-color-primary);
 }
-:host([tonal]:not(:--checked)) {
+:host([variant='tonal']:not(:--checked)) {
   --_background-color: var(--md-sys-color-surface-container-highest);
   --_text-color: var(--md-sys-color-on-surface-variant);
 }
-:host([outlined]:--checked) {
+:host([variant='outlined']:--checked) {
   --_background-color: var(--md-sys-color-inverse-surface);
   --_outline-color: var(--md-sys-color-inverse-surface);
   --_text-color: var(--md-sys-color-inverse-on-surface);
