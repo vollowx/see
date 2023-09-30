@@ -73,19 +73,6 @@
   padding-inline: 12px;
 }
 
-:host(:disabled) {
-  --_background-color: var(--md-sys-color-on-surface);
-  --_background-opacity: 12%;
-  --_text-color: var(--md-sys-color-on-surface);
-  --_text-opacity: 38%;
-  box-shadow: var(--md-sys-elevation-shadow-2);
-  cursor: default;
-  pointer-events: none;
-}
-:host([variant='outlined']:disabled) {
-  --_outline-color: var(--md-sys-color-on-surface);
-  --_outline-opacity: 12%;
-}
 @media (hover: hover) and (pointer: fine) {
   :host(:hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-1);
@@ -93,6 +80,20 @@
   :host([variant='elevated']:hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
+}
+
+:host(:disabled) {
+  --_background-color: var(--md-sys-color-on-surface);
+  --_background-opacity: 12%;
+  --_text-color: var(--md-sys-color-on-surface);
+  --_text-opacity: 38%;
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+:host([variant='outlined']:disabled) {
+  --_outline-color: var(--md-sys-color-on-surface);
+  --_outline-opacity: 12%;
 }
 
 ::slotted([slot='icon']),
