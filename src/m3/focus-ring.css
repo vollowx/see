@@ -23,8 +23,8 @@
 
 :host([inward]) {
   animation-name: inward-grow, inward-shrink;
-  border-radius: calc(var(--md-focus-ring-shape, 9999px) - var(--_offset, 0px));
   border: var(--md-focus-ring-width, 3px) solid currentColor;
+  border-radius: calc(var(--md-focus-ring-shape, 9999px) - var(--_offset, 0px));
   inset: var(--md-focus-ring-offset, 0px);
 }
 

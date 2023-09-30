@@ -42,8 +42,8 @@
       transparent
     );
 }
-:host([variant='outlined']) [part~='focus-ring'] {
-  inset: -1px;
+:host([variant='outlined']) md-focus-ring {
+  --md-focus-ring-offset: 3px;
 }
 
 :host(:disabled) {

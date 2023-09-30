@@ -63,8 +63,8 @@
   box-shadow: none !important;
   padding-inline: 23px;
 }
-:host([variant='outlined']) [part~='focus-ring'] {
-  inset: -1px;
+:host([variant='outlined']) md-focus-ring {
+  --md-focus-ring-offset: 3px;
 }
 :host([variant='text']) {
   --_background-color: transparent !important;
