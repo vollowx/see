@@ -9,20 +9,8 @@ import { internals } from '../core/symbols.js';
 
 let shouldBeVisible = false;
 
-window.addEventListener(
-  'keydown',
-  () => {
-    shouldBeVisible = true;
-  },
-  { capture: true }
-);
-window.addEventListener(
-  'mousedown',
-  () => {
-    shouldBeVisible = false;
-  },
-  { capture: true }
-);
+window.addEventListener('keydown', () => (shouldBeVisible = true));
+window.addEventListener('mousedown', () => (shouldBeVisible = false));
 
 @customElement('md-focus-ring')
 export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
@@ -37,11 +25,15 @@ export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
 
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
+  #boundPointerDown = this.#handlePointerDown.bind(this);
 
   #handleFocusIn() {
     if (shouldBeVisible) this[internals].states.add('--visible');
   }
   #handleFocusOut() {
+    this[internals].states.delete('--visible');
+  }
+  #handlePointerDown() {
     this[internals].states.delete('--visible');
   }
 
@@ -50,9 +42,15 @@ export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
    * @param {HTMLElement?} next
    */
   handleControlChange(prev = null, next = null) {
-    prev?.removeEventListener('focusin', this.#boundFocusIn);
-    prev?.removeEventListener('focusout', this.#boundFocusOut);
-    next?.addEventListener('focusin', this.#boundFocusIn);
-    next?.addEventListener('focusout', this.#boundFocusOut);
+    const eventHandlers = {
+      focusin: this.#boundFocusIn,
+      focusout: this.#boundFocusOut,
+      pointerdown: this.#boundPointerDown,
+    };
+
+    Object.keys(eventHandlers).forEach((eventName) => {
+      prev?.removeEventListener(eventName, eventHandlers[eventName]);
+      next?.addEventListener(eventName, eventHandlers[eventName]);
+    });
   }
 }
