@@ -5,7 +5,6 @@ import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 import { internals } from '../core/symbols.js';
 
-import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
@@ -16,7 +15,7 @@ const PROPERTY_FROM_ARIA_CHECKED = {
   mixed: 'indeterminate',
 };
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FormMixin(ReactiveElement);
 
 export default class Checkbox extends Base {
   constructor() {
@@ -33,7 +32,7 @@ export default class Checkbox extends Base {
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback();
+    super.disconnectedCallback?.();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);

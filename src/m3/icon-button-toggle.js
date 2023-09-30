@@ -2,13 +2,15 @@
 
 import Checkbox from '../base/checkbox.js';
 import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property, query } from '../core/decorators.js';
+import { customElement, property } from '../core/decorators.js';
 
+// @ts-ignore
+import MdFocusRing from './focus-ring.js';
+// @ts-ignore
 import MdRipple from './ripple.js';
 
 import MdIconButtonStyle from './icon-button.css?inline';
 import MdIconButtonToggleStyle from './icon-button-toggle.css?inline';
-import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 /**
@@ -22,7 +24,6 @@ export default class MdIconButtonToggle extends Checkbox {
     return [
       ...super.styles,
       ...sheetsFromCss(
-        MdFocusRingStyle,
         MdTargetStyle,
         MdIconButtonStyle,
         MdIconButtonToggleStyle
@@ -31,15 +32,13 @@ export default class MdIconButtonToggle extends Checkbox {
   }
   get template() {
     return html`
-      <span part="focus-ring"></span>
-      <span part="target"></span>
+      <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>
+      <span part="target"></span>
       <slot part="icon icon-unchecked"></slot>
       <slot part="icon icon-checked" name="checked"></slot>
     `;
   }
-  /** @type {MdRipple} */
-  @query('md-ripple') $ripple;
   /** @type {'standard'|'filled'|'tonal'|'outlined'} */
   @property() variant = 'standard';
 }

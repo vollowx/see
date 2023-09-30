@@ -4,10 +4,11 @@ import Switch from '../base/switch.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property, query } from '../core/decorators.js';
 
+// @ts-ignore
+import MdFocusRing from './focus-ring.js';
 import MdRipple from './ripple.js';
 
 import MdSwitchStyle from './switch.css?inline';
-import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 function isRTL() {
@@ -23,17 +24,14 @@ function isRTL() {
 @customElement('md-switch')
 export default class MdSwitch extends Switch {
   get styles() {
-    return [
-      ...super.styles,
-      ...sheetsFromCss(MdFocusRingStyle, MdTargetStyle, MdSwitchStyle),
-    ];
+    return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdSwitchStyle)];
   }
   get template() {
     return html`
-      <span part="focus-ring"></span>
+      <md-focus-ring></md-focus-ring>
       <div part="thumb">
-        <span part="target"></span>
         <md-ripple spacebehavior="always"></md-ripple>
+        <span part="target"></span>
         ${this.templateOffIcon}${this.templateOnIcon}
       </div>
     `;

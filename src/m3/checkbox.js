@@ -2,12 +2,14 @@
 
 import Checkbox from '../base/checkbox.js';
 import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property, query } from '../core/decorators.js';
+import { customElement, property } from '../core/decorators.js';
 
+// @ts-ignore
+import MdFocusRing from './focus-ring.js';
+// @ts-ignore
 import MdRipple from './ripple.js';
 
 import MdCheckboxStyle from './checkbox.css?inline';
-import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 /**
@@ -21,16 +23,13 @@ import MdTargetStyle from './target.css?inline';
 @customElement('md-checkbox')
 export default class MdCheckbox extends Checkbox {
   get styles() {
-    return [
-      ...super.styles,
-      ...sheetsFromCss(MdFocusRingStyle, MdTargetStyle, MdCheckboxStyle),
-    ];
+    return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdCheckboxStyle)];
   }
   get template() {
     return html`
-      <span part="focus-ring"></span>
-      <span part="target"></span>
+      <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>
+      <span part="target"></span>
       ${this.templateIcon}
     `;
   }
@@ -42,7 +41,5 @@ export default class MdCheckbox extends Checkbox {
       </svg>
     `.innerHTML;
   }
-  /** @type {MdRipple} */
-  @query('md-ripple') $ripple;
   @property({ type: Boolean }) error = false;
 }

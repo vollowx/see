@@ -5,17 +5,16 @@ import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 import { internals } from '../core/symbols.js';
 
-import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
-const PROPERTY_FROM_ARIA_CHECKED = {
+const PROPERTY_FROM_ARIA_PRESSED = {
   true: 'checked',
   false: 'unchecked',
 };
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FormMixin(ReactiveElement);
 
 export default class Switch extends Base {
   constructor() {
@@ -26,7 +25,7 @@ export default class Switch extends Base {
     return [...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback?.();
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
@@ -37,7 +36,7 @@ export default class Switch extends Base {
     this.addEventListener('keydown', this.#boundKeyDown);
   }
   disconnectedCallback() {
-    super.disconnectedCallback();
+    super.disconnectedCallback?.();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
   }
@@ -65,9 +64,9 @@ export default class Switch extends Base {
     super.update?.({ first, dispatch });
     this[internals].states.delete('--unchecked');
     this[internals].states.delete('--checked');
-    this[internals].ariaChecked = this.checked ? 'true' : 'false';
+    this[internals].ariaPressed = this.checked ? 'true' : 'false';
     this[internals].states.add(
-      `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+      `--${PROPERTY_FROM_ARIA_PRESSED[this[internals].ariaPressed]}`
     );
 
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');

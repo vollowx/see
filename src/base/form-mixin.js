@@ -14,9 +14,9 @@ const FormMixin = (Base) =>
     get name() {
       return this.getAttribute('name');
     }
-    get type() {
-      return this.localName;
-    }
+    // get type() {
+    //   return this.localName;
+    // }
     get validity() {
       return this[internals].validity;
     }

@@ -135,12 +135,12 @@
   width: 16px;
 }
 
+md-focus-ring {
+  inset: -4px;
+}
 md-ripple {
   color: var(--_ripple-color);
   height: 40px;
   inset: unset;
   width: 40px;
-}
-[part~='focus-ring'] {
-  inset: -2px;
 }

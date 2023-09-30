@@ -2,12 +2,14 @@
 
 import Button from '../base/button.js';
 import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property, query } from '../core/decorators.js';
+import { customElement, property } from '../core/decorators.js';
 
+// @ts-ignore
+import MdFocusRing from './focus-ring.js';
+// @ts-ignore
 import MdRipple from './ripple.js';
 
 import MdIconButtonStyle from './icon-button.css?inline';
-import MdFocusRingStyle from './focus-ring.css?inline';
 import MdTargetStyle from './target.css?inline';
 
 /**
@@ -20,19 +22,17 @@ export default class MdIconButton extends Button {
   get styles() {
     return [
       ...super.styles,
-      ...sheetsFromCss(MdFocusRingStyle, MdTargetStyle, MdIconButtonStyle),
+      ...sheetsFromCss(MdTargetStyle, MdIconButtonStyle),
     ];
   }
   get template() {
     return html`
-      <span part="focus-ring"></span>
-      <span part="target"></span>
+      <md-focus-ring></md-focus-ring>
       <md-ripple></md-ripple>
+      <span part="target"></span>
       <slot part="icon"></slot>
     `;
   }
-  /** @type {MdRipple} */
-  @query('md-ripple') $ripple;
   /** @type {'standard'|'filled'|'tonal'|'outlined'} */
   @property() variant = 'standard';
 }

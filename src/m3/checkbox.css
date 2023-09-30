@@ -146,10 +146,10 @@
   transition-property: width;
 }
 
-[part~='focus-ring'] {
-  height: 40px;
+md-focus-ring {
+  height: 44px;
   inset: unset;
-  width: 40px;
+  width: 44px;
 }
 md-ripple {
   --md-ripple-color: var(--_ripple-color);

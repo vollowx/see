@@ -81,6 +81,10 @@
   }
 }
 
+md-focus-ring {
+  --md-focus-ring-shape: var(--_border-radius);
+}
+
 slot[name='icon'] {
   display: inline-flex;
   fill: currentcolor;

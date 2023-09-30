@@ -1,33 +1,67 @@
-[part~='focus-ring'] {
-  animation-delay: 0s, 150ms;
-  animation-duration: 150ms, 450ms;
-  border-radius: var(--md-focus-ring-radius, inherit);
+:host {
+  animation-delay: 0s, calc(var(--md-focus-ring-duration, 600ms) * 0.25);
+  animation-duration: calc(var(--md-focus-ring-duration, 600ms) * 0.25),
+    calc(var(--md-focus-ring-duration, 600ms) * 0.75);
+  animation-timing-function: var(--md-sys-motion-easing-decelerated);
   box-sizing: border-box;
-  color: var(--md-sys-color-secondary);
+  color: var(--md-focus-ring-color, var(--md-sys-color-secondary));
   display: none;
-  inset: 0;
   pointer-events: none;
   position: absolute;
-  z-index: 1;
 }
-:host([focus='key']) [part~='focus-ring'] {
-  animation-name: outward-grow, outward-shrink;
-  animation-timing-function: var(--md-sys-motion-easing-standard);
+
+:host(:--visible) {
   display: flex;
-  outline: 3px solid currentColor;
-  outline-offset: 2px;
+}
+
+:host(:not([inward])) {
+  animation-name: outward-grow, outward-shrink;
+  border-radius: calc(var(--md-focus-ring-shape, 9999px) + var(--_offset, 2px));
+  inset: calc(-1 * var(--md-focus-ring-offset, 2px));
+  outline: var(--md-focus-ring-width, 3px) solid currentColor;
+}
+
+:host([inward]) {
+  animation-name: inward-grow, inward-shrink;
+  border-radius: calc(var(--md-focus-ring-shape, 9999px) - var(--_offset, 0px));
+  border: var(--md-focus-ring-width, 3px) solid currentColor;
+  inset: var(--md-focus-ring-offset, 0px);
 }
 
 @keyframes outward-grow {
-  0% {
-    outline-width: 0px;
+  from {
+    outline-width: 0;
   }
-  100% {
-    outline-width: 8px;
+
+  to {
+    outline-width: var(--md-focus-ring-active-width, 8px);
   }
 }
+
 @keyframes outward-shrink {
-  0% {
-    outline-width: 8px;
+  from {
+    outline-width: var(--md-focus-ring-active-width, 8px);
+  }
+}
+
+@keyframes inward-grow {
+  from {
+    border-width: 0;
+  }
+
+  to {
+    border-width: var(--md-focus-ring-active-width, 8px);
+  }
+}
+
+@keyframes inward-shrink {
+  from {
+    border-width: var(--md-focus-ring-active-width, 8px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  :host {
+    animation: none;
   }
 }

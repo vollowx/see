@@ -5,12 +5,11 @@ import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
 import { internals } from '../core/symbols.js';
 
-import FocusDetectingMixin from './focus-detecting-mixin.js';
 import FormMixin from './form-mixin.js';
 
 import HiddenStyles from './hidden.css?inline';
 
-const Base = FocusDetectingMixin(FormMixin(ReactiveElement));
+const Base = FormMixin(ReactiveElement);
 
 export default class Button extends Base {
   constructor() {
@@ -21,13 +20,13 @@ export default class Button extends Base {
     return [...sheetsFromCss(HiddenStyles)];
   }
   connectedCallback() {
-    super.connectedCallback();
+    super.connectedCallback?.();
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
     this.addEventListener('click', this.#boundClick);
   }
   disconnectedCallback() {
-    super.disconnectedCallback();
+    super.disconnectedCallback?.();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
     this.removeEventListener('click', this.#boundClick);
