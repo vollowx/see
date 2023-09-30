@@ -7,31 +7,14 @@ import { internals } from '../core/symbols.js';
 
 import AttachableMixin from './attachable-mixin.js';
 
-let lastTime = 0;
+let lastHidingTime = 0;
+let shouldBeVisible = false;
 
-function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
-var fromKeyboard = false;
-
-window.addEventListener(
-  'keydown',
-  () => {
-    fromKeyboard = true;
-  },
-  { capture: true }
-);
-window.addEventListener(
-  'mousedown',
-  () => {
-    fromKeyboard = false;
-  },
-  { capture: true }
-);
+window.addEventListener('keydown', () => (shouldBeVisible = true));
+window.addEventListener('mousedown', () => (shouldBeVisible = false));
 
 /** @type {Tooltip[]} */
-var visibleTooltips = [];
+let visibleTooltips = [];
 
 window.addEventListener('scroll', () => {
   visibleTooltips.forEach((tooltip) => {
@@ -50,12 +33,15 @@ export default class Tooltip extends Base {
     return html`<slot></slot>`;
   }
 
-  static observedAttributes = ['visible'];
-  @property({ type: Boolean }) visible = false;
   /** @type {'top'|'bottom'|'left'|'right'} */
   @property() position = 'top';
   @property({ type: Number }) marginTop = 4;
   @property({ type: Number }) offset = 4;
+
+  /** @param {boolean} value */
+  set visible(value) {
+    value ? this[internals].states.add('--visible') : this[internals].states.delete('--visible');
+  }
 
   update({ first = false, dispatch = false } = {}) {
     super.update?.({ first, dispatch });
@@ -66,8 +52,9 @@ export default class Tooltip extends Base {
     }
   }
 
-  moudeShowDelay = 100;
-  moudeHideDelay = 0;
+  windowPadding = 4;
+  mouseShowDelay = 100;
+  mouseHideDelay = 0;
   focusShowDelay = 100;
   focusHideDelay = 0;
   touchShowDelay = 700;
@@ -81,14 +68,14 @@ export default class Tooltip extends Base {
 
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
-  #boundMouseEnter = this.#handleMouseEnter.bind(this);
-  #boundMouseLeave = this.#handleMouseLeave.bind(this);
+  #boundPointerEnter = this.#handlePointerEnter.bind(this);
+  #boundPointerLeave = this.#handlePointerLeave.bind(this);
   #boundTouchStart = this.#handleTouchStart.bind(this);
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
   #boundOutsideClick = this.#handleOutsideClick.bind(this);
 
   #handleFocusIn() {
-    if (!fromKeyboard) return;
+    if (!shouldBeVisible) return;
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
@@ -96,21 +83,22 @@ export default class Tooltip extends Base {
         this.visible = true;
       },
       Math.max(
-        Date.now() - lastTime < this.recentlyShowedDelay
+        Date.now() - lastHidingTime < this.recentlyShowedDelay
           ? 0
           : this.focusShowDelay
       )
     );
   }
   #handleFocusOut() {
-    lastTime = Date.now();
+    lastHidingTime = Date.now();
     clearTimeout(this.#timeOutShow);
     this.#timeOutHide = setTimeout(() => {
       this.visible = false;
     }, this.focusHideDelay);
   }
-  #handleMouseEnter() {
-    if (isTouchDevice()) return;
+  /** @param {PointerEvent} e */
+  #handlePointerEnter(e) {
+    if (e.pointerType === 'touch') return;
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
@@ -118,19 +106,20 @@ export default class Tooltip extends Base {
         this.visible = true;
       },
       Math.max(
-        Date.now() - lastTime < this.recentlyShowedDelay
+        Date.now() - lastHidingTime < this.recentlyShowedDelay
           ? 0
-          : this.moudeShowDelay
+          : this.mouseShowDelay
       )
     );
   }
-  #handleMouseLeave() {
-    if (isTouchDevice()) return;
-    lastTime = Date.now();
+  /** @param {PointerEvent} e */
+  #handlePointerLeave(e) {
+    if (e.pointerType === 'touch') return;
+    lastHidingTime = Date.now();
     clearTimeout(this.#timeOutShow);
     this.#timeOutHide = setTimeout(() => {
       this.visible = false;
-    }, this.moudeHideDelay);
+    }, this.mouseHideDelay);
   }
   #handleTouchStart() {
     clearTimeout(this.#timeOutHide);
@@ -162,8 +151,8 @@ export default class Tooltip extends Base {
     const eventHandlers = {
       focusin: this.#boundFocusIn,
       focusout: this.#boundFocusOut,
-      mouseenter: this.#boundMouseEnter,
-      mouseleave: this.#boundMouseLeave,
+      pointerenter: this.#boundPointerEnter,
+      pointerleave: this.#boundPointerLeave,
       touchstart: this.#boundTouchStart,
       touchend: this.#boundTouchEnd,
     };
@@ -179,18 +168,18 @@ export default class Tooltip extends Base {
   updatePosition() {
     if (!this.$control) return;
 
-    var offsetParent = this.#composedOffsetParent();
+    const offsetParent = this.#composedOffsetParent();
     if (!offsetParent) return;
-    var offset = this.offset;
+    let offset = this.offset;
     if (this.marginTop != 4 && this.offset == 4) offset = this.marginTop;
-    var parentRect = offsetParent.getBoundingClientRect();
-    var targetRect = this.$control.getBoundingClientRect();
-    var thisRect = this.getBoundingClientRect();
-    var horizontalCenterOffset = (targetRect.width - thisRect.width) / 2;
-    var verticalCenterOffset = (targetRect.height - thisRect.height) / 2;
-    var targetLeft = targetRect.left - parentRect.left;
-    var targetTop = targetRect.top - parentRect.top;
-    var tooltipLeft, tooltipTop;
+    const parentRect = offsetParent.getBoundingClientRect();
+    const targetRect = this.$control.getBoundingClientRect();
+    const thisRect = this.getBoundingClientRect();
+    const horizontalCenterOffset = (targetRect.width - thisRect.width) / 2;
+    const verticalCenterOffset = (targetRect.height - thisRect.height) / 2;
+    const targetLeft = targetRect.left - parentRect.left;
+    const targetTop = targetRect.top - parentRect.top;
+    let tooltipLeft, tooltipTop;
     switch (this.position) {
       case 'top':
         tooltipLeft = targetLeft + horizontalCenterOffset;
@@ -211,17 +200,19 @@ export default class Tooltip extends Base {
     }
 
     if (parentRect.left + tooltipLeft + thisRect.width > window.innerWidth) {
-      this.style.right = '0px';
+      this.style.right = this.windowPadding + 'px';
       this.style.left = 'auto';
     } else {
-      this.style.left = Math.max(0, tooltipLeft) + 'px';
+      this.style.left = Math.max(this.windowPadding, tooltipLeft) + 'px';
       this.style.right = 'auto';
     }
     if (parentRect.top + tooltipTop + thisRect.height > window.innerHeight) {
-      this.style.bottom = parentRect.height - targetTop + offset + 'px';
+      this.style.bottom =
+        parentRect.height - targetTop + offset + this.windowPadding + 'px';
       this.style.top = 'auto';
     } else {
-      this.style.top = Math.max(-parentRect.top, tooltipTop) + 'px';
+      this.style.top =
+        Math.max(this.windowPadding - parentRect.top, tooltipTop) + 'px';
       this.style.bottom = 'auto';
     }
   }

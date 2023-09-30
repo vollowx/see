@@ -15,7 +15,8 @@
   z-index: 9999;
 }
 /* TODO: grow animation */
-:host(:not([visible])) {
+:host(:not(:--visible)) {
   opacity: 0;
   visibility: hidden;
+  inset: unset !important;
 }
