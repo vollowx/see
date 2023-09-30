@@ -18,6 +18,6 @@
 }
 :host([outlined]:--checked) {
   --_background-color: var(--md-sys-color-inverse-surface);
-  --_border-color: var(--md-sys-color-inverse-surface);
+  --_outline-color: var(--md-sys-color-inverse-surface);
   --_text-color: var(--md-sys-color-inverse-on-surface);
 }
