@@ -280,7 +280,6 @@ label:has(md-switch:disabled) {
 
 /* Fake web component */
 md-icon {
-  direction: ltr;
   display: inline-block;
   font-family: 'Material Symbols Outlined';
   font-style: normal;
