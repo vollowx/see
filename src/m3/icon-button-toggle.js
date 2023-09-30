@@ -1,6 +1,6 @@
 // @ts-check
 
-import Checkbox from '../base/checkbox.js';
+import Switch from '../base/switch.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
 
@@ -8,6 +8,7 @@ import { customElement, property } from '../core/decorators.js';
 import MdFocusRing from './focus-ring.js';
 // @ts-ignore
 import MdRipple from './ripple.js';
+import { internals } from '../core/symbols.js';
 
 import MdIconButtonStyle from './icon-button.css?inline';
 import MdIconButtonToggleStyle from './icon-button-toggle.css?inline';
@@ -19,7 +20,11 @@ import MdTargetStyle from './target.css?inline';
  * @csspart icon
  */
 @customElement('md-icon-button-toggle')
-export default class MdIconButtonToggle extends Checkbox {
+export default class MdIconButtonToggle extends Switch {
+  constructor() {
+    super();
+    this[internals].role = 'button';
+  }
   get styles() {
     return [
       ...super.styles,
