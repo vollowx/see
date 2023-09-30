@@ -19,7 +19,7 @@ export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
     this[internals].ariaHidden = 'true';
   }
   get styles() {
-    return [...super.styles, ...sheetsFromCss(MdFocusRingStyle)];
+    return [...sheetsFromCss(MdFocusRingStyle)];
   }
   @property({ type: Boolean }) inward = false;
 

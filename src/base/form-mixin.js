@@ -1,5 +1,3 @@
-// @ts-check
-
 import ReactiveElement from '../core/reactive-element.js';
 import { internals } from '../core/symbols.js';
 

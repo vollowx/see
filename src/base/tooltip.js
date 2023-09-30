@@ -1,5 +1,3 @@
-// @ts-check
-
 import ReactiveElement from '../core/reactive-element.js';
 import { html } from '../core/template.js';
 import { property } from '../core/decorators.js';
@@ -40,16 +38,14 @@ export default class Tooltip extends Base {
 
   /** @param {boolean} value */
   set visible(value) {
-    value ? this[internals].states.add('--visible') : this[internals].states.delete('--visible');
-  }
-
-  update({ first = false, dispatch = false } = {}) {
-    super.update?.({ first, dispatch });
-    if (this.visible) {
-      visibleTooltips.push(this);
-    } else {
-      visibleTooltips = visibleTooltips.filter((tooltip) => tooltip !== this);
-    }
+    value
+      ? this[internals].states.add('--visible')
+      : this[internals].states.delete('--visible');
+    value
+      ? visibleTooltips.push(this)
+      : (visibleTooltips = visibleTooltips.filter(
+          (tooltip) => tooltip !== this
+        ));
   }
 
   windowPadding = 4;
@@ -140,7 +136,7 @@ export default class Tooltip extends Base {
     if (e.composedPath().includes(/** @type {HTMLElement} */ (this.$control)))
       return;
     this.visible = false;
-    removeEventListener('pointerup', this.#boundOutsideClick);
+    removeEventListener('click', this.#boundOutsideClick);
   }
 
   /**

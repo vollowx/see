@@ -4,6 +4,7 @@
   "description": "Web Components, with Material You design guidelines.",
   "author": "vollow",
   "license": "MIT",
+  "type": "module",
   "directories": {
     "doc": "docs",
     "test": "tests"
@@ -23,6 +24,7 @@
     "@babel/plugin-proposal-decorators": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
     "@rollup/plugin-babel": "^6.0.3",
+    "element-internals-polyfill": "^1.3.8",
     "prettier": "^3.0.3",
     "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.5",

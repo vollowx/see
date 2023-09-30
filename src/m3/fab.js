@@ -1,12 +1,8 @@
-// @ts-check
-
 import Button from '../base/button.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
 
-// @ts-ignore
 import MdFocusRing from './focus-ring.js';
-// @ts-ignore
 import MdRipple from './ripple.js';
 
 import MdFABStyle from './fab.css?inline';

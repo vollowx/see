@@ -2,14 +2,18 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
+    "baseUrl": ".",
+    "importHelpers": true,
     "moduleResolution": "Node",
     "noEmit": true,
-    "noImplicitAny": false, // For ReactiveElement[internals]
+    "noImplicitAny": false,
+    // "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "strictPropertyInitialization": false, // For decorators
-    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    // "noUnusedLocals": true,
     "strict": true,
-    "target": "ES2019"
+    "strictNullChecks": false,
+    "target": "ESNext"
   },
-  "include": ["src/**/*.js", "docs/**/*.js"]
+  "exclude": []
 }

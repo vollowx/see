@@ -1,87 +1,82 @@
-// @ts-check
-
 import ReactiveElement from './reactive-element.js';
 
-/**
- * @typedef {BooleanConstructor|StringConstructor|NumberConstructor} PropertyTypes
- * @typedef {boolean|number|string} PropertyValueTypes
- */
-
-/** @param {() => void} callback */
-const defer = (callback) => setTimeout(() => callback(), 0);
+const defer = (window.requestIdleCallback || requestAnimationFrame).bind(
+  window
+);
 
 /**
- * @param {(name: string, target: ReactiveElement, initialValue: any) => PropertyDescriptor} descriptor
+ * @typedef {BooleanConstructor | StringConstructor | NumberConstructor} PropertyTypes
+ * @typedef {boolean | number | string} PropertyValueTypes
  */
-function decorateProperty(descriptor) {
-  /**
-   * @param {undefined} _
-   * {{ kind: string, name: string }} options
-   */
-  return function (_, { kind, name }) {
-    if (kind !== 'field') return;
 
-    /**
-     * @param {any} initialValue
-     */
+/**
+ * @param {(target: ReactiveElement, name: string|symbol, value: any) => PropertyDescriptor} processAccessor
+ */
+const propertyDecorator =
+  (processAccessor) =>
+  (/** @type {any} */ _, /** @type {ClassFieldDecoratorContext} */ context) => {
+    /** @param {any} initialValue */
     return function (initialValue) {
-      const _descriptor = descriptor(name, this, initialValue);
-      defer(() => Object.defineProperty(this, name, _descriptor));
-      return _descriptor.get?.();
+      // @ts-ignore
+      const target = /** @type {ReactiveElement} */ (this);
+      const descriptor = {
+        ...processAccessor(target, context.name, initialValue),
+        configurable: true,
+        enumerable: true,
+      };
+      defer(() => Object.defineProperty(target, context.name, descriptor));
+      return descriptor.get?.() ?? initialValue;
     };
   };
-}
 
-/** @param {string} tagName */
-export function customElement(tagName) {
-  /**
-   * @param {any} target
-   * @param {ClassDecoratorContext} _context
-   */
-  return (target, _context) => {
-    if (!customElements.get(tagName)) customElements.define(tagName, target);
+/** @param {string} name */
+export function customElement(name) {
+  return (
+    /** @type {any} */ _target,
+    /** @type {ClassDecoratorContext} */ context
+  ) => {
+    context.addInitializer(function () {
+      customElements.define(
+        name,
+        /** @type {CustomElementConstructor} */ (this)
+      );
+    });
   };
 }
 
 /**
- * @param {{ type?: PropertyTypes, override?: string }?} options
- * TODO: Add option to load initial value by the way of setting attribute
+ * @param {{ type?: PropertyTypes, attribute?: string } | null} [options=null]
  */
-export function property(options = null) {
-  return decorateProperty((name, target, initialValue) => {
-    const qualifiedName = options?.override || name.toLowerCase();
+export const property = (options = null) =>
+  propertyDecorator((target, name, initialValue) => {
+    const qualifiedName = options?.attribute || String(name).toLowerCase();
 
-    const setterGetter =
-      options?.type === Boolean
-        ? {
-            get: () => target.hasAttribute(qualifiedName) ?? initialValue,
-            /** @param {boolean} value */
-            set: (value) =>
-              target.toggleAttribute(qualifiedName, Boolean(value)),
-          }
-        : options?.type === Number
-        ? {
-            get: () =>
-              Number(target.getAttribute(qualifiedName) ?? initialValue),
-            /** @param {number} value */
-            set: (value) => target.setAttribute(qualifiedName, String(value)),
-          }
-        : {
-            get: () => target.getAttribute(qualifiedName) ?? initialValue,
-            /** @param {string} value */
-            set: (value) => target.setAttribute(qualifiedName, String(value)),
-          };
-    return { ...setterGetter, configurable: true, enumerable: true };
+    return options?.type === Boolean
+      ? {
+          get: () => target.hasAttribute(qualifiedName) ?? initialValue,
+          /** @param {PropertyValueTypes} value - The value to set. */
+          set: (value) => target.toggleAttribute(qualifiedName, Boolean(value)),
+        }
+      : options?.type === Number
+      ? {
+          get: () => Number(target.getAttribute(qualifiedName) ?? initialValue),
+          /** @param {PropertyValueTypes} value - The value to set. */
+          set: (value) => target.setAttribute(qualifiedName, String(value)),
+        }
+      : {
+          get: () => target.getAttribute(qualifiedName) ?? initialValue,
+          /** @param {PropertyValueTypes} value - The value to set. */
+          set: (value) => target.setAttribute(qualifiedName, String(value)),
+        };
   });
-}
 
 /**
  * @param {string} selector
- * @param {boolean?} cache
+ * @param {boolean} [cache=true]
  */
-export function query(selector, cache = true) {
-  return decorateProperty((_, target) => {
-    const getter = cache
+export const query = (selector, cache = true) =>
+  propertyDecorator((target, name, value) => {
+    return cache
       ? {
           get() {
             if (target.queryCache.get(selector) === undefined)
@@ -97,21 +92,16 @@ export function query(selector, cache = true) {
             return target.shadowRoot?.querySelector(selector);
           },
         };
-    return { ...getter, configurable: true, enumerable: true };
   });
-}
 
 /**
  * @param {string} selector
  */
-export function queryAll(selector) {
-  return decorateProperty((_, target) => {
+export const queryAll = (selector) =>
+  propertyDecorator((target, name, value) => {
     return {
       get() {
         return target.shadowRoot?.querySelectorAll(selector);
       },
-      configurable: true,
-      enumerable: true,
     };
   });
-}

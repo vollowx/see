@@ -1,5 +1,3 @@
-// @ts-check
-
 function generateToC() {
   const root = document.body;
   const headings = root.querySelectorAll('h2, h3, h4, h5, h6');
@@ -52,3 +50,5 @@ import '../src/m3/ripple.js';
 import '../src/m3/switch.js';
 import '../src/m3/tooltip.js';
 import './components/demo/demo.js';
+
+import 'element-internals-polyfill';

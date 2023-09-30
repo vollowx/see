@@ -1,10 +1,7 @@
-// @ts-check
-
 import Switch from '../base/switch.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property, query } from '../core/decorators.js';
 
-// @ts-ignore
 import MdFocusRing from './focus-ring.js';
 import MdRipple from './ripple.js';
 

@@ -1,12 +1,8 @@
-// @ts-check
-
 import Checkbox from '../base/checkbox.js';
 import { html, sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
 
-// @ts-ignore
 import MdFocusRing from './focus-ring.js';
-// @ts-ignore
 import MdRipple from './ripple.js';
 
 import MdCheckboxStyle from './checkbox.css?inline';

@@ -1,5 +1,3 @@
-// @ts-check
-
 import ReactiveElement from '../core/reactive-element.js';
 import { property } from '../core/decorators.js';
 
@@ -55,9 +53,10 @@ const AttachableMixin = (Base) =>
           break;
       }
     }
+    // @ts-ignore
     static observedAttributes = [...(super.observedAttributes ?? []), 'for'];
     /** @type {string?} */
-    @property({ override: 'for' }) htmlFor;
+    @property({ attribute: 'for' }) htmlFor;
     #update() {
       this.attach(this.$control);
     }

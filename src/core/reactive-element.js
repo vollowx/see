@@ -1,6 +1,4 @@
-// @ts-check
-
-import ReactiveMixin from './reactive-mixin';
+import ReactiveMixin from './reactive-mixin.js';
 
 const Base = ReactiveMixin(HTMLElement);
 

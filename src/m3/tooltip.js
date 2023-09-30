@@ -7,6 +7,6 @@ import MdTooltipStyle from './tooltip.css?inline';
 @customElement('md-tooltip')
 export class MdTooltip extends Tooltip {
   get styles() {
-    return [...super.styles, ...sheetsFromCss(MdTooltipStyle)];
+    return [...sheetsFromCss(MdTooltipStyle)];
   }
 }

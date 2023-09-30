@@ -16,7 +16,7 @@
 }
 /* TODO: grow animation */
 :host(:not(:--visible)) {
+  inset: unset !important;
   opacity: 0;
   visibility: hidden;
-  inset: unset !important;
 }

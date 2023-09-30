@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * @param {TemplateStringsArray} strings
  * @param {string[]} substitutions

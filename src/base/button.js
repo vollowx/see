@@ -1,5 +1,3 @@
-// @ts-check
-
 import ReactiveElement from '../core/reactive-element.js';
 import { sheetsFromCss } from '../core/template.js';
 import { property } from '../core/decorators.js';
