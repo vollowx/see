@@ -4,24 +4,24 @@
   border-radius: 4px;
   box-sizing: border-box;
   color: var(--md-sys-color-inverse-on-surface);
+  display: none;
   font: var(--md-sys-typography-body-small);
+  left: 0;
   max-width: var(--_max-width, 300px);
   min-height: 24px;
+  opacity: 0;
   padding: 4px 8px;
   position: absolute;
   top: 0;
-  left: 0;
   transition: opacity 67ms linear;
   z-index: 9999;
-  opacity: 0;
-  display: none;
 }
 :host(:--showing),
 :host(:--visible) {
-  opacity: 1;
   display: flex;
+  opacity: 1;
 }
 :host(:--hiding) {
-  opacity: 0;
   display: flex;
+  opacity: 0;
 }
