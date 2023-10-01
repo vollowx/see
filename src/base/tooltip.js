@@ -1,9 +1,11 @@
 import ReactiveElement from '../core/reactive-element.js';
 import { html } from '../core/template.js';
-import { property } from '../core/decorators.js';
+import { property, query } from '../core/decorators.js';
 import { internals } from '../core/symbols.js';
 
 import AttachableMixin from './attachable-mixin.js';
+
+import { computePosition, flip, offset, shift } from '@floating-ui/dom';
 
 let lastHidingTime = 0;
 let shouldBeVisible = false;
@@ -14,14 +16,18 @@ window.addEventListener('mousedown', () => (shouldBeVisible = false));
 /** @type {Tooltip[]} */
 let visibleTooltips = [];
 
-window.addEventListener('scroll', () => {
-  visibleTooltips.forEach((tooltip) => {
-    tooltip.updatePosition();
-  });
-});
+window.addEventListener(
+  'scroll',
+  () =>
+    visibleTooltips.forEach((tooltip) => {
+      tooltip.updatePosition();
+    }),
+  { capture: true }
+);
 
 const Base = AttachableMixin(ReactiveElement);
 
+// FIXME: Observe direction change
 export default class Tooltip extends Base {
   constructor() {
     super();
@@ -30,25 +36,44 @@ export default class Tooltip extends Base {
   get template() {
     return html`<slot></slot>`;
   }
+  /** @type {HTMLSlotElement} */
+  @query('slot') $slot;
+  connectedCallback() {
+    super.connectedCallback();
+    this.$slot.addEventListener('slotchange', this.#boundSlotChange);
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.$slot.removeEventListener('slotchange', this.#boundSlotChange);
+  }
 
-  /** @type {'top'|'bottom'|'left'|'right'} */
+  /** @type {import('@floating-ui/dom').Placement} */
   @property() position = 'top';
-  @property({ type: Number }) marginTop = 4;
   @property({ type: Number }) offset = 4;
 
   /** @param {boolean} value */
   set visible(value) {
-    value
-      ? this[internals].states.add('--visible')
-      : this[internals].states.delete('--visible');
-    value
-      ? visibleTooltips.push(this)
-      : (visibleTooltips = visibleTooltips.filter(
-          (tooltip) => tooltip !== this
-        ));
+    if (value) {
+      visibleTooltips.push(this);
+      this[internals].states.add('--showing');
+      this.updatePosition();
+      setTimeout(() => {
+        this[internals].states.delete('--showing');
+        this[internals].states.add('--visible');
+      }, this.showDuration);
+    } else {
+      this[internals].states.add('--hiding');
+      setTimeout(() => {
+        this[internals].states.delete('--hiding');
+        this[internals].states.delete('--visible');
+        visibleTooltips = visibleTooltips.filter((tooltip) => tooltip !== this);
+      }, this.hideDuration);
+    }
   }
 
-  windowPadding = 4;
+  padding = 4;
+  showDuration = 100;
+  hideDuration = 100;
   mouseShowDelay = 100;
   mouseHideDelay = 0;
   focusShowDelay = 100;
@@ -62,6 +87,7 @@ export default class Tooltip extends Base {
   /** @type {number|undefined} */
   #timeOutHide = undefined;
 
+  #boundSlotChange = this.#handleSlotChange.bind(this);
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
   #boundPointerEnter = this.#handlePointerEnter.bind(this);
@@ -70,12 +96,14 @@ export default class Tooltip extends Base {
   #boundTouchEnd = this.#handleTouchEnd.bind(this);
   #boundOutsideClick = this.#handleOutsideClick.bind(this);
 
+  #handleSlotChange() {
+    this.$control.setAttribute('aria-label', this.textContent ?? '');
+  }
   #handleFocusIn() {
     if (!shouldBeVisible) return;
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
-        this.updatePosition();
         this.visible = true;
       },
       Math.max(
@@ -98,7 +126,6 @@ export default class Tooltip extends Base {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
-        this.updatePosition();
         this.visible = true;
       },
       Math.max(
@@ -120,7 +147,6 @@ export default class Tooltip extends Base {
   #handleTouchStart() {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(() => {
-      this.updatePosition();
       this.visible = true;
       addEventListener('click', this.#boundOutsideClick);
     }, this.touchShowDelay);
@@ -164,92 +190,16 @@ export default class Tooltip extends Base {
   updatePosition() {
     if (!this.$control) return;
 
-    const offsetParent = this.#composedOffsetParent();
-    if (!offsetParent) return;
-    let offset = this.offset;
-    if (this.marginTop != 4 && this.offset == 4) offset = this.marginTop;
-    const parentRect = offsetParent.getBoundingClientRect();
-    const targetRect = this.$control.getBoundingClientRect();
-    const thisRect = this.getBoundingClientRect();
-    const horizontalCenterOffset = (targetRect.width - thisRect.width) / 2;
-    const verticalCenterOffset = (targetRect.height - thisRect.height) / 2;
-    const targetLeft = targetRect.left - parentRect.left;
-    const targetTop = targetRect.top - parentRect.top;
-    let tooltipLeft, tooltipTop;
-    switch (this.position) {
-      case 'top':
-        tooltipLeft = targetLeft + horizontalCenterOffset;
-        tooltipTop = targetTop - thisRect.height - offset;
-        break;
-      case 'bottom':
-        tooltipLeft = targetLeft + horizontalCenterOffset;
-        tooltipTop = targetTop + targetRect.height + offset;
-        break;
-      case 'left':
-        tooltipLeft = targetLeft - thisRect.width - offset;
-        tooltipTop = targetTop + verticalCenterOffset;
-        break;
-      case 'right':
-        tooltipLeft = targetLeft + targetRect.width + offset;
-        tooltipTop = targetTop + verticalCenterOffset;
-        break;
-    }
-
-    if (parentRect.left + tooltipLeft + thisRect.width > window.innerWidth) {
-      this.style.right = this.windowPadding + 'px';
-      this.style.left = 'auto';
-    } else {
-      this.style.left = Math.max(this.windowPadding, tooltipLeft) + 'px';
-      this.style.right = 'auto';
-    }
-    if (parentRect.top + tooltipTop + thisRect.height > window.innerHeight) {
-      this.style.bottom =
-        parentRect.height - targetTop + offset + this.windowPadding + 'px';
-      this.style.top = 'auto';
-    } else {
-      this.style.top =
-        Math.max(this.windowPadding - parentRect.top, tooltipTop) + 'px';
-      this.style.bottom = 'auto';
-    }
-  }
-  #composedOffsetParent() {
-    /**
-     * @param {Element} element
-     * @returns {Element?}
-     */
-    function getNextAncestor(element) {
-      if (element.assignedSlot) {
-        return element.assignedSlot;
-      }
-      if (element.parentNode instanceof ShadowRoot) {
-        return element.parentNode.host;
-      }
-      return /** @type {Element?} */ (element.parentNode);
-    }
-
-    for (
-      let ancestor = /** @type {Element?} */ (this);
-      ancestor;
-      ancestor = getNextAncestor(ancestor)
-    ) {
-      if (!(ancestor instanceof Element)) continue;
-      if (getComputedStyle(ancestor).display === 'none') return null;
-    }
-    for (
-      let ancestor = getNextAncestor(this);
-      ancestor;
-      ancestor = getNextAncestor(ancestor)
-    ) {
-      if (!(ancestor instanceof Element)) continue;
-      const style = getComputedStyle(ancestor);
-      if (style.display === 'contents') {
-        continue;
-      }
-      if (style.position !== 'static') {
-        return ancestor;
-      }
-      if (ancestor.tagName === 'BODY') return ancestor;
-    }
-    return null;
+    computePosition(this.$control, this, {
+      placement: this.position,
+      middleware: [
+        offset(this.offset),
+        shift({ padding: this.padding }),
+        flip({ padding: this.padding }),
+      ],
+    }).then(({ x, y }) => {
+      this.style.top = `${y}px`;
+      this.style.left = `${x}px`;
+    });
   }
 }

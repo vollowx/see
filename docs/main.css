@@ -180,27 +180,82 @@ a:not(:hover):not(:focus-visible) {
   text-decoration: none;
 }
 
+html {
+  scroll-padding-block-start: 72px;
+}
+
 body {
   font: var(--md-sys-typography-body-large);
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   margin: 0;
-  min-height: 100vh;
 }
 
-main {
-  padding: 32px 16px;
+div:has(header) {
+  height: 72px;
 }
 
-@media (min-width: 1200px) {
-  main {
-    padding-left: 60px;
-    padding-right: 60px;
+header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  height: 72px;
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  z-index: 12;
+}
+
+header > .title {
+  font: var(--md-sys-typography-title-large);
+  padding-inline: 12px;
+}
+
+@media (max-width: 600px) {
+  header > .title {
+    display: none;
   }
 }
 
-@media (min-width: 600px) {
+header > .end {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+div:has(main) {
+  background-color: var(--md-sys-color-surface-container);
+  padding: 0 28px 28px;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+main {
+  padding: 28px;
+  background-color: var(--md-sys-color-surface);
+  border-radius: 24px;
+  overflow-y: auto;
+  height: calc(100dvh - 72px - 56px - 28px);
+  scrollbar-color: var(--md-sys-color-primary) transparent;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 600px) {
+  div:has(main) {
+    padding: 0;
+  }
+
   main {
-    padding-left: 24px;
-    padding-right: 24px;
+    height: calc(100dvh - 72px - 56px);
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  div:has(> #toc-list) {
+    display: none;
   }
 }
 

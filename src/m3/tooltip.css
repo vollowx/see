@@ -4,19 +4,24 @@
   border-radius: 4px;
   box-sizing: border-box;
   color: var(--md-sys-color-inverse-on-surface);
-  display: flex;
   font: var(--md-sys-typography-body-small);
   max-width: var(--_max-width, 300px);
   min-height: 24px;
   padding: 4px 8px;
-  pointer-events: none;
   position: absolute;
+  top: 0;
+  left: 0;
   transition: opacity 67ms linear;
   z-index: 9999;
-}
-/* TODO: grow animation */
-:host(:not(:--visible)) {
-  inset: unset !important;
   opacity: 0;
-  visibility: hidden;
+  display: none;
+}
+:host(:--showing),
+:host(:--visible) {
+  opacity: 1;
+  display: flex;
+}
+:host(:--hiding) {
+  opacity: 0;
+  display: flex;
 }

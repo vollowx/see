@@ -2,7 +2,7 @@ function generateToC() {
   const root = document.body;
   const headings = root.querySelectorAll('h2, h3, h4, h5, h6');
 
-  const tocContainer = document.getElementById('table-of-contents-list');
+  const tocContainer = document.getElementById('toc-list');
 
   if (!tocContainer) {
     throw new Error('Table of Contents container not found.');
