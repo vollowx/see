@@ -30,7 +30,8 @@
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-order": "^6.0.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-plugin-html": "^3.2.0"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.5.3"

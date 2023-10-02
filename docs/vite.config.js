@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import babel from '@rollup/plugin-babel';
 
+import { createHtmlPlugin } from 'vite-plugin-html';
+
 export default defineConfig({
   base: '/mixed-components/', // For GitHub pages
   build: {
@@ -15,5 +17,6 @@ export default defineConfig({
       exclude: 'node_modules/**',
       babelHelpers: 'bundled',
     }),
+    createHtmlPlugin({ minify: true }),
   ],
 });
