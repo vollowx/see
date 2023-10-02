@@ -1,12 +1,6 @@
-# mixed-components
+# Roadmap
 
-Web Components library with any styles.
-
-**Resources**
-
-- [Documentations](https://vollowx.github.io/mixed-components/).
-- [Contributing specification](./CONTRIBUTING.md).
-- [Global TODOs](./TODO.md).
+This roadmap outlines the current and future goals for Mixed Components
 
 ## Implementations
 
@@ -30,7 +24,7 @@ Web Components library with any styles.
 | Autocomplete                  |      ❌       |  ❌  |  ❌   |   ❌    |
 | Button                        |      ✅       |  ✅  |  ✅   |   ❌    |
 | FAB                           |      ✅       |  ✅  |  ✅   |   ❌    |
-| Icon button                   |      🟡       |  🟡  |  🟡   |   ❌    |
+| Icon button                   |      ✅       |  ✅  |  ✅   |   ❌    |
 | Segmented button              |      ❌       |  ❌  |  ❌   |   ❌    |
 | Badge                         |      ❌       |  ❌  |  ❌   |   ❌    |
 | Banner                        |      ❌       |  ❌  |  ❌   |   ❌    |
