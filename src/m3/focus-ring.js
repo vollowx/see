@@ -1,16 +1,13 @@
 import ReactiveElement from '../core/reactive-element.js';
 import { sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
+import { focusVisible } from '../core/variables.js';
 
 import AttachableMixin from '../base/attachable-mixin.js';
 
 import MdFocusRingStyle from './focus-ring.css?inline';
 import { internals } from '../core/symbols.js';
 
-let shouldBeVisible = false;
-
-window.addEventListener('keydown', () => (shouldBeVisible = true));
-window.addEventListener('mousedown', () => (shouldBeVisible = false));
 
 @customElement('md-focus-ring')
 export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
@@ -28,7 +25,7 @@ export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
   #boundPointerDown = this.#handlePointerDown.bind(this);
 
   #handleFocusIn() {
-    if (shouldBeVisible) this[internals].states.add('--visible');
+    if (focusVisible) this[internals].states.add('--visible');
   }
   #handleFocusOut() {
     this[internals].states.delete('--visible');

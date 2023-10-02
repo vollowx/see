@@ -2,6 +2,7 @@ import ReactiveElement from '../core/reactive-element.js';
 import { html } from '../core/template.js';
 import { property, query } from '../core/decorators.js';
 import { internals } from '../core/symbols.js';
+import { focusVisible } from '../core/variables.js';
 
 import AttachableMixin from './attachable-mixin.js';
 
@@ -14,10 +15,6 @@ import {
 } from '@floating-ui/dom';
 
 let lastHidingTime = 0;
-let shouldBeVisible = false;
-
-window.addEventListener('keydown', () => (shouldBeVisible = true));
-window.addEventListener('mousedown', () => (shouldBeVisible = false));
 
 const Base = AttachableMixin(ReactiveElement);
 
@@ -97,7 +94,7 @@ export default class Tooltip extends Base {
     this.$control.setAttribute('aria-label', this.textContent ?? '');
   }
   #handleFocusIn() {
-    if (!shouldBeVisible) return;
+    if (!focusVisible) return;
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
       () => {
