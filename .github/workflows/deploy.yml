@@ -14,13 +14,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-
-      - name: Install dependencies & Build project
-        uses: creepinson/pnpm-action@master
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          arguments: '["build:docs"]'
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build documentations
+        run: bun build:docs
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
