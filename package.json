@@ -1,13 +1,12 @@
 {
   "name": "mixed-components",
   "version": "0.0.0",
-  "description": "Web Components, with Material You design guidelines.",
+  "description": "Web components library with any styles.",
   "author": "vollow",
   "license": "MIT",
   "type": "module",
   "directories": {
-    "doc": "docs",
-    "test": "tests"
+    "doc": "docs"
   },
   "scripts": {
     "dev:docs": "vite --open /docs/",
