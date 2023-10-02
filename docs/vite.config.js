@@ -5,7 +5,7 @@ export default defineConfig({
   base: '/mixed-components/', // For GitHub pages
   build: {
     minify: true,
-    target: 'ESNext',
+    cssMinify: 'lightningcss',
   },
   plugins: [
     babel({
