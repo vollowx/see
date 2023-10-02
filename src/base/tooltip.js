@@ -5,7 +5,13 @@ import { internals } from '../core/symbols.js';
 
 import AttachableMixin from './attachable-mixin.js';
 
-import { computePosition, flip, offset, shift } from '@floating-ui/dom';
+import {
+  autoUpdate,
+  computePosition,
+  flip,
+  offset,
+  shift,
+} from '@floating-ui/dom';
 
 let lastHidingTime = 0;
 let shouldBeVisible = false;
@@ -13,21 +19,8 @@ let shouldBeVisible = false;
 window.addEventListener('keydown', () => (shouldBeVisible = true));
 window.addEventListener('mousedown', () => (shouldBeVisible = false));
 
-/** @type {Tooltip[]} */
-let visibleTooltips = [];
-
-window.addEventListener(
-  'scroll',
-  () =>
-    visibleTooltips.forEach((tooltip) => {
-      tooltip.updatePosition();
-    }),
-  { capture: true }
-);
-
 const Base = AttachableMixin(ReactiveElement);
 
-// FIXME: Observe direction change
 export default class Tooltip extends Base {
   constructor() {
     super();
@@ -54,7 +47,11 @@ export default class Tooltip extends Base {
   /** @param {boolean} value */
   set visible(value) {
     if (value) {
-      visibleTooltips.push(this);
+      this.clearAutoUpdate = autoUpdate(
+        this.$control,
+        this,
+        this.updatePosition.bind(this)
+      );
       this[internals].states.add('--showing');
       this.updatePosition();
       setTimeout(() => {
@@ -66,7 +63,7 @@ export default class Tooltip extends Base {
       setTimeout(() => {
         this[internals].states.delete('--hiding');
         this[internals].states.delete('--visible');
-        visibleTooltips = visibleTooltips.filter((tooltip) => tooltip !== this);
+        this.clearAutoUpdate();
       }, this.hideDuration);
     }
   }
@@ -194,8 +191,8 @@ export default class Tooltip extends Base {
       placement: this.position,
       middleware: [
         offset(this.offset),
-        shift({ padding: this.padding }),
         flip({ padding: this.padding }),
+        shift({ padding: this.padding, crossAxis: true }),
       ],
     }).then(({ x, y }) => {
       this.style.top = `${y}px`;
