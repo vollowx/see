@@ -93,6 +93,7 @@
   border-radius: 50%;
   display: grid;
   height: var(--_thumb-diameter);
+  /* FIXME: lightningcss compiles this to stuffs with `:lang` */
   margin-inline-start: calc(
     var(--_thumb-diff-pointer, 0px) - var(--_thumb-diff-default)
   );

@@ -21,6 +21,7 @@
   cursor: pointer;
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
+  gap: 8px;
   height: 40px;
   justify-content: center;
   min-width: 64px;
@@ -98,22 +99,15 @@
 
 ::slotted([slot='icon']),
 ::slotted([slot='trailingicon']) {
-  block-size: 18px;
+  block-size: 1em;
   fill: currentcolor;
   font-size: 18px;
-  inline-size: 18px;
+  inline-size: 1em;
 }
-::slotted([slot='icon']) {
-  margin-inline-end: 8px;
+/* FIXME: Can't be normally compiled by lightningcss */
+:host(:not([variant='text'])) ::slotted([slot='icon']) {
   margin-inline-start: -8px;
 }
-::slotted([slot='trailingicon']) {
+:host(:not([variant='text'])) ::slotted([slot='trailingicon']) {
   margin-inline-end: -8px;
-  margin-inline-start: 8px;
-}
-:host([variant='text']) ::slotted([slot='icon']) {
-  margin-inline-start: 0px;
-}
-:host([variant='text']) ::slotted([slot='trailingicon']) {
-  margin-inline-end: 0px;
 }

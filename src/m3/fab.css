@@ -21,13 +21,12 @@
   cursor: pointer;
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
-  gap: 16px; /* 12px + 4px */
+  gap: 8px; /* 12px (origin) - 4px (label) */
   height: var(--_size);
   justify-content: center;
   min-width: var(--_size);
   outline: 0;
-  padding-inline-end: calc((var(--_size) - var(--_icon-size)) / 2 + 4px);
-  padding-inline-start: calc((var(--_size) - var(--_icon-size)) / 2 + 4px);
+  padding-inline: calc((var(--_size) - var(--_icon-size)) / 2);
   position: relative;
   -webkit-tap-highlight-color: transparent;
   transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
@@ -85,16 +84,13 @@ md-focus-ring {
   --md-focus-ring-shape: var(--_border-radius);
 }
 
-slot[name='icon'] {
+::slotted(:not([slot='label'])) {
+  block-size: 1em;
   display: inline-flex;
   fill: currentcolor;
   font-size: var(--_icon-size);
-  margin-inline-end: -8px;
-  margin-inline-start: -4px;
+  inline-size: 1em;
 }
-::slotted([slot='icon']) {
-  block-size: var(--_icon-size);
-  display: inline-flex;
-  inline-size: var(--_icon-size);
-  margin-inline-end: 4px;
+::slotted([slot='label']) {
+  margin-inline: 4px;
 }

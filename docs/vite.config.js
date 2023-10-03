@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import babel from '@rollup/plugin-babel';
-
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
   base: '/mixed-components/', // For GitHub pages
+  css: { transformer: 'lightningcss' },
   build: {
     minify: true,
     cssMinify: 'lightningcss',

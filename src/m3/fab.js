@@ -24,8 +24,8 @@ export default class MdFAB extends Button {
       <md-focus-ring></md-focus-ring>
       <md-ripple></md-ripple>
       <span part="target"></span>
-      <slot part="icon" name="icon" aria-hidden="true"></slot>
-      <slot part="label"></slot>
+      <slot part="icon" aria-hidden="true"></slot>
+      <slot part="label" name="label"></slot>
     `;
   }
   /** @type {'small'|'medium'|'large'} */
