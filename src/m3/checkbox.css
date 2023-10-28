@@ -11,12 +11,13 @@
     var(--_container-color) var(--_container-opacity, 100%),
     transparent
   );
-  border: var(--md-checkbox-outline-width, 2px) solid
-    color-mix(
-      in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
-      transparent
-    );
+  border-width: var(--md-checkbox-outline-width, 2px);
+  border-style: solid;
+  border-color: color-mix(
+    in srgb,
+    var(--_outline-color) var(--_outline-opacity, 100%),
+    transparent
+  );
   border-radius: 2px;
   box-sizing: border-box;
   cursor: pointer;

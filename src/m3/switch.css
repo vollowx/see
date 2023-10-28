@@ -9,12 +9,13 @@
     var(--_track-color) var(--_track-opacity, 100%),
     transparent
   );
-  border: 2px solid
-    color-mix(
-      in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
-      transparent
-    );
+  border-width: 2px;
+  border-style: solid;
+  border-color: color-mix(
+    in srgb,
+    var(--_outline-color) var(--_outline-opacity, 100%),
+    transparent
+  );
   border-radius: 9999px;
   box-sizing: border-box;
   cursor: pointer;

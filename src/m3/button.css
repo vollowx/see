@@ -55,12 +55,13 @@
 :host([variant='outlined']) {
   --_background-color: transparent !important;
   --_text-color: var(--_color);
-  border: 1px solid
-    color-mix(
-      in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
-      transparent
-    );
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(
+    in srgb,
+    var(--_outline-color) var(--_outline-opacity, 100%),
+    transparent
+  );
   box-shadow: none !important;
   padding-inline: 23px;
 }

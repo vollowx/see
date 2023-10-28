@@ -35,12 +35,13 @@
   --_text-color: var(--md-sys-color-on-secondary);
 }
 :host([variant='outlined']) {
-  border: 1px solid
-    color-mix(
-      in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
-      transparent
-    );
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(
+    in srgb,
+    var(--_outline-color) var(--_outline-opacity, 100%),
+    transparent
+  );
 }
 :host([variant='outlined']) md-focus-ring {
   --md-focus-ring-offset: 3px;
