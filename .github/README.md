@@ -13,4 +13,4 @@ Mixed Components is a [web components](https://developer.mozilla.org/en-US/docs/
 
 - Chromium [>= 112]
 - Firefox [!]
-- - [`ElementInternals.status`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states#browser_compatibility)
+  - [`ElementInternals.status`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states#browser_compatibility)
