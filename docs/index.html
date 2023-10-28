@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-md-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -90,7 +90,7 @@
       document
         .querySelector('#docs-opt-dark')
         .addEventListener('change', (e) => {
-          document.documentElement.classList.toggle('light', !e.detail);
+          document.documentElement.dataset['mdTheme'] = e.detail ? 'dark' : 'light';
           updateTooltip('docs-opt-dark');
         });
       document
