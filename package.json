@@ -1,0 +1,12 @@
+{
+  "name": "see",
+  "module": "all.ts",
+  "type": "module",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "lit": "^3.0.2"
+  }
+}
+
