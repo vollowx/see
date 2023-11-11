@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEE</title>
+    <meta
+      name="description"
+      content="Documents of the web components library SEE."
+    />
+
+    <script type="module" src="./main.ts"></script>
+
+    <style>
+      html {
+        color-scheme: dark;
+        font-family: monospace;
+      }
+      x-button::part(button) {
+        display: inline-flex;
+        align-items: center;
+
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        background-color: #333;
+        color: #fff;
+        height: 2rem;
+        padding-inline: 0.5rem;
+        user-select: none;
+      }
+      x-button::part(button):hover {
+        background-color: #444;
+        cursor: pointer;
+      }
+      x-button::part(button):active {
+        background-color: #555;
+      }
+      x-button::part(button):focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <x-button>Button</x-button>
+    <x-button href="#">Link</x-button>
+  </body>
+</html>

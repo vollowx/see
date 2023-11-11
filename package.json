@@ -1,12 +1,20 @@
 {
   "name": "see",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
   "module": "all.ts",
   "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "lit": "^3.0.2"
+    "lit": "^3.0.2",
+    "prettier": "^3.0.3",
+    "tslib": "^2.6.2",
+    "vite": "^4.5.0"
+  },
+  "scripts": {
+    "dev": "vite --open /docs/",
+    "prettier": "prettier . --write"
   }
 }
-
