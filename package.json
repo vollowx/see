@@ -4,17 +4,22 @@
   "license": "Apache-2.0",
   "module": "all.ts",
   "type": "module",
+  "dependencies": {
+    "lit": "^3.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "tslib": "^2.6.2",
+    "vite": "^4.5.0",
+    "vite-plugin-html": "^3.2.0"
+  },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "dependencies": {
-    "lit": "^3.0.2",
-    "prettier": "^3.0.3",
-    "tslib": "^2.6.2",
-    "vite": "^4.5.0"
-  },
   "scripts": {
-    "dev": "vite --open /docs/",
+    "dev:docs": "vite --open /docs/",
+    "build:docs": "vite build docs",
+    "preview:docs": "vite preview docs",
     "prettier": "prettier . --write"
   }
 }
