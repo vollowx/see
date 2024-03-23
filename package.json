@@ -23,14 +23,13 @@
     "@babel/plugin-proposal-decorators": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
     "@rollup/plugin-babel": "^6.0.3",
-    "element-internals-polyfill": "^1.3.8",
     "lightningcss": "^1.22.0",
     "prettier": "^3.0.3",
     "stylelint": "^15.10.3",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-order": "^6.0.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
+    "vite": "^5.2.4",
     "vite-plugin-html": "^3.2.0"
   },
   "dependencies": {
