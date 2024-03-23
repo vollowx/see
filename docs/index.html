@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mixed Components</title>
+    <title>SEE</title>
     <meta
       name="description"
-      content="Documents of the web components library mixed-components."
+      content="Documents of SEE the web components library."
     />
 
     <link rel="stylesheet" href="./main.css" />
@@ -48,7 +48,7 @@
         <md-tooltip for="docs-opt-drawer"></md-tooltip>
       </section>
 
-      <div class="title">Mixed Components</div>
+      <div class="title">SEE</div>
 
       <section class="end">
         <md-icon-button-toggle id="docs-opt-dark" checked>
@@ -90,7 +90,9 @@
       document
         .querySelector('#docs-opt-dark')
         .addEventListener('change', (e) => {
-          document.documentElement.dataset['mdTheme'] = e.detail ? 'dark' : 'light';
+          document.documentElement.dataset['mdTheme'] = e.detail
+            ? 'dark'
+            : 'light';
           updateTooltip('docs-opt-dark');
         });
       document
@@ -850,9 +852,7 @@
 
       <p>
         You can check the source code at the
-        <a href="https://github.com/vollowx/mixed-components"
-          >GitHub repository</a
-        >.
+        <a href="https://github.com/vollowx/see">GitHub repository</a>.
       </p>
 
       <p>

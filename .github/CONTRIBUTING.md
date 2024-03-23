@@ -21,4 +21,4 @@ Use `[part~="name"]` inside a component, while only users use `::part(name)`.
 
 Sort CSS properties alphabetically, move CSS variables before regular CSS properties.
 
-You can do the sorting by running `pnpm lint:style:fix` instead of manually doing so.
+You can do the sorting by running `bun run lint:style:fix` instead of manually doing so.

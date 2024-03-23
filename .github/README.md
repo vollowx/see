@@ -1,10 +1,10 @@
-# Mixed Components
+# SEE
 
-Mixed Components is a [web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) library can be filled with any styles, while it pre-provides components in [Material 3](https://m3.material.io/).
+SEE stands for _Standard Extensible Elements_, which is a [web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) library that can be styled freely, while it pre-provides components in [Material 3](https://m3.material.io/) design guideline.
 
 **Resources**
 
-- [Documentations](https://vollowx.github.io/mixed-components/)
+- [Documentations](https://vollowx.github.io/see/)
 - [Roadmap](./ROADMAP.md)
 - [Global TODOs](./TODO.md)
 - [Contributing specification](./CONTRIBUTING.md)

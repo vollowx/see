@@ -1,7 +1,7 @@
 {
-  "name": "mixed-components",
+  "name": "see",
   "version": "0.0.0",
-  "description": "Web components library with any styles.",
+  "description": "Standard Extensible Elements",
   "author": "vollow",
   "license": "MIT",
   "type": "module",

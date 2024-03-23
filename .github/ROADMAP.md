@@ -1,6 +1,6 @@
 # Roadmap
 
-This roadmap outlines the current and future goals for Mixed Components
+This roadmap outlines the current and future goals for SEE
 
 ## Implementations
 
