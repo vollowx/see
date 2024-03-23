@@ -1,24 +1,24 @@
-:host(:--checked) [part~='icon-unchecked'] {
+:host(:state(checked)) [part~='icon-unchecked'] {
   display: none;
 }
-:host(:not(:--checked)) [part~='icon-checked'] {
+:host(:not(:state(checked))) [part~='icon-checked'] {
   display: none;
 }
 
-:host(:not([variant]):--checked),
-:host([variant='standard']:--checked) {
+:host(:not([variant]):state(checked)),
+:host([variant='standard']:state(checked)) {
   --_text-color: var(--md-sys-color-primary);
 }
 
-:host([variant='filled']:not(:--checked)) {
+:host([variant='filled']:not(:state(checked))) {
   --_background-color: var(--md-sys-color-surface-container-highest);
   --_text-color: var(--md-sys-color-primary);
 }
-:host([variant='tonal']:not(:--checked)) {
+:host([variant='tonal']:not(:state(checked))) {
   --_background-color: var(--md-sys-color-surface-container-highest);
   --_text-color: var(--md-sys-color-on-surface-variant);
 }
-:host([variant='outlined']:--checked) {
+:host([variant='outlined']:state(checked)) {
   --_background-color: var(--md-sys-color-inverse-surface);
   --_outline-color: var(--md-sys-color-inverse-surface);
   --_text-color: var(--md-sys-color-inverse-on-surface);

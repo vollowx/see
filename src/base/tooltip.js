@@ -49,17 +49,17 @@ export default class Tooltip extends Base {
         this,
         this.updatePosition.bind(this)
       );
-      this[internals].states.add('--showing');
+      this[internals].states.add('showing');
       this.updatePosition();
       setTimeout(() => {
-        this[internals].states.delete('--showing');
-        this[internals].states.add('--visible');
+        this[internals].states.delete('showing');
+        this[internals].states.add('visible');
       }, this.showDuration);
     } else {
-      this[internals].states.add('--hiding');
+      this[internals].states.add('hiding');
       setTimeout(() => {
-        this[internals].states.delete('--hiding');
-        this[internals].states.delete('--visible');
+        this[internals].states.delete('hiding');
+        this[internals].states.delete('visible');
         this.clearAutoUpdate();
       }, this.hideDuration);
     }

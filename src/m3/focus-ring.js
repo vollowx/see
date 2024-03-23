@@ -8,7 +8,6 @@ import AttachableMixin from '../base/attachable-mixin.js';
 import MdFocusRingStyle from './focus-ring.css?inline';
 import { internals } from '../core/symbols.js';
 
-
 @customElement('md-focus-ring')
 export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
   constructor() {
@@ -25,13 +24,13 @@ export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
   #boundPointerDown = this.#handlePointerDown.bind(this);
 
   #handleFocusIn() {
-    if (focusVisible) this[internals].states.add('--visible');
+    if (focusVisible) this[internals].states.add('visible');
   }
   #handleFocusOut() {
-    this[internals].states.delete('--visible');
+    this[internals].states.delete('visible');
   }
   #handlePointerDown() {
-    this[internals].states.delete('--visible');
+    this[internals].states.delete('visible');
   }
 
   /**

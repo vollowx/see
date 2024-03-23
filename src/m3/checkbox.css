@@ -36,8 +36,8 @@
   vertical-align: top;
   width: var(--_checkbox-size);
 }
-:host(:--checked),
-:host(:--indeterminate) {
+:host(:state(checked)),
+:host(:state(indeterminate)) {
   --_container-color: var(--md-sys-color-primary);
   --_outline-color: var(--md-sys-color-primary);
   --_mark-color: var(--md-sys-color-on-primary);
@@ -49,8 +49,8 @@
   --_mark-color: var(--md-sys-color-surface-container-highest);
   --_ripple-color: var(--md-sys-color-error);
 }
-:host([error]:--checked),
-:host([error]:--indeterminate) {
+:host([error]:state(checked)),
+:host([error]:state(indeterminate)) {
   --_container-color: var(--md-sys-color-error);
   --_outline-color: var(--md-sys-color-error);
   --_mark-color: var(--md-sys-color-on-error);
@@ -63,8 +63,8 @@
   cursor: default;
   pointer-events: none;
 }
-:host(:disabled:--checked),
-:host(:disabled:--indeterminate) {
+:host(:disabled:state(checked)),
+:host(:disabled:state(indeterminate)) {
   --_container-color: var(--md-sys-color-on-surface);
   --_container-opacity: 38%;
   --_outline-color: var(--md-sys-color-surface);
@@ -103,11 +103,11 @@
   transition-duration: 150ms;
   transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
 }
-:host(:--indeterminate) [part~='mark'] {
+:host(:state(indeterminate)) [part~='mark'] {
   transform: scaleY(-1) translate(4px, -10px) rotate(0deg);
 }
-:host(:--checked) [part~='mark'],
-:host(:--indeterminate) [part~='mark'] {
+:host(:state(checked)) [part~='mark'],
+:host(:state(indeterminate)) [part~='mark'] {
   transition-duration: 350ms;
 }
 [part~='mark-short'] {
@@ -120,30 +120,31 @@
   transition-property: transform, width;
   width: 0px;
 }
-:host(:not(:--checked):not(:--indeterminate):--was-checked) [part~='mark'],
-:host(:not(:--checked):not(:--indeterminate):--was-indeterminate)
+:host(:not(:state(checked)):not(:state(indeterminate)):state(was-checked))
+  [part~='mark'],
+:host(:not(:state(checked)):not(:state(indeterminate)):--was-indeterminate)
   [part~='mark'] {
   transition-delay: 150ms;
 }
-:host(:--checked) [part~='mark-short'] {
+:host(:state(checked)) [part~='mark-short'] {
   height: 5.6568542495px;
 }
-:host(:--checked) [part~='mark-long'] {
+:host(:state(checked)) [part~='mark-long'] {
   width: 11.313708499px;
 }
-:host(:--checked:--was-unchecked) [part~='mark-short'] {
+:host(:state(checked):state(was-unchecked)) [part~='mark-short'] {
   transition-property: none;
 }
-:host(:--indeterminate) [part~='mark-short'] {
+:host(:state(indeterminate)) [part~='mark-short'] {
   height: 2px;
 }
-:host(:--indeterminate) [part~='mark-long'] {
+:host(:state(indeterminate)) [part~='mark-long'] {
   width: 10px;
 }
-:host(:--indeterminate:--was-unchecked) [part~='mark-short'] {
+:host(:state(indeterminate):state(was-unchecked)) [part~='mark-short'] {
   transition-property: height;
 }
-:host(:--indeterminate:--was-unchecked) [part~='mark-long'] {
+:host(:state(indeterminate):state(was-unchecked)) [part~='mark-long'] {
   transition-property: width;
 }
 

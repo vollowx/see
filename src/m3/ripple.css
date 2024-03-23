@@ -29,6 +29,6 @@
   transition: opacity 67ms linear;
 }
 
-:host(:--hover)::before {
+:host(:state(hover))::before {
   opacity: 0.08;
 }

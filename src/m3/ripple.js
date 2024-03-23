@@ -75,11 +75,11 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   /** @param {PointerEvent} e */
   #handlePointerEnter(e) {
     if (e.pointerType === 'touch') return;
-    this[internals].states.add('--hover');
+    this[internals].states.add('hover');
     if (this.#pointerDown) this.addRipple(e);
   }
   #handlePointerLeave() {
-    this[internals].states.delete('--hover');
+    this[internals].states.delete('hover');
     if (this.#pointerDown) this.removeRippleAll();
   }
   /** @param {PointerEvent} e */

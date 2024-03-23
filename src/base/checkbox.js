@@ -59,22 +59,22 @@ export default class Checkbox extends Base {
 
   update({ first = false, dispatch = false } = {}) {
     super.update?.({ first, dispatch });
-    this[internals].states.delete('--was-unchecked');
-    this[internals].states.delete('--was-checked');
-    this[internals].states.delete('--was-indeterminate');
+    this[internals].states.delete('was-unchecked');
+    this[internals].states.delete('was-checked');
+    this[internals].states.delete('was-indeterminate');
     this[internals].states.add(
-      `--was-${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+      `was-${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
     this[internals].ariaChecked = this.indeterminate
       ? 'mixed'
       : this.checked
       ? 'true'
       : 'false';
-    this[internals].states.delete('--unchecked');
-    this[internals].states.delete('--checked');
-    this[internals].states.delete('--indeterminate');
+    this[internals].states.delete('unchecked');
+    this[internals].states.delete('checked');
+    this[internals].states.delete('indeterminate');
     this[internals].states.add(
-      `--${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+      `${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
     );
 
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');

@@ -16,12 +16,12 @@
   transition: opacity 67ms linear;
   z-index: 9999;
 }
-:host(:--showing),
-:host(:--visible) {
+:host(:state(showing)),
+:host(:state(visible)) {
   display: flex;
   opacity: 1;
 }
-:host(:--hiding) {
+:host(:state(hiding)) {
   display: flex;
   opacity: 0;
 }

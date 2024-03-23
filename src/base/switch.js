@@ -60,11 +60,11 @@ export default class Switch extends Base {
 
   update({ first = false, dispatch = false } = {}) {
     super.update?.({ first, dispatch });
-    this[internals].states.delete('--unchecked');
-    this[internals].states.delete('--checked');
+    this[internals].states.delete('unchecked');
+    this[internals].states.delete('checked');
     this[internals].ariaPressed = this.checked ? 'true' : 'false';
     this[internals].states.add(
-      `--${PROPERTY_FROM_ARIA_PRESSED[this[internals].ariaPressed]}`
+      `${PROPERTY_FROM_ARIA_PRESSED[this[internals].ariaPressed]}`
     );
 
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
