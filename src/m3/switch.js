@@ -8,9 +8,10 @@ import MdRipple from './ripple.js';
 import MdSwitchStyle from './switch.css?inline';
 import MdTargetStyle from './target.css?inline';
 
-function isRTL() {
-  return document.documentElement.dir === 'rtl';
-}
+// FIXME: Drag-and-drop breaks the support for working with `<label>`. Temporarily disabled.
+// function isRTL() {
+//   return document.documentElement.dir === 'rtl';
+// }
 
 /**
  * @element md-switch
@@ -51,72 +52,72 @@ export default class MdSwitch extends Switch {
       </svg>
     `.innerHTML;
   }
-  /** @type {MdRipple} */
-  @query('md-ripple') $ripple;
-  /** @type {HTMLSpanElement} */
-  @query('[part~="thumb"]') $thumb;
-  connectedCallback() {
-    super.connectedCallback();
-    this.$ripple.attach(this);
-    this.addEventListener('pointerdown', this.#boundPointerDown);
-    this.addEventListener('pointerup', this.#boundPointerUp);
-  }
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('pointerdown', this.#boundPointerDown);
-    this.removeEventListener('pointerup', this.#boundPointerUp);
-  }
+  // /** @type {MdRipple} */
+  // @query('md-ripple') $ripple;
+  // /** @type {HTMLSpanElement} */
+  // @query('[part~="thumb"]') $thumb;
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   this.$ripple.attach(this);
+  //   this.addEventListener('pointerdown', this.#boundPointerDown);
+  //   this.addEventListener('pointerup', this.#boundPointerUp);
+  // }
+  // disconnectedCallback() {
+  //   super.disconnectedCallback();
+  //   this.removeEventListener('pointerdown', this.#boundPointerDown);
+  //   this.removeEventListener('pointerup', this.#boundPointerUp);
+  // }
   @property({ type: Boolean }) icons = false;
   @property({ type: Boolean }) checkedIconOnly = false;
 
-  #pointerDownX = 0;
-
-  #boundPointerDown = this.#handlePointerDown.bind(this);
-  #boundPointerMove = this.#handlePointerMove.bind(this);
-  #boundPointerUp = this.#handlePointerUp.bind(this);
-  /** @param {PointerEvent} e */
-  #handlePointerDown(e) {
-    this._ignoreClick = false;
-
-    if (e.button !== 0) return;
-    this.#pointerDownX = e.clientX;
-    this.setPointerCapture(e.pointerId);
-    this.addEventListener('pointermove', this.#boundPointerMove);
-  }
-  /** @param {PointerEvent} e */
-  #handlePointerMove(e) {
-    this._ignoreClick = true;
-
-    const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
-    const limitedDiff = this.checked
-      ? Math.min(0, Math.max(-20, diff))
-      : Math.min(20, Math.max(0, diff));
-    this.$thumb.style.setProperty(
-      '--_thumb-diff-pointer',
-      `${2 * limitedDiff}px`
-    );
-    // Thumb loses its `:active` status before pointer up event
-    this.$thumb.style.setProperty('--_thumb-diameter', '28px');
-    this.$thumb.style.transitionDuration = '0s';
-  }
-  /** @param {PointerEvent} e */
-  #handlePointerUp(e) {
-    this.removeEventListener('pointermove', this.#boundPointerMove);
-    this.releasePointerCapture(e.pointerId);
-
-    const trackRect = this.getBoundingClientRect();
-    const thumbRect = this.$thumb.getBoundingClientRect();
-    const diff =
-      thumbRect.left +
-      thumbRect.width / 2 -
-      trackRect.left -
-      trackRect.width / 2;
-    const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
-
-    this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
-    this.$thumb.style.setProperty('--_thumb-diameter', '');
-    this.$thumb.style.transitionDuration = '';
-
-    if (this.checked != shouldBeChecked) this.__toggleStatus();
-  }
+  // #pointerDownX = 0;
+  //
+  // #boundPointerDown = this.#handlePointerDown.bind(this);
+  // #boundPointerMove = this.#handlePointerMove.bind(this);
+  // #boundPointerUp = this.#handlePointerUp.bind(this);
+  // /** @param {PointerEvent} e */
+  // #handlePointerDown(e) {
+  //   this._ignoreClick = false;
+  //
+  //   if (e.button !== 0) return;
+  //   this.#pointerDownX = e.clientX;
+  //   this.setPointerCapture(e.pointerId);
+  //   this.addEventListener('pointermove', this.#boundPointerMove);
+  // }
+  // /** @param {PointerEvent} e */
+  // #handlePointerMove(e) {
+  //   this._ignoreClick = true;
+  //
+  //   const diff = (isRTL() ? -1 : 1) * (e.clientX - this.#pointerDownX);
+  //   const limitedDiff = this.checked
+  //     ? Math.min(0, Math.max(-20, diff))
+  //     : Math.min(20, Math.max(0, diff));
+  //   this.$thumb.style.setProperty(
+  //     '--_thumb-diff-pointer',
+  //     `${2 * limitedDiff}px`
+  //   );
+  //   // Thumb loses its `:active` status before pointer up event
+  //   this.$thumb.style.setProperty('--_thumb-diameter', '28px');
+  //   this.$thumb.style.transitionDuration = '0s';
+  // }
+  // /** @param {PointerEvent} e */
+  // #handlePointerUp(e) {
+  //   this.removeEventListener('pointermove', this.#boundPointerMove);
+  //   this.releasePointerCapture(e.pointerId);
+  //
+  //   const trackRect = this.getBoundingClientRect();
+  //   const thumbRect = this.$thumb.getBoundingClientRect();
+  //   const diff =
+  //     thumbRect.left +
+  //     thumbRect.width / 2 -
+  //     trackRect.left -
+  //     trackRect.width / 2;
+  //   const shouldBeChecked = (diff >= 0 && !isRTL()) || (diff < 0 && isRTL());
+  //
+  //   this.$thumb.style.setProperty('--_thumb-diff-pointer', '');
+  //   this.$thumb.style.setProperty('--_thumb-diameter', '');
+  //   this.$thumb.style.transitionDuration = '';
+  //
+  //   if (this.checked != shouldBeChecked) this.__toggleStatus();
+  // }
 }
