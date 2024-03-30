@@ -11,7 +11,8 @@ SEE stands for _Standard Extensible Elements_, which is a [web components](https
 
 **Compatibility**
 
-- Chromium `not yet implemented the new format of ElementInternals.states CSS selector`
-  - [`ElementInternals.states`](https://html.spec.whatwg.org/multipage/custom-elements.html)
-- Firefox `>= 121 and dom.element.customstateset.enabled = true`
-  - [`ElementInternals.states`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states#browser_compatibility)
+- Chromium `not yet implemented`
+  - [New spec of `ElementInternals.states`](https://html.spec.whatwg.org/multipage/custom-elements.html)
+- Firefox `>= 126`
+  - [`ElementInternals.states` at Firefox Nightly 126.0a1 release notes](https://www.mozilla.org/en-US/firefox/126.0a1/releasenotes/)
+  - [`ElementInternals.states` at Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1887467)
