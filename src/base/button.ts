@@ -1,38 +1,34 @@
-import ReactiveElement from '../core/reactive-element.js';
-import { sheetsFromCss } from '../core/template.js';
-import { property } from '../core/decorators.js';
-import { internals } from '../core/symbols.js';
+import { LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import FormMixin from './form-mixin.js';
+import { InternalsAttached, internals } from './internals-attached.js';
+import { FormAssociatedMixin } from './form-mixin.js';
 
-import HiddenStyles from './hidden.css?inline';
+import hiddenStyle from './hidden-style.js';
 
-const Base = FormMixin(ReactiveElement);
+const Base = FormAssociatedMixin(InternalsAttached(LitElement));
 
 export default class Button extends Base {
   constructor() {
     super();
     this[internals].role = 'button';
   }
-  get styles() {
-    return [...sheetsFromCss(HiddenStyles)];
-  }
+  static styles = [hiddenStyle];
   connectedCallback() {
-    super.connectedCallback?.();
+    super.connectedCallback();
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
     this.addEventListener('click', this.#boundClick);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
     this.removeEventListener('click', this.#boundClick);
   }
 
   static observedAttributes = ['disabled'];
-  /** @type {'button'|'submit'|'reset'} */
-  @property() type = 'button';
+  @property() type: 'button' | 'submit' | 'reset' = 'button';
   @property({ type: Boolean }) disabled = false;
 
   update({ first = false, dispatch = false } = {}) {
@@ -44,8 +40,7 @@ export default class Button extends Base {
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
   #boundClick = this.#handleClick.bind(this);
-  /** @param {KeyboardEvent} e */
-  #handleKeyDown(e) {
+  #handleKeyDown(e: KeyboardEvent) {
     if (e.key !== ' ' && e.key !== 'Enter') return;
     e.preventDefault();
     e.stopPropagation();
@@ -53,8 +48,7 @@ export default class Button extends Base {
       this.click();
     }
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyUp(e) {
+  #handleKeyUp(e: KeyboardEvent) {
     if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();

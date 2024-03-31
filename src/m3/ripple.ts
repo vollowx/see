@@ -1,23 +1,18 @@
-import ReactiveElement from '../core/reactive-element.js';
-import { sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
+import { LitElement, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-import AttachableMixin from '../base/attachable-mixin.js';
-
-import MdRippleStyle from './ripple.css?inline';
-import { internals } from '../core/symbols.js';
+import { Attachable } from '../base/attachable.js';
+import { InternalsAttached, internals } from '../base/internals-attached.js';
 
 const PRESS_GROW_MS = 450;
 const MINIMUM_PRESS_MS = 225;
 const OPACITY_IN_MS = 105;
 const OPACITY_OUT_MS = 375;
 
-/**
- * @param {{ x: number, y: number }} a
- * @param {{ x: number, y: number }} b
- * @returns {number}
- */
-function distance({ x: ax, y: ay }, { x: bx, y: by }) {
+function distance(
+  { x: ax, y: ay }: { x: number; y: number },
+  { x: bx, y: by }: { x: number; y: number }
+): number {
   return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
 }
 
@@ -27,20 +22,53 @@ function distance({ x: ax, y: ay }, { x: bx, y: by }) {
  * @cssprop --md-ripple-color
  */
 @customElement('md-ripple')
-export default class MdRipple extends AttachableMixin(ReactiveElement) {
+export default class MdRipple extends Attachable(
+  InternalsAttached(LitElement)
+) {
+  static styles = css`
+    :host {
+      border-radius: inherit;
+      display: block;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    [part~='ripple'] {
+      background-image: radial-gradient(
+        closest-side,
+        var(--md-ripple-color, currentColor) max(calc(100% - 70px), 65%),
+        transparent 100%
+      );
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+
+    :host::before {
+      background-color: var(--md-ripple-color, currentColor);
+      border-radius: inherit;
+      content: '';
+      display: block;
+      inset: 0;
+      opacity: 0;
+      position: absolute;
+      transition: opacity 67ms linear;
+    }
+
+    :host(:state(hover))::before {
+      opacity: 0.08;
+    }
+  `;
+
   constructor() {
     super();
     this[internals].ariaHidden = 'true';
   }
-  get styles() {
-    return [...sheetsFromCss(MdRippleStyle)];
-  }
-  /** @type {HTMLSpanElement[]} */
-  $ripples = [];
-  /** @type {'always'|'none'} */
-  @property() enterBehavior = 'always';
-  /** @type {'always'|'once'|'none'} */
-  @property() spaceBehavior = 'once';
+  $ripples: HTMLSpanElement[] = [];
+  @property() enterBehavior: 'always' | 'none' = 'always';
+  @property() spaceBehavior: 'always' | 'once' | 'none' = 'once';
 
   #spaceKeyDown = false;
   #pointerDown = false;
@@ -52,8 +80,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
   #boundPointerLeave = this.#handlePointerLeave.bind(this);
   #boundPointerDown = this.#handlePointerDown.bind(this);
   #boundPointerUp = this.#handlePointerUp.bind(this);
-  /** @param {KeyboardEvent} e */
-  #handleKeyDown(e) {
+  #handleKeyDown(e: KeyboardEvent) {
     if (
       (e.key === 'Enter' && this.enterBehavior === 'always') ||
       (e.key === ' ' && this.spaceBehavior === 'always')
@@ -65,15 +92,13 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       this.#spaceKeyDown = true;
     }
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyUp(e) {
+  #handleKeyUp(e: KeyboardEvent) {
     if (e.key === ' ' && this.spaceBehavior === 'once') {
       this.#spaceKeyDown = false;
       this.removeRippleAll();
     }
   }
-  /** @param {PointerEvent} e */
-  #handlePointerEnter(e) {
+  #handlePointerEnter(e: PointerEvent) {
     if (e.pointerType === 'touch') return;
     this[internals].states.add('hover');
     if (this.#pointerDown) this.addRipple(e);
@@ -82,8 +107,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
     this[internals].states.delete('hover');
     if (this.#pointerDown) this.removeRippleAll();
   }
-  /** @param {PointerEvent} e */
-  #handlePointerDown(e) {
+  #handlePointerDown(e: PointerEvent) {
     if (e.pointerType === 'mouse') this.#pointerDown = true;
     document.addEventListener('pointerup', this.#boundPointerUp);
     document.addEventListener('touchcancel', this.#boundPointerUp);
@@ -103,11 +127,10 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
     this.removeRippleAll();
   }
 
-  /**
-   * @param {HTMLElement?} prev
-   * @param {HTMLElement?} next
-   */
-  handleControlChange(prev = null, next = null) {
+  handleControlChange(
+    prev: HTMLElement | null = null,
+    next: HTMLElement | null = null
+  ) {
     const eventHandlers = {
       keydown: this.#boundKeyDown,
       keyup: this.#boundKeyUp,
@@ -121,8 +144,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
       next?.addEventListener(eventName, eventHandlers[eventName]);
     });
   }
-  /** @param {MouseEvent?} e */
-  #calculateRipple(e = null) {
+  #calculateRipple(e: MouseEvent | null = null) {
     const containerRect = this.getBoundingClientRect();
     const containerMiddle = {
       x: containerRect.width / 2,
@@ -130,10 +152,8 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
     };
     const centered = !e;
     const endCenter = containerMiddle;
-    let startCenter = {};
-    if (centered) {
-      startCenter = endCenter;
-    } else {
+    let startCenter: { x: number; y: number } = endCenter;
+    if (!centered) {
       startCenter.x = e.clientX - containerRect.left;
       startCenter.y = e.clientY - containerRect.top;
     }
@@ -149,8 +169,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     return { startCenter, endCenter, radius };
   }
-  /** @param {MouseEvent?} e */
-  addRipple(e = null) {
+  addRipple(e: MouseEvent | null = null) {
     const { startCenter, endCenter, radius } = this.#calculateRipple(e);
 
     const diameter = radius * 2 + 'px';
@@ -161,7 +180,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     const ripple = document.createElement('div');
     ripple.setAttribute('part', 'ripple');
-    this.shadowRoot?.append(ripple);
+    this.renderRoot.append(ripple);
     this.$ripples.push(ripple);
 
     ripple.animate(
@@ -191,8 +210,7 @@ export default class MdRipple extends AttachableMixin(ReactiveElement) {
 
     this.#lastTime = Date.now();
   }
-  /** @param {HTMLSpanElement} ripple */
-  removeRipple(ripple) {
+  removeRipple(ripple: HTMLSpanElement) {
     setTimeout(
       () => {
         const animation = ripple.animate(

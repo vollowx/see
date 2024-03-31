@@ -1,6 +1,6 @@
-import ReactiveElement from '../core/reactive-element.js';
+import { LitElement } from 'lit';
 import { sheetsFromCss } from '../core/template.js';
-import { property } from '../core/decorators.js';
+import { property } from 'lit/decorators.js';
 import { internals } from '../core/symbols.js';
 
 import FormMixin from './form-mixin.js';
@@ -12,7 +12,7 @@ const PROPERTY_FROM_ARIA_PRESSED = {
   false: 'unchecked',
 };
 
-const Base = FormMixin(ReactiveElement);
+const Base = FormMixin(LitElement);
 
 export default class Switch extends Base {
   constructor() {

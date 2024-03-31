@@ -3,13 +3,13 @@ import { sheetsFromCss } from '../core/template.js';
 import { customElement, property } from '../core/decorators.js';
 import { focusVisible } from '../core/variables.js';
 
-import AttachableMixin from '../base/attachable-mixin.js';
+import Attachable from '../base/attachable-mixin.js';
 
 import MdFocusRingStyle from './focus-ring.css?inline';
 import { internals } from '../core/symbols.js';
 
 @customElement('md-focus-ring')
-export default class MdFocusRing extends AttachableMixin(ReactiveElement) {
+export default class MdFocusRing extends Attachable(ReactiveElement) {
   constructor() {
     super();
     this[internals].ariaHidden = 'true';

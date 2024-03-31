@@ -1,6 +1,7 @@
+import { html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
 import Button from '../base/button.js';
-import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
 
 import MdFocusRing from './focus-ring.js';
 import MdRipple from './ripple.js';
@@ -16,9 +17,9 @@ import MdTargetStyle from './target.css?inline';
  */
 @customElement('md-fab')
 export default class MdFAB extends Button {
-  get styles() {
-    return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdFABStyle)];
-  }
+  // static styles = css``
+  //   return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdFABStyle)];
+  //
   get template() {
     return html`
       <md-focus-ring></md-focus-ring>
@@ -28,8 +29,10 @@ export default class MdFAB extends Button {
       <slot part="label" name="label"></slot>
     `;
   }
-  /** @type {'small'|'medium'|'large'} */
-  @property({ type: Boolean }) size = 'medium';
-  /** @type {'surface'|'primary'|'secondary'|'tertiary'} */
-  @property({ type: Boolean }) color = 'surface';
+  @property({ type: Boolean }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ type: Boolean }) color:
+    | 'surface'
+    | 'primary'
+    | 'secondary'
+    | 'tertiary' = 'surface';
 }

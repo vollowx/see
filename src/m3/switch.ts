@@ -1,6 +1,6 @@
 import Switch from '../base/switch.js';
-import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property, query } from '../core/decorators.js';
+import { html, css } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 
 import MdFocusRing from './focus-ring.js';
 import MdRipple from './ripple.js';
@@ -21,9 +21,9 @@ import MdTargetStyle from './target.css?inline';
  */
 @customElement('md-switch')
 export default class MdSwitch extends Switch {
-  get styles() {
-    return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdSwitchStyle)];
-  }
+  static styles = css`
+    ${MdTargetStyle}${MdSwitchStyle}
+  `;
   get template() {
     return html`
       <md-focus-ring></md-focus-ring>

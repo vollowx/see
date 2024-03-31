@@ -41,12 +41,12 @@ function generateToC() {
 
 generateToC();
 
-import '../src/m3/button.js';
-import '../src/m3/fab.js';
-import '../src/m3/icon-button.js';
-import '../src/m3/icon-button-toggle.js';
-import '../src/m3/checkbox.js';
+// FIXME: import '../src/m3/button.js';
+// import '../src/m3/fab.js';
+// import '../src/m3/icon-button.js';
+// import '../src/m3/icon-button-toggle.js';
+// import '../src/m3/checkbox.js';
 import '../src/m3/ripple.js';
-import '../src/m3/switch.js';
+// import '../src/m3/switch.js';
 import '../src/m3/tooltip.js';
-import './components/demo/demo.js';
+import './components/demo.js';

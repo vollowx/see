@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
+    "experimentalDecorators": true,
     "importHelpers": true,
-    "moduleResolution": "Node",
+    "isolatedModules": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitAny": false,
     // "noImplicitOverride": true,
@@ -13,7 +15,8 @@
     // "noUnusedLocals": true,
     "strict": true,
     "strictNullChecks": false,
-    "target": "ESNext"
+    "target": "ESNext",
+    "useDefineForClassFields": false,
   },
   "exclude": []
 }

@@ -1,10 +1,9 @@
-import ReactiveElement from '../core/reactive-element.js';
-import { html } from '../core/template.js';
-import { property, query } from '../core/decorators.js';
-import { internals } from '../core/symbols.js';
-import { focusVisible } from '../core/variables.js';
+import { LitElement, html } from 'lit';
+import { property, query } from 'lit/decorators.js';
 
-import AttachableMixin from './attachable-mixin.js';
+import { focusVisible } from '../core/variables.js';
+import { Attachable } from './attachable.js';
+import { InternalsAttached, internals } from './internals-attached.js';
 
 import {
   autoUpdate,
@@ -16,33 +15,24 @@ import {
 
 let lastHidingTime = 0;
 
-const Base = AttachableMixin(ReactiveElement);
+const Base = Attachable(InternalsAttached(LitElement));
 
 export default class Tooltip extends Base {
   constructor() {
     super();
     this[internals].role = 'tooltip';
   }
-  get template() {
-    return html`<slot></slot>`;
+  render() {
+    return html`<slot @slotchange="${this.#handleSlotChange}"></slot>`;
   }
-  /** @type {HTMLSlotElement} */
-  @query('slot') $slot;
-  connectedCallback() {
-    super.connectedCallback();
-    this.$slot.addEventListener('slotchange', this.#boundSlotChange);
-  }
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.$slot.removeEventListener('slotchange', this.#boundSlotChange);
-  }
+  @query('slot') $slot: HTMLSlotElement;
 
-  /** @type {import('@floating-ui/dom').Placement} */
-  @property() position = 'top';
+  @property() position: import('@floating-ui/dom').Placement = 'top';
   @property({ type: Number }) offset = 4;
 
-  /** @param {boolean} value */
-  set visible(value) {
+  private clearAutoUpdate: Function;
+
+  set visible(value: boolean) {
     if (value) {
       this.clearAutoUpdate = autoUpdate(
         this.$control,
@@ -76,12 +66,9 @@ export default class Tooltip extends Base {
   touchHideDelay = 1500;
   recentlyShowedDelay = 800;
 
-  /** @type {number|undefined} */
-  #timeOutShow = undefined;
-  /** @type {number|undefined} */
-  #timeOutHide = undefined;
+  #timeOutShow: number | undefined = undefined;
+  #timeOutHide: number | undefined = undefined;
 
-  #boundSlotChange = this.#handleSlotChange.bind(this);
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
   #boundPointerEnter = this.#handlePointerEnter.bind(this);
@@ -114,8 +101,7 @@ export default class Tooltip extends Base {
       this.visible = false;
     }, this.focusHideDelay);
   }
-  /** @param {PointerEvent} e */
-  #handlePointerEnter(e) {
+  #handlePointerEnter(e: PointerEvent) {
     if (e.pointerType === 'touch') return;
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(
@@ -129,8 +115,7 @@ export default class Tooltip extends Base {
       )
     );
   }
-  /** @param {PointerEvent} e */
-  #handlePointerLeave(e) {
+  #handlePointerLeave(e: PointerEvent) {
     if (e.pointerType === 'touch') return;
     lastHidingTime = Date.now();
     clearTimeout(this.#timeOutShow);
@@ -151,19 +136,17 @@ export default class Tooltip extends Base {
       this.visible = false;
     }, this.touchHideDelay);
   }
-  /** @param {MouseEvent} e */
-  #handleOutsideClick(e) {
-    if (e.composedPath().includes(/** @type {HTMLElement} */ (this.$control)))
+  #handleOutsideClick(e: MouseEvent) {
+    if (e.composedPath().includes(/** @type {HTMLElement} */ this.$control))
       return;
     this.visible = false;
     removeEventListener('click', this.#boundOutsideClick);
   }
 
-  /**
-   * @param {HTMLElement?} prev
-   * @param {HTMLElement?} next
-   */
-  handleControlChange(prev = null, next = null) {
+  handleControlChange(
+    prev: HTMLElement | null = null,
+    next: HTMLElement | null = null
+  ) {
     const eventHandlers = {
       focusin: this.#boundFocusIn,
       focusout: this.#boundFocusOut,

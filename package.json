@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev:docs": "vite --open /docs/",
-    "build:docs": "vite build docs",
+    "build:docs": "tsc && vite build docs",
     "preview:docs": "vite preview docs",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --check --write",
@@ -19,10 +19,6 @@
     "lint:type": "tsc"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@babel/plugin-proposal-decorators": "^7.23.0",
-    "@babel/preset-env": "^7.22.20",
-    "@rollup/plugin-babel": "^6.0.3",
     "lightningcss": "^1.22.0",
     "prettier": "^3.0.3",
     "stylelint": "^15.10.3",
@@ -33,6 +29,7 @@
     "vite-plugin-html": "^3.2.0"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.5.3"
+    "@floating-ui/dom": "^1.5.3",
+    "lit": "^3.1.2"
   }
 }
