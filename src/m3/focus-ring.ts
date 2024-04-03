@@ -1,23 +1,22 @@
-import ReactiveElement from '../core/reactive-element.js';
-import { sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
+import { LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+import { Attachable } from '../base/attachable.js';
+import { InternalsAttached, internals } from '../base/internals-attached.js';
 import { focusVisible } from '../core/variables.js';
 
-import Attachable from '../base/attachable-mixin.js';
-
-import MdFocusRingStyle from './focus-ring.css?inline';
-import { internals } from '../core/symbols.js';
+import { focusRingStyles } from './focus-ring-styles.js';
 
 @customElement('md-focus-ring')
-export default class MdFocusRing extends Attachable(ReactiveElement) {
+export default class M3FocusRing extends Attachable(
+  InternalsAttached(LitElement)
+) {
   constructor() {
     super();
     this[internals].ariaHidden = 'true';
   }
-  get styles() {
-    return [...sheetsFromCss(MdFocusRingStyle)];
-  }
-  @property({ type: Boolean }) inward = false;
+  static styles = [focusRingStyles];
+  @property({ type: Boolean, reflect: true }) inward = false;
 
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
@@ -33,11 +32,10 @@ export default class MdFocusRing extends Attachable(ReactiveElement) {
     this[internals].states.delete('visible');
   }
 
-  /**
-   * @param {HTMLElement?} prev
-   * @param {HTMLElement?} next
-   */
-  handleControlChange(prev = null, next = null) {
+  handleControlChange(
+    prev: HTMLElement | null = null,
+    next: HTMLElement | null = null
+  ) {
     const eventHandlers = {
       focusin: this.#boundFocusIn,
       focusout: this.#boundFocusOut,

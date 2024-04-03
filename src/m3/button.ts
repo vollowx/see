@@ -3,11 +3,11 @@ import { customElement, property } from 'lit/decorators.js';
 
 import Button from '../base/button.js';
 
-import MdFocusRing from './focus-ring.js';
-import MdRipple from './ripple.js';
+import './focus-ring.js';
+import './ripple.js';
 
-import style from './button-style.js';
-import targetStyle from './target-style.js';
+import { buttonStyles } from './button-styles.js';
+import { targetStyles } from './target-styles.js';
 
 /**
  * @element md-button
@@ -18,7 +18,7 @@ import targetStyle from './target-style.js';
  */
 @customElement('md-button')
 export default class MdButton extends Button {
-  static styles = [...super.styles, targetStyle, style];
+  static styles = [...super.styles, targetStyles, buttonStyles];
   render() {
     return html`
       <md-focus-ring></md-focus-ring>
@@ -29,7 +29,12 @@ export default class MdButton extends Button {
       <slot part="trailingicon" name="trailingicon" aria-hidden="true"></slot>
     `;
   }
-  @property() variant: 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' =
-    'filled';
-  @property() color: 'primary' | 'secondary' | 'tertiary' = 'primary';
+  @property({ reflect: true }) variant:
+    | 'filled'
+    | 'tonal'
+    | 'elevated'
+    | 'outlined'
+    | 'text' = 'filled';
+  @property({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' =
+    'primary';
 }

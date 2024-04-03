@@ -2,18 +2,18 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { InternalsAttached, internals } from './internals-attached.js';
-import { FormAssociatedMixin } from './form-mixin.js';
+import { FormAssociated } from './form-associated.js';
+import { hiddenStyles } from './hidden-styles.js';
 
-import hiddenStyle from './hidden-style.js';
-
-const Base = FormAssociatedMixin(InternalsAttached(LitElement));
+const Base = FormAssociated(InternalsAttached(LitElement));
 
 export default class Button extends Base {
   constructor() {
     super();
     this[internals].role = 'button';
+    this.updateInternals();
   }
-  static styles = [hiddenStyle];
+  static styles = [hiddenStyles];
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('keydown', this.#boundKeyDown);
@@ -26,13 +26,15 @@ export default class Button extends Base {
     this.removeEventListener('keyup', this.#boundKeyUp);
     this.removeEventListener('click', this.#boundClick);
   }
+  protected updated(changed: Map<string, any>) {
+    if (changed.has('disabled')) {
+      this.updateInternals();
+    }
+  }
+  @property({ reflect: true }) type: 'button' | 'submit' | 'reset' = 'button';
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  static observedAttributes = ['disabled'];
-  @property() type: 'button' | 'submit' | 'reset' = 'button';
-  @property({ type: Boolean }) disabled = false;
-
-  update({ first = false, dispatch = false } = {}) {
-    super.update?.({ first, dispatch });
+  private updateInternals() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }

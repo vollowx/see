@@ -1,12 +1,13 @@
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
 import Button from '../base/button.js';
-import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
 
-import MdFocusRing from './focus-ring.js';
-import MdRipple from './ripple.js';
+import './focus-ring.js';
+import './ripple.js';
 
-import MdIconButtonStyle from './icon-button.css?inline';
-import MdTargetStyle from './target.css?inline';
+import { iconButtonStyles } from './icon-button-styles.js';
+import { targetStyles } from './target-styles.js';
 
 /**
  * @element md-icon-button
@@ -15,13 +16,8 @@ import MdTargetStyle from './target.css?inline';
  */
 @customElement('md-icon-button')
 export default class MdIconButton extends Button {
-  get styles() {
-    return [
-      ...super.styles,
-      ...sheetsFromCss(MdTargetStyle, MdIconButtonStyle),
-    ];
-  }
-  get template() {
+  static styles = [...super.styles, targetStyles, iconButtonStyles];
+  render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple></md-ripple>
@@ -29,6 +25,9 @@ export default class MdIconButton extends Button {
       <slot part="icon"></slot>
     `;
   }
-  /** @type {'standard'|'filled'|'tonal'|'outlined'} */
-  @property() variant = 'standard';
+  @property({ reflect: true }) variant:
+    | 'standard'
+    | 'filled'
+    | 'tonal'
+    | 'outlined' = 'standard';
 }

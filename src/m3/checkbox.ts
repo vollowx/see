@@ -1,12 +1,13 @@
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
 import Checkbox from '../base/checkbox.js';
-import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
 
-import MdFocusRing from './focus-ring.js';
-import MdRipple from './ripple.js';
+import './focus-ring.js';
+import './ripple.js';
 
-import MdCheckboxStyle from './checkbox.css?inline';
-import MdTargetStyle from './target.css?inline';
+import { checkboxStyles } from './checkbox-styles.js';
+import { targetStyles } from './target-styles.js';
 
 /**
  * @element md-checkbox
@@ -18,24 +19,22 @@ import MdTargetStyle from './target.css?inline';
  */
 @customElement('md-checkbox')
 export default class MdCheckbox extends Checkbox {
-  get styles() {
-    return [...super.styles, ...sheetsFromCss(MdTargetStyle, MdCheckboxStyle)];
-  }
-  get template() {
+  static styles = [...super.styles, targetStyles, checkboxStyles];
+  render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>
       <span part="target"></span>
-      ${this.templateIcon}
+      ${this.renderIcon()}
     `;
   }
-  get templateIcon() {
+  renderIcon() {
     return html`
       <svg part="icon" viewBox="0 0 18 18" aria-hidden="true">
         <rect part="mark mark-short"></rect>
         <rect part="mark mark-long"></rect>
       </svg>
-    `.innerHTML;
+    `;
   }
-  @property({ type: Boolean }) error = false;
+  @property({ type: Boolean, reflect: true }) error = false;
 }

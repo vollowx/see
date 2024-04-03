@@ -1,11 +1,9 @@
-import ReactiveElement from '../core/reactive-element.js';
-import { sheetsFromCss } from '../core/template.js';
-import { property } from '../core/decorators.js';
-import { internals } from '../core/symbols.js';
+import { LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import FormMixin from './form-mixin.js';
-
-import HiddenStyles from './hidden.css?inline';
+import { FormAssociated } from './form-associated.js';
+import { InternalsAttached, internals } from './internals-attached.js';
+import { hiddenStyles } from './hidden-styles.js';
 
 const PROPERTY_FROM_ARIA_CHECKED = {
   true: 'checked',
@@ -13,16 +11,18 @@ const PROPERTY_FROM_ARIA_CHECKED = {
   mixed: 'indeterminate',
 };
 
-const Base = FormMixin(ReactiveElement);
+const Base = FormAssociated(InternalsAttached(LitElement));
 
 export default class Checkbox extends Base {
   constructor() {
     super();
     this[internals].role = 'checkbox';
+
+    this.checked = this.hasAttribute('checked');
+    this.indeterminate = this.hasAttribute('indeterminate');
+    this.updateInternals();
   }
-  get styles() {
-    return [...sheetsFromCss(HiddenStyles)];
-  }
+  static styles = [hiddenStyles];
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('click', this.#boundClick);
@@ -30,35 +30,25 @@ export default class Checkbox extends Base {
     this.addEventListener('keyup', this.#boundKeyUp);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
   }
-  /**
-   * @param {string} name
-   * @param {string|null} oldValue
-   * @param {string|null} newValue
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch (name) {
-      case 'checked':
-      case 'indeterminate':
-        this.update({ dispatch: true });
-        break;
-
-      default:
-        super.attributeChangedCallback?.(name, oldValue, newValue);
-        break;
+  protected updated(changed: Map<string, any>) {
+    if (
+      changed.has('checked') ||
+      changed.has('disabled') ||
+      changed.has('indeterminate')
+    ) {
+      this.updateInternals(true);
     }
   }
-  static observedAttributes = ['checked', 'indeterminate', 'disabled'];
   @property({ type: Boolean }) checked = false;
   @property({ type: Boolean }) indeterminate = false;
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  update({ first = false, dispatch = false } = {}) {
-    super.update?.({ first, dispatch });
+  private updateInternals(dispatch = false) {
     this[internals].states.delete('was-unchecked');
     this[internals].states.delete('was-checked');
     this[internals].states.delete('was-indeterminate');
@@ -68,8 +58,8 @@ export default class Checkbox extends Base {
     this[internals].ariaChecked = this.indeterminate
       ? 'mixed'
       : this.checked
-      ? 'true'
-      : 'false';
+        ? 'true'
+        : 'false';
     this[internals].states.delete('unchecked');
     this[internals].states.delete('checked');
     this[internals].states.delete('indeterminate');
@@ -95,32 +85,30 @@ export default class Checkbox extends Base {
   #boundClick = this.#handleClick.bind(this);
   #boundKeyDown = this.#handleKeyDown.bind(this);
   #boundKeyUp = this.#handleKeyUp.bind(this);
-  /** @param {Event} e */
-  #handleClick(e) {
+  #handleClick(e: Event) {
     e.stopPropagation();
     e.preventDefault();
-    this._toggleStatus();
+    this.#toggleChecked();
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyDown(e) {
+  #handleKeyDown(e: KeyboardEvent) {
     if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
     }
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyUp(e) {
+  #handleKeyUp(e: KeyboardEvent) {
     if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
-      this._toggleStatus();
+      this.#toggleChecked();
     }
   }
 
-  _toggleStatus() {
+  #toggleChecked() {
     if (this.disabled) return;
 
     this.checked = !this.checked;
     this.indeterminate = false;
+    this.updateInternals();
   }
 }

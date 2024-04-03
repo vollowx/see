@@ -1,12 +1,13 @@
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
 import Switch from '../base/switch.js';
-import { html, css } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
 
-import MdFocusRing from './focus-ring.js';
-import MdRipple from './ripple.js';
+import './focus-ring.js';
+import './ripple.js';
 
-import MdSwitchStyle from './switch.css?inline';
-import MdTargetStyle from './target.css?inline';
+import { switchStyles } from './switch-styles.js';
+import { targetStyles } from './target-styles.js';
 
 // FIXME: Drag-and-drop breaks the support for working with `<label>`. Temporarily disabled.
 // function isRTL() {
@@ -20,37 +21,35 @@ import MdTargetStyle from './target.css?inline';
  * @csspart label
  */
 @customElement('md-switch')
-export default class MdSwitch extends Switch {
-  static styles = css`
-    ${MdTargetStyle}${MdSwitchStyle}
-  `;
-  get template() {
+export default class M3Switch extends Switch {
+  static styles = [targetStyles, switchStyles];
+  render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <div part="thumb">
         <md-ripple spacebehavior="always"></md-ripple>
         <span part="target"></span>
-        ${this.templateOffIcon}${this.templateOnIcon}
+        ${this.renderOffIcon()}${this.renderOnIcon()}
       </div>
     `;
   }
-  get templateOnIcon() {
+  renderOnIcon() {
     return html`
       <svg part="icons icon-on" viewBox="0 0 24 24" aria-hidden="true">
         <path
           d="M9.55 18.2 3.65 12.3 5.275 10.675 9.55 14.95 18.725 5.775 20.35 7.4Z"
         />
       </svg>
-    `.innerHTML;
+    `;
   }
-  get templateOffIcon() {
+  renderOffIcon() {
     return html`
       <svg part="icons icon-off" viewBox="0 0 24 24" aria-hidden="true">
         <path
           d="M6.4 19.2 4.8 17.6 10.4 12 4.8 6.4 6.4 4.8 12 10.4 17.6 4.8 19.2 6.4 13.6 12 19.2 17.6 17.6 19.2 12 13.6Z"
         />
       </svg>
-    `.innerHTML;
+    `;
   }
   // /** @type {MdRipple} */
   // @query('md-ripple') $ripple;
@@ -67,8 +66,8 @@ export default class MdSwitch extends Switch {
   //   this.removeEventListener('pointerdown', this.#boundPointerDown);
   //   this.removeEventListener('pointerup', this.#boundPointerUp);
   // }
-  @property({ type: Boolean }) icons = false;
-  @property({ type: Boolean }) checkedIconOnly = false;
+  @property({ type: Boolean, reflect: true }) icons = false;
+  @property({ type: Boolean, reflect: true }) checkedIconOnly = false;
 
   // #pointerDownX = 0;
   //

@@ -1,65 +1,46 @@
 import { LitElement } from 'lit';
-import { sheetsFromCss } from '../core/template.js';
 import { property } from 'lit/decorators.js';
-import { internals } from '../core/symbols.js';
 
-import FormMixin from './form-mixin.js';
-
-import HiddenStyles from './hidden.css?inline';
+import { InternalsAttached, internals } from './internals-attached.js';
+import { FormAssociated } from './form-associated.js';
+import { hiddenStyles } from './hidden-styles.js';
 
 const PROPERTY_FROM_ARIA_PRESSED = {
   true: 'checked',
   false: 'unchecked',
 };
 
-const Base = FormMixin(LitElement);
+const Base = FormAssociated(InternalsAttached(LitElement));
 
 export default class Switch extends Base {
   constructor() {
     super();
     this[internals].role = 'switch';
-  }
-  get styles() {
-    return [...sheetsFromCss(HiddenStyles)];
-  }
-  connectedCallback() {
-    super.connectedCallback?.();
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
-    this[internals].ariaChecked = this.checked ? 'true' : 'false';
-    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
 
+    this.checked = this.hasAttribute('checked');
+    this.updateInternals();
+  }
+  static styles = [hiddenStyles];
+
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
   }
   disconnectedCallback() {
-    super.disconnectedCallback?.();
+    super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
   }
-  /**
-   * @param {string} name
-   * @param {string|null} oldValue
-   * @param {string|null} newValue
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch (name) {
-      case 'checked':
-        this.update({ dispatch: true });
-        break;
-
-      default:
-        super.attributeChangedCallback?.(name, oldValue, newValue);
-        break;
+  protected updated(changed: Map<string, any>) {
+    if (changed.has('checked') || changed.has('disabled')) {
+      this.updateInternals(true);
     }
   }
-  static observedAttributes = ['checked', 'disabled'];
   @property({ type: Boolean }) checked = false;
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  update({ first = false, dispatch = false } = {}) {
-    super.update?.({ first, dispatch });
+  private updateInternals(dispatch = false) {
     this[internals].states.delete('unchecked');
     this[internals].states.delete('checked');
     this[internals].ariaPressed = this.checked ? 'true' : 'false';
@@ -85,26 +66,24 @@ export default class Switch extends Base {
   #boundClick = this.#handleClick.bind(this);
   #boundKeyDown = this.#handleKeyDown.bind(this);
   _ignoreClick = false;
-  /** @param {Event} e */
-  #handleClick(e) {
+  #handleClick(e: Event) {
     e.stopPropagation();
     e.preventDefault();
     if (this._ignoreClick) return;
-    this.__toggleStatus();
+    this.#toggleChecked();
   }
-  /** @param {KeyboardEvent} e */
-  #handleKeyDown(e) {
+  #handleKeyDown(e: KeyboardEvent) {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
-      this.__toggleStatus();
+      this.#toggleChecked();
     }
   }
 
-  __toggleStatus() {
-    if (this.disabled) {
-      return;
-    }
+  #toggleChecked() {
+    if (this.disabled) return;
+
     this.checked = !this.checked;
+    this.updateInternals();
   }
 }

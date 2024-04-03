@@ -27,8 +27,9 @@ export default class Tooltip extends Base {
   }
   @query('slot') $slot: HTMLSlotElement;
 
-  @property() position: import('@floating-ui/dom').Placement = 'top';
-  @property({ type: Number }) offset = 4;
+  @property({ reflect: true }) position: import('@floating-ui/dom').Placement =
+    'top';
+  @property({ type: Number, reflect: true }) offset = 4;
 
   private clearAutoUpdate: Function;
 
@@ -50,7 +51,7 @@ export default class Tooltip extends Base {
       setTimeout(() => {
         this[internals].states.delete('hiding');
         this[internals].states.delete('visible');
-        this.clearAutoUpdate();
+        this.clearAutoUpdate?.();
       }, this.hideDuration);
     }
   }

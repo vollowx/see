@@ -35,7 +35,9 @@ export const Attachable = <T extends Constructor<LitElement>>(
         ).querySelector<HTMLElement>(`#${this.htmlFor}`);
       }
 
-      return this.currentControl || this.parentElement;
+      return this.currentControl || this.parentNode instanceof ShadowRoot
+        ? ((this.parentNode as ShadowRoot).host as HTMLElement)
+        : this.parentElement;
     }
     set $control(control: HTMLElement | null) {
       if (control) {
@@ -72,7 +74,10 @@ export const Attachable = <T extends Constructor<LitElement>>(
       this.setAttribute('for', '');
     }
 
-    handleControlChange(prev: Node | null = null, next: Node | null = null) {}
+    handleControlChange(
+      prev: HTMLElement | null = null,
+      next: HTMLElement | null = null
+    ) {}
   }
   return AttachableElement as Constructor<AttachableInterface> & T;
 };

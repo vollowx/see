@@ -1,15 +1,16 @@
 import { LitElement } from 'lit';
+import { internals } from './internals-attached';
 
 type Constructor<T> = new (...args: any[]) => T;
 
-export const FormAssociatedMixin = <T extends Constructor<LitElement>>(
+export const FormAssociated = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
   class FormAssociatedElement extends superClass {
     static formAssociated = true;
 
     get form() {
-      return this._internals.form;
+      return this[internals].form;
     }
     get name() {
       return this.getAttribute('name');
@@ -18,20 +19,20 @@ export const FormAssociatedMixin = <T extends Constructor<LitElement>>(
     //   return this.localName;
     // }
     get validity() {
-      return this._internals.validity;
+      return this[internals].validity;
     }
     get validationMessage() {
-      return this._internals.validationMessage;
+      return this[internals].validationMessage;
     }
     get willValidate() {
-      return this._internals.willValidate;
+      return this[internals].willValidate;
     }
 
     checkValidity() {
-      return this._internals.checkValidity();
+      return this[internals].checkValidity();
     }
     reportValidity() {
-      return this._internals.reportValidity();
+      return this[internals].reportValidity();
     }
   }
 

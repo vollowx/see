@@ -4,6 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { Attachable } from '../base/attachable.js';
 import { InternalsAttached, internals } from '../base/internals-attached.js';
 
+import { rippleStyles } from './ripple-styles.js';
+
 const PRESS_GROW_MS = 450;
 const MINIMUM_PRESS_MS = 225;
 const OPACITY_IN_MS = 105;
@@ -22,45 +24,10 @@ function distance(
  * @cssprop --md-ripple-color
  */
 @customElement('md-ripple')
-export default class MdRipple extends Attachable(
+export default class M3Ripple extends Attachable(
   InternalsAttached(LitElement)
 ) {
-  static styles = css`
-    :host {
-      border-radius: inherit;
-      display: block;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      position: absolute;
-    }
-
-    [part~='ripple'] {
-      background-image: radial-gradient(
-        closest-side,
-        var(--md-ripple-color, currentColor) max(calc(100% - 70px), 65%),
-        transparent 100%
-      );
-      left: 0;
-      position: absolute;
-      top: 0;
-    }
-
-    :host::before {
-      background-color: var(--md-ripple-color, currentColor);
-      border-radius: inherit;
-      content: '';
-      display: block;
-      inset: 0;
-      opacity: 0;
-      position: absolute;
-      transition: opacity 67ms linear;
-    }
-
-    :host(:state(hover))::before {
-      opacity: 0.08;
-    }
-  `;
+  static styles = [rippleStyles];
 
   constructor() {
     super();

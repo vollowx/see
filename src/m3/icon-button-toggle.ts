@@ -1,14 +1,15 @@
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
 import Switch from '../base/switch.js';
-import { html, sheetsFromCss } from '../core/template.js';
-import { customElement, property } from '../core/decorators.js';
+import { internals } from '../base/internals-attached.js';
 
-import MdFocusRing from './focus-ring.js';
-import MdRipple from './ripple.js';
-import { internals } from '../core/symbols.js';
+import './focus-ring.js';
+import './ripple.js';
 
-import MdIconButtonStyle from './icon-button.css?inline';
-import MdIconButtonToggleStyle from './icon-button-toggle.css?inline';
-import MdTargetStyle from './target.css?inline';
+import { iconButtonStyles } from './icon-button-styles.js';
+import { iconButtonToggleStyles } from './icon-button-toggle-styles.js';
+import { targetStyles } from './target-styles.js';
 
 /**
  * @element md-icon-button-toggle
@@ -21,16 +22,12 @@ export default class MdIconButtonToggle extends Switch {
     super();
     this[internals].role = 'button';
   }
-  get styles() {
-    return [
-      ...super.styles,
-      ...sheetsFromCss(
-        MdTargetStyle,
-        MdIconButtonStyle,
-        MdIconButtonToggleStyle
-      ),
-    ];
-  }
+  static styles = [
+    ...super.styles,
+    targetStyles,
+    iconButtonStyles,
+    iconButtonToggleStyles,
+  ];
   get template() {
     return html`
       <md-focus-ring></md-focus-ring>
@@ -40,6 +37,9 @@ export default class MdIconButtonToggle extends Switch {
       <slot part="icon icon-checked" name="checked"></slot>
     `;
   }
-  /** @type {'standard'|'filled'|'tonal'|'outlined'} */
-  @property() variant = 'standard';
+  @property({ reflect: true }) variant:
+    | 'standard'
+    | 'filled'
+    | 'tonal'
+    | 'outlined' = 'standard';
 }
