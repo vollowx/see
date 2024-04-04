@@ -28,7 +28,7 @@ export default class MdIconButtonToggle extends Switch {
     iconButtonStyles,
     iconButtonToggleStyles,
   ];
-  get template() {
+  render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>
