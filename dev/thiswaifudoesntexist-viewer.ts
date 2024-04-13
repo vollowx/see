@@ -94,7 +94,7 @@ export class ThisWaifuDoesNotExist extends LitElement {
   }
 
   @property({ type: Boolean }) loading = true;
-  @property({ type: Number }) nth = Math.floor(Math.random() * 100000);
+  @property({ type: Number }) nth = 50000;
 
   private handleLoad() {
     this.loading = false;

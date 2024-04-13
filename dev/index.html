@@ -283,6 +283,20 @@
     </style>
   </head>
   <body>
+    <md-icon-button-toggle id="opt-dark" checked>
+      <md-icon>dark_mode</md-icon>
+      <md-icon slot="checked">light_mode</md-icon>
+    </md-icon-button-toggle>
+
+    <md-tooltip for="opt-dark"></md-tooltip>
+
+    <md-icon-button-toggle id="opt-rtl">
+      <md-icon>format_textdirection_r_to_l</md-icon>
+      <md-icon slot="checked">format_textdirection_l_to_r</md-icon>
+    </md-icon-button-toggle>
+
+    <md-tooltip for="opt-rtl"></md-tooltip>
+
     <md-button>Filled</md-button>
     <md-button variant="tonal">Tonal</md-button>
     <md-button variant="elevated">Elevated</md-button>
@@ -349,5 +363,29 @@
       <summary>Guess what?</summary>
       <twdne-viewer></twdne-viewer>
     </details>
+
+    <script>
+      const tooltipTexts = {
+        'opt-dark': ['Dark mode', 'Light mode'],
+        'opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
+      };
+      const updateTooltip = (id) => {
+        const control = document.querySelector(`#${id}`);
+        const tooltip = document.querySelector(`md-tooltip[for="${id}"]`);
+        tooltip.textContent = tooltipTexts[id][control.checked ? 1 : 0];
+      };
+      updateTooltip('opt-dark');
+      updateTooltip('opt-rtl');
+      document.querySelector('#opt-dark').addEventListener('change', (e) => {
+        document.documentElement.dataset['mdTheme'] = e.detail
+          ? 'dark'
+          : 'light';
+        updateTooltip('opt-dark');
+      });
+      document.querySelector('#opt-rtl').addEventListener('change', (e) => {
+        document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
+        updateTooltip('opt-rtl');
+      });
+    </script>
   </body>
 </html>

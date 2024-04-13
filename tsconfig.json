@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
-    "noEmit": true,
     "noImplicitAny": false,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -16,8 +14,8 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "ESNext",
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": false
   },
-  "include": ["src/**/*.ts", "dev/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": []
 }

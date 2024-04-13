@@ -127,7 +127,9 @@ export const checkboxStyles = css`
   }
   :host(:not(:state(checked)):not(:state(indeterminate)):state(was-checked))
     [part~='mark'],
-  :host(:not(:state(checked)):not(:state(indeterminate)):--was-indeterminate)
+  :host(
+      :not(:state(checked)):not(:state(indeterminate)):state(was-indeterminate)
+    )
     [part~='mark'] {
     transition-delay: 150ms;
   }

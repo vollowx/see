@@ -15,11 +15,11 @@ export const Attachable = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
   class AttachableElement extends superClass {
-    connectedCallback() {
+    override connectedCallback() {
       super.connectedCallback();
       this.setCurrentControl(this.$control);
     }
-    disconnectedCallback() {
+    override disconnectedCallback() {
       this.setCurrentControl(null);
       super.disconnectedCallback();
     }
