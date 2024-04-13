@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import Checkbox from '../base/checkbox.js';
+import { Checkbox } from '../base/checkbox.js';
 
 import './focus-ring.js';
 import './ripple.js';
@@ -18,9 +18,9 @@ import { targetStyles } from './target-styles.js';
  * @csspart mark-long
  */
 @customElement('md-checkbox')
-export default class MdCheckbox extends Checkbox {
-  static styles = [...super.styles, targetStyles, checkboxStyles];
-  render() {
+export class M3Checkbox extends Checkbox {
+  static override styles = [...super.styles, targetStyles, checkboxStyles];
+  override render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>

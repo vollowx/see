@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-md-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>Standard Extensible Elements | Demo</title>
+    <script type="module" src="../all.ts"></script>
+    <script type="module" src="./thiswaifudoesntexist-viewer.ts"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+    />
+    <style>
+      :root[data-md-theme='light'] {
+        --md-sys-color-background: #f8faf0;
+        --md-sys-color-on-background: #191d16;
+        --md-sys-color-surface: #f8faf0;
+        --md-sys-color-surface-dim: #d9dbd1;
+        --md-sys-color-surface-bright: #f8faf0;
+        --md-sys-color-surface-container-lowest: #ffffff;
+        --md-sys-color-surface-container-low: #f2f5ea;
+        --md-sys-color-surface-container: #edefe5;
+        --md-sys-color-surface-container-high: #e7e9df;
+        --md-sys-color-surface-container-highest: #e1e4d9;
+        --md-sys-color-on-surface: #191d16;
+        --md-sys-color-surface-variant: #dee5d4;
+        --md-sys-color-on-surface-variant: #42493c;
+        --md-sys-color-inverse-surface: #2e312b;
+        --md-sys-color-inverse-on-surface: #f0f2e7;
+        --md-sys-color-outline: #72796b;
+        --md-sys-color-outline-variant: #c2c9b8;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-surface-tint: #386a1f;
+        --md-sys-color-primary: #23540a;
+        --md-sys-color-on-primary: #ffffff;
+        --md-sys-color-primary-container: #477a2d;
+        --md-sys-color-on-primary-container: #ffffff;
+        --md-sys-color-inverse-primary: #9dd67d;
+        --md-sys-color-secondary: #4f6442;
+        --md-sys-color-on-secondary: #ffffff;
+        --md-sys-color-secondary-container: #d3ecc0;
+        --md-sys-color-on-secondary-container: #3a4f2e;
+        --md-sys-color-tertiary: #005357;
+        --md-sys-color-on-tertiary: #ffffff;
+        --md-sys-color-tertiary-container: #22797f;
+        --md-sys-color-on-tertiary-container: #ffffff;
+        --md-sys-color-error: #ba1a1a;
+        --md-sys-color-on-error: #ffffff;
+        --md-sys-color-error-container: #ffdad6;
+        --md-sys-color-on-error-container: #410002;
+        color-scheme: light;
+      }
+
+      :root[data-md-theme='dark'] {
+        --md-sys-color-background: #11140e;
+        --md-sys-color-on-background: #e1e4d9;
+        --md-sys-color-surface: #11140e;
+        --md-sys-color-surface-dim: #11140e;
+        --md-sys-color-surface-bright: #373a33;
+        --md-sys-color-surface-container-lowest: #0c0f09;
+        --md-sys-color-surface-container-low: #191d16;
+        --md-sys-color-surface-container: #1d211a;
+        --md-sys-color-surface-container-high: #282b24;
+        --md-sys-color-surface-container-highest: #32362f;
+        --md-sys-color-on-surface: #e1e4d9;
+        --md-sys-color-surface-variant: #42493c;
+        --md-sys-color-on-surface-variant: #c2c9b8;
+        --md-sys-color-inverse-surface: #e1e4d9;
+        --md-sys-color-inverse-on-surface: #2e312b;
+        --md-sys-color-outline: #8c9384;
+        --md-sys-color-outline-variant: #42493c;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-surface-tint: #9dd67d;
+        --md-sys-color-primary: #9dd67d;
+        --md-sys-color-on-primary: #113800;
+        --md-sys-color-primary-container: #2e5f15;
+        --md-sys-color-on-primary-container: #e6ffd3;
+        --md-sys-color-inverse-primary: #386a1f;
+        --md-sys-color-secondary: #b5cea4;
+        --md-sys-color-on-secondary: #223517;
+        --md-sys-color-secondary-container: #304525;
+        --md-sys-color-on-secondary-container: #c3dcb0;
+        --md-sys-color-tertiary: #85d3da;
+        --md-sys-color-on-tertiary: #00363a;
+        --md-sys-color-tertiary-container: #005e63;
+        --md-sys-color-on-tertiary-container: #e1fdff;
+        --md-sys-color-error: #ffb4ab;
+        --md-sys-color-on-error: #690005;
+        --md-sys-color-error-container: #93000a;
+        --md-sys-color-on-error-container: #ffdad6;
+        color-scheme: dark;
+      }
+
+      :root {
+        --md-sys-typography-family: 'Roboto', sans-serif;
+
+        --md-sys-typography-display-large: 400 3.5625rem / 4rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-display-medium: 400 2.8125rem / 3.5rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-display-small: 400 2.25rem / 3rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-headline-large: 400 2.5rem / 3.125rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-headline-medium: 400 2.25rem / 2.75rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-headline-small: 400 2rem / 2.5rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-title-large: 400 1.375rem / 1.75rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-title-medium: 500 1rem / 1.25rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-title-small: 500 0.875rem / 1.125rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-label-large: 500 0.875rem / 1.25rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-label-medium: 500 0.75rem / 1rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-label-small: 500 0.6875rem / 0.875rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-body-large: 400 1rem / 1.5rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-body-medium: 400 0.875rem / 1.25rem
+          var(--md-sys-typography-family);
+        --md-sys-typography-body-small: 400 0.75rem / 1rem
+          var(--md-sys-typography-family);
+
+        --md-sys-motion-duration-short1: 50ms;
+        --md-sys-motion-duration-short2: 100ms;
+        --md-sys-motion-duration-short3: 150ms;
+        --md-sys-motion-duration-short4: 200ms;
+        --md-sys-motion-duration-medium1: 250ms;
+        --md-sys-motion-duration-medium2: 300ms;
+        --md-sys-motion-duration-medium3: 350ms;
+        --md-sys-motion-duration-medium4: 400ms;
+        --md-sys-motion-duration-long1: 450ms;
+        --md-sys-motion-duration-long2: 500ms;
+        --md-sys-motion-duration-long3: 550ms;
+        --md-sys-motion-duration-long4: 600ms;
+        --md-sys-motion-duration-extra-long1: 700ms;
+        --md-sys-motion-duration-extra-long2: 800ms;
+        --md-sys-motion-duration-extra-long3: 900ms;
+        --md-sys-motion-duration-extra-long4: 1000ms;
+
+        --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+        --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+        --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+        --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+        --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+        --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(
+          0.05,
+          0.7,
+          0.1,
+          1
+        );
+        --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(
+          0.3,
+          0,
+          0.8,
+          0.15
+        );
+        --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+        --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0, 0, 0.2, 1);
+        --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0, 1, 1);
+        --md-sys-motion-overshoot: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        --md-sys-motion-path: linear;
+
+        --md-sys-elevation-level-0: 0;
+        --md-sys-elevation-level-1: 1;
+        --md-sys-elevation-level-2: 3;
+        --md-sys-elevation-level-3: 6;
+        --md-sys-elevation-level-4: 8;
+        --md-sys-elevation-level-5: 12;
+        --md-sys-elevation-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+          0px 1px 2px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+          0px 1px 2px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+          0px 1px 3px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15),
+          0px 2px 3px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+          0px 4px 4px rgba(0, 0, 0, 0.3);
+      }
+      body {
+        accent-color: var(--md-sys-color-primary);
+        background-color: var(--md-sys-color-background);
+        color: var(--md-sys-color-on-background);
+        font-family: var(--md-sys-typography-family);
+      }
+      ::selection {
+        background-color: var(--md-sys-color-tertiary-container);
+        color: var(--md-sys-color-on-tertiary-container);
+      }
+
+      a {
+        color: var(--md-sys-color-primary);
+      }
+      a:not(:hover):not(:focus-visible) {
+        text-decoration: none;
+      }
+
+      body {
+        font: var(--md-sys-typography-body-large);
+        margin: 0;
+        min-height: 100dvh;
+      }
+
+      h1 {
+        font: var(--md-sys-typography-headline-medium);
+      }
+      h2 {
+        font: var(--md-sys-typography-headline-small);
+      }
+      h3 {
+        font: var(--md-sys-typography-title-large);
+      }
+      h4 {
+        font: var(--md-sys-typography-title-medium);
+      }
+
+      code {
+        background-color: var(--md-sys-color-surface-variant);
+        border-radius: 2px;
+        color: var(--md-sys-color-on-surface-variant);
+        font: var(--md-sys-typography-body-large);
+        margin-inline: 2px;
+        outline: 2px solid var(--md-sys-color-surface-variant);
+        padding-inline: 2px;
+      }
+
+      a:has(md-button),
+      a:has(md-fab),
+      a:has(md-icon-button) {
+        -webkit-tap-highlight-color: transparent;
+        text-decoration: none;
+      }
+
+      label:has(md-checkbox) {
+        align-items: center;
+        display: inline-flex;
+        font: var(--md-sys-typography-label-large);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+      label:has(md-checkbox:disabled) {
+        pointer-events: none;
+      }
+      label:has(md-switch),
+      label:has(select) {
+        display: inline-flex;
+        font: var(--md-sys-typography-label-large);
+        gap: 8px;
+        justify-content: space-between;
+        place-items: center;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+      label:has(md-switch:disabled) {
+        pointer-events: none;
+      }
+
+      /* Fake web component */
+      md-icon {
+        display: inline-block;
+        font-family: 'Material Symbols Outlined';
+        font-style: normal;
+        font-weight: normal;
+        letter-spacing: normal;
+        line-height: 1;
+        text-transform: none;
+        white-space: nowrap;
+        word-wrap: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <md-button>Filled</md-button>
+    <md-button variant="tonal">Tonal</md-button>
+    <md-button variant="elevated">Elevated</md-button>
+    <md-button variant="outlined">Outlined</md-button>
+    <md-button variant="text">Text</md-button>
+
+    <br />
+
+    <md-button disabled>Filled</md-button>
+    <md-button disabled variant="tonal">Tonal</md-button>
+    <md-button disabled variant="elevated">Elevated</md-button>
+    <md-button disabled variant="outlined">Outlined</md-button>
+    <md-button disabled variant="text">Text</md-button>
+
+    <br />
+
+    <md-button><md-icon slot="icon">add</md-icon> Filled</md-button>
+    <md-button variant="tonal"
+      ><md-icon slot="icon">add</md-icon>Tonal</md-button
+    >
+    <md-button variant="elevated"
+      ><md-icon slot="icon">add</md-icon>Elevated</md-button
+    >
+    <md-button variant="outlined"
+      ><md-icon slot="icon">add</md-icon>Outlined</md-button
+    >
+    <md-button variant="text"><md-icon slot="icon">add</md-icon>Text</md-button>
+
+    <br />
+
+    <md-button disabled><md-icon slot="icon">add</md-icon> Filled</md-button>
+    <md-button disabled variant="tonal"
+      ><md-icon slot="icon">add</md-icon>Tonal</md-button
+    >
+    <md-button disabled variant="elevated"
+      ><md-icon slot="icon">add</md-icon>Elevated</md-button
+    >
+    <md-button disabled variant="outlined"
+      ><md-icon slot="icon">add</md-icon>Outlined</md-button
+    >
+    <md-button disabled variant="text"
+      ><md-icon slot="icon">add</md-icon>Text</md-button
+    >
+
+    <br />
+
+    <md-button><md-icon slot="trailingicon">add</md-icon> Filled</md-button>
+    <md-button variant="tonal"
+      ><md-icon slot="trailingicon">add</md-icon>Tonal</md-button
+    >
+    <md-button variant="elevated"
+      ><md-icon slot="trailingicon">add</md-icon>Elevated</md-button
+    >
+    <md-button variant="outlined"
+      ><md-icon slot="trailingicon">add</md-icon>Outlined</md-button
+    >
+    <md-button variant="text"
+      ><md-icon slot="trailingicon">add</md-icon>Text</md-button
+    >
+
+    <hr />
+
+    <details>
+      <summary>Guess what?</summary>
+      <twdne-viewer></twdne-viewer>
+    </details>
+  </body>
+</html>

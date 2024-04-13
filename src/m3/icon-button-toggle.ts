@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import Switch from '../base/switch.js';
+import { Switch } from '../base/switch.js';
 import { internals } from '../base/internals-attached.js';
 
 import './focus-ring.js';
@@ -17,18 +17,18 @@ import { targetStyles } from './target-styles.js';
  * @csspart icon
  */
 @customElement('md-icon-button-toggle')
-export default class MdIconButtonToggle extends Switch {
+export class M3IconButtonToggle extends Switch {
   constructor() {
     super();
     this[internals].role = 'button';
   }
-  static styles = [
+  static override styles = [
     ...super.styles,
     targetStyles,
     iconButtonStyles,
     iconButtonToggleStyles,
   ];
-  render() {
+  override render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple enterbehavior="none"></md-ripple>

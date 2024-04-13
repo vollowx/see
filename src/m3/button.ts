@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import Button from '../base/button.js';
+import { Button } from '../base/button.js';
 
 import './focus-ring.js';
 import './ripple.js';
@@ -15,11 +15,14 @@ import { targetStyles } from './target-styles.js';
  * @csspart label
  * @csspart icon
  * @csspart trailingicon
+ *
+ * TODO: Allow custom shape control by CSS variables, let
+ *       `md-focus-ring` inherit the shape of button
  */
 @customElement('md-button')
-export default class MdButton extends Button {
-  static styles = [...super.styles, targetStyles, buttonStyles];
-  render() {
+export class M3Button extends Button {
+  static override styles = [...super.styles, targetStyles, buttonStyles];
+  override render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple></md-ripple>

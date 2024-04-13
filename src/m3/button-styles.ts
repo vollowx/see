@@ -29,7 +29,7 @@ export const buttonStyles = css`
     justify-content: center;
     min-width: 64px;
     outline: 0;
-    padding: 0 24px;
+    padding-inline: 24px;
     position: relative;
     -webkit-tap-highlight-color: transparent;
     transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
@@ -108,7 +108,6 @@ export const buttonStyles = css`
     font-size: 18px;
     inline-size: 1em;
   }
-  /* FIXME: Can't be normally compiled by lightningcss */
   :host(:not([variant='text'])) ::slotted([slot='icon']) {
     margin-inline-start: -8px;
   }

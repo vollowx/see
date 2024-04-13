@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('dc-demo')
-export default class DcDemo extends LitElement {
+export class DcDemo extends LitElement {
   static styles = css`
     :host {
       border-radius: 12px;

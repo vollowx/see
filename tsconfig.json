@@ -9,7 +9,7 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitAny": false,
-    // "noImplicitOverride": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     // "noUnusedLocals": true,
@@ -18,5 +18,6 @@
     "target": "ESNext",
     "useDefineForClassFields": false,
   },
+  "include": ["src/**/*.ts", "dev/**/*.ts"],
   "exclude": []
 }

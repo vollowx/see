@@ -7,26 +7,26 @@ import { hiddenStyles } from './hidden-styles.js';
 
 const Base = FormAssociated(InternalsAttached(LitElement));
 
-export default class Button extends Base {
+export class Button extends Base {
   constructor() {
     super();
     this[internals].role = 'button';
     this.updateInternals();
   }
-  static styles = [hiddenStyles];
-  connectedCallback() {
+  static override styles = [hiddenStyles];
+  override connectedCallback() {
     super.connectedCallback();
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
     this.addEventListener('click', this.#boundClick);
   }
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
     this.removeEventListener('click', this.#boundClick);
   }
-  protected updated(changed: Map<string, any>) {
+  protected override updated(changed: Map<string, any>) {
     if (changed.has('disabled')) {
       this.updateInternals();
     }

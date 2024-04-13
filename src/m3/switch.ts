@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import Switch from '../base/switch.js';
+import { Switch } from '../base/switch.js';
 
 import './focus-ring.js';
 import './ripple.js';
@@ -21,9 +21,9 @@ import { targetStyles } from './target-styles.js';
  * @csspart label
  */
 @customElement('md-switch')
-export default class M3Switch extends Switch {
-  static styles = [targetStyles, switchStyles];
-  render() {
+export class M3Switch extends Switch {
+  static override styles = [targetStyles, switchStyles];
+  override render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <div part="thumb">
@@ -51,7 +51,7 @@ export default class M3Switch extends Switch {
       </svg>
     `;
   }
-  // /** @type {MdRipple} */
+  // /** @type {M3Ripple} */
   // @query('md-ripple') $ripple;
   // /** @type {HTMLSpanElement} */
   // @query('[part~="thumb"]') $thumb;

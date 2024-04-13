@@ -12,7 +12,7 @@ const PROPERTY_FROM_ARIA_PRESSED = {
 
 const Base = FormAssociated(InternalsAttached(LitElement));
 
-export default class Switch extends Base {
+export class Switch extends Base {
   constructor() {
     super();
     this[internals].role = 'switch';
@@ -20,19 +20,19 @@ export default class Switch extends Base {
     this.checked = this.hasAttribute('checked');
     this.updateInternals();
   }
-  static styles = [hiddenStyles];
+  static override styles = [hiddenStyles];
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback();
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
   }
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
   }
-  protected updated(changed: Map<string, any>) {
+  protected override updated(changed: Map<string, any>) {
     if (changed.has('checked') || changed.has('disabled')) {
       this.updateInternals(true);
     }

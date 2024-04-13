@@ -17,12 +17,12 @@ let lastHidingTime = 0;
 
 const Base = Attachable(InternalsAttached(LitElement));
 
-export default class Tooltip extends Base {
+export class Tooltip extends Base {
   constructor() {
     super();
     this[internals].role = 'tooltip';
   }
-  render() {
+  override render() {
     return html`<slot @slotchange="${this.#handleSlotChange}"></slot>`;
   }
   @query('slot') $slot: HTMLSlotElement;
@@ -67,8 +67,8 @@ export default class Tooltip extends Base {
   touchHideDelay = 1500;
   recentlyShowedDelay = 800;
 
-  #timeOutShow: number | undefined = undefined;
-  #timeOutHide: number | undefined = undefined;
+  #timeOutShow: NodeJS.Timeout | undefined = undefined;
+  #timeOutHide: NodeJS.Timeout | undefined = undefined;
 
   #boundFocusIn = this.#handleFocusIn.bind(this);
   #boundFocusOut = this.#handleFocusOut.bind(this);
@@ -144,7 +144,7 @@ export default class Tooltip extends Base {
     removeEventListener('click', this.#boundOutsideClick);
   }
 
-  handleControlChange(
+  override handleControlChange(
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {

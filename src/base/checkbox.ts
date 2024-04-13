@@ -13,7 +13,7 @@ const PROPERTY_FROM_ARIA_CHECKED = {
 
 const Base = FormAssociated(InternalsAttached(LitElement));
 
-export default class Checkbox extends Base {
+export class Checkbox extends Base {
   constructor() {
     super();
     this[internals].role = 'checkbox';
@@ -22,20 +22,20 @@ export default class Checkbox extends Base {
     this.indeterminate = this.hasAttribute('indeterminate');
     this.updateInternals();
   }
-  static styles = [hiddenStyles];
-  connectedCallback() {
+  static override styles = [hiddenStyles];
+  override connectedCallback() {
     super.connectedCallback();
     this.addEventListener('click', this.#boundClick);
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
   }
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('click', this.#boundClick);
     this.removeEventListener('keydown', this.#boundKeyDown);
     this.removeEventListener('keyup', this.#boundKeyUp);
   }
-  protected updated(changed: Map<string, any>) {
+  protected override updated(changed: Map<string, any>) {
     if (
       changed.has('checked') ||
       changed.has('disabled') ||

@@ -1,4 +1,4 @@
-import { LitElement, css } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Attachable } from '../base/attachable.js';
@@ -24,10 +24,8 @@ function distance(
  * @cssprop --md-ripple-color
  */
 @customElement('md-ripple')
-export default class M3Ripple extends Attachable(
-  InternalsAttached(LitElement)
-) {
-  static styles = [rippleStyles];
+export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
+  static override styles = [rippleStyles];
 
   constructor() {
     super();
@@ -94,7 +92,7 @@ export default class M3Ripple extends Attachable(
     this.removeRippleAll();
   }
 
-  handleControlChange(
+  override handleControlChange(
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {
