@@ -34,8 +34,8 @@ export const iconButtonStyles = css`
     --_background-color: var(--md-sys-color-primary);
   }
   :host([variant='tonal']) {
-    --_background-color: var(--md-sys-color-secondary);
-    --_text-color: var(--md-sys-color-on-secondary);
+    --_background-color: var(--md-sys-color-secondary-container);
+    --_text-color: var(--md-sys-color-on-secondary-container);
   }
   :host([variant='outlined']) {
     border-width: 1px;
