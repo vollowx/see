@@ -1,36 +1,39 @@
-<!doctype html><html lang="en" dir="ltr" data-md-theme="dark"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>SEE</title><meta name="description" content="Documents of SEE the web components library."/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/><script type="module" crossorigin src="/see/assets/index-DM-Oyp7W.js"></script><link rel="stylesheet" crossorigin href="/see/assets/index-BFZs251B.css"></head><body><header><section class="start"><md-icon-button-toggle id="docs-opt-drawer" checked="checked" disabled="disabled"><md-icon>menu_open</md-icon><md-icon slot="checked">menu</md-icon></md-icon-button-toggle><md-tooltip for="docs-opt-drawer"></md-tooltip></section><div class="title">SEE</div><section class="end"><md-icon-button-toggle id="docs-opt-dark" checked="checked"><md-icon>dark_mode</md-icon><md-icon slot="checked">light_mode</md-icon></md-icon-button-toggle><md-tooltip for="docs-opt-dark"></md-tooltip><md-icon-button-toggle id="docs-opt-rtl"><md-icon>format_textdirection_r_to_l</md-icon><md-icon slot="checked">format_textdirection_l_to_r</md-icon></md-icon-button-toggle><md-tooltip for="docs-opt-rtl"></md-tooltip></section></header><script>const tooltipTexts = {
-        'docs-opt-drawer': ['Close drawer', 'Open drawer'],
-        'docs-opt-dark': ['Turn off the light', 'Turn on the light'],
-        'docs-opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
+<!doctype html><html lang="en" dir="ltr" data-md-theme="dark"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>SEE</title><meta name="description" content="Documents of SEE the web components library."/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/><script type="module" crossorigin src="/see/assets/index-RaXJP8j0.js"></script><link rel="stylesheet" crossorigin href="/see/assets/index-Dkk6jxqu.css"></head><body><md-toolbar id="global-toolbar" type="floating"><md-icon-button-toggle id="global-opt-dark" variant="tonal" checked="checked"><md-icon aria-label="Turn on the light">dark_mode</md-icon><md-icon slot="checked" aria-label="Turn off the light">light_mode</md-icon></md-icon-button-toggle><md-tooltip for="global-opt-dark"></md-tooltip><md-icon-button-toggle id="global-opt-rtl" variant="tonal"><md-icon aria-label="Set direction to RTL">format_textdirection_r_to_l</md-icon><md-icon slot="checked" aria-label="Set direction to LTR">format_textdirection_l_to_r</md-icon></md-icon-button-toggle><md-tooltip for="global-opt-rtl"></md-tooltip><md-icon-button id="global-github-link" aria-label="View source on GitHub"><md-icon>code_blocks</md-icon></md-icon-button><md-tooltip for="global-github-link">View source on GitHub</md-tooltip><md-fab slot="fab" color="tertiary" id="scroll-to-top"><md-icon>arrow_upward</md-icon></md-fab><md-tooltip for="scroll-to-top">Scroll to top</md-tooltip></md-toolbar><script>const globalDarkToggle = document.querySelector('#global-opt-dark');
+      const globalRtlToggle = document.querySelector('#global-opt-rtl');
+      const scrollToTopBtn = document.querySelector('#scroll-to-top');
+      const githubLinkBtn = document.querySelector('#global-github-link');
+
+      const globalTooltipTexts = {
+        'global-opt-dark': ['Turn off the light', 'Turn on the light'],
+        'global-opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
       };
-      const updateTooltip = (id) => {
+
+      const updateGlobalTooltip = (id) => {
         const control = document.querySelector(`#${id}`);
         const tooltip = document.querySelector(`md-tooltip[for="${id}"]`);
-        tooltip.textContent = tooltipTexts[id][control.checked ? 1 : 0];
+        tooltip.textContent = globalTooltipTexts[id][control.checked ? 1 : 0];
       };
-      updateTooltip('docs-opt-drawer');
-      updateTooltip('docs-opt-dark');
-      updateTooltip('docs-opt-rtl');
-      document
-        .querySelector('#docs-opt-drawer')
-        .addEventListener('change', (e) => {
-          // document.querySelector('aside').classList.toggle('open', e.detail);
-          updateTooltip('docs-opt-drawer');
-        });
-      document
-        .querySelector('#docs-opt-dark')
-        .addEventListener('change', (e) => {
-          document.documentElement.dataset['mdTheme'] = e.detail
-            ? 'dark'
-            : 'light';
-          updateTooltip('docs-opt-dark');
-        });
-      document
-        .querySelector('#docs-opt-rtl')
-        .addEventListener('change', (e) => {
-          document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
-          updateTooltip('docs-opt-rtl');
-        });</script><main><h1>Documentations</h1><div><h2>Table of Contents</h2><ul id="toc-list"></ul></div><h2>Button</h2><p>Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:</p><ul><li>Dialogs</li><li>Modal windows</li><li>Forms</li><li>Cards</li><li>Toolbars</li></ul><h3>Interactive Demo</h3><dc-demo hascontrols><md-button id="button-controlled"><md-icon slot="icon">search</md-icon>Controlled</md-button><label slot="controls" for="button-opt-variant">Variant <select name="variant" id="button-opt-variant"><option selected="selected">filled</option><option>tonal</option><option>elevated</option><option>outlined</option><option>text</option></select></label> <label slot="controls" for="button-opt-color">Color <select name="color" id="button-opt-color"><option selected="selected">primary</option><option>secondary</option><option>tertiary</option></select></label> <label slot="controls" for="button-opt-disabled">Disabled<md-switch id="button-opt-disabled"></md-switch></label><script>const cButton = document.querySelector('#button-controlled');
+
+      updateGlobalTooltip('global-opt-dark');
+      updateGlobalTooltip('global-opt-rtl');
+
+      globalDarkToggle.addEventListener('change', (e) => {
+        document.documentElement.dataset['mdTheme'] = e.detail ? 'dark' : 'light';
+        updateGlobalTooltip('global-opt-dark');
+      });
+
+      globalRtlToggle.addEventListener('change', (e) => {
+        document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
+        updateGlobalTooltip('global-opt-rtl');
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      githubLinkBtn.addEventListener('click', () => {
+        window.open('https://github.com/vollowx/see', '_blank');
+      });</script><main><h1>Documentations</h1><div><h2>Table of Contents</h2><ul id="toc-list"></ul></div><h2>Button</h2><p>Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:</p><ul><li>Dialogs</li><li>Modal windows</li><li>Forms</li><li>Cards</li><li>Toolbars</li></ul><h3>Interactive Demo</h3><dc-demo hascontrols><md-button id="button-controlled"><md-icon slot="icon">search</md-icon>Controlled</md-button><label slot="controls" for="button-opt-variant">Variant <select name="variant" id="button-opt-variant"><option selected="selected">filled</option><option>tonal</option><option>elevated</option><option>outlined</option><option>text</option></select></label> <label slot="controls" for="button-opt-color">Color <select name="color" id="button-opt-color"><option selected="selected">primary</option><option>secondary</option><option>tertiary</option></select></label> <label slot="controls" for="button-opt-disabled">Disabled<md-switch id="button-opt-disabled"></md-switch></label><script>const cButton = document.querySelector('#button-controlled');
           document
             .querySelector('#button-opt-disabled')
             .addEventListener('change', (e) => (cButton.disabled = e.detail));
@@ -49,7 +52,7 @@
             .querySelector('#link-icon-button')
             .addEventListener('click', () => {
               location.href = 'https://google.com';
-            });</script></dc-demo><h3>Accessibility</h3><dc-demo><md-icon-button aria-label="Search for contact"><md-icon>search</md-icon></md-icon-button></dc-demo><h4>Toggle</h4><p>Add <code>aria-label</code> attribute to each icon in toggle buttons.</p><dc-demo><md-icon-button-toggle><md-icon aria-label="Unchecked">close</md-icon><md-icon slot="checked" aria-label="Checked">done</md-icon></md-icon-button-toggle></dc-demo><h2>Checkbox</h2><p>Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off.</p><h3>Interactive Demo</h3><dc-demo hascontrols><label for="checkbox-controlled"><md-checkbox id="checkbox-controlled"></md-checkbox>Controlled</label> <label slot="controls" for="checkbox-opt-checked">Checked<md-switch id="checkbox-opt-checked"></md-switch></label> <label slot="controls" for="checkbox-opt-indeterminate">Indeterminate<md-switch id="checkbox-opt-indeterminate"></md-switch></label> <label slot="controls" for="checkbox-opt-disabled">Disabled<md-switch id="checkbox-opt-disabled"></md-switch></label> <label slot="controls" for="checkbox-opt-error">Error<md-switch id="checkbox-opt-error"></md-switch></label><script>const cCheckbox = document.querySelector('#checkbox-controlled');
+            });</script></dc-demo><h3>Accessibility</h3><dc-demo><md-icon-button aria-label="Search for contact"><md-icon>search</md-icon></md-icon-button></dc-demo><h4>Toggle</h4><p>Add <code>aria-label</code> attribute to each icon in toggle buttons.</p><dc-demo><md-icon-button-toggle><md-icon aria-label="Unchecked">close</md-icon><md-icon slot="checked" aria-label="Checked">done</md-icon></md-icon-button-toggle></dc-demo><h2>Toolbar</h2><p>Toolbars display frequently used actions relevant to the current page or context and group controls into a compact surface.</p><h3>Types</h3><dc-demo><md-toolbar><md-icon-button aria-label="Back"><md-icon>arrow_back</md-icon></md-icon-button><md-icon-button aria-label="Forward"><md-icon>arrow_forward</md-icon></md-icon-button><md-fab size="small" color="primary" aria-label="New tab"><md-icon>add</md-icon></md-fab><md-icon-button aria-label="Tabs"><md-icon>tab</md-icon></md-icon-button><md-icon-button aria-label="More options"><md-icon>more_vert</md-icon></md-icon-button></md-toolbar></dc-demo><h4>Floating</h4><dc-demo><md-toolbar type="floating"><md-icon-button-toggle variant="tonal" checked="checked"><md-icon aria-label="Unchecked">format_bold</md-icon><md-icon slot="checked" aria-label="Checked">format_bold</md-icon></md-icon-button-toggle><md-icon-button-toggle variant="tonal"><md-icon aria-label="Unchecked">format_italic</md-icon><md-icon slot="checked" aria-label="Checked">format_italic</md-icon></md-icon-button-toggle><md-icon-button-toggle variant="tonal"><md-icon aria-label="Unchecked">format_underlined</md-icon><md-icon slot="checked" aria-label="Checked">format_underlined</md-icon></md-icon-button-toggle></md-toolbar></dc-demo><h4>Vertical (for Floating Only)</h4><dc-demo><md-toolbar type="floating" orientation="vertical"><md-icon-button-toggle variant="tonal"><md-icon aria-label="Unchecked">format_bold</md-icon><md-icon slot="checked" aria-label="Checked">format_bold</md-icon></md-icon-button-toggle><md-icon-button-toggle variant="tonal"><md-icon aria-label="Unchecked">format_italic</md-icon><md-icon slot="checked" aria-label="Checked">format_italic</md-icon></md-icon-button-toggle><md-icon-button-toggle variant="tonal"><md-icon aria-label="Unchecked">format_underlined</md-icon><md-icon slot="checked" aria-label="Checked">format_underlined</md-icon></md-icon-button-toggle></md-toolbar></dc-demo><h4>With FAB</h4><dc-demo><md-toolbar type="floating"><md-icon-button id="toolbar-archive"><md-icon>archive</md-icon></md-icon-button><md-tooltip for="toolbar-archive">Archive</md-tooltip><md-icon-button id="toolbar-delete"><md-icon>delete</md-icon></md-icon-button><md-tooltip for="toolbar-delete">Delete</md-tooltip><md-icon-button id="toolbar-mail"><md-icon>mail</md-icon></md-icon-button><md-tooltip for="toolbar-mail">Mail</md-tooltip><md-icon-button id="toolbar-snooze"><md-icon>snooze</md-icon></md-icon-button><md-tooltip for="toolbar-snooze">Snooze</md-tooltip><md-icon-button id="toolbar-more-mailboxes"><md-icon>more_vert</md-icon></md-icon-button><md-tooltip for="toolbar-more-mailboxes">More mailboxes</md-tooltip><md-fab slot="fab" color="tertiary" id="toolbar-reply"><md-icon>reply</md-icon></md-fab><md-tooltip for="toolbar-reply">Reply</md-tooltip></md-toolbar></dc-demo><h2>Checkbox</h2><p>Checkboxes allow users to select one or more items from a set. Checkboxes can turn an option on or off.</p><h3>Interactive Demo</h3><dc-demo hascontrols><label for="checkbox-controlled"><md-checkbox id="checkbox-controlled"></md-checkbox>Controlled</label> <label slot="controls" for="checkbox-opt-checked">Checked<md-switch id="checkbox-opt-checked"></md-switch></label> <label slot="controls" for="checkbox-opt-indeterminate">Indeterminate<md-switch id="checkbox-opt-indeterminate"></md-switch></label> <label slot="controls" for="checkbox-opt-disabled">Disabled<md-switch id="checkbox-opt-disabled"></md-switch></label> <label slot="controls" for="checkbox-opt-error">Error<md-switch id="checkbox-opt-error"></md-switch></label><script>const cCheckbox = document.querySelector('#checkbox-controlled');
           document
             .querySelector('#checkbox-opt-checked')
             .addEventListener('change', (e) => (cCheckbox.checked = e.detail));
