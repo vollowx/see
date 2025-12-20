@@ -50,4 +50,5 @@ import '../src/m3/checkbox.js';
 import '../src/m3/ripple.js';
 import '../src/m3/switch.js';
 import '../src/m3/tooltip.js';
+import '../src/m3/toolbar.js';
 import './components/demo.js';

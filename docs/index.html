@@ -24,69 +24,67 @@
     />
   </head>
   <body>
-    <header>
-      <section class="start">
-        <md-icon-button-toggle id="docs-opt-drawer" checked disabled>
-          <md-icon>menu_open</md-icon>
-          <md-icon slot="checked">menu</md-icon>
-        </md-icon-button-toggle>
+    <md-toolbar id="global-toolbar" type="floating">
+      <md-icon-button-toggle id="global-opt-dark" variant="tonal" checked>
+        <md-icon aria-label="Turn on the light">dark_mode</md-icon>
+        <md-icon slot="checked" aria-label="Turn off the light">light_mode</md-icon>
+      </md-icon-button-toggle>
+      <md-tooltip for="global-opt-dark"></md-tooltip>
 
-        <md-tooltip for="docs-opt-drawer"></md-tooltip>
-      </section>
+      <md-icon-button-toggle id="global-opt-rtl" variant="tonal">
+        <md-icon aria-label="Set direction to RTL">format_textdirection_r_to_l</md-icon>
+        <md-icon slot="checked" aria-label="Set direction to LTR">format_textdirection_l_to_r</md-icon>
+      </md-icon-button-toggle>
+      <md-tooltip for="global-opt-rtl"></md-tooltip>
 
-      <div class="title">SEE</div>
+      <md-icon-button id="global-github-link" aria-label="View source on GitHub">
+        <md-icon>code_blocks</md-icon>
+      </md-icon-button>
+      <md-tooltip for="global-github-link">View source on GitHub</md-tooltip>
 
-      <section class="end">
-        <md-icon-button-toggle id="docs-opt-dark" checked>
-          <md-icon>dark_mode</md-icon>
-          <md-icon slot="checked">light_mode</md-icon>
-        </md-icon-button-toggle>
-
-        <md-tooltip for="docs-opt-dark"></md-tooltip>
-
-        <md-icon-button-toggle id="docs-opt-rtl">
-          <md-icon>format_textdirection_r_to_l</md-icon>
-          <md-icon slot="checked">format_textdirection_l_to_r</md-icon>
-        </md-icon-button-toggle>
-
-        <md-tooltip for="docs-opt-rtl"></md-tooltip>
-      </section>
-    </header>
+      <md-fab slot="fab" color="tertiary" id="scroll-to-top">
+        <md-icon>arrow_upward</md-icon>
+      </md-fab>
+      <md-tooltip for="scroll-to-top">Scroll to top</md-tooltip>
+    </md-toolbar>
 
     <script>
-      const tooltipTexts = {
-        'docs-opt-drawer': ['Close drawer', 'Open drawer'],
-        'docs-opt-dark': ['Turn off the light', 'Turn on the light'],
-        'docs-opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
+      const globalDarkToggle = document.querySelector('#global-opt-dark');
+      const globalRtlToggle = document.querySelector('#global-opt-rtl');
+      const scrollToTopBtn = document.querySelector('#scroll-to-top');
+      const githubLinkBtn = document.querySelector('#global-github-link');
+
+      const globalTooltipTexts = {
+        'global-opt-dark': ['Turn off the light', 'Turn on the light'],
+        'global-opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
       };
-      const updateTooltip = (id) => {
+
+      const updateGlobalTooltip = (id) => {
         const control = document.querySelector(`#${id}`);
         const tooltip = document.querySelector(`md-tooltip[for="${id}"]`);
-        tooltip.textContent = tooltipTexts[id][control.checked ? 1 : 0];
+        tooltip.textContent = globalTooltipTexts[id][control.checked ? 1 : 0];
       };
-      updateTooltip('docs-opt-drawer');
-      updateTooltip('docs-opt-dark');
-      updateTooltip('docs-opt-rtl');
-      document
-        .querySelector('#docs-opt-drawer')
-        .addEventListener('change', (e) => {
-          // document.querySelector('aside').classList.toggle('open', e.detail);
-          updateTooltip('docs-opt-drawer');
-        });
-      document
-        .querySelector('#docs-opt-dark')
-        .addEventListener('change', (e) => {
-          document.documentElement.dataset['mdTheme'] = e.detail
-            ? 'dark'
-            : 'light';
-          updateTooltip('docs-opt-dark');
-        });
-      document
-        .querySelector('#docs-opt-rtl')
-        .addEventListener('change', (e) => {
-          document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
-          updateTooltip('docs-opt-rtl');
-        });
+
+      updateGlobalTooltip('global-opt-dark');
+      updateGlobalTooltip('global-opt-rtl');
+
+      globalDarkToggle.addEventListener('change', (e) => {
+        document.documentElement.dataset['mdTheme'] = e.detail ? 'dark' : 'light';
+        updateGlobalTooltip('global-opt-dark');
+      });
+
+      globalRtlToggle.addEventListener('change', (e) => {
+        document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
+        updateGlobalTooltip('global-opt-rtl');
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      githubLinkBtn.addEventListener('click', () => {
+        window.open('https://github.com/vollowx/see', '_blank');
+      });
     </script>
 
     <main>
@@ -452,6 +450,108 @@
           <md-icon aria-label="Unchecked">close</md-icon>
           <md-icon slot="checked" aria-label="Checked">done</md-icon>
         </md-icon-button-toggle>
+      </dc-demo>
+
+      <h2>Toolbar</h2>
+
+      <p>
+        Toolbars display frequently used actions relevant to the current page or
+        context and group controls into a compact surface.
+      </p>
+
+      <h3>Types</h3>
+
+      <dc-demo>
+        <md-toolbar>
+          <md-icon-button aria-label="Back">
+            <md-icon>arrow_back</md-icon>
+          </md-icon-button>
+          <md-icon-button aria-label="Forward">
+            <md-icon>arrow_forward</md-icon>
+          </md-icon-button>
+          <md-fab size="small" color="primary" aria-label="New tab">
+            <md-icon>add</md-icon>
+          </md-fab>
+          <md-icon-button aria-label="Tabs">
+            <md-icon>tab</md-icon>
+          </md-icon-button>
+          <md-icon-button aria-label="More options">
+            <md-icon>more_vert</md-icon>
+          </md-icon-button>
+        </md-toolbar>
+      </dc-demo>
+
+      <h4>Floating</h4>
+
+      <dc-demo>
+        <md-toolbar type="floating">
+          <md-icon-button-toggle variant="tonal" checked>
+            <md-icon aria-label="Unchecked">format_bold</md-icon>
+            <md-icon slot="checked" aria-label="Checked">format_bold</md-icon>
+          </md-icon-button-toggle>
+          <md-icon-button-toggle variant="tonal">
+            <md-icon aria-label="Unchecked">format_italic</md-icon>
+            <md-icon slot="checked" aria-label="Checked">format_italic</md-icon>
+          </md-icon-button-toggle>
+          <md-icon-button-toggle variant="tonal">
+            <md-icon aria-label="Unchecked">format_underlined</md-icon>
+            <md-icon slot="checked" aria-label="Checked"
+              >format_underlined</md-icon
+            >
+          </md-icon-button-toggle>
+        </md-toolbar>
+      </dc-demo>
+
+      <h4>Vertical (for Floating Only)</h4>
+
+      <dc-demo>
+        <md-toolbar type="floating" orientation="vertical">
+          <md-icon-button-toggle variant="tonal">
+            <md-icon aria-label="Unchecked">format_bold</md-icon>
+            <md-icon slot="checked" aria-label="Checked">format_bold</md-icon>
+          </md-icon-button-toggle>
+          <md-icon-button-toggle variant="tonal">
+            <md-icon aria-label="Unchecked">format_italic</md-icon>
+            <md-icon slot="checked" aria-label="Checked">format_italic</md-icon>
+          </md-icon-button-toggle>
+          <md-icon-button-toggle variant="tonal">
+            <md-icon aria-label="Unchecked">format_underlined</md-icon>
+            <md-icon slot="checked" aria-label="Checked"
+              >format_underlined</md-icon
+            >
+          </md-icon-button-toggle>
+        </md-toolbar>
+      </dc-demo>
+
+      <h4>With FAB</h4>
+
+      <dc-demo>
+        <md-toolbar type="floating">
+          <md-icon-button id="toolbar-archive">
+            <md-icon>archive</md-icon>
+          </md-icon-button>
+          <md-tooltip for="toolbar-archive">Archive</md-tooltip>
+          <md-icon-button id="toolbar-delete">
+            <md-icon>delete</md-icon>
+          </md-icon-button>
+          <md-tooltip for="toolbar-delete">Delete</md-tooltip>
+          <md-icon-button id="toolbar-mail">
+            <md-icon>mail</md-icon>
+          </md-icon-button>
+          <md-tooltip for="toolbar-mail">Mail</md-tooltip>
+          <md-icon-button id="toolbar-snooze">
+            <md-icon>snooze</md-icon>
+          </md-icon-button>
+          <md-tooltip for="toolbar-snooze">Snooze</md-tooltip>
+          <md-icon-button id="toolbar-more-mailboxes">
+            <md-icon>more_vert</md-icon>
+          </md-icon-button>
+          <md-tooltip for="toolbar-more-mailboxes">More mailboxes</md-tooltip>
+          <md-fab slot="fab" color="tertiary" id="toolbar-reply">
+            <md-icon>reply</md-icon>
+          </md-fab>
+          <md-tooltip for="toolbar-reply">Reply</md-tooltip>
+        </md-toolbar>
       </dc-demo>
 
       <h2>Checkbox</h2>

@@ -1,0 +1,108 @@
+import { css } from 'lit';
+
+export const toolbarStyles = css`
+  :host {
+    --_container-color: var(
+      --md-toolbar-container-color,
+      var(--md-sys-color-surface-container)
+    );
+    --_on-color: var(
+      --md-toolbar-on-color,
+      var(--md-sys-color-on-surface)
+    );
+    align-items: center;
+    box-sizing: border-box;
+    color: color-mix(
+      in srgb,
+      var(--_on-color) var(--_on-opacity, 100%),
+      transparent
+    );
+    display: flex;
+    height: 64px;
+    width: 100%;
+    background-color: color-mix(
+      in srgb,
+      var(--_container-color) var(--_container-opacity, 100%),
+      transparent
+    );
+  }
+
+  :host(:not([type='floating'])) {
+    --_padding: 16px;
+    --_gap: 32px;
+  }
+  :host([type='floating']) {
+    --_padding: 8px;
+    --_gap: 4px;
+    --_container-color: var(
+      --md-toolbar-container-color,
+      var(--md-sys-color-surface-container-high)
+    );
+    background: transparent;
+    box-shadow: none;
+    max-width: calc(100% - 32px);
+    width: fit-content;
+  }
+  :host([type='floating'][orientation='vertical']) {
+    align-items: stretch;
+    flex-direction: column;
+    min-height: auto;
+    width: 56px;
+  }
+
+  /* @TODO: Not done yet */
+  :host([color='vibrant']) {
+    --_container-color: var(
+      --md-toolbar-container-color,
+      var(--md-sys-color-primary-container)
+    );
+    --_on-color: var(
+      --md-toolbar-on-color,
+      var(--md-sys-color-on-primary-container)
+    );
+  }
+
+  [part='container'] {
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 auto;
+    gap: var(--_gap);
+    height: 56px;
+    width: 100%;
+    padding: 0 var(--_padding);
+  }
+  :host([type='floating']) [part='container'] {
+    background-color: color-mix(
+      in srgb,
+      var(--_container-color) var(--_container-opacity, 100%),
+      transparent
+    );
+    border-radius: var(--md-toolbar-shape, 28px);
+    box-shadow: var(--md-toolbar-shadow, var(--md-sys-elevation-shadow-3));
+    width: fit-content;
+  }
+
+  [part='fab-slot'] {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+  :host(:not([orientation='vertical'])) ::slotted([slot='fab']) {
+    margin-inline-start: 8px;
+  }
+  :host([orientation='vertical']) ::slotted([slot='fab']) {
+    margin-block-start: 8px;
+  }
+  :host([type='floating'][orientation='vertical']) [part='container'] {
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding: var(--_padding) 0;
+  }
+
+  ::slotted(md-icon-button-toggle[variant='tonal']:not(:state(checked))) {
+    --_background-color: transparent;
+  }
+`;
