@@ -59,7 +59,7 @@ export class Tooltip extends Base {
   padding = 4;
   showDuration = 100;
   hideDuration = 100;
-  mouseShowDelay = 100;
+  mouseShowDelay = 500;
   mouseHideDelay = 0;
   focusShowDelay = 100;
   focusHideDelay = 0;

@@ -11,6 +11,7 @@ export const tooltipStyles = css`
     font: var(--md-sys-typography-body-small);
     left: 0;
     max-width: var(--_max-width, 300px);
+    width: max-content;
     min-height: 24px;
     opacity: 0;
     padding: 4px 8px;
