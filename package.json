@@ -11,9 +11,9 @@
   "scripts": {
     "build": "tsc",
     "serve": "wds --watch --node-resolve",
-    "dev:docs": "vite --open /docs/",
+    "dev:docs": "vite --open /docs/ --host",
     "build:docs": "vite build docs",
-    "preview:docs": "vite preview docs",
+    "preview:docs": "vite preview docs --host",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --check --write"
   },
