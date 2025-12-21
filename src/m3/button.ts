@@ -6,8 +6,8 @@ import { Button } from '../base/button.js';
 import './focus-ring.js';
 import './ripple.js';
 
-import { buttonStyles } from './button-styles.js';
-import { targetStyles } from './target-styles.js';
+import { buttonStyles } from './button-styles.css.js';
+import { targetStyles } from './target-styles.css.js';
 
 /**
  * @element md-button

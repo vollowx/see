@@ -5,7 +5,7 @@ import { Attachable } from '../base/attachable.js';
 import { InternalsAttached, internals } from '../base/internals-attached.js';
 import { focusVisible } from '../core/variables.js';
 
-import { focusRingStyles } from './focus-ring-styles.js';
+import { focusRingStyles } from './focus-ring-styles.css.js';
 
 /**
  * @element md-focus-ring

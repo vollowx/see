@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { Attachable } from '../base/attachable.js';
 import { InternalsAttached, internals } from '../base/internals-attached.js';
 
-import { rippleStyles } from './ripple-styles.js';
+import { rippleStyles } from './ripple-styles.css.js';
 
 const PRESS_GROW_MS = 450;
 const MINIMUM_PRESS_MS = 225;

@@ -1,2 +1,5 @@
 node_modules
 dist
+src/**/*.css.ts
+src/**/*.css.js
+src/**/*.js

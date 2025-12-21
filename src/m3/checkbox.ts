@@ -6,8 +6,8 @@ import { Checkbox } from '../base/checkbox.js';
 import './focus-ring.js';
 import './ripple.js';
 
-import { checkboxStyles } from './checkbox-styles.js';
-import { targetStyles } from './target-styles.js';
+import { checkboxStyles } from './checkbox-styles.css.js';
+import { targetStyles } from './target-styles.css.js';
 
 /**
  * @element md-checkbox

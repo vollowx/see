@@ -7,9 +7,9 @@ import { internals } from '../base/internals-attached.js';
 import './focus-ring.js';
 import './ripple.js';
 
-import { iconButtonStyles } from './icon-button-styles.js';
-import { iconButtonToggleStyles } from './icon-button-toggle-styles.js';
-import { targetStyles } from './target-styles.js';
+import { iconButtonStyles } from './icon-button-styles.css.js';
+import { iconButtonToggleStyles } from './icon-button-toggle-styles.css.js';
+import { targetStyles } from './target-styles.css.js';
 
 /**
  * @element md-icon-button-toggle

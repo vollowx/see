@@ -6,8 +6,8 @@ import { Switch } from '../base/switch.js';
 import './focus-ring.js';
 import './ripple.js';
 
-import { switchStyles } from './switch-styles.js';
-import { targetStyles } from './target-styles.js';
+import { switchStyles } from './switch-styles.css.js';
+import { targetStyles } from './target-styles.css.js';
 
 // FIXME: Drag-and-drop breaks the support for working with `<label>`. Temporarily disabled.
 // function isRTL() {

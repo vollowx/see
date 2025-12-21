@@ -1,9 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { hiddenStyles } from '../base/hidden-styles.js';
-
-import { toolbarStyles } from './toolbar-styles.js';
+import { toolbarStyles } from './toolbar-styles.css.js';
 
 /**
  * @element md-toolbar
@@ -21,7 +19,7 @@ export class M3Toolbar extends LitElement {
     this.setAttribute('aria-orientation', this.orientation);
   }
 
-  static override styles = [hiddenStyles, toolbarStyles];
+  static override styles = [toolbarStyles];
 
   @property({ reflect: true }) type: 'docked' | 'floating' = 'docked';
   @property({ reflect: true }) color: 'standard' | 'vibrant' = 'standard';

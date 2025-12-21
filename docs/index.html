@@ -27,17 +27,26 @@
     <md-toolbar id="global-toolbar" type="floating">
       <md-icon-button-toggle id="global-opt-dark" variant="tonal" checked>
         <md-icon aria-label="Turn on the light">dark_mode</md-icon>
-        <md-icon slot="checked" aria-label="Turn off the light">light_mode</md-icon>
+        <md-icon slot="checked" aria-label="Turn off the light"
+          >light_mode</md-icon
+        >
       </md-icon-button-toggle>
       <md-tooltip for="global-opt-dark"></md-tooltip>
 
       <md-icon-button-toggle id="global-opt-rtl" variant="tonal">
-        <md-icon aria-label="Set direction to RTL">format_textdirection_r_to_l</md-icon>
-        <md-icon slot="checked" aria-label="Set direction to LTR">format_textdirection_l_to_r</md-icon>
+        <md-icon aria-label="Set direction to RTL"
+          >format_textdirection_r_to_l</md-icon
+        >
+        <md-icon slot="checked" aria-label="Set direction to LTR"
+          >format_textdirection_l_to_r</md-icon
+        >
       </md-icon-button-toggle>
       <md-tooltip for="global-opt-rtl"></md-tooltip>
 
-      <md-icon-button id="global-github-link" aria-label="View source on GitHub">
+      <md-icon-button
+        id="global-github-link"
+        aria-label="View source on GitHub"
+      >
         <md-icon>code_blocks</md-icon>
       </md-icon-button>
       <md-tooltip for="global-github-link">View source on GitHub</md-tooltip>
@@ -69,7 +78,9 @@
       updateGlobalTooltip('global-opt-rtl');
 
       globalDarkToggle.addEventListener('change', (e) => {
-        document.documentElement.dataset['mdTheme'] = e.detail ? 'dark' : 'light';
+        document.documentElement.dataset['mdTheme'] = e.detail
+          ? 'dark'
+          : 'light';
         updateGlobalTooltip('global-opt-dark');
       });
 

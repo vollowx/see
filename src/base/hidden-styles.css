@@ -1,0 +1,4 @@
+:host([hidden]) {
+  display: none;
+  visibility: hidden;
+}
