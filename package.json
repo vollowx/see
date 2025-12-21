@@ -9,17 +9,17 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "node scripts/convert-styles.mjs build && tsc",
     "dev": "wds --watch --node-resolve",
-    "docs:dev": "vite --open /docs/ --host",
-    "docs:build": "node scripts/convert-styles.mjs build && vite build docs",
-    "docs:preview": "vite preview docs --host",
+    "build": "node scripts/convert-styles.mjs build && tsc",
     "styles": "node scripts/convert-styles.mjs",
     "styles:build": "node scripts/convert-styles.mjs build",
     "styles:watch": "node scripts/convert-styles.mjs watch",
     "cleanup": "node scripts/cleanup.mjs",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --check --write"
+    "prettier:fix": "prettier . --check --write",
+    "docs:dev": "vite --open /docs/ --host",
+    "docs:build": "node scripts/convert-styles.mjs build && vite build docs",
+    "docs:preview": "vite preview docs --host"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",

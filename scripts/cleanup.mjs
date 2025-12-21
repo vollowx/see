@@ -5,6 +5,28 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 
+const colors = {
+  reset: '\x1b[0m',
+  dim: '\x1b[2m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  blue: '\x1b[34m',
+  cyan: '\x1b[36m',
+  red: '\x1b[31m',
+};
+
+/**
+ * Get formatted timestamp
+ * @returns {string} Formatted time string
+ */
+function timestamp() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  return `${colors.dim}[${hours}:${minutes}:${seconds}]${colors.reset}`;
+}
+
 /**
  * Recursively find and remove compiled JavaScript files
  * @param {string} dir - Directory to search
@@ -18,7 +40,6 @@ function cleanupCompiledFiles(dir, count = 0) {
     for (const file of files) {
       const fullPath = path.join(dir, file.name);
 
-      // Skip node_modules, .git, and other build directories
       if (
         file.isDirectory() &&
         !['.git', 'node_modules', 'dist', '.github'].includes(file.name) &&
@@ -26,12 +47,10 @@ function cleanupCompiledFiles(dir, count = 0) {
       ) {
         count = cleanupCompiledFiles(fullPath, count);
       } else if (file.isFile()) {
-        // Remove .js and .js.map files that have corresponding .ts files
         if (file.name.endsWith('.js') || file.name.endsWith('.js.map')) {
           const tsFile = fullPath.replace(/\.js(\.map)?$/, '.ts');
           const mjsFile = fullPath.replace(/\.js(\.map)?$/, '.mjs');
 
-          // Only delete if source TypeScript file exists
           if (
             (file.name.endsWith('.js') &&
               (fs.existsSync(tsFile) || fs.existsSync(mjsFile))) ||
@@ -39,11 +58,13 @@ function cleanupCompiledFiles(dir, count = 0) {
           ) {
             try {
               fs.unlinkSync(fullPath);
-              console.log(`✓ Removed: ${path.relative(projectRoot, fullPath)}`);
+              console.log(
+                `${timestamp()} ${colors.red}✗${colors.reset} ${colors.dim}${path.basename(fullPath)}${colors.reset}`
+              );
               count++;
             } catch (error) {
               console.error(
-                `✗ Failed to remove ${path.relative(projectRoot, fullPath)}: ${error.message}`
+                `${timestamp()} ${colors.red}Failed: ${path.basename(fullPath)}${colors.reset}`
               );
             }
           }
@@ -72,11 +93,13 @@ function cleanupBuildDirs() {
     if (fs.existsSync(dir)) {
       try {
         fs.rmSync(dir, { recursive: true, force: true });
-        console.log(`✓ Removed directory: ${path.relative(projectRoot, dir)}`);
+        console.log(
+          `${timestamp()} ${colors.red}✗${colors.reset} ${colors.dim}${path.basename(dir)}/${colors.reset}`
+        );
         count++;
       } catch (error) {
         console.error(
-          `✗ Failed to remove ${path.relative(projectRoot, dir)}: ${error.message}`
+          `${timestamp()} ${colors.red}Failed: ${path.basename(dir)}${colors.reset}`
         );
       }
     }
@@ -85,8 +108,9 @@ function cleanupBuildDirs() {
   return count;
 }
 
-// Main entry point
-console.log('Cleaning up compiled JavaScript files...\n');
+console.log(
+  `${timestamp()} ${colors.blue}Cleaning up compiled files${colors.reset}`
+);
 
 const srcDir = path.join(projectRoot, 'src');
 const scriptsDir = path.join(projectRoot, 'scripts');
@@ -99,4 +123,6 @@ totalDeleted += cleanupCompiledFiles(scriptsDir);
 totalDeleted += cleanupCompiledFiles(docsDir);
 totalDeleted += cleanupBuildDirs();
 
-console.log(`\n✓ Cleanup complete: ${totalDeleted} file(s)/director(ies) removed.`);
+console.log(
+  `${timestamp()} ${colors.green}✓ Done${colors.reset} ${colors.dim}(${totalDeleted} files)${colors.reset}`
+);
