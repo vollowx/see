@@ -1,0 +1,22 @@
+:host {align-items: center;
+  border-radius: inherit;
+  box-sizing: border-box;
+  color: var(--md-sys-color-on-surface);
+  display: flex;
+  flex: 1;
+  font: var(--md-sys-typography-body-large);
+  gap: 16px;
+  min-height: 56px;
+  overflow: hidden;
+  padding: 12px 16px;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+[name='container']::slotted(*) {
+  inset: 0;
+  position: absolute;
+}
+
+/* TODO: every other part */

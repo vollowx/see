@@ -1,0 +1,8 @@
+:host {
+  display: flex;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  --md-focus-ring-shape: 8px;
+}

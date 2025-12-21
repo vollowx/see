@@ -650,6 +650,206 @@
       </div>
 
       <div class="card">
+        <h2>M3 Select with Option</h2>
+
+        <h3>Basic Usage</h3>
+        <md-select id="fruitSelect">
+          <md-option value="apple">Apple</md-option>
+          <md-option value="apricot">Apricot</md-option>
+          <md-option value="avocado">Avocado</md-option>
+          <md-option value="banana">Banana</md-option>
+          <md-option value="blackberry">Blackberry</md-option>
+          <md-option value="blueberry">Blueberry</md-option>
+          <md-option value="boysenberry">Boysenberry</md-option>
+          <md-option value="cherry">Cherry</md-option>
+          <md-option value="cranberry" disabled>Cranberry (disabled)</md-option>
+          <md-option value="currant">Currant</md-option>
+          <md-option value="date">Date</md-option>
+          <md-option value="dragonfruit">Dragon Fruit</md-option>
+          <md-option value="durian" disabled>Durian (disabled)</md-option>
+          <md-option value="elderberry">Elderberry</md-option>
+          <md-option value="fig">Fig</md-option>
+          <md-option value="gooseberry">Gooseberry</md-option>
+          <md-option value="grape">Grape</md-option>
+          <md-option value="grapefruit">Grapefruit</md-option>
+          <md-option value="guava">Guava</md-option>
+          <md-option value="huckleberry">Huckleberry</md-option>
+          <md-option value="jackfruit">Jackfruit</md-option>
+          <md-option value="kiwi">Kiwi</md-option>
+          <md-option value="kumquat">Kumquat</md-option>
+          <md-option value="lemon">Lemon</md-option>
+          <md-option value="lime">Lime</md-option>
+          <md-option value="lychee">Lychee</md-option>
+          <md-option value="mango">Mango</md-option>
+          <md-option value="mulberry">Mulberry</md-option>
+          <md-option value="nectarine">Nectarine</md-option>
+          <md-option value="olive" disabled>Olive (disabled)</md-option>
+          <md-option value="orange">Orange</md-option>
+          <md-option value="papaya">Papaya</md-option>
+          <md-option value="passion">Passion Fruit</md-option>
+          <md-option value="peach">Peach</md-option>
+          <md-option value="pear">Pear</md-option>
+          <md-option value="persimmon">Persimmon</md-option>
+          <md-option value="pineapple">Pineapple</md-option>
+          <md-option value="plum">Plum</md-option>
+          <md-option value="pomegranate">Pomegranate</md-option>
+          <md-option value="prickly">Prickly Pear</md-option>
+          <md-option value="prune">Prune</md-option>
+          <md-option value="raisin">Raisin</md-option>
+          <md-option value="raspberry">Raspberry</md-option>
+          <md-option value="strawberry">Strawberry</md-option>
+          <md-option value="tangerine">Tangerine</md-option>
+          <md-option value="ugli">Ugli Fruit</md-option>
+          <md-option value="watermelon">Watermelon</md-option>
+        </md-select>
+
+        <p style="margin-top: 1rem;">
+          <strong>Features:</strong>
+          <ul>
+            <li><code>disabled</code> - Try navigating to disabled options (they can't be selected)</li>
+            <li><code>value</code> - The data attribute for the option</li>
+            <li><code>selected</code> - Marks an option as selected</li>
+          </ul>
+        </p>
+
+        <p style="margin-top: 1rem;">
+          <strong>Keyboard navigation:</strong>
+          <ul>
+            <li>↓/↑ - Navigate options</li>
+            <li>Home/End - Go to first/last option</li>
+            <li>Enter/Space - Open/Select option</li>
+            <li>Escape - Close dropdown</li>
+            <li>Type - Search options by first letter</li>
+          </ul>
+        </p>
+
+        <h3>JavaScript Interaction</h3>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+          <md-button variant="text" id="openBtn">Open Select</md-button>
+          <md-button variant="text" id="closeBtn">Close Select</md-button>
+          <md-button variant="text" id="getValueBtn">Get Value</md-button>
+          <md-button variant="text" id="setValueBtn">Set to Grape</md-button>
+          <md-button variant="text" id="resetBtn">Reset to Apple</md-button>
+        </div>
+
+        <div id="outputBox" style="
+          margin-top: 1rem;
+          padding: 1rem;
+          background: var(--md-sys-color-surface-container);
+          border-radius: 0.25rem;
+          font-family: monospace;
+          min-height: 4rem;
+        ">
+          <strong>Output:</strong><br>
+          <span id="output">Select an option or click buttons above</span>
+        </div>
+      </div>
+
+      <script type="module">
+        // Get elements
+        const select = document.querySelector('#fruitSelect');
+        const output = document.querySelector('#output');
+        const openBtn = document.querySelector('#openBtn');
+        const closeBtn = document.querySelector('#closeBtn');
+        const getValueBtn = document.querySelector('#getValueBtn');
+        const setValueBtn = document.querySelector('#setValueBtn');
+        const resetBtn = document.querySelector('#resetBtn');
+
+        // Helper to update output
+        const updateOutput = (message) => {
+          output.innerHTML = message;
+        };
+
+        // Listen for select changes
+        select.addEventListener('dropdown-change', (e) => {
+          updateOutput(`✓ Selected: <strong>${e.detail.value}</strong>`);
+        });
+
+        // Button handlers
+        openBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          select.open = true;
+          updateOutput('Opened select');
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          select.open = false;
+          updateOutput('Closed select');
+        });
+
+        getValueBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateOutput(`Current value: <strong>${select.value}</strong>`);
+        });
+
+        setValueBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          select.value = 'grape';
+          updateOutput('Set value to: <strong>grape</strong>');
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          select.value = 'apple';
+          updateOutput('Reset to: <strong>apple</strong>');
+        });
+      </script>
+
+      <div class="card">
+        <h2>M3 Menu with Icon Button</h2>
+
+        <md-icon-button id="menuButton" aria-label="More options">
+          <span class="material-symbols-rounded">more_vert</span>
+        </md-icon-button>
+
+        <md-menu for="menuButton" position="bottom-start">
+          <md-menu-item>
+            <span>Edit</span>
+          </md-menu-item>
+          <md-menu-item>
+            <span>Duplicate</span>
+          </md-menu-item>
+          <md-menu-item disabled>
+            <span>Archive (disabled)</span>
+          </md-menu-item>
+          <md-menu-item>
+            <span>Delete</span>
+          </md-menu-item>
+        </md-menu>
+
+        <p style="margin-top: 1rem;" id="menuOutput">Click the button to open the menu</p>
+      </div>
+
+      <script type="module">
+        const menuButton = document.getElementById('menuButton');
+        const menuOutput = document.getElementById('menuOutput');
+        const menu = document.querySelector('md-menu');
+
+        menuButton.addEventListener('click', () => {
+          menu.open = !menu.open;
+        });
+
+        // Menu items don't dispatch 'option-selected' by default like options do
+        // We can listen to click events on them
+        menu.addEventListener('click', (e) => {
+          const item = e.target.closest('md-menu-item');
+          if (item && !item.disabled) {
+             const text = item.textContent.trim();
+             menuOutput.innerHTML = `Selected: <strong>${text}</strong>`;
+             menu.open = false;
+          }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+            menu.open = false;
+          }
+        });
+      </script>
+
+      <div class="card">
         <h2>Guess what?</h2>
         <twdne-viewer></twdne-viewer>
       </div>

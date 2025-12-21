@@ -1,0 +1,8 @@
+:host([selected]) {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+:host([disabled]) {
+  color: var(--option-disabled-color, #a0a0a0);
+  pointer-events: none;
+}

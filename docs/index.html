@@ -593,6 +593,71 @@
         </md-toolbar>
       </dc-demo>
 
+      <h2>Menu</h2>
+
+      <p>
+        Menus display a list of choices on a temporary surface. They appear when
+        users interact with a button, action, or other control.
+      </p>
+
+      <dc-demo>
+        <div
+          style="display: flex; flex-direction: column; align-items: center; gap: 16px; height: 200px; justify-content: center;"
+        >
+          <div style="position: relative;">
+            <md-icon-button id="menu-anchor" aria-label="Open menu">
+              <md-icon>more_vert</md-icon>
+            </md-icon-button>
+
+            <md-menu id="demo-menu" for="menu-anchor">
+              <md-menu-item id="menu-item-one">Item One</md-menu-item>
+              <md-menu-item id="menu-item-two">Item Two</md-menu-item>
+              <md-menu-item id="menu-item-three" disabled
+                >Item Three (Disabled)</md-menu-item
+              >
+              <md-menu-item id="menu-item-four">Item Four</md-menu-item>
+            </md-menu>
+          </div>
+
+          <div id="menu-output">Selected: None</div>
+        </div>
+
+        <script>
+          (() => {
+            const menu = document.querySelector('#demo-menu');
+            const anchor = document.querySelector('#menu-anchor');
+            const output = document.querySelector('#menu-output');
+
+            anchor.addEventListener('click', () => {
+              menu.open = !menu.open;
+            });
+
+            const updateOutput = (text) => {
+              output.textContent = 'Selected: ' + text;
+            };
+
+            document
+              .querySelector('#menu-item-one')
+              .addEventListener('click', () => {
+                updateOutput('Item One');
+                menu.open = false;
+              });
+            document
+              .querySelector('#menu-item-two')
+              .addEventListener('click', () => {
+                updateOutput('Item Two');
+                menu.open = false;
+              });
+            document
+              .querySelector('#menu-item-four')
+              .addEventListener('click', () => {
+                updateOutput('Item Four');
+                menu.open = false;
+              });
+          })();
+        </script>
+      </dc-demo>
+
       <h2>Checkbox</h2>
 
       <p>

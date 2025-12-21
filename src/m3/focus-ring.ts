@@ -45,6 +45,14 @@ export class M3FocusRing extends Attachable(InternalsAttached(LitElement)) {
     this[internals].states.delete('visible');
   }
 
+  visualFocus() {
+    this.#handleFocusIn();
+  }
+
+  visualBlur() {
+    this.#handleFocusOut();
+  }
+
   override handleControlChange(
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
