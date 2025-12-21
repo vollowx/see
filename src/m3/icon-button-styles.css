@@ -22,6 +22,7 @@
   outline: 0;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
   user-select: none;
   vertical-align: top;
   width: 40px;

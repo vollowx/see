@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" data-md-theme="dark">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Standard Extensible Elements | Demo</title>
     <script type="module" src="../all.ts"></script>
     <script type="module" src="./thiswaifudoesntexist-viewer.ts"></script>
@@ -283,19 +284,107 @@
     </style>
   </head>
   <body>
-    <md-icon-button-toggle id="opt-dark" checked>
-      <md-icon>dark_mode</md-icon>
-      <md-icon slot="checked">light_mode</md-icon>
-    </md-icon-button-toggle>
+    <md-toolbar id="global-toolbar" type="floating" color="vibrant">
+      <md-icon-button-toggle id="global-opt-dark" variant="tonal" checked>
+        <md-icon aria-label="Turn on the light">dark_mode</md-icon>
+        <md-icon slot="checked" aria-label="Turn off the light"
+          >light_mode</md-icon
+        >
+      </md-icon-button-toggle>
+      <md-tooltip for="global-opt-dark"></md-tooltip>
 
-    <md-tooltip for="opt-dark"></md-tooltip>
+      <md-icon-button-toggle id="global-opt-rtl" variant="tonal">
+        <md-icon aria-label="Set direction to RTL"
+          >format_textdirection_r_to_l</md-icon
+        >
+        <md-icon slot="checked" aria-label="Set direction to LTR"
+          >format_textdirection_l_to_r</md-icon
+        >
+      </md-icon-button-toggle>
+      <md-tooltip for="global-opt-rtl"></md-tooltip>
 
-    <md-icon-button-toggle id="opt-rtl">
-      <md-icon>format_textdirection_r_to_l</md-icon>
-      <md-icon slot="checked">format_textdirection_l_to_r</md-icon>
-    </md-icon-button-toggle>
+      <md-icon-button
+        id="global-github-link"
+        aria-label="View source on GitHub"
+      >
+        <md-icon>code_blocks</md-icon>
+      </md-icon-button>
+      <md-tooltip for="global-github-link">View source on GitHub</md-tooltip>
 
-    <md-tooltip for="opt-rtl"></md-tooltip>
+      <md-fab slot="fab" color="tertiary" id="scroll-to-top">
+        <md-icon>arrow_upward</md-icon>
+      </md-fab>
+      <md-tooltip for="scroll-to-top">Scroll to top</md-tooltip>
+    </md-toolbar>
+
+    <style>
+      #global-toolbar {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+      }
+    </style>
+
+    <script>
+      const globalDarkToggle = document.querySelector('#global-opt-dark');
+      const globalRtlToggle = document.querySelector('#global-opt-rtl');
+      const scrollToTopBtn = document.querySelector('#scroll-to-top');
+      const githubLinkBtn = document.querySelector('#global-github-link');
+
+      const globalTooltipTexts = {
+        'global-opt-dark': ['Turn off the light', 'Turn on the light'],
+        'global-opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
+      };
+
+      const updateGlobalTooltip = (id) => {
+        const control = document.querySelector(`#${id}`);
+        const tooltip = document.querySelector(`md-tooltip[for="${id}"]`);
+        tooltip.textContent = globalTooltipTexts[id][control.checked ? 1 : 0];
+      };
+
+      updateGlobalTooltip('global-opt-dark');
+      updateGlobalTooltip('global-opt-rtl');
+
+      globalDarkToggle.addEventListener('change', (e) => {
+        document.documentElement.dataset['mdTheme'] = e.detail
+          ? 'dark'
+          : 'light';
+        updateGlobalTooltip('global-opt-dark');
+      });
+
+      globalRtlToggle.addEventListener('change', (e) => {
+        document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
+        updateGlobalTooltip('global-opt-rtl');
+      });
+
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      githubLinkBtn.addEventListener('click', () => {
+        window.open('https://github.com/vollowx/see', '_blank');
+      });
+    </script>
+
+    <md-toolbar>
+      <md-icon-button aria-label="Back">
+        <md-icon>arrow_back</md-icon>
+      </md-icon-button>
+      <md-icon-button aria-label="Forward">
+        <md-icon>arrow_forward</md-icon>
+      </md-icon-button>
+      <md-fab size="small" color="primary" aria-label="New tab">
+        <md-icon>add</md-icon>
+      </md-fab>
+      <md-icon-button aria-label="Tabs">
+        <md-icon>tab</md-icon>
+      </md-icon-button>
+      <md-icon-button aria-label="More options">
+        <md-icon>more_vert</md-icon>
+      </md-icon-button>
+    </md-toolbar>
 
     <details>
       <summary>M3Button</summary>
@@ -419,29 +508,5 @@
       <summary>Guess what?</summary>
       <twdne-viewer></twdne-viewer>
     </details>
-
-    <script>
-      const tooltipTexts = {
-        'opt-dark': ['Dark mode', 'Light mode'],
-        'opt-rtl': ['Set direction to RTL', 'Set direction to LTR'],
-      };
-      const updateTooltip = (id) => {
-        const control = document.querySelector(`#${id}`);
-        const tooltip = document.querySelector(`md-tooltip[for="${id}"]`);
-        tooltip.textContent = tooltipTexts[id][control.checked ? 1 : 0];
-      };
-      updateTooltip('opt-dark');
-      updateTooltip('opt-rtl');
-      document.querySelector('#opt-dark').addEventListener('change', (e) => {
-        document.documentElement.dataset['mdTheme'] = e.detail
-          ? 'dark'
-          : 'light';
-        updateTooltip('opt-dark');
-      });
-      document.querySelector('#opt-rtl').addEventListener('change', (e) => {
-        document.documentElement.dir = e.detail ? 'rtl' : 'ltr';
-        updateTooltip('opt-rtl');
-      });
-    </script>
   </body>
 </html>

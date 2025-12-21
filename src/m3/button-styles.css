@@ -11,7 +11,7 @@
     var(--_background-color) var(--_background-opacity, 100%),
     transparent
   );
-  border-radius: 9999px;
+  border-radius: 20px;
   box-sizing: border-box;
   color: color-mix(
     in srgb,
@@ -29,7 +29,10 @@
   padding-inline: 24px;
   position: relative;
   -webkit-tap-highlight-color: transparent;
-  transition: box-shadow 280ms var(--md-sys-motion-easing-emphasized);
+  transition:
+    box-shadow 280ms var(--md-sys-motion-easing-emphasized),
+    border-radius 280ms var(--md-sys-motion-easing-emphasized);
+  -webkit-user-select: none;
   user-select: none;
   vertical-align: top;
 }
@@ -82,6 +85,11 @@
   :host([variant='elevated']:hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-2);
   }
+}
+
+/* TODO: Space key pressed should also trigger active state */
+:host(:active) {
+  border-radius: 8px;
 }
 
 :host(:disabled) {

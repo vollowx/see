@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import '../src/m3/icon-button.js';
+import '../src/m3/toolbar.js';
 import '../src/m3/tooltip.js';
 
 @customElement('twdne-viewer')
@@ -13,6 +14,7 @@ export class ThisWaifuDoesNotExist extends LitElement {
         display: block;
         height: 400px;
         position: relative;
+        -webkit-user-select: none;
         user-select: none;
         width: 400px;
       }
@@ -33,13 +35,8 @@ export class ThisWaifuDoesNotExist extends LitElement {
         position: absolute;
         top: 18px;
       }
-      .control {
-        background-color: var(--md-sys-color-surface-container);
-        border-radius: 32px;
+      #control {
         bottom: 8px;
-        display: flex;
-        gap: 8px;
-        padding: 8px;
         position: absolute;
         right: 8px;
       }
@@ -67,7 +64,7 @@ export class ThisWaifuDoesNotExist extends LitElement {
 
       <div class="nth">${this.nth}</div>
 
-      <div class="control">
+      <md-toolbar id="control" type="floating">
         <md-icon-button
           id="random"
           @click="${() => this.loadImage(Math.floor(Math.random() * 100000))}"
@@ -89,7 +86,7 @@ export class ThisWaifuDoesNotExist extends LitElement {
           ><md-icon>arrow_forward</md-icon></md-icon-button
         >
         <md-tooltip for="next">Next</md-tooltip>
-      </div>
+      </md-toolbar>
     `;
   }
 

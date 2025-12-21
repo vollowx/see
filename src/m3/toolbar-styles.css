@@ -44,18 +44,6 @@
   width: 56px;
 }
 
-/* @TODO: Not done yet */
-:host([color='vibrant']) {
-  --_container-color: var(
-    --md-toolbar-container-color,
-    var(--md-sys-color-primary-container)
-  );
-  --_on-color: var(
-    --md-toolbar-on-color,
-    var(--md-sys-color-on-primary-container)
-  );
-}
-
 [part='container'] {
   align-items: center;
   justify-content: space-between;
@@ -98,4 +86,25 @@
 
 ::slotted(md-icon-button-toggle[variant='tonal']:not(:state(checked))) {
   --_background-color: transparent;
+}
+
+
+/* @TODO: Not done yet */
+:host([color='vibrant']) {
+  --_container-color: var(
+    --md-toolbar-container-color,
+    var(--md-sys-color-primary-container)
+  );
+  --_on-color: var(
+    --md-toolbar-on-color,
+    var(--md-sys-color-on-primary-container)
+  );
+}
+:host([color='vibrant']) ::slotted(md-icon-button[variant='standard']),
+:host([color='vibrant']) ::slotted(md-icon-button-toggle[variant='tonal']) {
+  --_text-color: var(--md-sys-color-on-primary-container);
+}
+:host([color='vibrant']) ::slotted(md-icon-button-toggle[variant='tonal']:state(checked)) {
+  --_background-color: var(--md-sys-color-surface-container);
+  --_text-color: var(--md-sys-color-on-surface);
 }

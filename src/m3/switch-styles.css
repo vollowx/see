@@ -31,6 +31,7 @@
   transition:
     background-color 67ms linear,
     border-color 67ms linear;
+  -webkit-user-select: none;
   user-select: none;
   vertical-align: top;
   width: 52px;
