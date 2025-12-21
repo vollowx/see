@@ -38,7 +38,7 @@
     "dev": "wds --watch --node-resolve",
     "build": "node scripts/convert-styles.mjs build && tsc",
     "cleanup": "node scripts/cleanup.mjs",
-    "prepublishOnly": "bun cleanup && bun build",
+    "prepublishOnly": "bun cleanup && bun run build",
     "styles": "node scripts/convert-styles.mjs",
     "styles:build": "node scripts/convert-styles.mjs build",
     "styles:watch": "node scripts/convert-styles.mjs watch",
