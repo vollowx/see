@@ -56,8 +56,19 @@ export class Menu extends MenuBase {
   ];
 
   @property({ type: Boolean, reflect: true }) open: boolean = false;
-  @property({ reflect: true }) position: 'top' | 'bottom' | 'left' | 'right' =
-    'bottom';
+  @property({ reflect: true }) position:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left-start'
+    | 'left-end'
+    | 'right-start'
+    | 'right-end' = 'bottom-start';
   @property({ type: Number, reflect: true }) menuOffset = 0;
 
   @query('[part="menu-surface"]') surface: HTMLElement | undefined;

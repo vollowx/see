@@ -100,7 +100,12 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
       this.trigger?.addEventListener('keydown', this.#boundKeyDown);
       // Defer initialization to avoid update loop
       setTimeout(() => {
-        this.value = this.initializeOptions(true, this.value);
+        const newValue = this.initializeOptions(true, this.value);
+        if (newValue !== this.value) {
+          this.value = newValue;
+        } else {
+          this.requestUpdate();
+        }
       }, 0);
     }
 
@@ -422,7 +427,7 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
         this[internals].setFormValue(this.value);
 
         this.dispatchEvent(
-          new CustomEvent('dropdown-change', {
+          new CustomEvent('change', {
             detail: { value: this.value },
             bubbles: true,
             composed: true,

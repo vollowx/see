@@ -134,41 +134,41 @@
 
         <label slot="controls" for="button-opt-size">
           Size
-          <select name="size" id="button-opt-size">
-            <option>xsmall</option>
-            <option selected>small</option>
-            <option>medium</option>
-            <option>large</option>
-            <option>xlarge</option>
-          </select>
+          <md-select name="size" id="button-opt-size" value="small">
+            <md-option value="xsmall">xsmall</md-option>
+            <md-option value="small">small</md-option>
+            <md-option value="medium">medium</md-option>
+            <md-option value="large">large</md-option>
+            <md-option value="xlarge">xlarge</md-option>
+          </md-select>
         </label>
 
         <label slot="controls" for="button-opt-shape">
           Shape
-          <select name="shape" id="button-opt-shape">
-            <option selected>rounded</option>
-            <option>square</option>
-          </select>
+          <md-select name="shape" id="button-opt-shape" value="rounded">
+            <md-option value="rounded">rounded</md-option>
+            <md-option value="square">square</md-option>
+          </md-select>
         </label>
 
         <label slot="controls" for="button-opt-variant">
           Variant
-          <select name="variant" id="button-opt-variant">
-            <option selected>filled</option>
-            <option>tonal</option>
-            <option>elevated</option>
-            <option>outlined</option>
-            <option>text</option>
-          </select>
+          <md-select name="variant" id="button-opt-variant" value="filled">
+            <md-option value="filled">filled</md-option>
+            <md-option value="tonal">tonal</md-option>
+            <md-option value="elevated">elevated</md-option>
+            <md-option value="outlined">outlined</md-option>
+            <md-option value="text">text</md-option>
+          </md-select>
         </label>
 
         <label slot="controls" for="button-opt-color">
           Color
-          <select name="color" id="button-opt-color">
-            <option selected>primary</option>
-            <option>secondary</option>
-            <option>tertiary</option>
-          </select>
+          <md-select name="color" id="button-opt-color" value="primary">
+            <md-option value="primary">primary</md-option>
+            <md-option value="secondary">secondary</md-option>
+            <md-option value="tertiary">tertiary</md-option>
+          </md-select>
         </label>
 
         <label slot="controls" for="button-opt-disabled">
@@ -1036,6 +1036,27 @@
           semper arcu. Nullam eget est sed sem iaculis gravida eget vitae
           justo.</md-tooltip
         >
+      </dc-demo>
+
+      <h2>Select</h2>
+
+      <p>Selects allow users to choose one or more items from a list of values.</p>
+
+      <h3>Interactive Demo</h3>
+
+      <dc-demo>
+        <md-select>
+          <md-option value="apple">Apple</md-option>
+          <md-option value="apricot">Apricot</md-option>
+          <md-option value="banana">Banana</md-option>
+          <md-option value="cherry">Cherry</md-option>
+          <md-option value="grape">Grape</md-option>
+          <md-option value="lemon">Lemon</md-option>
+          <md-option value="mango">Mango</md-option>
+          <md-option value="orange">Orange</md-option>
+          <md-option value="strawberry">Strawberry</md-option>
+          <md-option value="watermelon">Watermelon</md-option>
+        </md-select>
       </dc-demo>
 
       <h2>About</h2>
