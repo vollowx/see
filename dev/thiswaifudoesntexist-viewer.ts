@@ -12,11 +12,11 @@ export class ThisWaifuDoesNotExist extends LitElement {
       :host {
         border-radius: 36px;
         display: block;
-        height: 400px;
+        height: 360px;
         position: relative;
         -webkit-user-select: none;
         user-select: none;
-        width: 400px;
+        width: 360px;
       }
       .image {
         border-radius: inherit;
@@ -43,9 +43,10 @@ export class ThisWaifuDoesNotExist extends LitElement {
 
       md-icon {
         display: inline-block;
-        font-family: 'Material Symbols Outlined';
+        font-family: 'Material Symbols Rounded';
         font-style: normal;
         font-weight: normal;
+        font-variation-settings: var(--_icon-font-config);
         letter-spacing: normal;
         line-height: 1;
         text-transform: none;

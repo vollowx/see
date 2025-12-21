@@ -1,6 +1,13 @@
 :host {
   --_on-color: var(--md-sys-color-on-primary);
   --_color: var(--md-sys-color-primary);
+  /* [size='small'] */
+  --_height: 40px;
+  --_padding: 16px;
+  --_padding-icon: 8px;
+  --_icon-size: 20px;
+  --_square-radius: 12px;
+  --_pressed-radius: 8px;
 
   --_text-color: var(--_on-color);
   --_background-color: var(--_color);
@@ -11,7 +18,8 @@
     var(--_background-color) var(--_background-opacity, 100%),
     transparent
   );
-  border-radius: 20px;
+  border-radius: calc(var(--_height) / 2);
+  --md-focus-ring-shape: calc(var(--_height) / 2);
   box-sizing: border-box;
   color: color-mix(
     in srgb,
@@ -21,12 +29,12 @@
   cursor: pointer;
   display: inline-flex;
   font: var(--md-sys-typography-label-large);
-  gap: 8px;
-  height: 40px;
+  gap: var(--_padding-icon);
+  height: var(--_height);
   justify-content: center;
   min-width: 64px;
   outline: 0;
-  padding-inline: 24px;
+  padding-inline: var(--_padding);
   position: relative;
   -webkit-tap-highlight-color: transparent;
   transition:
@@ -35,6 +43,44 @@
   -webkit-user-select: none;
   user-select: none;
   vertical-align: top;
+}
+
+:host([size='xsmall']) {
+  --_height: 32px;
+  --_padding: 12px;
+  --_padding-icon: 4px;
+}
+:host([size='medium']) {
+  --_height: 56px;
+  --_padding: 24px;
+  --_padding-icon: 8px;
+  --_icon-size: 24px;
+  --_square-radius: 16px;
+  --_pressed-radius: 12px;
+  font: var(--md-sys-typography-title-medium);
+}
+:host([size='large']) {
+  --_height: 96px;
+  --_padding: 48px;
+  --_padding-icon: 12px;
+  --_icon-size: 32px;
+  --_square-radius: 28px;
+  --_pressed-radius: 16px;
+  font: var(--md-sys-typography-headline-small);
+}
+:host([size='xlarge']) {
+  --_height: 136px;
+  --_padding: 64px;
+  --_padding-icon: 16px;
+  --_icon-size: 40px;
+  --_square-radius: 28px;
+  --_pressed-radius: 16px;
+  font: var(--md-sys-typography-headline-medium);
+}
+
+:host([shape='square']) {
+  border-radius: var(--_square-radius);
+  --md-focus-ring-shape: var(--_square-radius);
 }
 
 :host([color='secondary']) {
@@ -58,6 +104,7 @@
 :host([variant='outlined']) {
   --_background-color: transparent !important;
   --_text-color: var(--_color);
+  --md-focus-ring-offset: 3px;
   border-width: 1px;
   border-style: solid;
   border-color: color-mix(
@@ -66,10 +113,7 @@
     transparent
   );
   box-shadow: none !important;
-  padding-inline: 23px;
-}
-:host([variant='outlined']) md-focus-ring {
-  --md-focus-ring-offset: 3px;
+  padding-inline: calc(var(--_padding) - 1px);
 }
 :host([variant='text']) {
   --_background-color: transparent !important;
@@ -89,7 +133,8 @@
 
 /* TODO: Space key pressed should also trigger active state */
 :host(:active) {
-  border-radius: 8px;
+  border-radius: var(--_pressed-radius);
+  --md-focus-ring-shape: var(--_pressed-radius);
 }
 
 :host(:disabled) {
@@ -110,12 +155,6 @@
 ::slotted([slot='trailingicon']) {
   block-size: 1em;
   fill: currentcolor;
-  font-size: 18px;
+  font-size: var(--_icon-size);
   inline-size: 1em;
-}
-:host(:not([variant='text'])) ::slotted([slot='icon']) {
-  margin-inline-start: -8px;
-}
-:host(:not([variant='text'])) ::slotted([slot='trailingicon']) {
-  margin-inline-end: -8px;
 }

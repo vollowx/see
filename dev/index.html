@@ -9,12 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <style>
       :root[data-md-theme='light'] {
@@ -100,7 +100,9 @@
       }
 
       :root {
-        --md-sys-typography-family: 'DM Sans', sans-serif;
+        --_icon-font-config: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+
+        --md-sys-typography-family: 'Lexend', sans-serif;
 
         --md-sys-typography-display-large: 400 3.5625rem / 4rem
           var(--md-sys-typography-family);
@@ -238,6 +240,7 @@
         padding-inline: 2px;
       }
 
+      /* Further consideration needed on the link/input implementation with buttons */
       a:has(md-button),
       a:has(md-fab),
       a:has(md-icon-button) {
@@ -272,14 +275,43 @@
       /* Fake web component */
       md-icon {
         display: inline-block;
-        font-family: 'Material Symbols Outlined';
+        font-family: 'Material Symbols Rounded';
         font-style: normal;
         font-weight: normal;
+        font-variation-settings: var(--_icon-font-config);
         letter-spacing: normal;
         line-height: 1;
         text-transform: none;
         white-space: nowrap;
         word-wrap: normal;
+      }
+
+      body {
+        padding: 16px;
+      }
+
+      .masonry {
+        column-count: 1;
+        column-gap: 16px;
+      }
+      @media (min-width: 640px) {
+        .masonry {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 1024px) {
+        body {
+          padding: 32px 64px;
+        }
+        .masonry {
+          column-count: 3;
+        }
+      }
+      .card {
+        break-inside: avoid;
+        margin-bottom: 16px;
+        display: inline-block;
+        width: 100%;
       }
     </style>
   </head>
@@ -368,145 +400,259 @@
       });
     </script>
 
-    <md-toolbar>
-      <md-icon-button aria-label="Back">
-        <md-icon>arrow_back</md-icon>
-      </md-icon-button>
-      <md-icon-button aria-label="Forward">
-        <md-icon>arrow_forward</md-icon>
-      </md-icon-button>
-      <md-fab size="small" color="primary" aria-label="New tab">
-        <md-icon>add</md-icon>
-      </md-fab>
-      <md-icon-button aria-label="Tabs">
-        <md-icon>tab</md-icon>
-      </md-icon-button>
-      <md-icon-button aria-label="More options">
-        <md-icon>more_vert</md-icon>
-      </md-icon-button>
-    </md-toolbar>
+    <h1>see dev tests</h1>
 
-    <details>
-      <summary>M3Button</summary>
+    <div class="masonry">
+      <div class="card">
+        <h2>icon font config</h2>
 
-      <md-button>Filled</md-button>
-      <md-button variant="tonal">Tonal</md-button>
-      <md-button variant="elevated">Elevated</md-button>
-      <md-button variant="outlined">Outlined</md-button>
-      <md-button variant="text">Text</md-button>
+        weight from 100-700, step: 100
+        <input
+          type="range"
+          id="icon-weight"
+          min="100"
+          max="700"
+          step="100"
+          value="400"
+        />
+        <script>
+          const iconWeightInput = document.querySelector('#icon-weight');
+          iconWeightInput.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty(
+              '--_icon-font-config',
+              `'FILL' 1, 'wght' ${e.target.value}, 'GRAD' 0, 'opsz' 24`
+            );
+          });
+        </script>
+      </div>
 
-      <br />
+      <div class="card">
+        <h2>M3Button</h2>
 
-      <md-button disabled>Filled</md-button>
-      <md-button disabled variant="tonal">Tonal</md-button>
-      <md-button disabled variant="elevated">Elevated</md-button>
-      <md-button disabled variant="outlined">Outlined</md-button>
-      <md-button disabled variant="text">Text</md-button>
+        <md-button size="xsmall"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="small"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="medium"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="large"
+          ><md-icon slot="icon">edit</md-icon>Button</md-button
+        >
+        <md-button size="xlarge" variant="outlined"
+          ><md-icon slot="icon">edit</md-icon>Button</md-button
+        >
 
-      <br />
+        <br />
 
-      <md-button><md-icon slot="icon">add</md-icon> Filled</md-button>
-      <md-button variant="tonal"
-        ><md-icon slot="icon">add</md-icon>Tonal</md-button
-      >
-      <md-button variant="elevated"
-        ><md-icon slot="icon">add</md-icon>Elevated</md-button
-      >
-      <md-button variant="outlined"
-        ><md-icon slot="icon">add</md-icon>Outlined</md-button
-      >
-      <md-button variant="text"
-        ><md-icon slot="icon">add</md-icon>Text</md-button
-      >
+        <md-button size="xsmall" shape="square"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="small" shape="square"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="medium" shape="square"
+          ><md-icon slot="icon">edit</md-icon>Common Button</md-button
+        >
+        <md-button size="large" shape="square"
+          ><md-icon slot="icon">edit</md-icon>Button</md-button
+        >
+        <md-button size="xlarge" shape="square" variant="outlined"
+          ><md-icon slot="icon">edit</md-icon>Button</md-button
+        >
 
-      <br />
+        <br />
 
-      <md-button disabled><md-icon slot="icon">add</md-icon> Filled</md-button>
-      <md-button disabled variant="tonal"
-        ><md-icon slot="icon">add</md-icon>Tonal</md-button
-      >
-      <md-button disabled variant="elevated"
-        ><md-icon slot="icon">add</md-icon>Elevated</md-button
-      >
-      <md-button disabled variant="outlined"
-        ><md-icon slot="icon">add</md-icon>Outlined</md-button
-      >
-      <md-button disabled variant="text"
-        ><md-icon slot="icon">add</md-icon>Text</md-button
-      >
+        <md-button>Filled</md-button>
+        <md-button variant="tonal">Tonal</md-button>
+        <md-button variant="elevated">Elevated</md-button>
+        <md-button variant="outlined">Outlined</md-button>
+        <md-button variant="text">Text</md-button>
 
-      <br />
+        <br />
 
-      <md-button><md-icon slot="trailingicon">add</md-icon> Filled</md-button>
-      <md-button variant="tonal"
-        ><md-icon slot="trailingicon">add</md-icon>Tonal</md-button
-      >
-      <md-button variant="elevated"
-        ><md-icon slot="trailingicon">add</md-icon>Elevated</md-button
-      >
-      <md-button variant="outlined"
-        ><md-icon slot="trailingicon">add</md-icon>Outlined</md-button
-      >
-      <md-button variant="text"
-        ><md-icon slot="trailingicon">add</md-icon>Text</md-button
-      >
-    </details>
+        <md-button disabled>Filled</md-button>
+        <md-button disabled variant="tonal">Tonal</md-button>
+        <md-button disabled variant="elevated">Elevated</md-button>
+        <md-button disabled variant="outlined">Outlined</md-button>
+        <md-button disabled variant="text">Text</md-button>
 
-    <details>
-      <summary>M3FAB</summary>
+        <br />
 
-      <md-fab color="primary" aria-label="Accessibility">
-        <md-icon>accessible_forward</md-icon>
-      </md-fab>
-      <md-fab size="small" color="tertiary" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-      <md-fab size="large" aria-label="Color palette">
-        <md-icon>palette</md-icon>
-      </md-fab>
+        <md-button><md-icon slot="icon">add</md-icon>Filled</md-button>
+        <md-button variant="tonal"
+          ><md-icon slot="icon">add</md-icon>Tonal</md-button
+        >
+        <md-button variant="elevated"
+          ><md-icon slot="icon">add</md-icon>Elevated</md-button
+        >
+        <md-button variant="outlined"
+          ><md-icon slot="icon">add</md-icon>Outlined</md-button
+        >
+        <md-button variant="text"
+          ><md-icon slot="icon">add</md-icon>Text</md-button
+        >
 
-      <br />
+        <br />
 
-      <md-fab>
-        <md-icon>navigation</md-icon>
-        <span slot="label">Navigation</span>
-      </md-fab>
-      <md-fab><span slot="label">Reroute</span></md-fab>
+        <md-button disabled><md-icon slot="icon">add</md-icon>Filled</md-button>
+        <md-button disabled variant="tonal"
+          ><md-icon slot="icon">add</md-icon>Tonal</md-button
+        >
+        <md-button disabled variant="elevated"
+          ><md-icon slot="icon">add</md-icon>Elevated</md-button
+        >
+        <md-button disabled variant="outlined"
+          ><md-icon slot="icon">add</md-icon>Outlined</md-button
+        >
+        <md-button disabled variant="text"
+          ><md-icon slot="icon">add</md-icon>Text</md-button
+        >
 
-      <br />
+        <br />
 
-      <md-fab lowered aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
+        <md-button><md-icon slot="trailingicon">add</md-icon>Filled</md-button>
+        <md-button variant="tonal"
+          ><md-icon slot="trailingicon">add</md-icon>Tonal</md-button
+        >
+        <md-button variant="elevated"
+          ><md-icon slot="trailingicon">add</md-icon>Elevated</md-button
+        >
+        <md-button variant="outlined"
+          ><md-icon slot="trailingicon">add</md-icon>Outlined</md-button
+        >
+        <md-button variant="text"
+          ><md-icon slot="trailingicon">add</md-icon>Text</md-button
+        >
+      </div>
 
-      <br />
+      <div class="card">
+        <h2>M3Toolbar</h2>
 
-      <md-fab color="primary" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-      <md-fab color="secondary" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-      <md-fab color="tertiary" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
+        <div class="phone">
+          <md-toolbar style="position: absolute; bottom: 0">
+            <md-button variant="text">Back</md-button>
+            <md-button>Next</md-button>
+          </md-toolbar>
+        </div>
 
-      <br />
+        <div class="phone">
+          <md-toolbar style="position: absolute; bottom: 0">
+            <md-icon-button aria-label="Back">
+              <md-icon>arrow_back</md-icon>
+            </md-icon-button>
+            <md-icon-button aria-label="Forward">
+              <md-icon>arrow_forward</md-icon>
+            </md-icon-button>
+            <md-fab size="small" color="primary" aria-label="New tab">
+              <md-icon>add</md-icon>
+            </md-fab>
+            <md-icon-button aria-label="Tabs">
+              <md-icon>tab</md-icon>
+            </md-icon-button>
+            <md-icon-button aria-label="More options">
+              <md-icon>more_vert</md-icon>
+            </md-icon-button>
+          </md-toolbar>
+        </div>
 
-      <md-fab size="small" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-      <md-fab aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-      <md-fab size="large" aria-label="Edit">
-        <md-icon>edit</md-icon>
-      </md-fab>
-    </details>
+        <style>
+          .phone {
+            background-color: var(--md-sys-color-surface);
+            border: 8px solid var(--md-sys-color-outline);
+            border-radius: 24px;
+            display: inline-block;
+            width: 360px;
+            height: 800px;
+            overflow: hidden;
+            position: relative;
+          }
+          .phone.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 200;
+            border: none;
+            border-radius: 0;
+            width: 100dvw;
+            height: 100dvh;
+          }
+        </style>
 
-    <details>
-      <summary>Guess what?</summary>
-      <twdne-viewer></twdne-viewer>
-    </details>
+        <script>
+          document.querySelectorAll('.phone').forEach((phone) => {
+            let lastTap = 0;
+            phone.addEventListener('touchend', (e) => {
+              const currentTime = new Date().getTime();
+              const tapLength = currentTime - lastTap;
+              if (tapLength < 300 && tapLength > 0) {
+                phone.classList.toggle('fullscreen');
+                e.preventDefault();
+              }
+              lastTap = currentTime;
+            });
+          });
+        </script>
+      </div>
+
+      <div class="card">
+        <h2>M3FAB</h2>
+
+        <md-fab color="primary" aria-label="Accessibility">
+          <md-icon>accessible_forward</md-icon>
+        </md-fab>
+        <md-fab size="small" color="tertiary" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+        <md-fab size="large" aria-label="Color palette">
+          <md-icon>palette</md-icon>
+        </md-fab>
+
+        <br />
+
+        <md-fab>
+          <md-icon>navigation</md-icon>
+          <span slot="label">Navigation</span>
+        </md-fab>
+        <md-fab><span slot="label">Reroute</span></md-fab>
+
+        <br />
+
+        <md-fab lowered aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+
+        <br />
+
+        <md-fab color="primary" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+        <md-fab color="secondary" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+        <md-fab color="tertiary" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+
+        <br />
+
+        <md-fab size="small" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+        <md-fab aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+        <md-fab size="large" aria-label="Edit">
+          <md-icon>edit</md-icon>
+        </md-fab>
+      </div>
+
+      <div class="card">
+        <h2>Guess what?</h2>
+        <twdne-viewer></twdne-viewer>
+      </div>
+    </div>
   </body>
 </html>

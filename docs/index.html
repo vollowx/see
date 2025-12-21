@@ -132,6 +132,25 @@
           Controlled
         </md-button>
 
+        <label slot="controls" for="button-opt-size">
+          Size
+          <select name="size" id="button-opt-size">
+            <option>xsmall</option>
+            <option selected>small</option>
+            <option>medium</option>
+            <option>large</option>
+            <option>xlarge</option>
+          </select>
+        </label>
+
+        <label slot="controls" for="button-opt-shape">
+          Shape
+          <select name="shape" id="button-opt-shape">
+            <option selected>rounded</option>
+            <option>square</option>
+          </select>
+        </label>
+
         <label slot="controls" for="button-opt-variant">
           Variant
           <select name="variant" id="button-opt-variant">
@@ -163,6 +182,15 @@
             .querySelector('#button-opt-disabled')
             .addEventListener('change', (e) => (cButton.disabled = e.detail));
           document
+            .querySelector('#button-opt-size')
+            .addEventListener('change', (e) => (cButton.size = e.target.value));
+          document
+            .querySelector('#button-opt-shape')
+            .addEventListener(
+              'change',
+              (e) => (cButton.shape = e.target.value)
+            );
+          document
             .querySelector('#button-opt-variant')
             .addEventListener(
               'change',
@@ -180,8 +208,8 @@
       <blockquote class="note">
         <div class="content">
           <p>
-            Colors of filled tonal buttons are not controlled by
-            <code>color</code> attribute.
+            <code>color</code> is not part of the official Material You. Colors
+            of tonal buttons are not controlled by <code>color</code> attribute.
           </p>
         </div>
       </blockquote>

@@ -32,12 +32,19 @@ export class M3Button extends Button {
       <slot part="trailingicon" name="trailingicon" aria-hidden="true"></slot>
     `;
   }
+  @property({ reflect: true }) size:
+    | 'xsmall'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'xlarge' = 'small';
+  @property({ reflect: true }) shape: 'rounded' | 'square' = 'rounded';
+  @property({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' =
+    'primary';
   @property({ reflect: true }) variant:
     | 'filled'
     | 'tonal'
     | 'elevated'
     | 'outlined'
     | 'text' = 'filled';
-  @property({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' =
-    'primary';
 }
