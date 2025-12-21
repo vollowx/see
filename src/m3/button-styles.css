@@ -12,6 +12,7 @@
   --_text-color: var(--_on-color);
   --_background-color: var(--_color);
   --_outline-color: var(--md-sys-color-outline);
+  --md-focus-ring-shape: calc(var(--_height) / 2);
   align-items: center;
   background-color: color-mix(
     in srgb,
@@ -19,7 +20,6 @@
     transparent
   );
   border-radius: calc(var(--_height) / 2);
-  --md-focus-ring-shape: calc(var(--_height) / 2);
   box-sizing: border-box;
   color: color-mix(
     in srgb,
@@ -79,8 +79,8 @@
 }
 
 :host([shape='square']) {
-  border-radius: var(--_square-radius);
   --md-focus-ring-shape: var(--_square-radius);
+  border-radius: var(--_square-radius);
 }
 
 :host([color='secondary']) {
@@ -105,13 +105,13 @@
   --_background-color: transparent !important;
   --_text-color: var(--_color);
   --md-focus-ring-offset: 3px;
-  border-width: 1px;
-  border-style: solid;
   border-color: color-mix(
     in srgb,
     var(--_outline-color) var(--_outline-opacity, 100%),
     transparent
   );
+  border-style: solid;
+  border-width: 1px;
   box-shadow: none !important;
   padding-inline: calc(var(--_padding) - 1px);
 }
@@ -133,8 +133,8 @@
 
 /* TODO: Space key pressed should also trigger active state */
 :host(:active) {
-  border-radius: var(--_pressed-radius);
   --md-focus-ring-shape: var(--_pressed-radius);
+  border-radius: var(--_pressed-radius);
 }
 
 :host(:disabled) {

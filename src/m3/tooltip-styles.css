@@ -8,13 +8,13 @@
   font: var(--md-sys-typography-body-small);
   left: 0;
   max-width: var(--_max-width, 300px);
-  width: max-content;
   min-height: 24px;
   opacity: 0;
   padding: 4px 8px;
   position: absolute;
   top: 0;
   transition: opacity 67ms linear;
+  width: max-content;
   z-index: 9999;
 }
 :host(:state(showing)),

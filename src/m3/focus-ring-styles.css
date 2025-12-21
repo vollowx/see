@@ -38,6 +38,7 @@
 
 :host([inward]) {
   animation-name: inward-grow, inward-shrink;
+  border: var(--md-focus-ring-width, 3px) solid currentColor;
   border-end-end-radius: calc(
     var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) -
       var(--md-focus-ring-inward-offset, 0px)
@@ -54,7 +55,6 @@
     var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) -
       var(--md-focus-ring-inward-offset, 0px)
   );
-  border: var(--md-focus-ring-width, 3px) solid currentColor;
   inset: var(--md-focus-ring-inward-offset, 0px);
 }
 

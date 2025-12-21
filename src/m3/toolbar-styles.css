@@ -7,6 +7,11 @@
   );
   --_on-color: var(--md-toolbar-on-color, var(--md-sys-color-on-surface));
   align-items: center;
+  background-color: color-mix(
+    in srgb,
+    var(--_container-color) var(--_container-opacity, 100%),
+    transparent
+  );
   box-sizing: border-box;
   color: color-mix(
     in srgb,
@@ -16,11 +21,6 @@
   display: flex;
   height: 64px;
   width: 100%;
-  background-color: color-mix(
-    in srgb,
-    var(--_container-color) var(--_container-opacity, 100%),
-    transparent
-  );
 }
 
 :host([type='floating']) {
@@ -44,14 +44,14 @@
 
 [part='container'] {
   align-items: center;
-  justify-content: space-between;
   box-sizing: border-box;
   display: flex;
   flex: 1 1 auto;
   gap: var(--_gap);
   height: 56px;
-  width: 100%;
+  justify-content: space-between;
   padding: 0 var(--_padding);
+  width: 100%;
 }
 :host([type='floating']) [part='container'] {
   background-color: color-mix(
@@ -77,9 +77,9 @@
 }
 :host([type='floating'][orientation='vertical']) [part='container'] {
   flex-direction: column;
-  width: 100%;
   height: fit-content;
   padding: var(--_padding) 0;
+  width: 100%;
 }
 
 ::slotted(md-fab) {
