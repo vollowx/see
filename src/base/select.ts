@@ -107,6 +107,12 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
     protected override updated(changed: Map<string, any>) {
       super.updated(changed);
       if (changed.has('open')) {
+        const oldOpen = changed.get('open');
+        if (oldOpen === undefined && !this.open) {
+          this.trigger?.setAttribute('aria-expanded', 'false');
+          this.trigger?.setAttribute('aria-activedescendant', '');
+          return;
+        }
         this.#updateMenuState();
       }
     }

@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { Option } from './option';
+import { Option } from './option.js';
+import { MenuItem } from './menu-item.js';
 
 export class List extends LitElement {
   @property({ type: Number }) activeIndex = -1;
@@ -14,7 +15,8 @@ export class List extends LitElement {
     return (slot.assignedElements({ flatten: true }) as HTMLElement[]).filter(
       (el) =>
         !el.hasAttribute('disabled') &&
-        (el.getAttribute('role') === 'option' ||
+        (el instanceof MenuItem ||
+          el.getAttribute('role') === 'option' ||
           el.getAttribute('role') === 'menuitem')
     );
   }
@@ -85,16 +87,25 @@ export class List extends LitElement {
     this.activeIndex = index;
     const item = items[index];
 
+    // Handle option activation
+    if (
+      item instanceof Option ||
+      item.getAttribute('role') === 'option' ||
+      'focused' in item
+    ) {
+      (items as Option[]).forEach((option) => {
+        if ('focused' in option) option.focused = false;
+      });
+      if ('focused' in item) (item as Option).focused = true;
+    }
     // Handle roving tabindex for menu items
-    if (item.getAttribute('role') === 'menuitem') {
+    else if (
+      item instanceof MenuItem ||
+      item.getAttribute('role') === 'menuitem'
+    ) {
       items.forEach((el) => el.setAttribute('tabindex', '-1'));
       item.setAttribute('tabindex', '0');
       item.focus();
-    }
-    // Handle option activation
-    else if (item.getAttribute('role') === 'option') {
-      (items as Option[]).forEach((option) => (option.focused = false));
-      (item as Option).focused = true;
     }
 
     // Dispatch event for parent to handle (e.g. setting aria-activedescendant or focusing)

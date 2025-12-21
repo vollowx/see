@@ -6,3 +6,9 @@
   user-select: none;
   --md-focus-ring-shape: 8px;
 }
+
+:host(:disabled) {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.3;
+}

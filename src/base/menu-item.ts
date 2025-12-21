@@ -1,21 +1,21 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { hiddenStyles } from './hidden-styles.css.js';
+import { InternalsAttached, internals } from './internals-attached.js';
+import { FormAssociated } from './form-associated.js';
 
-export class MenuItem extends LitElement {
+export class MenuItem extends FormAssociated(InternalsAttached(LitElement)) {
   static override styles = [hiddenStyles];
 
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   override connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'menuitem');
-    }
+    this[internals].role = 'menuitem';
     this.addEventListener('keydown', this.#boundKeyDown);
     this.addEventListener('keyup', this.#boundKeyUp);
     this.addEventListener('click', this.#boundClick);
-    this.#updateTabindex();
+    this.#updateInternals();
   }
 
   override disconnectedCallback() {
@@ -28,13 +28,13 @@ export class MenuItem extends LitElement {
   protected override updated(changed: Map<string, any>) {
     super.updated(changed);
     if (changed.has('disabled')) {
-      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-      this.#updateTabindex();
+      this.#updateInternals();
     }
   }
 
-  #updateTabindex() {
+  #updateInternals() {
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
   }
 
   #boundKeyDown = this.#handleKeyDown.bind(this);

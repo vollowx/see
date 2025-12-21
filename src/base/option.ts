@@ -1,5 +1,6 @@
-import { html } from 'lit';
 import { property } from 'lit/decorators.js';
+
+import { internals } from './internals-attached.js';
 import { MenuItem } from './menu-item.js';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
@@ -12,9 +13,10 @@ export const OptionMixin = <T extends Constructor<MenuItem>>(superClass: T) => {
 
     override connectedCallback() {
       super.connectedCallback();
-      this.setAttribute('role', 'option');
+      this[internals].role = 'option';
       this.setAttribute('tabindex', '-1');
       this.addEventListener('click', this.#handleOptionClick);
+      this.#updateInternals();
     }
 
     override disconnectedCallback() {
@@ -25,8 +27,11 @@ export const OptionMixin = <T extends Constructor<MenuItem>>(superClass: T) => {
     protected override updated(changed: Map<string, any>) {
       super.updated(changed);
       if (changed.has('selected')) {
-        this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+        this.#updateInternals();
       }
+    }
+    #updateInternals() {
+      this[internals].ariaSelected = this.selected ? 'true' : 'false';
       this.setAttribute('tabindex', '-1');
     }
 
