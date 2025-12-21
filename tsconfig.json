@@ -4,7 +4,6 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "noEmit": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
     "noImplicitAny": false,
