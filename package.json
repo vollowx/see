@@ -42,6 +42,7 @@
     "styles": "node scripts/convert-styles.mjs",
     "styles:build": "node scripts/convert-styles.mjs build",
     "styles:watch": "node scripts/convert-styles.mjs watch",
+    "styles:sort": "bunx postcss \"src/**/*.css\" --replace --no-map",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --check --write",
     "docs:dev": "vite --open /docs/ --host",
@@ -49,21 +50,23 @@
     "docs:preview": "vite preview docs --host"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
     "@web/dev-server": "^0.4.6",
     "@web/dev-server-esbuild": "^1.0.2",
     "chokidar": "^5.0.0",
     "lightningcss": "^1.25.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-sorting": "^9.0.0",
     "prettier": "^3.3.2",
     "rollup": "^4.18.1",
     "rollup-plugin-terser": "^7.0.2",
-    "tslib": "^2.6.3",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
     "vite-plugin-html": "^3.2.2"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.7",
-    "lit": "^3.1.4"
+    "lit": "^3.1.4",
+    "tslib": "^2.6.3"
   }
 }
