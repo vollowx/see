@@ -150,7 +150,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
 
     ripple.animate(
       {
-        opacity: [0, 0.12],
+        opacity: [0, 0.1],
       },
       {
         duration: OPACITY_IN_MS,
