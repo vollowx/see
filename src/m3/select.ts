@@ -2,8 +2,10 @@ import { css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { SelectMixin } from '../base/select.js';
 import { M3Menu } from './menu.js';
+import { FormAssociated } from '../base/form-associated.js';
+import { InternalsAttached } from '../base/internals-attached.js';
 
-const Base = SelectMixin(M3Menu);
+const Base = SelectMixin(FormAssociated(InternalsAttached(M3Menu)));
 
 @customElement('md-select')
 export class M3Select extends Base {

@@ -1,6 +1,8 @@
-import { html, css } from 'lit';
+import { html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { Menu } from './menu.js';
+import { FormAssociated } from './form-associated.js';
+import { InternalsAttached, internals } from './internals-attached.js';
 
 // Action types for keyboard handling
 const SelectActions = {
@@ -16,8 +18,6 @@ const SelectActions = {
   Select: 9,
   Type: 10,
 };
-
-type Constructor<T = {}> = new (...args: any[]) => T;
 
 export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
   class SelectElement extends superClass {
@@ -70,7 +70,6 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
         const isSelected = optValue === selectedValue;
 
         (option as any).selected = isSelected;
-        option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
 
         if (isSelected) {
           this.activeIndex = index;
@@ -83,7 +82,8 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
 
     override connectedCallback() {
       super.connectedCallback();
-      this.setAttribute('role', 'combobox');
+      this.removeAttribute('role'); // Since Menu doesn't use Internals
+      this[internals].role = 'combobox';
       this.addEventListener('option-selected', this.#handleOptionSelected);
       document.addEventListener('click', this.#handleDocumentClick);
     }
@@ -409,18 +409,17 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
 
       options.forEach((option) => {
         (option as any).selected = false;
-        option.setAttribute('aria-selected', 'false');
       });
 
       if (options[index]) {
         const selected = options[index] as any;
         selected.selected = true;
-        selected.setAttribute('aria-selected', 'true');
         const selectedValue = selected.value;
         this.activeIndex = index;
 
         // Update reactive properties
         this.value = selectedValue;
+        this[internals].setFormValue(this.value);
 
         this.dispatchEvent(
           new CustomEvent('dropdown-change', {
@@ -449,4 +448,6 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
   return SelectElement;
 };
 
-export class Select extends SelectMixin(Menu) {}
+export class Select extends SelectMixin(
+  FormAssociated(InternalsAttached(Menu))
+) {}
