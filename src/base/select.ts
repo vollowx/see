@@ -29,6 +29,7 @@ export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
 
     @query('.dropdown-trigger') trigger: HTMLElement | undefined;
 
+    // @ts-ignore
     override get $control() {
       return this.trigger || null;
     }
