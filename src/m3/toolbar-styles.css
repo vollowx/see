@@ -82,7 +82,7 @@
   width: 100%;
 }
 
-::slotted(md-fab) {
+:host(:not([type='floating'])) ::slotted(md-fab) {
   box-shadow: none;
 }
 ::slotted(md-icon-button-toggle[variant='tonal']:not(:state(checked))) {
