@@ -10,7 +10,6 @@ export class List extends LitElement {
   @query('slot') slotElement!: HTMLSlotElement;
 
   private _previousActiveItem: MenuItem | null = null;
-  private static _instanceCounter = 0;
 
   get items(): HTMLElement[] {
     const slot = this.slotElement;
