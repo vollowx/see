@@ -8,6 +8,11 @@ export class MenuItem extends FormAssociated(InternalsAttached(LitElement)) {
   static override styles = [hiddenStyles];
 
   @property({ type: Boolean, reflect: true }) disabled = false;
+  /**
+   * Indicates whether this item is the active descendant in the menu.
+   * Used with aria-activedescendant pattern for accessibility.
+   * Set to true when this item is the currently focused/highlighted item in keyboard navigation.
+   */
   @property({ type: Boolean, reflect: true }) active = false;
 
   override connectedCallback() {

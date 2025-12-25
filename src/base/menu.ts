@@ -15,6 +15,9 @@ import { hiddenStyles } from './hidden-styles.css.js';
 
 const MenuBase = Attachable(LitElement);
 
+// Counter for generating unique menu instance IDs
+let menuInstanceCounter = 0;
+
 /**
  * Example render():
  * <div part="menu-surface">
@@ -76,6 +79,7 @@ export class Menu extends MenuBase {
 
   private clearAutoUpdate: Function | null = null;
   private _previousFocus: HTMLElement | null = null;
+  private _menuInstanceId: string;
 
   // Compatibility for Select and other consumers
   get activeIndex(): number {
@@ -100,6 +104,8 @@ export class Menu extends MenuBase {
 
   override connectedCallback() {
     super.connectedCallback();
+    // Generate unique instance ID for this menu
+    this._menuInstanceId = `menu-${++menuInstanceCounter}`;
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'menu');
     }
@@ -227,7 +233,7 @@ export class Menu extends MenuBase {
 
     // Ensure item has an ID for aria-activedescendant
     if (!item.id) {
-      item.id = `menu-item-${index}`;
+      item.id = `${this._menuInstanceId}-item-${index}`;
     }
 
     // Always set aria-activedescendant on the menu surface

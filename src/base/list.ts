@@ -9,6 +9,9 @@ export class List extends LitElement {
 
   @query('slot') slotElement!: HTMLSlotElement;
 
+  private _previousActiveItem: MenuItem | null = null;
+  private static _instanceCounter = 0;
+
   get items(): HTMLElement[] {
     const slot = this.slotElement;
     if (!slot) return [];
@@ -98,17 +101,23 @@ export class List extends LitElement {
       });
       if ('focused' in item) (item as Option).focused = true;
     }
-    // Handle menu items with active attribute (aria-activedescendant pattern)
+    // Handle menu items with active attribute for aria-activedescendant pattern
+    // This pattern keeps focus on the menu container while visually indicating
+    // the active item. We track the previously active item to efficiently update
+    // only the items that changed state (previous active -> inactive, new item -> active)
     else if (
       item instanceof MenuItem ||
       item.getAttribute('role') === 'menuitem'
     ) {
-      items.forEach((el) => {
-        if (el instanceof MenuItem || el.getAttribute('role') === 'menuitem') {
-          if ('active' in el) (el as MenuItem).active = false;
-        }
-      });
-      if ('active' in item) (item as MenuItem).active = true;
+      // Deactivate previously active item
+      if (this._previousActiveItem && 'active' in this._previousActiveItem) {
+        this._previousActiveItem.active = false;
+      }
+      // Activate current item
+      if ('active' in item) {
+        (item as MenuItem).active = true;
+        this._previousActiveItem = item as MenuItem;
+      }
     }
 
     // Dispatch event for parent to handle (e.g. setting aria-activedescendant or focusing)
