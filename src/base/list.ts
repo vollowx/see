@@ -98,14 +98,17 @@ export class List extends LitElement {
       });
       if ('focused' in item) (item as Option).focused = true;
     }
-    // Handle roving tabindex for menu items
+    // Handle menu items with active attribute (aria-activedescendant pattern)
     else if (
       item instanceof MenuItem ||
       item.getAttribute('role') === 'menuitem'
     ) {
-      items.forEach((el) => el.setAttribute('tabindex', '-1'));
-      item.setAttribute('tabindex', '0');
-      item.focus();
+      items.forEach((el) => {
+        if (el instanceof MenuItem || el.getAttribute('role') === 'menuitem') {
+          if ('active' in el) (el as MenuItem).active = false;
+        }
+      });
+      if ('active' in item) (item as MenuItem).active = true;
     }
 
     // Dispatch event for parent to handle (e.g. setting aria-activedescendant or focusing)

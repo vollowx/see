@@ -134,6 +134,10 @@ export class Menu extends MenuBase {
           requestAnimationFrame(() => {
             if (this.getAttribute('role') === 'menu' && this.list) {
               this.list.selectFirst();
+              // Focus the menu surface for aria-activedescendant pattern
+              if (this.surface) {
+                this.surface.focus();
+              }
             }
           });
         });
@@ -221,11 +225,14 @@ export class Menu extends MenuBase {
   #handleListItemActivate(event: CustomEvent) {
     const { item, index } = event.detail;
 
-    if (this.getAttribute('role') !== 'menu') {
-      this.setAttribute(
-        'aria-activedescendant',
-        item.id || `menu-option-${index}`
-      );
+    // Ensure item has an ID for aria-activedescendant
+    if (!item.id) {
+      item.id = `menu-item-${index}`;
+    }
+
+    // Always set aria-activedescendant on the menu surface
+    if (this.surface) {
+      this.surface.setAttribute('aria-activedescendant', item.id);
     }
   }
 }
