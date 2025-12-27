@@ -21,9 +21,7 @@ const SelectActions = {
 
 export const SelectMixin = <T extends Constructor<Menu>>(superClass: T) => {
   class SelectElement extends superClass {
-    static styles = [
-      ...(superClass as any).styles,
-    ];
+    static styles = [...(superClass as any).styles];
 
     @property() value: string = '';
 

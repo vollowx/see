@@ -1,4 +1,5 @@
-:host {align-items: center;
+:host {
+  align-items: center;
   border-radius: inherit;
   box-sizing: border-box;
   color: var(--md-sys-color-on-surface);

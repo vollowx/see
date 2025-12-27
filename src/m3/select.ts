@@ -12,7 +12,7 @@ export class M3Select extends Base {
   static override styles = [
     ...Base.styles,
     css`
-    /* TODO: use md-field */
+      /* TODO: use md-field */
       .dropdown-trigger {
         border: 1px solid var(--md-sys-color-outline);
         background: var(--md-sys-color-surface);

@@ -1,14 +1,14 @@
 :host {
+  --md-focus-ring-shape: 8px;
   display: flex;
   outline: 0;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
   user-select: none;
-  --md-focus-ring-shape: 8px;
 }
 
 :host(:disabled) {
-  pointer-events: none;
   cursor: default;
   opacity: 0.3;
+  pointer-events: none;
 }

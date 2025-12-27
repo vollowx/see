@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Standard Extensible Elements | Demo</title>
-    <script type="module" src="../all.ts"></script>
+    <script type="module" src="../src/all.ts"></script>
     <script type="module" src="./thiswaifudoesntexist-viewer.ts"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -182,16 +182,16 @@
         --md-sys-elevation-level-3: 6;
         --md-sys-elevation-level-4: 8;
         --md-sys-elevation-level-5: 12;
-        --md-sys-elevation-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
-          0px 1px 2px rgba(0, 0, 0, 0.3);
-        --md-sys-elevation-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
-          0px 1px 2px rgba(0, 0, 0, 0.3);
-        --md-sys-elevation-shadow-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
-          0px 1px 3px rgba(0, 0, 0, 0.3);
-        --md-sys-elevation-shadow-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15),
-          0px 2px 3px rgba(0, 0, 0, 0.3);
-        --md-sys-elevation-shadow-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
-          0px 4px 4px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-1:
+          0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-2:
+          0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-3:
+          0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-4:
+          0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
+        --md-sys-elevation-shadow-5:
+          0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
       }
       body {
         accent-color: var(--md-sys-color-primary);
@@ -703,28 +703,15 @@
           <md-option value="watermelon">Watermelon</md-option>
         </md-select>
 
-        <p style="margin-top: 1rem;">
-          <strong>Features:</strong>
-          <ul>
-            <li><code>disabled</code> - Try navigating to disabled options (they can't be selected)</li>
-            <li><code>value</code> - The data attribute for the option</li>
-            <li><code>selected</code> - Marks an option as selected</li>
-          </ul>
-        </p>
-
-        <p style="margin-top: 1rem;">
-          <strong>Keyboard navigation:</strong>
-          <ul>
-            <li>↓/↑ - Navigate options</li>
-            <li>Home/End - Go to first/last option</li>
-            <li>Enter/Space - Open/Select option</li>
-            <li>Escape - Close dropdown</li>
-            <li>Type - Search options by first letter</li>
-          </ul>
-        </p>
-
         <h3>JavaScript Interaction</h3>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+        <div
+          style="
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+          "
+        >
           <md-button variant="text" id="openBtn">Open Select</md-button>
           <md-button variant="text" id="closeBtn">Close Select</md-button>
           <md-button variant="text" id="getValueBtn">Get Value</md-button>
@@ -732,15 +719,18 @@
           <md-button variant="text" id="resetBtn">Reset to Apple</md-button>
         </div>
 
-        <div id="outputBox" style="
-          margin-top: 1rem;
-          padding: 1rem;
-          background: var(--md-sys-color-surface-container);
-          border-radius: 0.25rem;
-          font-family: monospace;
-          min-height: 4rem;
-        ">
-          <strong>Output:</strong><br>
+        <div
+          id="outputBox"
+          style="
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--md-sys-color-surface-container);
+            border-radius: 0.25rem;
+            font-family: monospace;
+            min-height: 4rem;
+          "
+        >
+          <strong>Output:</strong><br />
           <span id="output">Select an option or click buttons above</span>
         </div>
       </div>
@@ -818,7 +808,9 @@
           </md-menu-item>
         </md-menu>
 
-        <p style="margin-top: 1rem;" id="menuOutput">Click the button to open the menu</p>
+        <p style="margin-top: 1rem" id="menuOutput">
+          Click the button to open the menu
+        </p>
       </div>
 
       <script type="module">
@@ -835,9 +827,9 @@
         menu.addEventListener('click', (e) => {
           const item = e.target.closest('md-menu-item');
           if (item && !item.disabled) {
-             const text = item.textContent.trim();
-             menuOutput.innerHTML = `Selected: <strong>${text}</strong>`;
-             menu.open = false;
+            const text = item.textContent.trim();
+            menuOutput.innerHTML = `Selected: <strong>${text}</strong>`;
+            menu.open = false;
           }
         });
 

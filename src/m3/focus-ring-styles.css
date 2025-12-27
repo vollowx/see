@@ -1,6 +1,7 @@
 :host {
   animation-delay: 0s, calc(var(--md-focus-ring-duration, 600ms) * 0.25);
-  animation-duration: calc(var(--md-focus-ring-duration, 600ms) * 0.25),
+  animation-duration:
+    calc(var(--md-focus-ring-duration, 600ms) * 0.25),
     calc(var(--md-focus-ring-duration, 600ms) * 0.75);
   animation-timing-function: var(--md-sys-motion-easing-emphasized);
   box-sizing: border-box;
