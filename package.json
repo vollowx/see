@@ -33,7 +33,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "wds --watch --node-resolve",
+    "dev": "wds",
     "dev:styles": "node scripts/convert-styles.mjs watch",
     "build": "bun run build:styles && bun run build:components",
     "build:styles": "node scripts/convert-styles.mjs build",
