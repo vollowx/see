@@ -5,6 +5,26 @@ import { Item } from '../base/item.js';
 
 import { itemStyles } from './item-styles.css.js';
 
+/**
+ * @element md-item
+ *
+ * @csspart container
+ * @csspart start
+ * @csspart text
+ * @csspart overline
+ * @csspart headline
+ * @csspart supporting-text
+ * @csspart trailing-supporting-text
+ * @csspart end
+ *
+ * @slot container - container element
+ * @slot start - start content
+ * @slot overline - overline text
+ * @slot headline - headline text
+ * @slot supporting-text - supporting text
+ * @slot trailing-supporting-text - trailing supporting text
+ * @slot end - end content
+ */
 @customElement('md-item')
 export class M3Item extends Item {
   static override styles = [itemStyles];
@@ -22,5 +42,11 @@ export class M3Item extends Item {
       <slot name="trailing-supporting-text"></slot>
       <slot name="end"></slot>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-item': M3Item;
   }
 }

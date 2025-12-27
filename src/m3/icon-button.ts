@@ -13,6 +13,8 @@ import { targetStyles } from './target-styles.css.js';
  * @element md-icon-button
  *
  * @csspart icon
+ *
+ * @slot default - icon
  */
 @customElement('md-icon-button')
 export class M3IconButton extends Button {
@@ -30,4 +32,10 @@ export class M3IconButton extends Button {
     | 'filled'
     | 'tonal'
     | 'outlined' = 'standard';
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-icon-button': M3IconButton;
+  }
 }

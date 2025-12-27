@@ -120,3 +120,9 @@ export class M3Switch extends Switch {
   //   if (this.checked != shouldBeChecked) this.__toggleStatus();
   // }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-switch': M3Switch;
+  }
+}

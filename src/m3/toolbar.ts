@@ -6,10 +6,11 @@ import { toolbarStyles } from './toolbar-styles.css.js';
 /**
  * @element md-toolbar
  *
- * @slot
- * @slot fab
  * @csspart container
  * @csspart fab-slot
+ *
+ * @slot default - toolbar contents
+ * @slot fab - FAB element
  */
 @customElement('md-toolbar')
 export class M3Toolbar extends LitElement {
@@ -41,5 +42,11 @@ export class M3Toolbar extends LitElement {
         <slot name="fab"></slot>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-toolbar': M3Toolbar;
   }
 }

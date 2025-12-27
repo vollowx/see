@@ -15,6 +15,9 @@ import { targetStyles } from './target-styles.css.js';
  * @element md-icon-button-toggle
  *
  * @csspart icon
+ *
+ * @slot default - icon
+ * @slot checked - icon when checked
  */
 @customElement('md-icon-button-toggle')
 export class M3IconButtonToggle extends Switch {
@@ -42,4 +45,10 @@ export class M3IconButtonToggle extends Switch {
     | 'filled'
     | 'tonal'
     | 'outlined' = 'standard';
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-icon-button-toggle': M3IconButtonToggle;
+  }
 }

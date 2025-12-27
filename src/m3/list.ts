@@ -1,10 +1,12 @@
-import { css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { List } from '../base/list.js';
 
 import { listStyles } from './list-styles.css.js';
 
+/**
+ * @element md-list
+ */
 @customElement('md-list')
 export class M3List extends List {
   static override styles = [listStyles];
@@ -17,5 +19,11 @@ export class M3List extends List {
         !el.hasAttribute('disabled') &&
         (el.tagName === 'MD-OPTION' || el.tagName === 'MD-MENU-ITEM')
     );
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-list': M3List;
   }
 }

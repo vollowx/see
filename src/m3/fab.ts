@@ -12,8 +12,11 @@ import { targetStyles } from './target-styles.css.js';
 /**
  * @element md-fab
  *
- * @csspart label
  * @csspart icon
+ * @csspart label
+ *
+ * @slot default - icon
+ * @slot label - label
  */
 @customElement('md-fab')
 export class M3FAB extends Button {
@@ -34,4 +37,10 @@ export class M3FAB extends Button {
     | 'secondary'
     | 'tertiary' = 'surface';
   @property({ type: Boolean, reflect: true }) lowered = false;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-fab': M3FAB;
+  }
 }

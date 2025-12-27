@@ -4,6 +4,14 @@ import { customElement } from 'lit/decorators.js';
 import './list.js';
 import { Menu } from '../base/menu.js';
 
+/**
+ * @element md-menu
+ *
+ * @csspart menu-surface
+ * @csspart list
+ *
+ * @slot - menu items
+ */
 @customElement('md-menu')
 export class M3Menu extends Menu {
   static override styles = [
@@ -29,5 +37,11 @@ export class M3Menu extends Menu {
         <md-list part="list"><slot></slot></md-list>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-menu': M3Menu;
   }
 }

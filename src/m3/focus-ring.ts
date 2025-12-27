@@ -69,3 +69,9 @@ export class M3FocusRing extends Attachable(InternalsAttached(LitElement)) {
     });
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-focus-ring': M3FocusRing;
+  }
+}

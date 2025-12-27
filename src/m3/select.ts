@@ -7,6 +7,9 @@ import { InternalsAttached } from '../base/internals-attached.js';
 
 const Base = SelectMixin(FormAssociated(InternalsAttached(M3Menu)));
 
+/**
+ * @element md-select
+ */
 @customElement('md-select')
 export class M3Select extends Base {
   static override styles = [
@@ -25,4 +28,10 @@ export class M3Select extends Base {
       }
     `,
   ];
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-select': M3Select;
+  }
 }

@@ -7,6 +7,11 @@ import { M3FocusRing } from './focus-ring.js';
 
 import { menuItemStyles } from './menu-item-styles.css.js';
 
+/**
+ * @element md-menu-item
+ *
+ * @slot default - contents in md-item
+ */
 @customElement('md-menu-item')
 export class M3MenuItem extends MenuItem {
   constructor() {
@@ -32,5 +37,11 @@ export class M3MenuItem extends MenuItem {
         <slot></slot>
       </md-item>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-menu-item': M3MenuItem;
   }
 }

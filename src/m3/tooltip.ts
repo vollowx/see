@@ -4,7 +4,16 @@ import { Tooltip } from '../base/tooltip.js';
 
 import { tooltipStyles } from './tooltip-styles.css.js';
 
+/**
+ * @element md-tooltip
+ */
 @customElement('md-tooltip')
 export class M3Tooltip extends Tooltip {
   static override styles = [tooltipStyles];
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-tooltip': M3Tooltip;
+  }
 }

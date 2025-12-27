@@ -38,3 +38,9 @@ export class M3Checkbox extends Checkbox {
   }
   @property({ type: Boolean, reflect: true }) error = false;
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-checkbox': M3Checkbox;
+  }
+}

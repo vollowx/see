@@ -16,8 +16,9 @@ import { targetStyles } from './target-styles.css.js';
  * @csspart icon
  * @csspart trailingicon
  *
- * TODO: Allow custom shape control by CSS variables, let
- *       `md-focus-ring` inherit the shape of button
+ * @slot default - label
+ * @slot icon - leading icon
+ * @slot trailingicon - trailing icon
  */
 @customElement('md-button')
 export class M3Button extends Button {
@@ -47,4 +48,10 @@ export class M3Button extends Button {
     | 'elevated'
     | 'outlined'
     | 'text' = 'filled';
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-button': M3Button;
+  }
 }

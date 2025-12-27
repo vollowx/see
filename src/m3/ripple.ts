@@ -197,3 +197,9 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     for (const ripple of this.$ripples.splice(0)) this.removeRipple(ripple);
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-ripple': M3Ripple;
+  }
+}
