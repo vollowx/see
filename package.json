@@ -5,18 +5,16 @@
   "author": "vollowx",
   "license": "MIT",
   "type": "module",
-  "main": "./all.js",
-  "module": "./all.js",
+  "main": "./src/all.js",
+  "module": "./src/all.js",
   "exports": {
-    ".": "./all.js",
+    ".": "./src/all.js",
     "./m3/*": "./src/m3/*.js",
     "./base/*": "./src/base/*.js"
   },
   "files": [
     "src/**/*.js",
     "src/**/*.d.ts",
-    "all.js",
-    "all.d.ts",
     "LICENSE",
     "README.md"
   ],
@@ -44,10 +42,7 @@
     "styles:watch": "node scripts/convert-styles.mjs watch",
     "styles:sort": "bunx postcss \"src/**/*.css\" --replace --no-map",
     "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --check --write",
-    "docs:dev": "vite --open /docs/ --host",
-    "docs:build": "node scripts/convert-styles.mjs build && vite build docs",
-    "docs:preview": "vite preview docs --host"
+    "prettier:fix": "prettier . --check --write"
   },
   "devDependencies": {
     "@web/dev-server": "^0.4.6",
