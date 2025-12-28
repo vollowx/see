@@ -7,8 +7,8 @@ in [Material You](https://m3.material.io/) design guideline.
 
 SEE has its package published on
 [npm](https://www.npmjs.com/package/@vollowx/see), it is now the only way for
-you to use SEE. Visit [the website of SEE](https://stdee.vercel.app/) for docs
-and demos. Below is a [quick start](#quick-start) guide.
+you to use SEE. Visit [the website of SEE](https://see.v9.nz/) for docs and
+demos. Below is a [quick start](#quick-start) guide.
 
 ## Resources
 

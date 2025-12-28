@@ -29,9 +29,6 @@
     "type": "git",
     "url": "https://github.com/vollowx/see.git"
   },
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "dev": "wds",
     "dev:styles": "node scripts/convert-styles.mjs watch",
