@@ -1,5 +1,9 @@
 export let focusVisible = false;
 
+export function setFocusVisible(value: boolean) {
+  focusVisible = value;
+}
+
 window.addEventListener('keydown', () => (focusVisible = true), {
   capture: true,
 });

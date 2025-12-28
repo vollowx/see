@@ -27,21 +27,20 @@ export class Tooltip extends Base {
   }
   @query('slot') $slot: HTMLSlotElement;
 
-  @property({ reflect: true }) position: import('@floating-ui/dom').Placement =
+  @property({ reflect: true }) align: import('@floating-ui/dom').Placement =
     'top';
   @property({ type: Number, reflect: true }) offset = 4;
 
-  private clearAutoUpdate: Function;
-
+  // TODO: Unify state names with Menu
   set visible(value: boolean) {
     if (value) {
-      this.clearAutoUpdate = autoUpdate(
+      this.clearAutoReposition = autoUpdate(
         this.$control,
         this,
-        this.updatePosition.bind(this)
+        this.reposition.bind(this)
       );
       this[internals].states.add('showing');
-      this.updatePosition();
+      this.reposition();
       setTimeout(() => {
         this[internals].states.delete('showing');
         this[internals].states.add('visible');
@@ -51,12 +50,12 @@ export class Tooltip extends Base {
       setTimeout(() => {
         this[internals].states.delete('hiding');
         this[internals].states.delete('visible');
-        this.clearAutoUpdate?.();
+        this.clearAutoReposition?.();
       }, this.hideDuration);
     }
   }
 
-  padding = 4;
+  padding = 8;
   showDuration = 100;
   hideDuration = 100;
   mouseShowDelay = 500;
@@ -165,11 +164,13 @@ export class Tooltip extends Base {
     if (prev) prev.removeAttribute('aria-label');
     if (next) next.setAttribute('aria-label', this.textContent ?? '');
   }
-  updatePosition() {
+
+  private clearAutoReposition: Function | null = null;
+  reposition() {
     if (!this.$control) return;
 
     computePosition(this.$control, this, {
-      placement: this.position,
+      placement: this.align,
       middleware: [
         offset(this.offset),
         flip({ padding: this.padding }),

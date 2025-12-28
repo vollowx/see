@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  min-width: 112px;
+  outline: 0;
+}
+[part='menu'] {
+  /* position: absolute; */
+  background: var(--md-sys-color-surface-container);
+  border-radius: 16px;
+  box-shadow: var(--md-sys-elevation-shadow-2);
+  box-sizing: border-box;
+  color: var(--md-sys-color-on-surface);
+  height: inherit;
+  inset: auto;
+  max-height: inherit;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 4px;
+  transition: opacity 50ms cubic-bezier(0.2, 0, 0, 1);
+  z-index: 1000;
+}
+
+/* State debugger */
+/* :host(:state(closed)) [part='menu'] {
+  outline: 2px solid red;
+}
+:host(:state(opening)) [part='menu'] {
+  outline: 2px solid blue;
+}
+:host(:state(opened)) [part='menu'] {
+  outline: 2px solid green;
+}
+:host(:state(closing)) [part='menu'] {
+  outline: 2px solid orange;
+} */
+
+:host(:state(closed)) [part='menu'] {
+  display: none;
+  opacity: 0;
+}
+:host(:state(opening)) [part='menu'] {
+  display: block;
+  opacity: 1;
+}
+:host(:state(opened)) [part='menu'] {
+  display: block;
+  opacity: 1;
+}
+:host(:state(closing)) [part='menu'] {
+  opacity: 0;
+}
+
+[part='items'] {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

@@ -1,7 +1,12 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { Attachable } from './attachable.js';
+import { internals, InternalsAttached } from './internals-attached.js';
+
+import { MenuItem } from './menu-item.js';
+import { ListController } from './list-controller.js';
+import { setFocusVisible } from '../core/variables.js';
 
 import {
   autoUpdate,
@@ -10,222 +15,268 @@ import {
   offset,
   shift,
 } from '@floating-ui/dom';
-import { List } from './list.js';
-import { hiddenStyles } from './hidden-styles.css.js';
 
-const MenuBase = Attachable(LitElement);
+const Base = InternalsAttached(Attachable(LitElement));
 
 /**
- * Example render():
- * <div part="menu-surface">
- *   <your-list part="list">
- *     <slot></slot>
- *   </your-list>
- * </div>
+ * @csspart menu
+ * @csspart items
+ *
+ * @fires menu-item-selected {Event}
  */
-export class Menu extends MenuBase {
-  static override styles = [
-    hiddenStyles,
-    css`
-      :host {
-        display: inline-block;
-        position: relative;
-        outline: none;
-      }
-
-      [part='menu-surface'] {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        min-width: 200px;
-        max-height: 300px;
-        overflow-y: auto;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        z-index: 10000;
-      }
-
-      :host([open]) [part='menu-surface'] {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-    `,
-  ];
-
+export class Menu extends Base {
   @property({ type: Boolean, reflect: true }) open: boolean = false;
-  @property({ reflect: true }) position:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top-start'
-    | 'top-end'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left-end'
-    | 'right-start'
-    | 'right-end' = 'bottom-start';
-  @property({ type: Number, reflect: true }) menuOffset = 0;
+  @property({ type: Boolean, reflect: true }) quick: boolean = false;
+  @property({ reflect: true }) align: import('@floating-ui/dom').Placement =
+    'bottom-start';
+  @property({ type: String, reflect: true })
+  alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
+  @property({ type: Number, reflect: true }) offset = 0;
 
-  @query('[part="menu-surface"]') surface: HTMLElement | undefined;
-  @query('[part="list"]') list: List | undefined;
+  padding = 8;
 
-  private clearAutoUpdate: Function | null = null;
-  private _previousFocus: HTMLElement | null = null;
+  protected _possibleItemTags: string[] = [];
 
-  // Compatibility for Select and other consumers
-  get activeIndex(): number {
-    return this.list?.activeIndex ?? -1;
+  get $items() {
+    return this.listController.items;
   }
-  set activeIndex(index: number) {
-    if (this.list) {
-      this.list.activeIndex = index;
-    }
+  @query('[part="menu"]') $menu!: HTMLElement;
+  private $lastFocused: HTMLElement | null = null;
+
+  private readonly listController = new ListController<MenuItem>(this, {
+    isItem: (item: HTMLElement): item is MenuItem =>
+      this._possibleItemTags.includes(item.tagName.toLowerCase()) &&
+      !item.hasAttribute('disabled'),
+    getPossibleItems: () =>
+      Array.from(this.children).filter(
+        (child): child is MenuItem =>
+          this._possibleItemTags.includes(child.tagName.toLowerCase()) &&
+          !child.hasAttribute('disabled')
+      ),
+    blurItem: (item: MenuItem) => {
+      item.focused = false;
+    },
+    focusItem: (item: MenuItem) => {
+      item.focused = true;
+      this[internals].ariaActiveDescendantElement = item;
+    },
+    isNavigableKey: (key: string) =>
+      ['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(key),
+    wrapNavigation: () => false,
+  });
+
+  override render() {
+    return html`<div part="menu">${this.renderItemSlot()}</div>`;
   }
 
-  getOptions(): HTMLElement[] {
-    return this.list?.items ?? [];
-  }
-
-  // Compatibility method for Select
-  protected onOptionChange(index: number, isFocusMode: boolean = false) {
-    if (this.list) {
-      this.list.activateItem(index);
-    }
+  renderItemSlot() {
+    return html`<slot part="items"></slot>`;
   }
 
   override connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'menu');
-    }
+    this[internals].role = 'menu';
+    this.tabIndex = -1;
+    this[internals].states.add('closed');
     this.addEventListener('keydown', this.#handleKeyDown.bind(this));
     this.addEventListener('focusout', this.#handleFocusOut.bind(this));
-    this.addEventListener(
-      'list-item-activate',
-      this.#handleListItemActivate.bind(this) as EventListener
-    );
+    if (this.$control) {
+      // TODO: Handle $control change
+      this.$control.ariaHasPopup = 'true';
+      this.$control.ariaExpanded = 'false';
+      this.$control.ariaControlsElements = [this];
+      this[internals].ariaLabelledByElements = [this.$control];
+      this.$control.addEventListener(
+        'focusout',
+        this.#handleFocusOut.bind(this)
+      );
+    }
+    this.$items.forEach((item) => {
+      item.addEventListener('mouseover', this.#handleItemMouseOver.bind(this));
+      item.addEventListener('click', this.#handleItemClick.bind(this));
+    });
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('keydown', this.#handleKeyDown.bind(this));
     this.removeEventListener('focusout', this.#handleFocusOut.bind(this));
-    this.removeEventListener(
-      'list-item-activate',
-      this.#handleListItemActivate.bind(this) as EventListener
-    );
-    this.clearAutoUpdate?.();
+    if (this.$control) {
+      this.$control.removeEventListener(
+        'focusout',
+        this.#handleFocusOut.bind(this)
+      );
+    }
+    this.clearAutoReposition?.();
   }
 
   protected override updated(changed: Map<string, any>) {
     if (changed.has('open')) {
       if (this.open) {
-        this._previousFocus = document.activeElement as HTMLElement;
-        requestAnimationFrame(async () => {
-          if (this.$control) {
-            this.#setupPositioning();
-          }
-          // Wait for next frame to ensure visibility for focus
-          requestAnimationFrame(() => {
-            if (this.getAttribute('role') === 'menu' && this.list) {
-              this.list.selectFirst();
-            }
-          });
+        if (this.$control) {
+          this.clearAutoReposition = autoUpdate(
+            this.$control,
+            this.$menu,
+            this.reposition.bind(this)
+          );
+          this.reposition();
+        }
+
+        this.$lastFocused = document.activeElement as HTMLElement;
+        if (this.$control) {
+          this.$control.ariaExpanded = 'true';
+        }
+
+        this.animateOpen().then(() => {
+          this.focus();
+          this.listController.focusFirstItem();
         });
       } else {
-        this.clearAutoUpdate?.();
-        this.clearAutoUpdate = null;
-        if (this._previousFocus) {
-          this._previousFocus.focus();
-          this._previousFocus = null;
+        this.clearAutoReposition?.();
+        this.clearAutoReposition = null;
+
+        if (this.$control) {
+          this.$control.ariaExpanded = 'false';
         }
+
+        this.animateClose().then(() => {
+          if (this.$lastFocused) {
+            this.$lastFocused.focus();
+            this.$lastFocused = null;
+          }
+        });
       }
     }
   }
 
-  #setupPositioning() {
-    if (this.$control && this.surface) {
-      this.clearAutoUpdate = autoUpdate(
-        this.$control,
-        this.surface,
-        this.#updatePosition.bind(this)
+  // TODO: Handle animation cancelation
+  animateOpeningDuration: number = 0;
+  animateClosingDuration: number = 0;
+  animateOpen() {
+    this[internals].states.add('opening');
+    return new Promise<void>((resolve) => {
+      setTimeout(
+        () => {
+          this[internals].states.delete('closed');
+          this[internals].states.delete('opening');
+          this[internals].states.add('opened');
+          resolve();
+        },
+        this.quick ? 0 : this.animateOpeningDuration
       );
-      this.#updatePosition();
-    }
+    });
+  }
+  animateClose() {
+    this[internals].states.add('closing');
+    return new Promise<void>((resolve) => {
+      setTimeout(
+        () => {
+          this[internals].states.delete('opened');
+          this[internals].states.delete('closing');
+          this[internals].states.add('closed');
+          resolve();
+        },
+        this.quick ? 0 : this.animateClosingDuration
+      );
+    });
   }
 
-  #updatePosition = async () => {
-    if (!this.$control || !this.surface) return;
+  private clearAutoReposition: Function | null = null;
+  reposition = async () => {
+    if (!this.$control) return;
 
-    try {
-      const { x, y } = await computePosition(this.$control, this.surface, {
-        placement: this.position as any,
-        strategy: 'fixed',
-        middleware: [offset(this.menuOffset), flip(), shift({ padding: 8 })],
+    computePosition(this.$control, this.$menu, {
+      placement: this.align,
+      strategy: this.alignStrategy,
+      middleware: [
+        offset(this.offset),
+        flip({ padding: this.padding }),
+        shift({ padding: this.padding, crossAxis: true }),
+      ],
+    }).then(({ x, y, placement }) => {
+      Object.assign(this.$menu.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+        position: this.alignStrategy,
       });
-
-      const maxX = window.innerWidth - 50;
-      const maxY = window.innerHeight - 50;
-      const clampedX = Math.max(0, Math.min(x, maxX));
-      const clampedY = Math.max(0, Math.min(y, maxY));
-
-      Object.assign(this.surface.style, {
-        left: `${clampedX}px`,
-        top: `${clampedY}px`,
-      });
-    } catch (e) {
-      console.error('Menu positioning error:', e);
-    }
+      this.align = placement;
+    });
   };
 
   #handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
 
-    if (!this.open) {
-      if (
-        event.key === 'ArrowDown' ||
-        event.key === 'Enter' ||
-        event.key === ' '
-      ) {
+    event.stopPropagation();
+
+    switch (event.key) {
+      case 'Escape':
         event.preventDefault();
-        this.open = true;
-      }
-      return;
-    }
 
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      this.open = false;
-      return;
-    }
+        this.open = false;
+        return;
+      case 'Enter':
+        event.preventDefault();
 
-    if (this.list) {
-      this.list.handleKeyDown(event);
+        let index = this.listController.currentIndex;
+        console.log('Menu item selected:', index);
+        this.listController.items[index].blur();
+        this.dispatchEvent(
+          new CustomEvent('menu-item-selected', {
+            detail: {
+              item: this.listController.items[index],
+              index: index,
+            },
+            bubbles: true,
+            composed: true,
+          })
+        );
+
+        this.open = false;
+        return;
     }
+    this.listController.handleKeyDown(event);
   }
 
   #handleFocusOut(event: FocusEvent) {
     const newFocus = event.relatedTarget as Node;
     const isInside =
-      this.contains(newFocus) || this.shadowRoot?.contains(newFocus);
+      this.contains(newFocus) ||
+      this.shadowRoot?.contains(newFocus) ||
+      this.$control?.contains(newFocus);
     if (!isInside) {
       this.open = false;
     }
   }
 
-  #handleListItemActivate(event: CustomEvent) {
-    const { item, index } = event.detail;
+  #handleItemMouseOver(event: Event) {
+    setFocusVisible(false);
+    const hoveredItem = event.currentTarget as MenuItem;
+    this.listController._focusItem(hoveredItem);
+  }
 
-    if (this.getAttribute('role') !== 'menu') {
-      this.setAttribute(
-        'aria-activedescendant',
-        item.id || `menu-option-${index}`
-      );
-    }
+  #handleItemClick(event: Event) {
+    const clickedItem = event.currentTarget as MenuItem;
+    const index = this.listController.items.indexOf(clickedItem);
+    this.listController.items[index].blur();
+    this.dispatchEvent(
+      new CustomEvent('menu-item-selected', {
+        detail: {
+          item: this.listController.items[index],
+          index: index,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    );
+
+    this.open = false;
+  }
+
+  // Exposed functions
+  show() {
+    this.open = true;
+  }
+  close() {
+    this.open = false;
   }
 }

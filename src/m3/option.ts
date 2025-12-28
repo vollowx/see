@@ -13,17 +13,6 @@ import { optionStyles } from './option-styles.css.js';
 @customElement('md-option')
 export class M3Option extends OptionMixin(M3MenuItem) {
   static override styles = [...M3MenuItem.styles, optionStyles];
-
-  protected override updated(changed: Map<string, any>) {
-    super.updated(changed);
-    if (changed.has('focused')) {
-      if (this.focused) {
-        this.focusRing.visualFocus();
-      } else {
-        this.focusRing.visualBlur();
-      }
-    }
-  }
 }
 
 declare global {

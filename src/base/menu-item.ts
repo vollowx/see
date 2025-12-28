@@ -3,65 +3,52 @@ import { property } from 'lit/decorators.js';
 import { hiddenStyles } from './hidden-styles.css.js';
 import { InternalsAttached, internals } from './internals-attached.js';
 import { FormAssociated } from './form-associated.js';
+import { Menu } from './menu.js';
+
+let uniqueIdCounter = 0;
 
 export class MenuItem extends FormAssociated(InternalsAttached(LitElement)) {
   static override styles = [hiddenStyles];
 
   @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) selected = false;
+  @property({ type: Boolean, reflect: true }) focused = false;
 
   override connectedCallback() {
     super.connectedCallback();
     this[internals].role = 'menuitem';
-    this.addEventListener('keydown', this.#boundKeyDown);
-    this.addEventListener('keyup', this.#boundKeyUp);
-    this.addEventListener('click', this.#boundClick);
+    this.setAttribute('tabindex', '-1');
     this.#updateInternals();
-  }
-
-  override disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('keydown', this.#boundKeyDown);
-    this.removeEventListener('keyup', this.#boundKeyUp);
-    this.removeEventListener('click', this.#boundClick);
+    if (!this.id) {
+      if (this.parentElement instanceof Menu && this.parentElement.id)
+        this.id = `${this.parentElement.id}-item-${uniqueIdCounter++}`;
+      else this.id = `menu-item-${uniqueIdCounter++}`;
+    }
   }
 
   protected override updated(changed: Map<string, any>) {
     super.updated(changed);
-    if (changed.has('disabled')) {
+    if (changed.has('disabled') || changed.has('focused')) {
       this.#updateInternals();
     }
   }
 
   #updateInternals() {
-    this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+    this.focused
+      ? this[internals].states.add('focused')
+      : this[internals].states.delete('focused');
+    this[internals].ariaSelected = this.selected ? 'true' : 'false';
+    this.selected
+      ? this[internals].states.add('selected')
+      : this[internals].states.delete('selected');
   }
 
-  #boundKeyDown = this.#handleKeyDown.bind(this);
-  #boundKeyUp = this.#handleKeyUp.bind(this);
-  #boundClick = this.#handleClick.bind(this);
-
-  #handleKeyDown(e: KeyboardEvent) {
-    if (e.key !== ' ' && e.key !== 'Enter') return;
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.key === 'Enter') {
-      this.click();
-    }
+  override focus(): void {
+    this.focused = true;
   }
 
-  #handleKeyUp(e: KeyboardEvent) {
-    if (e.key === ' ') {
-      e.preventDefault();
-      e.stopPropagation();
-      this.click();
-    }
-  }
-
-  #handleClick(e: Event) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  override blur(): void {
+    this.focused = false;
   }
 }

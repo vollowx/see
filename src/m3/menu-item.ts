@@ -24,6 +24,17 @@ export class M3MenuItem extends MenuItem {
 
   static override styles = [...MenuItem.styles, menuItemStyles];
 
+  protected override updated(changed: Map<string, any>) {
+    super.updated(changed);
+    if (changed.has('focused')) {
+      if (this.focused) {
+        this.focusRing.visualFocus();
+      } else {
+        this.focusRing.visualBlur();
+      }
+    }
+  }
+
   @query('md-ripple') ripple!: M3Ripple;
   @query('md-focus-ring') focusRing!: M3FocusRing;
 

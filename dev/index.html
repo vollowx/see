@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Standard Extensible Elements | Demo</title>
+    <title>see development tests</title>
     <script type="module" src="../src/all.ts"></script>
-    <script type="module" src="./thiswaifudoesntexist-viewer.ts"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -400,7 +399,7 @@
       });
     </script>
 
-    <h1>see dev tests</h1>
+    <h1>see development tests</h1>
 
     <div class="masonry">
       <div class="card">
@@ -427,7 +426,7 @@
       </div>
 
       <div class="card">
-        <h2>M3Button</h2>
+        <h2>buttons</h2>
 
         <md-button size="xsmall"
           ><md-icon slot="icon">edit</md-icon>Common Button</md-button
@@ -529,7 +528,7 @@
       </div>
 
       <div class="card">
-        <h2>M3Toolbar</h2>
+        <h2>toolbars</h2>
 
         <div class="phone">
           <md-toolbar style="position: absolute; bottom: 0">
@@ -598,7 +597,7 @@
       </div>
 
       <div class="card">
-        <h2>M3FAB</h2>
+        <h2>floating action buttons</h2>
 
         <md-fab color="primary" aria-label="Accessibility">
           <md-icon>accessible_forward</md-icon>
@@ -649,7 +648,7 @@
         </md-fab>
       </div>
 
-      <div class="card">
+      <!-- <div class="card">
         <h2>M3 Select with Option</h2>
 
         <h3>Basic Usage</h3>
@@ -702,148 +701,85 @@
           <md-option value="ugli">Ugli Fruit</md-option>
           <md-option value="watermelon">Watermelon</md-option>
         </md-select>
-
-        <h3>JavaScript Interaction</h3>
-        <div
-          style="
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-          "
-        >
-          <md-button variant="text" id="openBtn">Open Select</md-button>
-          <md-button variant="text" id="closeBtn">Close Select</md-button>
-          <md-button variant="text" id="getValueBtn">Get Value</md-button>
-          <md-button variant="text" id="setValueBtn">Set to Grape</md-button>
-          <md-button variant="text" id="resetBtn">Reset to Apple</md-button>
-        </div>
-
-        <div
-          id="outputBox"
-          style="
-            margin-top: 1rem;
-            padding: 1rem;
-            background: var(--md-sys-color-surface-container);
-            border-radius: 0.25rem;
-            font-family: monospace;
-            min-height: 4rem;
-          "
-        >
-          <strong>Output:</strong><br />
-          <span id="output">Select an option or click buttons above</span>
-        </div>
-      </div>
-
-      <script type="module">
-        // Get elements
-        const select = document.querySelector('#fruitSelect');
-        const output = document.querySelector('#output');
-        const openBtn = document.querySelector('#openBtn');
-        const closeBtn = document.querySelector('#closeBtn');
-        const getValueBtn = document.querySelector('#getValueBtn');
-        const setValueBtn = document.querySelector('#setValueBtn');
-        const resetBtn = document.querySelector('#resetBtn');
-
-        // Helper to update output
-        const updateOutput = (message) => {
-          output.innerHTML = message;
-        };
-
-        // Listen for select changes
-        select.addEventListener('change', (e) => {
-          updateOutput(`✓ Selected: <strong>${e.detail.value}</strong>`);
-        });
-
-        // Button handlers
-        openBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          select.open = true;
-          updateOutput('Opened select');
-        });
-
-        closeBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          select.open = false;
-          updateOutput('Closed select');
-        });
-
-        getValueBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          updateOutput(`Current value: <strong>${select.value}</strong>`);
-        });
-
-        setValueBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          select.value = 'grape';
-          updateOutput('Set value to: <strong>grape</strong>');
-        });
-
-        resetBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          select.value = 'apple';
-          updateOutput('Reset to: <strong>apple</strong>');
-        });
-      </script>
+      </div> -->
 
       <div class="card">
-        <h2>M3 Menu with Icon Button</h2>
+        <h2>menus</h2>
 
-        <md-icon-button id="menuButton" aria-label="More options">
-          <span class="material-symbols-rounded">more_vert</span>
-        </md-icon-button>
+        <span style="position: relative">
+          <md-button
+            id="menu-with-item-ids-btn"
+            onclick="
+              const menu = document.getElementById('menu-with-item-ids-empty');
+              menu.open = !menu.open;
+            "
+            >Menu with Item IDs Empty</md-button
+          >
 
-        <md-menu for="menuButton" position="bottom-start">
-          <md-menu-item>
-            <span>Edit</span>
-          </md-menu-item>
-          <md-menu-item>
-            <span>Duplicate</span>
-          </md-menu-item>
-          <md-menu-item disabled>
-            <span>Archive (disabled)</span>
-          </md-menu-item>
-          <md-menu-item>
-            <span>Delete</span>
-          </md-menu-item>
+          <md-menu id="menu-with-item-ids-empty" for="menu-with-item-ids-btn">
+            <md-menu-item>Menu Item 1</md-menu-item>
+            <md-menu-item>Menu Item 2</md-menu-item>
+            <md-menu-item selected>Menu Item 3</md-menu-item>
+            <md-menu-item disabled>Menu Item 4</md-menu-item>
+          </md-menu>
+        </span>
+
+        <md-button
+          id="fixed-align-menu-btn"
+          onclick="
+            const menu = document.getElementById('fixed-align-menu');
+            menu.open = !menu.open;
+          "
+          >align-strategy=fixed</md-button
+        >
+
+        <md-menu
+          id="fixed-align-menu"
+          for="fixed-align-menu-btn"
+          align-strategy="fixed"
+        >
+          <md-menu-item>Menu Item 1</md-menu-item>
+          <md-menu-item>Menu Item 2</md-menu-item>
+          <md-menu-item selected>Menu Item 3</md-menu-item>
+          <md-menu-item disabled>Menu Item 4</md-menu-item>
         </md-menu>
 
-        <p style="margin-top: 1rem" id="menuOutput">
-          Click the button to open the menu
-        </p>
-      </div>
+        <md-tooltip for="fixed-align-menu-btn">Align Reference</md-tooltip>
 
-      <script type="module">
-        const menuButton = document.getElementById('menuButton');
-        const menuOutput = document.getElementById('menuOutput');
-        const menu = document.querySelector('md-menu');
+        <span style="position: relative">
+          <md-button id="some-menu-btn">Menu with Anchor Set</md-button>
 
-        menuButton.addEventListener('click', () => {
-          menu.open = !menu.open;
-        });
+          <md-menu id="some-menu" for="some-menu-btn" quick>
+            <md-menu-item id="item-new-text-file">New Text File</md-menu-item>
+            <md-menu-item id="item-new-file">New File...</md-menu-item>
+            <md-menu-item id="item-new-window">New Window</md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item id="item-open-file">Open File...</md-menu-item>
+            <md-menu-item id="item-open-folder">Open Folder...</md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item id="item-save">Save</md-menu-item>
+            <md-menu-item id="item-save-as">Save As...</md-menu-item>
+          </md-menu>
+        </span>
 
-        // Menu items don't dispatch 'option-selected' by default like options do
-        // We can listen to click events on them
-        menu.addEventListener('click', (e) => {
-          const item = e.target.closest('md-menu-item');
-          if (item && !item.disabled) {
-            const text = item.textContent.trim();
-            menuOutput.innerHTML = `Selected: <strong>${text}</strong>`;
-            menu.open = false;
-          }
-        });
+        <label style="display: block"
+          >Event:
+          <input type="text" readonly id="some-menu-fires" style="width: 100%"
+        /></label>
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
-            menu.open = false;
-          }
-        });
-      </script>
+        <script type="module">
+          const menuButton = document.getElementById('some-menu-btn');
+          const menuOutput = document.getElementById('some-menu-fires');
+          const menu = document.getElementById('some-menu');
 
-      <div class="card">
-        <h2>Guess what?</h2>
-        <twdne-viewer></twdne-viewer>
+          menuButton.addEventListener('click', () => {
+            menu.open = !menu.open;
+          });
+
+          menu.addEventListener('menu-item-selected', (e) => {
+            menuOutput.value = `menu-item-selected: { index: ${e.detail.index}, item: #${e.detail.item.id}\n}`;
+          });
+        </script>
       </div>
     </div>
   </body>

@@ -20,8 +20,8 @@ This roadmap outlines the current and future goals for SEE
 | List item    |      🟡       |
 | Menu         |      🟡       |
 | Menu item    |      🟡       |
-| Option       |      🟡       |
-| Select       |      🟡       |
+| Option       |      ❌       |
+| Select       |      ❌       |
 | Switch       |      ✅       |
 | Tooltip      |      🟡       |
 
@@ -61,8 +61,8 @@ This roadmap outlines the current and future goals for SEE
 | Radio                         |      ❌       |  ❌   |
 | Ripple                        |      ✅       |  🟡   |
 | Search                        |      ❌       |  ❌   |
-| Select                        |      🟡       |  🟡   |
-| Option                        |      🟡       |  🟡   |
+| Select                        |      ❌       |  ❌   |
+| Option                        |      ❌       |  ❌   |
 | Slider                        |      ❌       |  ❌   |
 | Snackbar                      |      ❌       |  ❌   |
 | Switch                        |      ✅       |  ✅   |
