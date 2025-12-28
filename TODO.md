@@ -1,8 +1,10 @@
 # Todo
 
-- [ ] Unify component variable rules
 - [x] `hidden` support
-- [ ] Form support
-- [x] New button spec
-- [ ] New FAB spec including size
-- [ ] Use `docs/` for Markdown docs, separate the web documentations
+- [x] New M3 button spec
+- [ ] New M3 FAB spec
+- [ ] Use `docs/` for Markdown docs
+- [ ] Custom Elements Manifest auto-generating, it includes component styles
+      as CSS properties now
+- [ ] New M3 icon button spec
+- [ ] Implement select

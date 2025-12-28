@@ -8,9 +8,9 @@ import { M3FocusRing } from './focus-ring.js';
 import { menuItemStyles } from './menu-item-styles.css.js';
 
 /**
- * @element md-menu-item
+ * @tag md-menu-item
  *
- * @slot default - contents in md-item
+ * @slot - contents in md-item
  */
 @customElement('md-menu-item')
 export class M3MenuItem extends MenuItem {

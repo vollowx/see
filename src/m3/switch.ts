@@ -15,7 +15,7 @@ import { targetStyles } from './target-styles.css.js';
 // }
 
 /**
- * @element md-switch
+ * @tag md-switch
  *
  * @csspart thumb
  * @csspart label

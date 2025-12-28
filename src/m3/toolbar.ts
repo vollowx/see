@@ -4,12 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { toolbarStyles } from './toolbar-styles.css.js';
 
 /**
- * @element md-toolbar
+ * @tag md-toolbar
  *
  * @csspart container
  * @csspart fab-slot
  *
- * @slot default - toolbar contents
+ * @slot - toolbar contents
  * @slot fab - FAB element
  */
 @customElement('md-toolbar')

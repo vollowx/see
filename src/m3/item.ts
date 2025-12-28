@@ -6,7 +6,7 @@ import { Item } from '../base/item.js';
 import { itemStyles } from './item-styles.css.js';
 
 /**
- * @element md-item
+ * @tag md-item
  *
  * @csspart container
  * @csspart start

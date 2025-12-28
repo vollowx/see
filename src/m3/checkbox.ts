@@ -10,7 +10,7 @@ import { checkboxStyles } from './checkbox-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
 
 /**
- * @element md-checkbox
+ * @tag md-checkbox
  *
  * @csspart icon
  * @csspart mark

@@ -22,7 +22,7 @@ const Base = InternalsAttached(Attachable(LitElement));
  * @csspart menu
  * @csspart items
  *
- * @fires menu-item-selected {Event}
+ * @fires {Event} menu-item-selected
  */
 export class Menu extends Base {
   @property({ type: Boolean, reflect: true }) open: boolean = false;

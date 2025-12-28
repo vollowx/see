@@ -10,13 +10,13 @@ import { buttonStyles } from './button-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
 
 /**
- * @element md-button
+ * @tag md-button
  *
  * @csspart label
  * @csspart icon
  * @csspart trailingicon
  *
- * @slot default - label
+ * @slot - label
  * @slot icon - leading icon
  * @slot trailingicon - trailing icon
  */

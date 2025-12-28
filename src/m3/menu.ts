@@ -4,7 +4,7 @@ import { Menu } from '../base/menu.js';
 import { menuStyles } from './menu-styles.css.js';
 
 /**
- * @element md-menu
+ * @tag md-menu
  *
  * @csspart menu-surface
  * @csspart list

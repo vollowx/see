@@ -19,7 +19,7 @@ function distance(
 }
 
 /**
- * @element md-ripple
+ * @tag md-ripple
  *
  * @cssprop --md-ripple-color
  */

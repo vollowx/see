@@ -10,11 +10,11 @@ import { iconButtonStyles } from './icon-button-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
 
 /**
- * @element md-icon-button
+ * @tag md-icon-button
  *
  * @csspart icon
  *
- * @slot default - icon
+ * @slot - icon
  */
 @customElement('md-icon-button')
 export class M3IconButton extends Button {

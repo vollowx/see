@@ -8,7 +8,7 @@ import { focusVisible } from '../core/variables.js';
 import { focusRingStyles } from './focus-ring-styles.css.js';
 
 /**
- * @element md-focus-ring
+ * @tag md-focus-ring
  *
  * @cssprop --md-focus-ring-active-width
  * @cssprop --md-focus-ring-color

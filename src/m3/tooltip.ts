@@ -5,7 +5,7 @@ import { Tooltip } from '../base/tooltip.js';
 import { tooltipStyles } from './tooltip-styles.css.js';
 
 /**
- * @element md-tooltip
+ * @tag md-tooltip
  */
 @customElement('md-tooltip')
 export class M3Tooltip extends Tooltip {

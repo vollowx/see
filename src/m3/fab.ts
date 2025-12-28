@@ -10,12 +10,12 @@ import { fabStyles } from './fab-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
 
 /**
- * @element md-fab
+ * @tag md-fab
  *
  * @csspart icon
  * @csspart label
  *
- * @slot default - icon
+ * @slot - icon
  * @slot label - label
  */
 @customElement('md-fab')

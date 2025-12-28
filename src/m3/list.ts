@@ -6,7 +6,7 @@ import { ListController } from '../base/list-controller.js';
 import { listStyles } from './list-styles.css.js';
 
 /**
- * @element md-list
+ * @tag md-list
  *
  * TODO: Use listController
  */

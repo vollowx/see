@@ -12,11 +12,11 @@ import { iconButtonToggleStyles } from './icon-button-toggle-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
 
 /**
- * @element md-icon-button-toggle
+ * @tag md-icon-button-toggle
  *
  * @csspart icon
  *
- * @slot default - icon
+ * @slot - icon
  * @slot checked - icon when checked
  */
 @customElement('md-icon-button-toggle')
