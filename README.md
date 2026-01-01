@@ -13,7 +13,6 @@ demos. Below is a [quick start](#quick-start) guide.
 ## Resources
 
 - [Roadmap](./ROADMAP.md)
-- [Todos](./TODO.md)
 - [Contributing specification](./CONTRIBUTING.md)
 
 ## Compatibility

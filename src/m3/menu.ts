@@ -1,6 +1,8 @@
 import { customElement } from 'lit/decorators.js';
 
 import { Menu } from '../base/menu.js';
+
+import { menuPartStyles } from './menu-part-styles.css.js';
 import { menuStyles } from './menu-styles.css.js';
 
 /**
@@ -13,7 +15,7 @@ import { menuStyles } from './menu-styles.css.js';
  */
 @customElement('md-menu')
 export class M3Menu extends Menu {
-  static override styles = [menuStyles];
+  static override styles = [menuPartStyles, menuStyles];
 
   protected override _possibleItemTags = [
     'md-menu-item',

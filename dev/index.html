@@ -648,10 +648,100 @@
         </md-fab>
       </div>
 
-      <!-- <div class="card">
-        <h2>M3 Select with Option</h2>
+      <div class="card">
+        <h2>menus</h2>
 
-        <h3>Basic Usage</h3>
+        <span style="position: relative; display: inline-block">
+          <md-button
+            id="menu-with-item-ids-btn"
+            onclick="
+              const menu = document.getElementById('menu-with-item-ids-empty');
+              menu.open = !menu.open;
+            "
+            >Menu with Item IDs Empty</md-button
+          >
+
+          <md-menu id="menu-with-item-ids-empty" for="menu-with-item-ids-btn">
+            <md-menu-item>Menu Item 1</md-menu-item>
+            <md-menu-item>Menu Item 2</md-menu-item>
+            <md-menu-item selected>Menu Item 3</md-menu-item>
+            <md-menu-item disabled>Menu Item 4</md-menu-item>
+          </md-menu>
+        </span>
+
+        <span style="position: relative; display: inline-block">
+          <md-button
+            id="fixed-align-menu-btn"
+            onclick="
+              const menu = document.getElementById('fixed-align-menu');
+              menu.open = !menu.open;
+            "
+            >align-strategy=fixed</md-button
+          >
+
+          <md-menu
+            id="fixed-align-menu"
+            for="fixed-align-menu-btn"
+            alignstrategy="fixed"
+          >
+            <md-menu-item>Menu Item 1</md-menu-item>
+            <md-menu-item>Menu Item 2</md-menu-item>
+            <md-menu-item selected>Menu Item 3</md-menu-item>
+            <md-menu-item disabled>Menu Item 4</md-menu-item>
+          </md-menu>
+
+          <md-tooltip for="fixed-align-menu-btn">Align Reference</md-tooltip>
+        </span>
+
+        <span style="position: relative; display: inline-block">
+          <md-button id="some-menu-btn">Menu with Anchor Set</md-button>
+
+          <md-menu id="some-menu" for="some-menu-btn" quick>
+            <md-menu-item id="item-new-text-file">New Text File</md-menu-item>
+            <md-menu-item id="item-new-file">New File...</md-menu-item>
+            <md-menu-item id="item-new-window">New Window</md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item id="item-open-file">Open File...</md-menu-item>
+            <md-menu-item id="item-open-folder">Open Folder...</md-menu-item>
+            <md-divider></md-divider>
+            <md-menu-item id="item-save">Save</md-menu-item>
+            <md-menu-item id="item-save-as">Save As...</md-menu-item>
+          </md-menu>
+        </span>
+
+        <label style="display: block"
+          >Event:
+          <input type="text" readonly id="some-menu-fires" style="width: 100%"
+        /></label>
+
+        <script type="module">
+          const menuButton = document.getElementById('some-menu-btn');
+          const menuOutput = document.getElementById('some-menu-fires');
+          const menu = document.getElementById('some-menu');
+
+          menuButton.addEventListener('click', () => {
+            menu.open = !menu.open;
+          });
+
+          menu.addEventListener('menu-item-selected', (e) => {
+            menuOutput.value = `menu-item-selected: { index: ${e.detail.index}, item: #${e.detail.item.id}\n}`;
+          });
+        </script>
+      </div>
+
+      <div class="card">
+        <h2>select</h2>
+
+        <md-select id="demo-select" label="Choose a fruit">
+          <md-option value="apple">Apple</md-option>
+          <md-option value="banana">Banana</md-option>
+          <md-option value="cherry">Cherry</md-option>
+          <md-option value="peach" disabled>Peach</md-option>
+          <md-option value="elderberry">Elderberry</md-option>
+        </md-select>
+
+        <p>Very long select list</p>
+
         <md-select id="fruitSelect">
           <md-option value="apple">Apple</md-option>
           <md-option value="apricot">Apricot</md-option>
@@ -701,85 +791,6 @@
           <md-option value="ugli">Ugli Fruit</md-option>
           <md-option value="watermelon">Watermelon</md-option>
         </md-select>
-      </div> -->
-
-      <div class="card">
-        <h2>menus</h2>
-
-        <span style="position: relative">
-          <md-button
-            id="menu-with-item-ids-btn"
-            onclick="
-              const menu = document.getElementById('menu-with-item-ids-empty');
-              menu.open = !menu.open;
-            "
-            >Menu with Item IDs Empty</md-button
-          >
-
-          <md-menu id="menu-with-item-ids-empty" for="menu-with-item-ids-btn">
-            <md-menu-item>Menu Item 1</md-menu-item>
-            <md-menu-item>Menu Item 2</md-menu-item>
-            <md-menu-item selected>Menu Item 3</md-menu-item>
-            <md-menu-item disabled>Menu Item 4</md-menu-item>
-          </md-menu>
-        </span>
-
-        <md-button
-          id="fixed-align-menu-btn"
-          onclick="
-            const menu = document.getElementById('fixed-align-menu');
-            menu.open = !menu.open;
-          "
-          >align-strategy=fixed</md-button
-        >
-
-        <md-menu
-          id="fixed-align-menu"
-          for="fixed-align-menu-btn"
-          align-strategy="fixed"
-        >
-          <md-menu-item>Menu Item 1</md-menu-item>
-          <md-menu-item>Menu Item 2</md-menu-item>
-          <md-menu-item selected>Menu Item 3</md-menu-item>
-          <md-menu-item disabled>Menu Item 4</md-menu-item>
-        </md-menu>
-
-        <md-tooltip for="fixed-align-menu-btn">Align Reference</md-tooltip>
-
-        <span style="position: relative">
-          <md-button id="some-menu-btn">Menu with Anchor Set</md-button>
-
-          <md-menu id="some-menu" for="some-menu-btn" quick>
-            <md-menu-item id="item-new-text-file">New Text File</md-menu-item>
-            <md-menu-item id="item-new-file">New File...</md-menu-item>
-            <md-menu-item id="item-new-window">New Window</md-menu-item>
-            <md-divider></md-divider>
-            <md-menu-item id="item-open-file">Open File...</md-menu-item>
-            <md-menu-item id="item-open-folder">Open Folder...</md-menu-item>
-            <md-divider></md-divider>
-            <md-menu-item id="item-save">Save</md-menu-item>
-            <md-menu-item id="item-save-as">Save As...</md-menu-item>
-          </md-menu>
-        </span>
-
-        <label style="display: block"
-          >Event:
-          <input type="text" readonly id="some-menu-fires" style="width: 100%"
-        /></label>
-
-        <script type="module">
-          const menuButton = document.getElementById('some-menu-btn');
-          const menuOutput = document.getElementById('some-menu-fires');
-          const menu = document.getElementById('some-menu');
-
-          menuButton.addEventListener('click', () => {
-            menu.open = !menu.open;
-          });
-
-          menu.addEventListener('menu-item-selected', (e) => {
-            menuOutput.value = `menu-item-selected: { index: ${e.detail.index}, item: #${e.detail.item.id}\n}`;
-          });
-        </script>
       </div>
     </div>
   </body>

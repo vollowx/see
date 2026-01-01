@@ -3,17 +3,13 @@ import { customElement } from 'lit/decorators.js';
 import { OptionMixin } from '../base/option.js';
 import { M3MenuItem } from './menu-item.js';
 
-import { optionStyles } from './option-styles.css.js';
-
 /**
  * @tag md-option
  *
  * @slot - contents in md-menu-item
  */
 @customElement('md-option')
-export class M3Option extends OptionMixin(M3MenuItem) {
-  static override styles = [...M3MenuItem.styles, optionStyles];
-}
+export class M3Option extends OptionMixin(M3MenuItem) {}
 
 declare global {
   interface HTMLElementTagNameMap {

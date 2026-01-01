@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { internals } from './internals-attached.js';
 import { MenuItem } from './menu-item.js';
 
+// FIXME: ID auto-generation still names menu-item-...
 export const OptionMixin = <T extends Constructor<MenuItem>>(superClass: T) => {
   class OptionElement extends superClass {
     @property({ reflect: true }) value: string = '';
