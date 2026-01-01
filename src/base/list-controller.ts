@@ -1,11 +1,5 @@
-import {
-  LitElement,
-  html,
-  ReactiveController,
-  ReactiveControllerHost,
-} from 'lit';
-import { property, query } from 'lit/decorators.js';
-import { Option } from './option.js';
+import { ReactiveController, ReactiveControllerHost } from 'lit';
+
 import { MenuItem } from './menu-item.js';
 import { getIndexByLetter } from './menu-utils.js';
 

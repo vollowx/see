@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-import { Attachable } from './attachable.js';
-import { internals, InternalsAttached } from './internals-attached.js';
+import { Attachable } from './mixins/attachable.js';
+import { internals, InternalsAttached } from './mixins/internals-attached.js';
 
 import { MenuItem } from './menu-item.js';
 import { ListController } from './list-controller.js';
@@ -10,7 +10,6 @@ import { setFocusVisible } from '../core/variables.js';
 import {
   MenuActions,
   getActionFromKey,
-  getIndexByLetter,
   getUpdatedIndex,
   scrollItemIntoView,
 } from './menu-utils.js';
@@ -158,7 +157,7 @@ export class Menu extends Base {
     }
   }
 
-  // TODO: Handle animation cancelation
+  // TODO: Handle animation cancellation
   animateOpeningDuration: number = 0;
   animateClosingDuration: number = 0;
   animateOpen() {

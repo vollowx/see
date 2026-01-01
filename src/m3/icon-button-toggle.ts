@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Switch } from '../base/switch.js';
-import { internals } from '../base/internals-attached.js';
+import { internals } from '../base/mixins/internals-attached.js';
 
 import './focus-ring.js';
 import './ripple.js';

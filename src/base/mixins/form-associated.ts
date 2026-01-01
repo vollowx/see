@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { internals } from './internals-attached';
+import { internals } from './internals-attached.js';
 
 type Constructor<T> = new (...args: any[]) => T;
 

@@ -2,8 +2,8 @@ import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { focusVisible } from '../core/variables.js';
-import { Attachable } from './attachable.js';
-import { InternalsAttached, internals } from './internals-attached.js';
+import { Attachable } from './mixins/attachable.js';
+import { InternalsAttached, internals } from './mixins/internals-attached.js';
 
 import {
   autoUpdate,

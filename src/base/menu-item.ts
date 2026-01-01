@@ -1,9 +1,11 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { hiddenStyles } from './hidden-styles.css.js';
-import { InternalsAttached, internals } from './internals-attached.js';
-import { FormAssociated } from './form-associated.js';
+
+import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import { FormAssociated } from './mixins/form-associated.js';
 import { Menu } from './menu.js';
+
+import { hiddenStyles } from './hidden-styles.css.js';
 
 let uniqueIdCounter = 0;
 

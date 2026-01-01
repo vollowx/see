@@ -1,16 +1,17 @@
 import { LitElement, html, PropertyValues } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { FormAssociated } from './form-associated.js';
-import { internals, InternalsAttached } from './internals-attached.js';
+
+import { FormAssociated } from './mixins/form-associated.js';
+import { InternalsAttached } from './mixins/internals-attached.js';
 import { ListController } from './list-controller.js';
 import { Option } from './option.js';
 import {
   MenuActions,
   getActionFromKey,
-  getIndexByLetter,
   getUpdatedIndex,
   scrollItemIntoView,
 } from './menu-utils.js';
+
 import {
   autoUpdate,
   computePosition,

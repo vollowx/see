@@ -1,8 +1,8 @@
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { Attachable } from '../base/attachable.js';
-import { InternalsAttached, internals } from '../base/internals-attached.js';
+import { Attachable } from '../base/mixins/attachable.js';
+import { InternalsAttached, internals } from '../base/mixins/internals-attached.js';
 
 import { rippleStyles } from './ripple-styles.css.js';
 
