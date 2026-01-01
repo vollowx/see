@@ -1,40 +1,40 @@
 :host {
   display: inline-block;
-  position: relative;
-  outline: none;
   min-width: 210px;
+  outline: none;
+  position: relative;
 }
 
 /* TODO: Separate into md-field */
 [part='field'] {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  background-color: var(--md-sys-color-surface-container-highest);
+  border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
+  border-radius: 4px 4px 0 0;
   box-sizing: border-box;
+  color: var(--md-sys-color-on-surface, #1d1b20);
+  cursor: pointer;
+  display: flex;
+  font: var(--md-sys-typography-body-large);
+  justify-content: space-between;
   min-height: 56px;
   padding: 0 16px;
-  border-radius: 4px 4px 0 0;
-  background-color: var(--md-sys-color-surface-container-highest);
-  color: var(--md-sys-color-on-surface, #1d1b20);
-  border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
-  cursor: pointer;
-  font: var(--md-sys-typography-body-large);
 }
 
 [part='field']:focus {
-  outline: none;
   border-bottom: 2px solid var(--md-sys-color-primary);
+  outline: none;
 }
 
 :host([disabled]) [part='field'] {
-  opacity: 0.38;
   cursor: default;
+  opacity: 0.38;
   pointer-events: none;
 }
 
 [part='menu'] {
-  min-width: 100%;
   max-height: var(--md-select-menu-max-height, 300px);
+  min-width: 100%;
 }
 
 /* TODO: Use states and support animations like menu */

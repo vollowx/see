@@ -26,7 +26,11 @@ const SelectActions = {
   Type: 10,
 };
 
-function filterOptions(options: string[] = [], filter: string, exclude: string[] = []) {
+function filterOptions(
+  options: string[] = [],
+  filter: string,
+  exclude: string[] = []
+) {
   return options.filter((option) => {
     const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
     return matches && exclude.indexOf(option) < 0;
@@ -82,7 +86,8 @@ function getIndexByLetter(options: string[], filter: string, startIndex = 0) {
     ...options.slice(0, startIndex),
   ];
   const firstMatch = filterOptions(orderedOptions, filter)[0];
-  const allSameLetter = (array: string[]) => array.every((letter) => letter === array[0]);
+  const allSameLetter = (array: string[]) =>
+    array.every((letter) => letter === array[0]);
 
   if (firstMatch) {
     return options.indexOf(firstMatch);
@@ -94,7 +99,11 @@ function getIndexByLetter(options: string[], filter: string, startIndex = 0) {
   }
 }
 
-function getUpdatedIndex(currentIndex: number, maxIndex: number, action: number) {
+function getUpdatedIndex(
+  currentIndex: number,
+  maxIndex: number,
+  action: number
+) {
   const pageSize = 10;
 
   switch (action) {
@@ -134,8 +143,10 @@ export class Select extends Base {
   @property({ type: Boolean, reflect: true }) required = false;
   @property({ type: Boolean, reflect: true }) quick = false;
 
-  @property({ reflect: true }) align: import('@floating-ui/dom').Placement = 'bottom-start';
-  @property({ type: String, reflect: true }) alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
+  @property({ reflect: true }) align: import('@floating-ui/dom').Placement =
+    'bottom-start';
+  @property({ type: String, reflect: true })
+  alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
   @property({ type: Number, reflect: true }) offset = 0;
 
   @query('[part="field"]') protected $field!: HTMLElement;
@@ -216,7 +227,9 @@ export class Select extends Base {
       if (this.open) {
         this.#startAutoReposition();
         // Focus current item when opening
-        const index = this.listController.items.findIndex(item => (item.value || item.innerText) === this.value);
+        const index = this.listController.items.findIndex(
+          (item) => (item.value || item.innerText) === this.value
+        );
         if (index >= 0) {
           this.listController._focusItem(this.listController.items[index]);
         } else {
@@ -246,7 +259,7 @@ export class Select extends Base {
       case SelectActions.Last:
       case SelectActions.First:
         this.open = true;
-        // intentional fallthrough
+      // intentional fallthrough
       case SelectActions.Next:
       case SelectActions.Previous:
       case SelectActions.PageUp:
@@ -258,7 +271,7 @@ export class Select extends Base {
       case SelectActions.CloseSelect:
         event.preventDefault();
         this.#selectOption(currentIndex);
-        // intentional fallthrough
+      // intentional fallthrough
       case SelectActions.Close:
         event.preventDefault();
         this.open = false;
@@ -298,7 +311,7 @@ export class Select extends Base {
     this.open = true;
     const searchString = this.#getSearchString(letter);
     const items = this.listController.items;
-    const optionsText = items.map(item => item.innerText);
+    const optionsText = items.map((item) => item.innerText);
     const searchIndex = getIndexByLetter(
       optionsText,
       searchString,
@@ -345,7 +358,9 @@ export class Select extends Base {
     // Using a microtask or just checking if items exist.
     // Since this is called in updated(), items might be available if children are slotted.
     const items = this.listController.items;
-    const selectedItem = items.find(item => (item.value || item.innerText) === this.value);
+    const selectedItem = items.find(
+      (item) => (item.value || item.innerText) === this.value
+    );
 
     if (selectedItem) {
       this.displayValue = selectedItem.innerText;
@@ -357,7 +372,7 @@ export class Select extends Base {
   // TODO: Store previously selected item to avoid looping through all items
   #updateSelection() {
     const items = this.listController.items;
-    items.forEach(item => {
+    items.forEach((item) => {
       const itemValue = item.value || item.innerText;
       item.selected = itemValue === this.value;
     });
@@ -387,11 +402,7 @@ export class Select extends Base {
     computePosition(this.$field, this.$menu, {
       placement: this.align,
       strategy: this.alignStrategy,
-      middleware: [
-        offset(this.offset),
-        flip(),
-        shift({ crossAxis: true }),
-      ],
+      middleware: [offset(this.offset), flip(), shift({ crossAxis: true })],
     }).then(({ x, y, placement }) => {
       Object.assign(this.$menu.style, {
         left: `${x}px`,

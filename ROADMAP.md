@@ -12,18 +12,18 @@ This roadmap outlines the current and future goals for SEE
 
 ## Base (base)
 
-| Components   | Functionality |
-| ------------ | :-----------: |
-| Button       |      ✅       |
-| Checkbox     |      ✅       |
-| List         |      🟡       |
-| List item    |      🟡       |
-| Menu         |      🟡       |
-| Menu item    |      🟡       |
-| Option       |      ❌       |
-| Select       |      ❌       |
-| Switch       |      ✅       |
-| Tooltip      |      🟡       |
+| Components | Functionality |
+| ---------- | :-----------: |
+| Button     |      ✅       |
+| Checkbox   |      ✅       |
+| List       |      🟡       |
+| List item  |      🟡       |
+| Menu       |      🟡       |
+| Menu item  |      🟡       |
+| Option     |      🟡       |
+| Select     |      🟡       |
+| Switch     |      ✅       |
+| Tooltip    |      🟡       |
 
 ---
 
@@ -56,18 +56,18 @@ This roadmap outlines the current and future goals for SEE
 | Navigation bar                |      ❌       |  ❌   |
 | Navigation drawer             |      ❌       |  ❌   |
 | Navigation rail               |      ❌       |  ❌   |
+| Option                        |      🟡       |  🟡   |
 | Progress indicator (circular) |      ❌       |  ❌   |
 | Progress indicator (linear)   |      ❌       |  ❌   |
 | Radio                         |      ❌       |  ❌   |
 | Ripple                        |      ✅       |  🟡   |
 | Search                        |      ❌       |  ❌   |
-| Select                        |      ❌       |  ❌   |
-| Option                        |      ❌       |  ❌   |
+| Select                        |      🟡       |  🟡   |
 | Slider                        |      ❌       |  ❌   |
 | Snackbar                      |      ❌       |  ❌   |
 | Switch                        |      ✅       |  ✅   |
+| Top app bar                   |      ❌       |  ❌   |
 | Tabs                          |      ❌       |  ❌   |
 | Text field                    |      ❌       |  ❌   |
 | Time picker                   |      ❌       |  ❌   |
 | Tooltip                       |      🟡       |  🟡   |
-| Top app bar                   |      ❌       |  ❌   |
