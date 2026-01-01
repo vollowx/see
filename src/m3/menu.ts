@@ -24,6 +24,7 @@ export class M3Menu extends Menu {
   ];
   override animateOpeningDuration: number = 50;
   override animateClosingDuration: number = 50;
+  override _scrollPadding = 4;
 }
 
 declare global {

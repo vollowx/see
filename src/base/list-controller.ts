@@ -7,6 +7,7 @@ import {
 import { property, query } from 'lit/decorators.js';
 import { Option } from './option.js';
 import { MenuItem } from './menu-item.js';
+import { getIndexByLetter } from './menu-utils.js';
 
 // Action types for keyboard handling
 const SelectActions = {
@@ -79,31 +80,45 @@ export class ListController<
   }
   _focusedIndex: number = -1;
 
-  // TODO: Handle character typing for type-to-select
-  // TODO: Handle PageUp and PageDown
-  handleKeyDown(event: KeyboardEvent) {
-    const { key } = event;
-    console.log('ListController handleKeyDown', event.key);
-    if (!this.isNavigableKey(key)) return;
-    console.log('Navigable key detected:', key);
+  private searchString = '';
+  private searchTimeout: number | null = null;
 
-    switch (key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.focusNextItem();
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.focusPreviousItem();
-        break;
-      case 'Home':
-        event.preventDefault();
-        this.focusFirstItem();
-        break;
-      case 'End':
-        event.preventDefault();
-        this.focusLastItem();
-        break;
+  handleType(char: string) {
+    const searchString = this.getSearchString(char);
+    const items = this.items;
+    const optionsText = items.map((item) => item.innerText);
+    const searchIndex = getIndexByLetter(
+      optionsText,
+      searchString,
+      this.currentIndex + 1
+    );
+
+    if (searchIndex >= 0) {
+      this._focusItem(items[searchIndex]);
+      return true;
+    } else {
+      if (this.searchTimeout) window.clearTimeout(this.searchTimeout);
+      this.searchString = '';
+      return false;
+    }
+  }
+
+  private getSearchString(char: string) {
+    if (this.searchTimeout) {
+      window.clearTimeout(this.searchTimeout);
+    }
+    this.searchTimeout = window.setTimeout(() => {
+      this.searchString = '';
+    }, 500);
+    this.searchString += char;
+    return this.searchString;
+  }
+
+  clearSearch() {
+    this.searchString = '';
+    if (this.searchTimeout) {
+      window.clearTimeout(this.searchTimeout);
+      this.searchTimeout = null;
     }
   }
 

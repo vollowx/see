@@ -20,6 +20,7 @@ export class M3Select extends Select {
   static override styles = [menuPartStyles, selectStyles];
 
   protected override _possibleItemTags = ['md-option'];
+  override _scrollPadding = 4;
 }
 
 declare global {

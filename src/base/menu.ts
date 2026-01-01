@@ -7,6 +7,13 @@ import { internals, InternalsAttached } from './internals-attached.js';
 import { MenuItem } from './menu-item.js';
 import { ListController } from './list-controller.js';
 import { setFocusVisible } from '../core/variables.js';
+import {
+  MenuActions,
+  getActionFromKey,
+  getIndexByLetter,
+  getUpdatedIndex,
+  scrollItemIntoView,
+} from './menu-utils.js';
 
 import {
   autoUpdate,
@@ -33,14 +40,13 @@ export class Menu extends Base {
   alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
   @property({ type: Number, reflect: true }) offset = 0;
 
-  padding = 8;
+  _scrollPadding = 0;
+  _windowPadding = 16;
 
   protected _possibleItemTags: string[] = [];
 
-  get $items() {
-    return this.listController.items;
-  }
   @query('[part="menu"]') $menu!: HTMLElement;
+
   private $lastFocused: HTMLElement | null = null;
 
   private readonly listController = new ListController<MenuItem>(this, {
@@ -61,9 +67,9 @@ export class Menu extends Base {
       // this[internals].ariaActiveDescendantElement = item;
       // Somehow setting ariaActiveDescendantElement doesn't actually update it
       this.setAttribute('aria-activedescendant', item.id);
+      scrollItemIntoView(this.$menu, item, this._scrollPadding);
     },
-    isNavigableKey: (key: string) =>
-      ['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(key),
+    isNavigableKey: (key: string) => false,
     wrapNavigation: () => false,
   });
 
@@ -93,7 +99,7 @@ export class Menu extends Base {
         this.#handleFocusOut.bind(this)
       );
     }
-    this.$items.forEach((item) => {
+    this.listController.items.forEach((item) => {
       item.addEventListener('mouseover', this.#handleItemMouseOver.bind(this));
       item.addEventListener('click', this.#handleItemClick.bind(this));
     });
@@ -136,6 +142,7 @@ export class Menu extends Base {
       } else {
         this.clearAutoReposition?.();
         this.clearAutoReposition = null;
+        this.listController.clearSearch();
 
         if (this.$control) {
           this.$control.ariaExpanded = 'false';
@@ -192,8 +199,8 @@ export class Menu extends Base {
       strategy: this.alignStrategy,
       middleware: [
         offset(this.offset),
-        flip({ padding: this.padding }),
-        shift({ padding: this.padding, crossAxis: true }),
+        flip({ padding: this._windowPadding }),
+        shift({ padding: this._windowPadding, crossAxis: true }),
       ],
     }).then(({ x, y, placement }) => {
       Object.assign(this.$menu.style, {
@@ -208,35 +215,54 @@ export class Menu extends Base {
   #handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
 
-    event.stopPropagation();
+    const action = getActionFromKey(event, this.open);
+    const items = this.listController.items;
+    const currentIndex = this.listController.currentIndex;
+    const maxIndex = items.length - 1;
 
-    switch (event.key) {
-      case 'Escape':
+    switch (action) {
+      case MenuActions.Last:
+      case MenuActions.First:
+        this.open = true;
+      // intentional fallthrough
+      case MenuActions.Next:
+      case MenuActions.Previous:
+      case MenuActions.PageUp:
+      case MenuActions.PageDown:
         event.preventDefault();
-
+        const nextIndex = getUpdatedIndex(currentIndex, maxIndex, action!);
+        this.listController._focusItem(items[nextIndex]);
+        return;
+      case MenuActions.CloseSelect:
+        event.preventDefault();
+        if (currentIndex >= 0) {
+          this.listController.items[currentIndex].focused = false;
+          this.dispatchEvent(
+            new CustomEvent('menu-item-selected', {
+              detail: {
+                item: this.listController.items[currentIndex],
+                index: currentIndex,
+              },
+              bubbles: true,
+              composed: true,
+            })
+          );
+          this.open = false;
+        }
+        return;
+      case MenuActions.Close:
+        event.preventDefault();
         this.open = false;
         return;
-      case 'Enter':
+      case MenuActions.Type:
+        this.open = true;
+        this.listController.handleType(event.key);
+        return;
+      case MenuActions.Open:
         event.preventDefault();
-
-        let index = this.listController.currentIndex;
-        console.log('Menu item selected:', index);
-        this.listController.items[index].blur();
-        this.dispatchEvent(
-          new CustomEvent('menu-item-selected', {
-            detail: {
-              item: this.listController.items[index],
-              index: index,
-            },
-            bubbles: true,
-            composed: true,
-          })
-        );
-
-        this.open = false;
+        this.open = true;
         return;
     }
-    this.listController.handleKeyDown(event);
   }
 
   #handleFocusOut(event: FocusEvent) {
@@ -259,7 +285,7 @@ export class Menu extends Base {
   #handleItemClick(event: Event) {
     const clickedItem = event.currentTarget as MenuItem;
     const index = this.listController.items.indexOf(clickedItem);
-    this.listController.items[index].blur();
+    this.listController.items[index].focused = false;
     this.dispatchEvent(
       new CustomEvent('menu-item-selected', {
         detail: {
