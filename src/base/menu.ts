@@ -58,7 +58,9 @@ export class Menu extends Base {
     },
     focusItem: (item: MenuItem) => {
       item.focused = true;
-      this[internals].ariaActiveDescendantElement = item;
+      // this[internals].ariaActiveDescendantElement = item;
+      // Somehow setting ariaActiveDescendantElement doesn't actually update it
+      this.setAttribute('aria-activedescendant', item.id);
     },
     isNavigableKey: (key: string) =>
       ['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(key),
