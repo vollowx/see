@@ -28,7 +28,11 @@ export class MenuItem extends FormAssociated(InternalsAttached(LitElement)) {
 
   protected override updated(changed: Map<string, any>) {
     super.updated(changed);
-    if (changed.has('disabled') || changed.has('focused')) {
+    if (
+      changed.has('disabled') ||
+      changed.has('focused') ||
+      changed.has('selected')
+    ) {
       this.#updateInternals();
     }
   }
