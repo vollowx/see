@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-md-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>toolbars - see development tests</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.ts"></script>
+    <style>
+      .phone {
+        background-color: var(--md-sys-color-surface);
+        border: 8px solid var(--md-sys-color-outline);
+        border-radius: 24px;
+        display: inline-block;
+        width: 360px;
+        height: 800px;
+        overflow: hidden;
+        position: relative;
+      }
+      .phone.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 200;
+        border: none;
+        border-radius: 0;
+        width: 100dvw;
+        height: 100dvh;
+      }
+    </style>
+  </head>
+  <body>
+    <sd-toolbar></sd-toolbar>
+    <h1>toolbars</h1>
+
+    <div class="phone">
+      <md-toolbar style="position: absolute; bottom: 0">
+        <md-button variant="text">Back</md-button>
+        <md-button>Next</md-button>
+      </md-toolbar>
+    </div>
+
+    <div class="phone">
+      <md-toolbar style="position: absolute; bottom: 0">
+        <md-icon-button aria-label="Back">
+          <md-icon>arrow_back</md-icon>
+        </md-icon-button>
+        <md-icon-button aria-label="Forward">
+          <md-icon>arrow_forward</md-icon>
+        </md-icon-button>
+        <md-fab size="small" color="primary" aria-label="New tab">
+          <md-icon>add</md-icon>
+        </md-fab>
+        <md-icon-button aria-label="Tabs">
+          <md-icon>tab</md-icon>
+        </md-icon-button>
+        <md-icon-button aria-label="More options">
+          <md-icon>more_vert</md-icon>
+        </md-icon-button>
+      </md-toolbar>
+    </div>
+
+    <script>
+      document.querySelectorAll('.phone').forEach((phone) => {
+        let lastTap = 0;
+        phone.addEventListener('touchend', (e) => {
+          const currentTime = new Date().getTime();
+          const tapLength = currentTime - lastTap;
+          if (tapLength < 300 && tapLength > 0) {
+            phone.classList.toggle('fullscreen');
+            e.preventDefault();
+          }
+          lastTap = currentTime;
+        });
+      });
+    </script>
+  </body>
+</html>

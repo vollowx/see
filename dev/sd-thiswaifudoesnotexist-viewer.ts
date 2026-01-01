@@ -5,7 +5,7 @@ import '../src/m3/icon-button.js';
 import '../src/m3/toolbar.js';
 import '../src/m3/tooltip.js';
 
-@customElement('twdne-viewer')
+@customElement('sd-thiswaifudoesnotexist-viewer')
 export class ThisWaifuDoesNotExist extends LitElement {
   static override styles = [
     css`
@@ -104,5 +104,12 @@ export class ThisWaifuDoesNotExist extends LitElement {
     if (nth < 0) nth = 0;
     if (nth === this.nth) return;
     this.nth = nth;
+  }
+}
+
+// Lord what am I doing
+declare global {
+  interface HTMLElementTagNameMap {
+    'sd-thiswaifudoesnotexist-viewer': ThisWaifuDoesNotExist;
   }
 }
