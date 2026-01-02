@@ -161,11 +161,11 @@ export class Menu extends Base {
   animateOpeningDuration: number = 0;
   animateClosingDuration: number = 0;
   animateOpen() {
+    this[internals].states.delete('closed');
     this[internals].states.add('opening');
     return new Promise<void>((resolve) => {
       setTimeout(
         () => {
-          this[internals].states.delete('closed');
           this[internals].states.delete('opening');
           this[internals].states.add('opened');
           resolve();
@@ -175,11 +175,11 @@ export class Menu extends Base {
     });
   }
   animateClose() {
+    this[internals].states.delete('opened');
     this[internals].states.add('closing');
     return new Promise<void>((resolve) => {
       setTimeout(
         () => {
-          this[internals].states.delete('opened');
           this[internals].states.delete('closing');
           this[internals].states.add('closed');
           resolve();

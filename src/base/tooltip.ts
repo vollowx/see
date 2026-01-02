@@ -31,7 +31,7 @@ export class Tooltip extends Base {
     'top';
   @property({ type: Number, reflect: true }) offset = 4;
 
-  // TODO: Unify state names with Menu
+  // TODO: Consider add closed state
   set visible(value: boolean) {
     if (value) {
       this.clearAutoReposition = autoUpdate(
@@ -39,32 +39,30 @@ export class Tooltip extends Base {
         this,
         this.reposition.bind(this)
       );
-      this[internals].states.add('showing');
+      this[internals].states.add('opening');
       this.reposition();
       setTimeout(() => {
-        this[internals].states.delete('showing');
-        this[internals].states.add('visible');
-      }, this.showDuration);
+        this[internals].states.delete('opening');
+        this[internals].states.add('opened');
+      }, this._durations.show);
     } else {
-      this[internals].states.add('hiding');
+      this[internals].states.add('closing');
       setTimeout(() => {
-        this[internals].states.delete('hiding');
-        this[internals].states.delete('visible');
+        this[internals].states.delete('closing');
+        this[internals].states.delete('opened');
         this.clearAutoReposition?.();
-      }, this.hideDuration);
+      }, this._durations.hide);
     }
   }
 
-  padding = 8;
-  showDuration = 100;
-  hideDuration = 100;
-  mouseShowDelay = 500;
-  mouseHideDelay = 0;
-  focusShowDelay = 100;
-  focusHideDelay = 0;
-  touchShowDelay = 700;
-  touchHideDelay = 1500;
-  recentlyShowedDelay = 800;
+  readonly _windowPadding = 16;
+  readonly _durations = { show: 0, hide: 0 };
+  readonly _delays = {
+    mouse: { show: 500, hide: 0 },
+    focus: { show: 100, hide: 0 },
+    touch: { show: 700, hide: 1500 },
+    recentlyShowed: 800,
+  };
 
   #timeOutShow: NodeJS.Timeout | undefined = undefined;
   #timeOutHide: NodeJS.Timeout | undefined = undefined;
@@ -88,9 +86,9 @@ export class Tooltip extends Base {
         this.visible = true;
       },
       Math.max(
-        Date.now() - lastHidingTime < this.recentlyShowedDelay
+        Date.now() - lastHidingTime < this._delays.recentlyShowed
           ? 0
-          : this.focusShowDelay
+          : this._delays.focus.show
       )
     );
   }
@@ -99,7 +97,7 @@ export class Tooltip extends Base {
     clearTimeout(this.#timeOutShow);
     this.#timeOutHide = setTimeout(() => {
       this.visible = false;
-    }, this.focusHideDelay);
+    }, this._delays.focus.hide);
   }
   #handlePointerEnter(e: PointerEvent) {
     if (e.pointerType === 'touch') return;
@@ -109,9 +107,9 @@ export class Tooltip extends Base {
         this.visible = true;
       },
       Math.max(
-        Date.now() - lastHidingTime < this.recentlyShowedDelay
+        Date.now() - lastHidingTime < this._delays.recentlyShowed
           ? 0
-          : this.mouseShowDelay
+          : this._delays.mouse.show
       )
     );
   }
@@ -121,20 +119,20 @@ export class Tooltip extends Base {
     clearTimeout(this.#timeOutShow);
     this.#timeOutHide = setTimeout(() => {
       this.visible = false;
-    }, this.mouseHideDelay);
+    }, this._delays.mouse.hide);
   }
   #handleTouchStart() {
     clearTimeout(this.#timeOutHide);
     this.#timeOutShow = setTimeout(() => {
       this.visible = true;
       addEventListener('click', this.#boundOutsideClick);
-    }, this.touchShowDelay);
+    }, this._delays.touch.show);
   }
   #handleTouchEnd() {
     clearTimeout(this.#timeOutShow);
     this.#timeOutHide = setTimeout(() => {
       this.visible = false;
-    }, this.touchHideDelay);
+    }, this._delays.touch.hide);
   }
   #handleOutsideClick(e: MouseEvent) {
     if (e.composedPath().includes(/** @type {HTMLElement} */ this.$control))
@@ -173,8 +171,8 @@ export class Tooltip extends Base {
       placement: this.align,
       middleware: [
         offset(this.offset),
-        flip({ padding: this.padding }),
-        shift({ padding: this.padding, crossAxis: true }),
+        flip({ padding: this._windowPadding }),
+        shift({ padding: this._windowPadding, crossAxis: true }),
       ],
     }).then(({ x, y }) => {
       this.style.top = `${y}px`;
