@@ -1,8 +1,6 @@
 import { LitElement } from 'lit';
 import { internals } from './internals-attached.js';
 
-type Constructor<T> = new (...args: any[]) => T;
-
 export const FormAssociated = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {
