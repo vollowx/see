@@ -21,7 +21,36 @@
     <sd-toolbar></sd-toolbar>
     <h1>select</h1>
 
-    <md-select id="demo-select" label="Choose a fruit">
+    <label for="native-select">Native select:</label>
+
+    <select id="native-select" label="Choose a native fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="cherry">Cherry</option>
+      <option value="peach" disabled>Peach</option>
+      <option value="elderberry">Elderberry</option>
+    </select>
+
+    <label style="display: block"
+      >event:
+      <input type="text" readonly id="native-select-fires" />
+    </label>
+
+    <label for="native-select1">
+      Native select inside a label:
+
+      <select id="native-select1" label="Choose a native fruit">
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="cherry">Cherry</option>
+        <option value="peach" disabled>Peach</option>
+        <option value="elderberry">Elderberry</option>
+      </select>
+    </label>
+
+    <label for="demo-select">Custom select:</label>
+
+    <md-select id="demo-select" label="Choose a fruit" value="apple">
       <md-option value="apple">Apple</md-option>
       <md-option value="banana">Banana</md-option>
       <md-option value="cherry">Cherry</md-option>
@@ -29,9 +58,14 @@
       <md-option value="elderberry">Elderberry</md-option>
     </md-select>
 
+    <label style="display: block"
+      >event:
+      <input type="text" readonly id="demo-select-fires" />
+    </label>
+
     <p>Very long select list</p>
 
-    <md-select id="fruitSelect" value="fig">
+    <md-select id="fruitSelect">
       <md-option value="apple">Apple</md-option>
       <md-option value="apricot">Apricot</md-option>
       <md-option value="avocado">Avocado</md-option>
@@ -80,5 +114,26 @@
       <md-option value="ugli">Ugli Fruit</md-option>
       <md-option value="watermelon">Watermelon</md-option>
     </md-select>
+
+    <script>
+      const nativeSelect = document.getElementById('native-select');
+      const nativeSelectFires = document.getElementById('native-select-fires');
+      nativeSelect.addEventListener('change', (event) => {
+        nativeSelectFires.value = `change: value=${event.target.value}`;
+      });
+      nativeSelect.addEventListener('input', (event) => {
+        nativeSelectFires.value = `input: value=${event.target.value}`;
+      });
+
+      const demoSelect = document.getElementById('demo-select');
+      const demoSelectFires = document.getElementById('demo-select-fires');
+
+      demoSelect.addEventListener('change', (event) => {
+        demoSelectFires.value = `sd-change: value=${event.detail.value}`;
+      });
+      demoSelect.addEventListener('input', (event) => {
+        demoSelectFires.value = `sd-input: value=${event.detail.value}`;
+      });
+    </script>
   </body>
 </html>

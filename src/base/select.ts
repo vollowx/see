@@ -196,6 +196,8 @@ export class Select extends Base {
       const newValue = item.value || item.innerText;
       if (this.value !== newValue) {
         this.value = newValue;
+        // According to https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event#event_type
+        // the change and input events are just Event and should not include detail.
         this.dispatchEvent(new Event('change', { bubbles: true }));
         this.dispatchEvent(new Event('input', { bubbles: true }));
       }
