@@ -129,10 +129,10 @@
       const demoSelectFires = document.getElementById('demo-select-fires');
 
       demoSelect.addEventListener('change', (event) => {
-        demoSelectFires.value = `sd-change: value=${event.detail.value}`;
+        demoSelectFires.value = `change: value=${event.target.value}`;
       });
       demoSelect.addEventListener('input', (event) => {
-        demoSelectFires.value = `sd-input: value=${event.detail.value}`;
+        demoSelectFires.value = `input: value=${event.target.value}`;
       });
     </script>
   </body>

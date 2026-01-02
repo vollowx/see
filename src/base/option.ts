@@ -1,19 +1,12 @@
 import { property } from 'lit/decorators.js';
 
-import { internals } from './mixins/internals-attached.js';
-import { MenuItem } from './menu-item.js';
+import { ListItem } from './list-item.js';
 
-// FIXME: ID auto-generation still names menu-item-...
-export const OptionMixin = <T extends Constructor<MenuItem>>(superClass: T) => {
+export const OptionMixin = <T extends Constructor<ListItem>>(superClass: T) => {
   class OptionElement extends superClass {
     @property({ reflect: true }) value: string = '';
-
-    override connectedCallback() {
-      super.connectedCallback();
-      this[internals].role = 'option';
-    }
   }
   return OptionElement;
 };
 
-export class Option extends OptionMixin(MenuItem) {}
+export class Option extends OptionMixin(ListItem) {}

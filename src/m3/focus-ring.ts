@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { Attachable } from '../base/mixins/attachable.js';
 import { InternalsAttached, internals } from '../base/mixins/internals-attached.js';
-import { focusVisible } from '../core/variables.js';
+import { focusVisible } from '../core/focus-visible.js';
 
 import { focusRingStyles } from './focus-ring-styles.css.js';
 

@@ -1,7 +1,7 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { MenuItem } from './menu-item.js';
 import { getIndexByLetter } from './menu-utils.js';
+import { ListItem } from './list-item.js';
 
 // Action types for keyboard handling
 const SelectActions = {
@@ -18,7 +18,7 @@ const SelectActions = {
   Type: 10,
 };
 
-export interface ListControllerConfig<Item extends MenuItem> {
+export interface ListControllerConfig<Item extends ListItem> {
   isItem: (item: HTMLElement) => item is Item;
   getPossibleItems: () => HTMLElement[];
   blurItem: (item: Item) => void;
@@ -29,7 +29,7 @@ export interface ListControllerConfig<Item extends MenuItem> {
 }
 
 export class ListController<
-  Item extends MenuItem,
+  Item extends ListItem,
 > implements ReactiveController {
   host: ReactiveControllerHost;
 

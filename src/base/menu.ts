@@ -6,7 +6,7 @@ import { internals, InternalsAttached } from './mixins/internals-attached.js';
 
 import { MenuItem } from './menu-item.js';
 import { ListController } from './list-controller.js';
-import { setFocusVisible } from '../core/variables.js';
+import { setFocusVisible } from '../core/focus-visible.js';
 import {
   MenuActions,
   getActionFromKey,
