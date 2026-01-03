@@ -47,11 +47,9 @@ export class Menu extends Base {
       offset: () => this.offset,
       windowPadding: () => 16,
     },
-    animation: {
-      durations: {
-        open: () => (this.quick ? 0 : this._durations.show),
-        close: () => (this.quick ? 0 : this._durations.hide),
-      },
+    durations: {
+      open: () => (this.quick ? 0 : this._durations.show),
+      close: () => (this.quick ? 0 : this._durations.hide),
     },
   });
 

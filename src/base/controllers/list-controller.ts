@@ -3,21 +3,6 @@ import { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIndexByLetter } from '../menu-utils.js';
 import { ListItem } from '../list-item.js';
 
-// Action types for keyboard handling
-const SelectActions = {
-  Close: 0,
-  CloseSelect: 1,
-  First: 2,
-  Last: 3,
-  Next: 4,
-  Open: 5,
-  PageDown: 6,
-  PageUp: 7,
-  Previous: 8,
-  Select: 9,
-  Type: 10,
-};
-
 export interface ListControllerConfig<Item extends ListItem> {
   isItem: (item: HTMLElement) => item is Item;
   getPossibleItems: () => HTMLElement[];

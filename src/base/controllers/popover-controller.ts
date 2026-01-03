@@ -8,12 +8,41 @@ import {
 import {
   autoUpdate,
   computePosition,
+  arrow,
   flip,
   offset,
   shift,
+  MiddlewareData,
   Placement,
   Strategy,
 } from '@floating-ui/dom';
+
+export function transformOriginFromArrow(
+  placement: Placement,
+  arrowData?: MiddlewareData['arrow']
+): string {
+  const { x: arrowX, y: arrowY } = arrowData || {};
+  const [side] = placement.split('-');
+
+  let originX = '';
+  let originY = '';
+
+  if (side === 'top') {
+    originX = arrowX != null ? `${arrowX}px` : 'center';
+    originY = 'bottom';
+  } else if (side === 'bottom') {
+    originX = arrowX != null ? `${arrowX}px` : 'center';
+    originY = 'top';
+  } else if (side === 'left') {
+    originX = 'right';
+    originY = arrowY != null ? `${arrowY}px` : 'center';
+  } else if (side === 'right') {
+    originX = 'left';
+    originY = arrowY != null ? `${arrowY}px` : 'center';
+  }
+
+  return `${originX} ${originY}`;
+}
 
 export interface PopoverControllerConfig {
   popover: () => HTMLElement | null;
@@ -24,36 +53,30 @@ export interface PopoverControllerConfig {
     offset: () => number;
     windowPadding: () => number;
   };
-  animation: {
-    durations: {
-      open: () => number;
-      close: () => number;
-    };
-    delays?: {
-      open?: () => number;
-      close?: () => number;
-    };
+  durations: {
+    open: () => number;
+    close: () => number;
   };
 }
 
 export class PopoverController implements ReactiveController {
   host: ReactiveControllerHost & InternalsAttachedInterface;
 
+  private readonly config: PopoverControllerConfig;
+
   private _open = false;
   get open() {
     return this._open;
   }
 
-  private config: PopoverControllerConfig;
   private cleanupAutoUpdate?: () => void;
 
   constructor(
     host: ReactiveControllerHost & InternalsAttachedInterface,
     config: PopoverControllerConfig
   ) {
-    this.host = host;
+    (this.host = host).addController(this);
     this.config = config;
-    this.host.addController(this);
   }
 
   hostConnected() {
@@ -62,7 +85,6 @@ export class PopoverController implements ReactiveController {
       this.host[internals].states.add('closed');
     }
   }
-
   hostDisconnected() {
     this.cleanupAutoUpdate?.();
   }
@@ -79,7 +101,7 @@ export class PopoverController implements ReactiveController {
     clearTimeout(this.#openTimer);
     clearTimeout(this.#closeTimer);
 
-    const openDuration = this.config.animation.durations.open();
+    const openDuration = this.config.durations.open();
 
     this.host[internals].states.delete('closed');
     this.host[internals].states.delete('closing');
@@ -122,7 +144,7 @@ export class PopoverController implements ReactiveController {
     clearTimeout(this.#openTimer);
     clearTimeout(this.#closeTimer);
 
-    const closeDuration = this.config.animation.durations.close();
+    const closeDuration = this.config.durations.close();
     const wasOpened = this.host[internals].states.has('opened');
 
     this.host[internals].states.delete('opened');
@@ -148,30 +170,36 @@ export class PopoverController implements ReactiveController {
     this.cleanupAutoUpdate = undefined;
   }
 
+  // TODO: Provide the ability to specify an arrow element.
+  private _dummyArrow = document.createElement('div');
+
   reposition() {
     const trigger = this.config.trigger();
     const popover = this.config.popover();
 
     if (!trigger || !popover) return Promise.resolve();
 
-    const placement = this.config.positioning.placement();
-    const strategy = this.config.positioning.strategy();
-    const offsetVal = this.config.positioning.offset();
-    const windowPadding = this.config.positioning.windowPadding();
-
     return computePosition(trigger, popover, {
-      placement,
-      strategy,
+      placement: this.config.positioning.placement(),
+      strategy: this.config.positioning.strategy(),
       middleware: [
-        offset(offsetVal),
-        flip({ padding: windowPadding }),
-        shift({ padding: windowPadding, crossAxis: true }),
+        offset(this.config.positioning.offset()),
+        flip({ padding: this.config.positioning.windowPadding() }),
+        shift({
+          padding: this.config.positioning.windowPadding(),
+          crossAxis: true,
+        }),
+        arrow({ element: this._dummyArrow }),
       ],
-    }).then(({ x, y }) => {
+    }).then(({ x, y, strategy, placement, middlewareData }) => {
       Object.assign(popover.style, {
         left: `${x}px`,
         top: `${y}px`,
         position: strategy,
+        transformOrigin: transformOriginFromArrow(
+          placement,
+          middlewareData.arrow
+        ),
       });
     });
   }

@@ -13,7 +13,6 @@
   min-width: inherit;
   overflow-y: auto;
   padding: 4px;
-  transform-origin: top;
   z-index: 1000;
   opacity: 0;
   transform: scaleY(0.4);

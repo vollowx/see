@@ -39,11 +39,9 @@ export class Tooltip extends Base {
       offset: () => this.offset,
       windowPadding: () => 16,
     },
-    animation: {
-      durations: {
-        open: () => this._durations.show,
-        close: () => this._durations.hide,
-      },
+    durations: {
+      open: () => this._durations.show,
+      close: () => this._durations.hide,
     },
   });
 

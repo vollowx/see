@@ -9,7 +9,7 @@ import { tooltipStyles } from './tooltip-styles.css.js';
  */
 @customElement('md-tooltip')
 export class M3Tooltip extends Tooltip {
-  override readonly _durations = { show: 67, hide: 67 };
+  override readonly _durations = { show: 50, hide: 50 };
 
   static override styles = [tooltipStyles];
 }

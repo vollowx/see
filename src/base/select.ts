@@ -46,25 +46,20 @@ export class Select extends Base {
   @query('[part="field"]') $field!: HTMLElement;
   @query('[part="menu"]') $menu!: HTMLElement;
 
-  private readonly popoverController = new PopoverController(
-    this,
-    {
-      popover: () => this.$menu,
-      trigger: () => this.$field,
-      positioning: {
-        placement: () => this.align,
-        strategy: () => this.alignStrategy,
-        offset: () => this.offset,
-        windowPadding: () => 16,
-      },
-      animation: {
-        durations: {
-          open: () => this.quick ? 0 : this._durations.show,
-          close: () => this.quick ? 0 : this._durations.hide,
-        },
-      },
-    }
-  );
+  private readonly popoverController = new PopoverController(this, {
+    popover: () => this.$menu,
+    trigger: () => this.$field,
+    positioning: {
+      placement: () => this.align,
+      strategy: () => this.alignStrategy,
+      offset: () => this.offset,
+      windowPadding: () => 16,
+    },
+    durations: {
+      open: () => (this.quick ? 0 : this._durations.show),
+      close: () => (this.quick ? 0 : this._durations.hide),
+    },
+  });
 
   protected readonly listController = new ListController<Option>(this, {
     isItem: (item: HTMLElement): item is Option =>
@@ -211,8 +206,8 @@ export class Select extends Base {
         this.value = newValue;
         // According to https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event#event_type
         // the change and input events are just Event and should not include detail.
-        this.dispatchEvent(new Event('change', { bubbles: true }));
         this.dispatchEvent(new Event('input', { bubbles: true }));
+        this.dispatchEvent(new Event('change', { bubbles: true }));
       }
       this.open = false;
     }
