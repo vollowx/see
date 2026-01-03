@@ -1,51 +1,30 @@
 :host {
-  --_background-color: transparent;
-  --_text-color: var(--md-sys-color-on-surface-variant);
-  --_outline-color: var(--md-sys-color-outline);
-  align-items: center;
+  --_icon-size: 24px;
   background-color: color-mix(
     in srgb,
     var(--_background-color) var(--_background-opacity, 100%),
     transparent
   );
-  border-radius: 9999px;
-  box-sizing: border-box;
+  border-radius: calc(var(--_h) / 2);
   color: color-mix(
     in srgb,
     var(--_text-color) var(--_text-opacity, 100%),
     transparent
   );
-  cursor: pointer;
-  display: inline-flex;
-  height: 40px;
-  justify-content: center;
-  outline: 0;
-  position: relative;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  user-select: none;
-  vertical-align: top;
-  width: 40px;
+  height: var(--_h);
+  width: var(--_h);
+  transition: border-radius 280ms var(--md-sys-motion-easing-emphasized);
 }
-:host([variant='filled']) {
-  --_text-color: var(--md-sys-color-on-primary);
-  --_background-color: var(--md-sys-color-primary);
+
+:host([variant='text']) {
+  --_text-color: var(--md-sys-color-on-surface-variant);
 }
-:host([variant='tonal']) {
-  --_background-color: var(--md-sys-color-secondary-container);
-  --_text-color: var(--md-sys-color-on-secondary-container);
+
+:host([width='narrow']) {
+  width: var(--_w_narrow);
 }
-:host([variant='outlined']) {
-  border-color: color-mix(
-    in srgb,
-    var(--_outline-color) var(--_outline-opacity, 100%),
-    transparent
-  );
-  border-style: solid;
-  border-width: 1px;
-}
-:host([variant='outlined']) md-focus-ring {
-  --md-focus-ring-offset: 3px;
+:host([width='wide']) {
+  width: var(--_w_wide);
 }
 
 :host(:disabled) {
@@ -57,16 +36,16 @@
 :host([variant='filled']:disabled),
 :host([variant='tonal']:disabled) {
   --_background-color: var(--md-sys-color-on-surface);
-  --_background-opacity: 12%;
+  --_background-opacity: 10%;
 }
 :host([variant='outlined']:disabled) {
   --_outline-color: var(--md-sys-color-on-surface);
-  --_outline-opacity: 12%;
+  --_outline-opacity: 10%;
 }
 
 ::slotted(*) {
-  block-size: 24px;
+  block-size: 1em;
   fill: currentcolor;
-  font-size: 24px;
-  inline-size: 24px;
+  font-size: var(--_icon-size);
+  inline-size: 1em;
 }

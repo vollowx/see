@@ -8,6 +8,7 @@ export { Switch } from './base/switch.js';
 export { Tooltip } from './base/tooltip.js';
 
 export { M3Button } from './m3/button.js';
+export { M3ButtonToggle } from './m3/button-toggle.js';
 export { M3Checkbox } from './m3/checkbox.js';
 export { M3FAB } from './m3/fab.js';
 export { M3IconButton } from './m3/icon-button.js';

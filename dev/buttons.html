@@ -21,16 +21,35 @@
     <sd-toolbar></sd-toolbar>
     <h1>buttons</h1>
 
-    <md-button size="xsmall"
+    <p>not in spec: elevated icon button, text toggle button</p>
+
+    <style>
+      body > md-button {
+        margin: 8px 4px;
+      }
+    </style>
+
+    <md-button
+      size="xsmall"
+      style="
+        --_on-color: var(--md-sys-color-on-tertiary);
+        --_color: var(--md-sys-color-tertiary);
+      "
       ><md-icon slot="icon">edit</md-icon>le bouton</md-button
     >
-    <md-button size="small"
+    <md-button
+      size="small"
+      style="
+        --_on-color: var(--md-sys-color-on-tertiary);
+        --_color: var(--md-sys-color-tertiary);
+      "
+      disabled
       ><md-icon slot="icon">edit</md-icon>le bouton</md-button
     >
     <md-button size="medium"
       ><md-icon slot="icon">edit</md-icon>le bouton</md-button
     >
-    <md-button size="large"
+    <md-button size="large" variant="tonal" shape="square"
       ><md-icon slot="icon">edit</md-icon>Button</md-button
     >
     <md-button size="xlarge" variant="outlined"
@@ -39,25 +58,12 @@
 
     <br />
 
-    <md-button size="xsmall" shape="square"
-      ><md-icon slot="icon">edit</md-icon>le bouton</md-button
-    >
-    <md-button size="small" shape="square"
-      ><md-icon slot="icon">edit</md-icon>le bouton</md-button
-    >
-    <md-button size="medium" shape="square"
-      ><md-icon slot="icon">edit</md-icon>le bouton</md-button
-    >
-    <md-button size="large" shape="square"
-      ><md-icon slot="icon">edit</md-icon>Button</md-button
-    >
-    <md-button size="xlarge" shape="square" variant="outlined"
-      ><md-icon slot="icon">edit</md-icon>Button</md-button
-    >
-
-    <br />
-
+    <md-icon-button><md-icon>edit</md-icon></md-icon-button>
     <md-button>Filled</md-button>
+    <md-icon-button-toggle width="standard" variant="tonal">
+      <md-icon>format_italic</md-icon>
+      <md-icon slot="checked">format_italic</md-icon>
+    </md-icon-button-toggle>
     <md-button variant="tonal">Tonal</md-button>
     <md-button variant="elevated">Elevated</md-button>
     <md-button variant="outlined">Outlined</md-button>
@@ -78,7 +84,7 @@
       ><md-icon slot="icon">add</md-icon>Tonal</md-button
     >
     <md-button variant="elevated"
-      ><md-icon slot="icon">add</md-icon>Elevated</md-button
+      ><md-icon slot="icon">pause</md-icon>Paused</md-button
     >
     <md-button variant="outlined"
       ><md-icon slot="icon">add</md-icon>Outlined</md-button
@@ -103,18 +109,260 @@
 
     <br />
 
-    <md-button><md-icon slot="trailingicon">add</md-icon>Filled</md-button>
-    <md-button variant="tonal"
-      ><md-icon slot="trailingicon">add</md-icon>Tonal</md-button
+    <md-button trailingicon><md-icon slot="icon">add</md-icon>Filled</md-button>
+    <md-button variant="tonal" trailingicon
+      ><md-icon slot="icon">add</md-icon>Tonal</md-button
     >
-    <md-button variant="elevated"
-      ><md-icon slot="trailingicon">add</md-icon>Elevated</md-button
+    <md-button variant="elevated" trailingicon
+      ><md-icon slot="icon">add</md-icon>Elevated</md-button
     >
-    <md-button variant="outlined"
-      ><md-icon slot="trailingicon">add</md-icon>Outlined</md-button
+    <md-button variant="outlined" trailingicon
+      ><md-icon slot="icon">add</md-icon>Outlined</md-button
     >
-    <md-button variant="text"
-      ><md-icon slot="trailingicon">add</md-icon>Text</md-button
+    <md-button variant="text" trailingicon
+      ><md-icon slot="icon">add</md-icon>Text</md-button
     >
+
+    <br />
+
+    <md-icon-button-toggle width="narrow">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" variant="tonal">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" variant="outlined">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <br />
+
+    <md-icon-button-toggle width="narrow" size="xsmall" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle size="xsmall" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" size="xsmall" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <br />
+
+    <md-icon-button-toggle width="narrow" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <br />
+
+    <md-icon-button-toggle width="narrow" size="medium" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle size="medium" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" size="medium" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <br />
+
+    <md-icon-button-toggle width="narrow" size="large" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle size="large" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" size="large" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <br />
+
+    <md-icon-button-toggle width="narrow" size="xlarge" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle size="xlarge" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+    <md-icon-button-toggle width="wide" size="xlarge" variant="filled">
+      <md-icon>wifi_off</md-icon>
+      <md-icon slot="checked">wifi</md-icon>
+    </md-icon-button-toggle>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        height: 200px;
+        width: 400px;
+        background-color: var(--md-sys-color-surface-container-lowest);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: 32px;
+      "
+    >
+      <md-icon-button-toggle width="wide" size="medium" variant="filled">
+        <md-icon>wifi_off</md-icon>
+        <md-icon slot="checked">wifi</md-icon>
+      </md-icon-button-toggle>
+      <md-icon-button-toggle
+        width="narrow"
+        size="medium"
+        variant="filled"
+        checked
+      >
+        <md-icon>bluetooth_disabled</md-icon>
+        <md-icon slot="checked">bluetooth</md-icon>
+      </md-icon-button-toggle>
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        height: 200px;
+        width: 400px;
+        background-color: var(--md-sys-color-surface-container-lowest);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: 32px;
+      "
+    >
+      <md-icon-button
+        width="narrow"
+        size="small"
+        variant="tonal"
+        aria-label="Play previous"
+      >
+        <md-icon>chevron_backward</md-icon>
+      </md-icon-button>
+      <md-icon-button-toggle
+        width="standard"
+        size="medium"
+        variant="filled"
+        checked
+      >
+        <md-icon>pause</md-icon>
+        <md-icon slot="checked">play_arrow</md-icon>
+      </md-icon-button-toggle>
+      <md-icon-button
+        width="narrow"
+        size="small"
+        variant="tonal"
+        aria-label="Play next"
+      >
+        <md-icon>chevron_forward</md-icon>
+      </md-icon-button>
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        height: 200px;
+        width: 400px;
+        background-color: var(--md-sys-color-surface-container-lowest);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: 32px;
+      "
+    >
+      <md-icon-button
+        width="narrow"
+        size="small"
+        variant="tonal"
+        aria-label="Pause"
+      >
+        <md-icon>pause</md-icon>
+      </md-icon-button>
+      <md-button-toggle size="medium" checked>
+        <span>Stop</span>
+        <span slot="checked">Start</span>
+      </md-button-toggle>
+      <md-icon-button
+        width="narrow"
+        size="small"
+        variant="outlined"
+        aria-label="Restart"
+      >
+        <md-icon>replay</md-icon>
+      </md-icon-button>
+    </div>
+
+    <a
+      href="https://m3.material.io/components/buttons/guidelines#cda2483b-52a1-484b-a428-a1be550fae18"
+      >Design source</a
+    >
+
+    <button id="disableAllBtn">Disable All</button>
+    <button id="enableAllBtn">Enable All</button>
+    <button id="checkAllBtn">Check All Toggles</button>
+    <button id="uncheckAllBtn">Uncheck All Toggles</button>
+
+    <script>
+      disableAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll(
+            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
+          )
+          .forEach((btn) => {
+            btn.disabled = true;
+          });
+      });
+      enableAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll(
+            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
+          )
+          .forEach((btn) => {
+            btn.disabled = false;
+          });
+      });
+      checkAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
+          .forEach((btn) => {
+            btn.checked = true;
+          });
+      });
+      uncheckAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
+          .forEach((btn) => {
+            btn.checked = false;
+          });
+      });
+    </script>
   </body>
 </html>

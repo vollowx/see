@@ -7,6 +7,7 @@ import { internals } from '../base/mixins/internals-attached.js';
 import './focus-ring.js';
 import './ripple.js';
 
+import { buttonGenericStyles } from './button-generic-styles.css.js';
 import { iconButtonStyles } from './icon-button-styles.css.js';
 import { iconButtonToggleStyles } from './icon-button-toggle-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
@@ -21,30 +22,31 @@ import { targetStyles } from './target-styles.css.js';
  */
 @customElement('md-icon-button-toggle')
 export class M3IconButtonToggle extends Switch {
+  static override styles = [
+    ...super.styles,
+    targetStyles,
+    buttonGenericStyles,
+    iconButtonStyles,
+    iconButtonToggleStyles,
+  ];
   constructor() {
     super();
     this[internals].role = 'button';
   }
-  static override styles = [
-    ...super.styles,
-    targetStyles,
-    iconButtonStyles,
-    iconButtonToggleStyles,
-  ];
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
-      <md-ripple enterbehavior="none"></md-ripple>
+      <md-ripple enterbehavior="always"></md-ripple>
       <span part="target"></span>
-      <slot part="icon icon-unchecked"></slot>
-      <slot part="icon icon-checked" name="checked"></slot>
+      <slot part="icon unchecked"></slot>
+      <slot part="icon checked" name="checked"></slot>
     `;
   }
   @property({ reflect: true }) variant:
-    | 'standard'
+    | 'text'
     | 'filled'
     | 'tonal'
-    | 'outlined' = 'standard';
+    | 'outlined' = 'text';
 }
 
 declare global {

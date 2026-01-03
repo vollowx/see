@@ -1,0 +1,128 @@
+:host {
+  --_on-color: var(--md-sys-color-on-primary);
+  --_color: var(--md-sys-color-primary);
+  /* [size='small'] */
+  --_h: 40px; /** height **/
+  --_w_narrow: 32px; /* width for iconOnly='narrow' */
+  --_w_wide: 52px; /* width for iconOnly='wide' */
+  --_icon-size: 20px;
+  --_pad: 16px;
+  --_gap: 8px;
+  --_rad-sq: 12px; /* square-radius */
+  --_rad-pr: 8px; /* pressed-radius */
+
+  --_text-color: var(--_on-color);
+  --_background-color: var(--_color);
+  --_outline-color: var(--md-sys-color-outline-variant);
+
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  outline: 0;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  vertical-align: top;
+}
+
+:host([size='xsmall']) {
+  --_h: 32px;
+  --_w_narrow: 28px;
+  --_w_wide: 40px;
+  --_pad: 12px;
+  --_gap: 4px;
+}
+:host([size='medium']) {
+  --_h: 56px;
+  --_w_narrow: 48px;
+  --_w_wide: 72px;
+  --_icon-size: 24px;
+  --_pad: 24px;
+  --_gap: 8px;
+  --_rad-sq: 16px;
+  --_rad-pr: 12px;
+  font: var(--md-sys-typography-title-medium);
+}
+:host([size='large']) {
+  --_h: 96px;
+  --_w_narrow: 64px;
+  --_w_wide: 128px;
+  --_icon-size: 32px;
+  --_pad: 48px;
+  --_gap: 12px;
+  --_rad-sq: 28px;
+  --_rad-pr: 16px;
+  font: var(--md-sys-typography-headline-small);
+}
+:host([size='xlarge']) {
+  --_h: 136px;
+  --_w_narrow: 104px;
+  --_w_wide: 184px;
+  --_icon-size: 40px;
+  --_pad: 64px;
+  --_gap: 16px;
+  --_rad-sq: 28px;
+  --_rad-pr: 16px;
+  font: var(--md-sys-typography-headline-medium);
+}
+
+:host([color='secondary']) {
+  --_on-color: var(--md-sys-color-on-secondary);
+  --_color: var(--md-sys-color-secondary);
+}
+:host([color='tertiary']) {
+  --_on-color: var(--md-sys-color-on-tertiary);
+  --_color: var(--md-sys-color-tertiary);
+}
+
+:host([variant='tonal']) {
+  --_background-color: var(--md-sys-color-secondary-container);
+  --_text-color: var(--md-sys-color-on-secondary-container);
+}
+:host([variant='elevated']) {
+  --_background-color: var(--md-sys-color-surface-container-low);
+  --_text-color: var(--_color);
+  box-shadow: var(--md-sys-elevation-shadow-1);
+}
+:host([variant='outlined']) {
+  --_background-color: transparent;
+  --_text-color: var(--md-sys-color-on-surface-variant);
+  --md-focus-ring-offset: 3px;
+  border-color: color-mix(
+    in srgb,
+    var(--_outline-color) var(--_outline-opacity, 100%),
+    transparent
+  );
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: none;
+  padding-inline: calc(var(--_pad) - 1px);
+}
+:host([variant='text']) {
+  --_background-color: transparent;
+  --_text-color: var(--_color);
+}
+
+:host([shape='square']) {
+  --md-focus-ring-shape: var(--_rad-sq);
+  border-radius: var(--_rad-sq);
+}
+:host(:state(checked)) {
+  --md-focus-ring-shape: var(--_rad-sq);
+  border-radius: var(--_rad-sq);
+}
+/* TODO: Space key pressed should also trigger active state */
+:host(:active) {
+  --md-focus-ring-shape: var(--_rad-pr);
+  border-radius: var(--_rad-pr);
+}
+
+:host(:state(checked)) [part~='unchecked'] {
+  display: none;
+}
+:host(:not(:state(checked))) [part~='checked'] {
+  display: none;
+}

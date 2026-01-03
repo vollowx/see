@@ -1,7 +1,8 @@
-import { html, PropertyValues } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-import { Button } from '../base/button.js';
+import { internals } from '../base/mixins/internals-attached.js';
+import { Switch } from '../base/switch.js';
 
 import './focus-ring.js';
 import './ripple.js';
@@ -9,31 +10,41 @@ import './ripple.js';
 import { targetStyles } from './target-styles.css.js';
 import { buttonGenericStyles } from './button-generic-styles.css.js';
 import { buttonStyles } from './button-styles.css.js';
+import { buttonToggleStyles } from './button-toggle-styles.css.js';
 
 /**
- * @tag md-button
+ * @tag md-button-toggle
  *
  * @csspart label
+ * @csspart label checked
  * @csspart icon
+ * @csspart icon checked
  *
  * @slot - label
  * @slot icon - leading icon
  */
-@customElement('md-button')
-export class M3Button extends Button {
+@customElement('md-button-toggle')
+export class M3ButtonToggle extends Switch {
   static override styles = [
     ...super.styles,
     targetStyles,
     buttonGenericStyles,
     buttonStyles,
+    buttonToggleStyles,
   ];
+  constructor() {
+    super();
+    this[internals].role = 'button';
+  }
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
       <md-ripple></md-ripple>
       <span part="target"></span>
-      <slot part="icon" name="icon" aria-hidden="true"></slot>
-      <slot part="label"></slot>
+      <slot part="icon unchecked" name="icon" aria-hidden="true"></slot>
+      <slot part="icon checked" name="icon-checked" aria-hidden="true"></slot>
+      <slot part="label unchecked"></slot>
+      <slot part="label checked" name="checked"></slot>
     `;
   }
   @property({ reflect: true }) size:
@@ -43,8 +54,6 @@ export class M3Button extends Button {
     | 'large'
     | 'xlarge' = 'small';
   @property({ reflect: true }) shape: 'rounded' | 'square' = 'rounded';
-  @property({ reflect: true }) color: 'primary' | 'secondary' | 'tertiary' =
-    'primary';
   @property({ reflect: true }) variant:
     | 'filled'
     | 'tonal'
@@ -59,6 +68,6 @@ export class M3Button extends Button {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-button': M3Button;
+    'md-button-toggle': M3ButtonToggle;
   }
 }

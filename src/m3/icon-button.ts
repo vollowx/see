@@ -6,8 +6,9 @@ import { Button } from '../base/button.js';
 import './focus-ring.js';
 import './ripple.js';
 
-import { iconButtonStyles } from './icon-button-styles.css.js';
 import { targetStyles } from './target-styles.css.js';
+import { buttonGenericStyles } from './button-generic-styles.css.js';
+import { iconButtonStyles } from './icon-button-styles.css.js';
 
 /**
  * @tag md-icon-button
@@ -18,7 +19,12 @@ import { targetStyles } from './target-styles.css.js';
  */
 @customElement('md-icon-button')
 export class M3IconButton extends Button {
-  static override styles = [...super.styles, targetStyles, iconButtonStyles];
+  static override styles = [
+    ...super.styles,
+    targetStyles,
+    buttonGenericStyles,
+    iconButtonStyles,
+  ];
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
@@ -28,10 +34,12 @@ export class M3IconButton extends Button {
     `;
   }
   @property({ reflect: true }) variant:
-    | 'standard'
+    | 'text'
     | 'filled'
     | 'tonal'
-    | 'outlined' = 'standard';
+    | 'outlined' = 'text';
+  @property({ reflect: true }) width: 'standard' | 'narrow' | 'wide' =
+    'standard';
 }
 
 declare global {

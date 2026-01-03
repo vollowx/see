@@ -31,12 +31,14 @@ export class Switch extends Base {
     super.connectedCallback();
     this.addEventListener('click', this.#handleClick);
     this.addEventListener('keydown', this.#handleKeyDown);
+    this.addEventListener('keyup', this.#handleKeyUp);
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('click', this.#handleClick);
     this.removeEventListener('keydown', this.#handleKeyDown);
+    this.removeEventListener('keyup', this.#handleKeyUp);
   }
 
   protected override updated(changed: Map<string, any>) {
@@ -69,7 +71,14 @@ export class Switch extends Base {
   };
 
   #handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (e.key !== ' ' && e.key !== 'Enter') return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.key === 'Enter') this.#toggleChecked();
+  };
+
+  #handleKeyUp = (e: KeyboardEvent) => {
+    if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
       this.#toggleChecked();
