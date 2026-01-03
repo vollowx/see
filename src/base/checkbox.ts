@@ -14,6 +14,12 @@ const PROPERTY_FROM_ARIA_CHECKED = {
 const Base = FormAssociated(InternalsAttached(LitElement));
 
 export class Checkbox extends Base {
+  static override styles = [hiddenStyles];
+
+  @property({ type: Boolean }) checked = false;
+  @property({ type: Boolean }) indeterminate = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
+
   constructor() {
     super();
     this[internals].role = 'checkbox';
@@ -22,93 +28,97 @@ export class Checkbox extends Base {
     this.indeterminate = this.hasAttribute('indeterminate');
     this.updateInternals();
   }
-  static override styles = [hiddenStyles];
+
   override connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('click', this.#boundClick);
-    this.addEventListener('keydown', this.#boundKeyDown);
-    this.addEventListener('keyup', this.#boundKeyUp);
+    this.addEventListener('click', this.#handleClick);
+    this.addEventListener('keydown', this.#handleKeyDown);
+    this.addEventListener('keyup', this.#handleKeyUp);
   }
+
   override disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('click', this.#boundClick);
-    this.removeEventListener('keydown', this.#boundKeyDown);
-    this.removeEventListener('keyup', this.#boundKeyUp);
+    this.removeEventListener('click', this.#handleClick);
+    this.removeEventListener('keydown', this.#handleKeyDown);
+    this.removeEventListener('keyup', this.#handleKeyUp);
   }
+
   protected override updated(changed: Map<string, any>) {
     if (
       changed.has('checked') ||
       changed.has('disabled') ||
       changed.has('indeterminate')
     ) {
-      this.updateInternals(true);
+      this.updateInternals();
     }
   }
-  @property({ type: Boolean }) checked = false;
-  @property({ type: Boolean }) indeterminate = false;
-  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  private updateInternals(dispatch = false) {
+  private updateInternals() {
+    const prevAriaChecked = this[internals].ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
+
     this[internals].states.delete('was-unchecked');
     this[internals].states.delete('was-checked');
     this[internals].states.delete('was-indeterminate');
-    this[internals].states.add(
-      `was-${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
-    );
+
+    if (prevAriaChecked && PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]) {
+        this[internals].states.add(
+            `was-${PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]}`
+        );
+    }
+
     this[internals].ariaChecked = this.indeterminate
       ? 'mixed'
       : this.checked
         ? 'true'
         : 'false';
+
+    const currentAriaChecked = this[internals].ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
+
     this[internals].states.delete('unchecked');
     this[internals].states.delete('checked');
     this[internals].states.delete('indeterminate');
     this[internals].states.add(
-      `${PROPERTY_FROM_ARIA_CHECKED[this[internals].ariaChecked]}`
+      `${PROPERTY_FROM_ARIA_CHECKED[currentAriaChecked]}`
     );
 
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-    this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+    this[internals].ariaDisabled = String(this.disabled);
 
     this[internals].setFormValue(this.checked ? 'on' : null);
-
-    if (dispatch)
-      this.dispatchEvent(
-        new CustomEvent('change', {
-          bubbles: true,
-          composed: true,
-          detail: this.checked,
-        })
-      );
   }
 
-  #boundClick = this.#handleClick.bind(this);
-  #boundKeyDown = this.#handleKeyDown.bind(this);
-  #boundKeyUp = this.#handleKeyUp.bind(this);
-  #handleClick(e: Event) {
+  #handleClick = (e: Event) => {
     e.stopPropagation();
     e.preventDefault();
     this.#toggleChecked();
-  }
-  #handleKeyDown(e: KeyboardEvent) {
+  };
+
+  #handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
     }
-  }
-  #handleKeyUp(e: KeyboardEvent) {
+  };
+
+  #handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();
       e.stopPropagation();
       this.#toggleChecked();
     }
-  }
+  };
 
   #toggleChecked() {
     if (this.disabled) return;
 
     this.checked = !this.checked;
     this.indeterminate = false;
-    this.updateInternals();
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        bubbles: true,
+        composed: true,
+        detail: this.checked,
+      })
+    );
   }
 }
