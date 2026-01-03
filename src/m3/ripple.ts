@@ -22,6 +22,10 @@ function distance(
  * @tag md-ripple
  *
  * @cssprop --md-ripple-color
+ *
+ * FIXME: Labelled form elements get :hover state when the label is hovered,
+ * but that will not trigger mouseenter/mouseleave on the ripple, so the ripple
+ * will not get :hover state.
  */
 @customElement('md-ripple')
 export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
