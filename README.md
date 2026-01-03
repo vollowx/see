@@ -1,42 +1,79 @@
-# SEE
+# SEE (Standard Extensible Elements)
 
-SEE stands for _Standard Extensible Elements_, which is a
-[web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)
-library that can be styled and extended freely, while pre-providing components
-in [Material You](https://m3.material.io/) design guideline.
+**SEE** is a modern, lightweight [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) library. It provides a set of highly customizable UI components that follow the [Material You](https://m3.material.io/) guidelines out of the box, while being designed for easy extension and restyling.
 
-SEE has its package published on
-[npm](https://www.npmjs.com/package/@vollowx/see), it is now the only way for
-you to use SEE. Visit [the website of SEE](https://see.v9.nz/) for docs and
-demos. Below is a [quick start](#quick-start) guide.
+Visit the [official website](https://see.v9.nz/) for documentation and demos.
+
+## Features
+
+- **Material You**: Ready-to-use components following the latest Material guidelines.
+- **Web Components**: Framework-agnostic. Works with vanilla HTML or any framework.
+- **Extensible**: Built to be extended. Create your own design system on top of SEE's logic.
+- **Lightweight**: Built on [Lit](https://lit.dev/) and [floating-ui](https://floating-ui.com/) only, ensuring fast performance and small bundle sizes.
+- **Accessible**: Designed with accessibility in mind (using `ElementInternals` and standard ARIA patterns).
+
+## Installation
+
+Install SEE using your preferred package manager:
+
+```bash
+# npm
+npm install @vollowx/see
+
+# pnpm
+pnpm add @vollowx/see
+
+# yarn
+yarn add @vollowx/see
+
+# bun
+bun add @vollowx/see
+```
+
+## Usage
+
+### Importing Components
+
+You can import the entire library or individual components to keep your bundle size small.
+
+```javascript
+// Import all components
+import '@vollowx/see';
+
+// OR Import specific components (Recommended)
+import '@vollowx/see/m3/button.js';
+import '@vollowx/see/m3/checkbox.js';
+```
+
+### Using Components
+
+Once imported, use the components just like standard HTML tags.
+
+```html
+<md-button variant="filled">Filled Button</md-button>
+<md-button variant="outlined">Outlined Button</md-button>
+
+<label>
+  <md-checkbox checked></md-checkbox>
+  Labelled Checkbox
+</label>
+```
+
+### Theming
+
+SEE components use CSS variables for styling. Currently, the global Material Design 3 token variables are not included in the JavaScript bundle.
+
+To style the components correctly, you need to define the necessary CSS variables in your project. You can find reference implementations in [vollowx/see-website](https://github.com/vollowx/see-website/) or the `dev` folder of this repository.
+
+## Browser Support
+
+SEE relies on modern web standards like `ElementInternals`.
+
+- **Chromium**: `>= 125.0`
+- **Firefox**: `>= 126.0`
 
 ## Resources
 
 - [Roadmap](./ROADMAP.md)
-- [Contributing specification](./CONTRIBUTING.md)
-
-## Compatibility
-
-- Chromium `>= 125.0.6415.0`
-- Firefox `>= 126.0a1`
-
-## Quick Start
-
-```sh
-npm install @vollowx/see
-```
-
-```javascript
-// import all components
-import '@vollowx/see';
-// or import a specific component
-import '@vollowx/see/m3/button';
-// or import component class
-import { M3Button } from '@vollowx/see/m3/button';
-```
-
-```html
-<md-button variant="outlined">Outlined Button</md-button>
-```
-
-Note that CSS variables for Material You systems are not included in the npm package nor the source code yet. You may copy them from the `docs` or `dev` folders for now.
+- [Contributing Guide](./CONTRIBUTING.md)
+- [License](./LICENSE)
