@@ -24,9 +24,10 @@
     <label for="native-select">Native select:</label>
 
     <select id="native-select" label="Choose a native fruit">
+      <option value="blank" aria-label="blank"></option>
       <option value="apple">Apple</option>
       <option value="banana">Banana</option>
-      <option value="cherry">Cherry</option>
+      <option value="cherry" selected>Cherry</option>
       <option value="peach" disabled>Peach</option>
       <option value="elderberry">Elderberry</option>
     </select>
@@ -36,24 +37,13 @@
       <input type="text" readonly id="native-select-fires" />
     </label>
 
-    <label for="native-select1">
-      Native select inside a label:
-
-      <select id="native-select1" label="Choose a native fruit">
-        <option value="apple">Apple</option>
-        <option value="banana">Banana</option>
-        <option value="cherry">Cherry</option>
-        <option value="peach" disabled>Peach</option>
-        <option value="elderberry">Elderberry</option>
-      </select>
-    </label>
-
     <label for="demo-select">Custom select:</label>
 
-    <md-select id="demo-select" label="Choose a fruit" value="apple">
+    <md-select id="demo-select" label="Choose a fruit">
+      <md-option value="blank" aria-label="blank"></md-option>
       <md-option value="apple">Apple</md-option>
       <md-option value="banana">Banana</md-option>
-      <md-option value="cherry">Cherry</md-option>
+      <md-option value="cherry" selected>Cherry</md-option>
       <md-option value="peach" disabled>Peach</md-option>
       <md-option value="elderberry">Elderberry</md-option>
     </md-select>

@@ -259,7 +259,20 @@ export class Select extends Base {
     });
   }
 
+  // TODO: Handle multiple selected items
   #handleSlotChange() {
+    const items = this.listController.items;
+
+    if (!this.value && items.length > 0) {
+      const selectedItem = items.find((item) => item.hasAttribute('selected'));
+      if (selectedItem) {
+        this.value = selectedItem.value || selectedItem.innerText;
+      } else {
+        const firstItem = items[0];
+        this.value = firstItem.value || firstItem.innerText;
+      }
+    }
+
     this.#updateDisplayValue();
     this.#updateSelection();
   }
