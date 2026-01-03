@@ -4,7 +4,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   color: var(--md-sys-color-inverse-on-surface);
-  display: none;
+  display: flex;
   font: var(--md-sys-typography-body-small);
   left: 0;
   max-width: var(--_max-width, 300px);
@@ -13,16 +13,23 @@
   padding: 4px 8px;
   position: absolute;
   top: 0;
-  transition: opacity 67ms linear;
   width: max-content;
   z-index: 9999;
+  pointer-events: none;
 }
-:host(:state(opening)),
-:host(:state(opened)) {
-  display: flex;
+:host(:state(closed)) {
+  display: none;
+}
+:host(:state(opening)) {
   opacity: 1;
+  transition: opacity var(--md-sys-motion-duration-short1) linear;
+  pointer-events: auto;
+}
+:host(:state(opened)) {
+  opacity: 1;
+  pointer-events: auto;
 }
 :host(:state(closing)) {
-  display: flex;
   opacity: 0;
+  transition: opacity var(--md-sys-motion-duration-short1) linear;
 }

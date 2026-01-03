@@ -1,26 +1,19 @@
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
+import { setFocusVisible } from '../core/focus-visible.js';
+
 import { Attachable } from './mixins/attachable.js';
 import { internals, InternalsAttached } from './mixins/internals-attached.js';
-
-import { MenuItem } from './menu-item.js';
+import { PopoverController } from './popover-controller.js';
 import { ListController } from './list-controller.js';
-import { setFocusVisible } from '../core/focus-visible.js';
+import { MenuItem } from './menu-item.js';
 import {
   MenuActions,
   getActionFromKey,
   getUpdatedIndex,
   scrollItemIntoView,
 } from './menu-utils.js';
-
-import {
-  autoUpdate,
-  computePosition,
-  flip,
-  offset,
-  shift,
-} from '@floating-ui/dom';
 
 const Base = InternalsAttached(Attachable(LitElement));
 
@@ -31,6 +24,10 @@ const Base = InternalsAttached(Attachable(LitElement));
  * @fires {Event} menu-item-selected
  */
 export class Menu extends Base {
+  readonly _possibleItemTags: string[] = [];
+  readonly _durations = { show: 0, hide: 0 };
+  readonly _scrollPadding: number = 0;
+
   @property({ type: Boolean, reflect: true }) open: boolean = false;
   @property({ type: Boolean, reflect: true }) quick: boolean = false;
   @property({ reflect: true }) align: import('@floating-ui/dom').Placement =
@@ -39,14 +36,25 @@ export class Menu extends Base {
   alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
   @property({ type: Number, reflect: true }) offset = 0;
 
-  _scrollPadding = 0;
-  _windowPadding = 16;
-
-  protected _possibleItemTags: string[] = [];
-
   @query('[part="menu"]') $menu!: HTMLElement;
-
   private $lastFocused: HTMLElement | null = null;
+
+  private readonly popoverController = new PopoverController(this, {
+    popover: () => this.$menu,
+    trigger: () => this.$control,
+    positioning: {
+      placement: () => this.align,
+      strategy: () => this.alignStrategy,
+      offset: () => this.offset,
+      windowPadding: () => 16,
+    },
+    animation: {
+      durations: {
+        open: () => (this.quick ? 0 : this._durations.show),
+        close: () => (this.quick ? 0 : this._durations.hide),
+      },
+    },
+  });
 
   private readonly listController = new ListController<MenuItem>(this, {
     isItem: (item: HTMLElement): item is MenuItem =>
@@ -68,9 +76,14 @@ export class Menu extends Base {
       this.setAttribute('aria-activedescendant', item.id);
       scrollItemIntoView(this.$menu, item, this._scrollPadding);
     },
-    isNavigableKey: (key: string) => false,
     wrapNavigation: () => false,
   });
+
+  constructor() {
+    super();
+    this[internals].role = 'menu';
+    this.tabIndex = -1;
+  }
 
   override render() {
     return html`<div part="menu">${this.renderItemSlot()}</div>`;
@@ -82,9 +95,6 @@ export class Menu extends Base {
 
   override connectedCallback() {
     super.connectedCallback();
-    this[internals].role = 'menu';
-    this.tabIndex = -1;
-    this[internals].states.add('closed');
     this.addEventListener('keydown', this.#handleKeyDown.bind(this));
     this.addEventListener('focusout', this.#handleFocusOut.bind(this));
     if (this.$control) {
@@ -114,40 +124,28 @@ export class Menu extends Base {
         this.#handleFocusOut.bind(this)
       );
     }
-    this.clearAutoReposition?.();
   }
 
   protected override updated(changed: Map<string, any>) {
     if (changed.has('open')) {
       if (this.open) {
-        if (this.$control) {
-          this.clearAutoReposition = autoUpdate(
-            this.$control,
-            this.$menu,
-            this.reposition.bind(this)
-          );
-          this.reposition();
-        }
-
         this.$lastFocused = document.activeElement as HTMLElement;
         if (this.$control) {
           this.$control.ariaExpanded = 'true';
         }
 
-        this.animateOpen().then(() => {
+        this.popoverController.animateOpen().then(() => {
           this.focus();
           this.listController.focusFirstItem();
         });
       } else {
-        this.clearAutoReposition?.();
-        this.clearAutoReposition = null;
         this.listController.clearSearch();
 
         if (this.$control) {
           this.$control.ariaExpanded = 'false';
         }
 
-        this.animateClose().then(() => {
+        this.popoverController.animateClose().then(() => {
           if (this.$lastFocused) {
             this.$lastFocused.focus();
             this.$lastFocused = null;
@@ -156,60 +154,6 @@ export class Menu extends Base {
       }
     }
   }
-
-  // TODO: Handle animation cancellation
-  animateOpeningDuration: number = 0;
-  animateClosingDuration: number = 0;
-  animateOpen() {
-    this[internals].states.delete('closed');
-    this[internals].states.add('opening');
-    return new Promise<void>((resolve) => {
-      setTimeout(
-        () => {
-          this[internals].states.delete('opening');
-          this[internals].states.add('opened');
-          resolve();
-        },
-        this.quick ? 0 : this.animateOpeningDuration
-      );
-    });
-  }
-  animateClose() {
-    this[internals].states.delete('opened');
-    this[internals].states.add('closing');
-    return new Promise<void>((resolve) => {
-      setTimeout(
-        () => {
-          this[internals].states.delete('closing');
-          this[internals].states.add('closed');
-          resolve();
-        },
-        this.quick ? 0 : this.animateClosingDuration
-      );
-    });
-  }
-
-  private clearAutoReposition: Function | null = null;
-  reposition = async () => {
-    if (!this.$control) return;
-
-    computePosition(this.$control, this.$menu, {
-      placement: this.align,
-      strategy: this.alignStrategy,
-      middleware: [
-        offset(this.offset),
-        flip({ padding: this._windowPadding }),
-        shift({ padding: this._windowPadding, crossAxis: true }),
-      ],
-    }).then(({ x, y, placement }) => {
-      Object.assign(this.$menu.style, {
-        left: `${x}px`,
-        top: `${y}px`,
-        position: this.alignStrategy,
-      });
-      this.align = placement;
-    });
-  };
 
   #handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;

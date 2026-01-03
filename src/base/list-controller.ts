@@ -23,7 +23,6 @@ export interface ListControllerConfig<Item extends ListItem> {
   getPossibleItems: () => HTMLElement[];
   blurItem: (item: Item) => void;
   focusItem: (item: Item) => void;
-  isNavigableKey: (key: string) => boolean;
   isActivatable?: (item: Item) => boolean;
   wrapNavigation?: () => boolean;
 }
@@ -37,7 +36,6 @@ export class ListController<
   private readonly getPossibleItems: () => HTMLElement[];
   private readonly blurItem: (item: Item) => void;
   private readonly focusItem: (item: Item) => void;
-  private readonly isNavigableKey: (key: string) => boolean;
   private readonly wrapNavigation: () => boolean;
 
   constructor(
@@ -49,8 +47,7 @@ export class ListController<
       getPossibleItems,
       blurItem,
       focusItem,
-      isNavigableKey,
-      wrapNavigation: loopFocus,
+      wrapNavigation,
     } = config;
 
     (this.host = host).addController(this);
@@ -59,8 +56,7 @@ export class ListController<
     this.getPossibleItems = getPossibleItems;
     this.blurItem = blurItem;
     this.focusItem = focusItem;
-    this.isNavigableKey = isNavigableKey;
-    this.wrapNavigation = loopFocus;
+    this.wrapNavigation = wrapNavigation;
   }
   hostConnected(): void {}
   hostDisconnected(): void {}

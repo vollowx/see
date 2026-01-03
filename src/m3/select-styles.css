@@ -36,14 +36,3 @@
   max-height: var(--md-select-menu-max-height, 300px);
   min-width: 100%;
 }
-
-/* TODO: Use states and support animations like menu */
-:host(:not([open])) [part='menu'] {
-  display: none;
-  opacity: 0;
-}
-
-:host([open]) [part='menu'] {
-  display: block;
-  opacity: 1;
-}

@@ -3,6 +3,7 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { FormAssociated } from './mixins/form-associated.js';
 import { InternalsAttached } from './mixins/internals-attached.js';
+import { PopoverController } from './popover-controller.js';
 import { ListController } from './list-controller.js';
 import { Option } from './option.js';
 import {
@@ -11,14 +12,6 @@ import {
   getUpdatedIndex,
   scrollItemIntoView,
 } from './menu-utils.js';
-
-import {
-  autoUpdate,
-  computePosition,
-  flip,
-  offset,
-  shift,
-} from '@floating-ui/dom';
 
 const Base = FormAssociated(InternalsAttached(LitElement));
 
@@ -31,6 +24,10 @@ const Base = FormAssociated(InternalsAttached(LitElement));
  * @fires {Event} input - Fired when the selected value has changed.
  */
 export class Select extends Base {
+  readonly _possibleItemTags: string[] = [];
+  readonly _durations = { show: 0, hide: 0 };
+  readonly _scrollPadding: number = 0;
+
   @property({ reflect: true }) value = '';
   @state() protected displayValue = '';
   @property({ type: String }) placeholder = '';
@@ -44,13 +41,28 @@ export class Select extends Base {
   alignStrategy: import('@floating-ui/dom').Strategy = 'absolute';
   @property({ type: Number, reflect: true }) offset = 0;
 
-  _scrollPadding = 0;
-  _windowPadding = 16;
+  @query('[part="field"]') $field!: HTMLElement;
+  @query('[part="menu"]') $menu!: HTMLElement;
 
-  @query('[part="field"]') protected $field!: HTMLElement;
-  @query('[part="menu"]') protected $menu!: HTMLElement;
-
-  protected _possibleItemTags: string[] = [];
+  private readonly popoverController = new PopoverController(
+    this,
+    {
+      popover: () => this.$menu,
+      trigger: () => this.$field,
+      positioning: {
+        placement: () => this.align,
+        strategy: () => this.alignStrategy,
+        offset: () => this.offset,
+        windowPadding: () => 16,
+      },
+      animation: {
+        durations: {
+          open: () => this.quick ? 0 : this._durations.show,
+          close: () => this.quick ? 0 : this._durations.hide,
+        },
+      },
+    }
+  );
 
   protected readonly listController = new ListController<Option>(this, {
     isItem: (item: HTMLElement): item is Option =>
@@ -72,7 +84,6 @@ export class Select extends Base {
       }
       scrollItemIntoView(this.$menu, item, this._scrollPadding);
     },
-    isNavigableKey: (key: string) => false, // We handle keys manually
     wrapNavigation: () => false,
   });
 
@@ -109,7 +120,6 @@ export class Select extends Base {
     super.disconnectedCallback();
     this.removeEventListener('click', this.#handleOptionClick);
     this.removeEventListener('focusout', this.#handleFocusOut);
-    this.clearAutoReposition?.();
   }
 
   protected override updated(changed: PropertyValues) {
@@ -118,9 +128,10 @@ export class Select extends Base {
       this.#updateDisplayValue();
       this.#updateSelection();
     }
+
     if (changed.has('open')) {
       if (this.open) {
-        this.#startAutoReposition();
+        this.popoverController.animateOpen();
         // Focus current item when opening
         const index = this.listController.items.findIndex(
           (item) => (item.value || item.innerText) === this.value
@@ -131,7 +142,7 @@ export class Select extends Base {
           this.listController.focusFirstItem();
         }
       } else {
-        this.#stopAutoReposition();
+        this.popoverController.animateClose();
         this.listController.clearSearch();
       }
     }
@@ -243,45 +254,6 @@ export class Select extends Base {
     items.forEach((item) => {
       const itemValue = item.value || item.innerText;
       item.selected = itemValue === this.value;
-    });
-  }
-
-  private clearAutoReposition: Function | null = null;
-
-  #startAutoReposition() {
-    if (this.$field && this.$menu) {
-      this.clearAutoReposition = autoUpdate(
-        this.$field,
-        this.$menu,
-        this.#reposition.bind(this)
-      );
-      this.#reposition();
-    }
-  }
-
-  #stopAutoReposition() {
-    this.clearAutoReposition?.();
-    this.clearAutoReposition = null;
-  }
-
-  #reposition() {
-    if (!this.$field || !this.$menu) return;
-
-    computePosition(this.$field, this.$menu, {
-      placement: this.align,
-      strategy: this.alignStrategy,
-      middleware: [
-        offset(this.offset),
-        flip({ padding: this._windowPadding }),
-        shift({ padding: this._windowPadding, crossAxis: true }),
-      ],
-    }).then(({ x, y, placement }) => {
-      Object.assign(this.$menu.style, {
-        left: `${x}px`,
-        top: `${y}px`,
-        position: this.alignStrategy,
-      });
-      this.align = placement;
     });
   }
 

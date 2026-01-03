@@ -15,16 +15,15 @@ import { menuStyles } from './menu-styles.css.js';
  */
 @customElement('md-menu')
 export class M3Menu extends Menu {
-  static override styles = [menuPartStyles, menuStyles];
-
-  protected override _possibleItemTags = [
+  override readonly _possibleItemTags = [
     'md-menu-item',
     'md-menu-item-checkbox',
     'md-menu-item-radio',
   ];
-  override animateOpeningDuration: number = 50;
-  override animateClosingDuration: number = 50;
-  override _scrollPadding = 4;
+  override readonly _durations = { show: 167, hide: 83 };
+  override readonly _scrollPadding = 4;
+
+  static override styles = [menuPartStyles, menuStyles];
 }
 
 declare global {

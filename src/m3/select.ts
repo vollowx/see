@@ -17,10 +17,11 @@ import { selectStyles } from './select-styles.css.js';
  */
 @customElement('md-select')
 export class M3Select extends Select {
-  static override styles = [menuPartStyles, selectStyles];
+  override readonly _possibleItemTags = ['md-option'];
+  override readonly _durations = { show: 300, hide: 200 };
+  override readonly _scrollPadding = 4;
 
-  protected override _possibleItemTags = ['md-option'];
-  override _scrollPadding = 4;
+  static override styles = [menuPartStyles, selectStyles];
 }
 
 declare global {
