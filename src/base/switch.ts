@@ -14,6 +14,11 @@ const PROPERTY_FROM_ARIA_PRESSED = {
 const Base = FormAssociated(InternalsAttached(LitElement));
 
 export class Switch extends Base {
+  static override styles = [hiddenStyles];
+
+  @property({ type: Boolean }) checked = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
+
   constructor() {
     super();
     this[internals].role = 'switch';
@@ -21,27 +26,26 @@ export class Switch extends Base {
     this.checked = this.hasAttribute('checked');
     this.updateInternals();
   }
-  static override styles = [hiddenStyles];
 
   override connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('click', this.#boundClick);
-    this.addEventListener('keydown', this.#boundKeyDown);
+    this.addEventListener('click', this.#handleClick);
+    this.addEventListener('keydown', this.#handleKeyDown);
   }
+
   override disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('click', this.#boundClick);
-    this.removeEventListener('keydown', this.#boundKeyDown);
+    this.removeEventListener('click', this.#handleClick);
+    this.removeEventListener('keydown', this.#handleKeyDown);
   }
+
   protected override updated(changed: Map<string, any>) {
     if (changed.has('checked') || changed.has('disabled')) {
-      this.updateInternals(true);
+      this.updateInternals();
     }
   }
-  @property({ type: Boolean }) checked = false;
-  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  private updateInternals(dispatch = false) {
+  private updateInternals() {
     this[internals].states.delete('unchecked');
     this[internals].states.delete('checked');
     this[internals].ariaPressed = this.checked ? 'true' : 'false';
@@ -53,38 +57,35 @@ export class Switch extends Base {
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
 
     this[internals].setFormValue(this.checked ? 'on' : null);
-
-    if (dispatch)
-      this.dispatchEvent(
-        new CustomEvent('change', {
-          bubbles: true,
-          composed: true,
-          detail: this.checked,
-        })
-      );
   }
 
-  #boundClick = this.#handleClick.bind(this);
-  #boundKeyDown = this.#handleKeyDown.bind(this);
   _ignoreClick = false;
-  #handleClick(e: Event) {
+
+  #handleClick = (e: Event) => {
     e.stopPropagation();
     e.preventDefault();
     if (this._ignoreClick) return;
     this.#toggleChecked();
-  }
-  #handleKeyDown(e: KeyboardEvent) {
+  };
+
+  #handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
       this.#toggleChecked();
     }
-  }
+  };
 
   #toggleChecked() {
     if (this.disabled) return;
 
     this.checked = !this.checked;
-    this.updateInternals();
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        bubbles: true,
+        composed: true,
+        detail: this.checked,
+      })
+    );
   }
 }
