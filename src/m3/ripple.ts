@@ -2,7 +2,10 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Attachable } from '../base/mixins/attachable.js';
-import { InternalsAttached, internals } from '../base/mixins/internals-attached.js';
+import {
+  InternalsAttached,
+  internals,
+} from '../base/mixins/internals-attached.js';
 
 import { rippleStyles } from './ripple-styles.css.js';
 
@@ -31,25 +34,21 @@ function distance(
 export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
   static override styles = [rippleStyles];
 
+  @property() enterBehavior: 'always' | 'none' = 'always';
+  @property() spaceBehavior: 'always' | 'once' | 'none' = 'once';
+
   constructor() {
     super();
     this[internals].ariaHidden = 'true';
   }
+
   $ripples: HTMLSpanElement[] = [];
-  @property() enterBehavior: 'always' | 'none' = 'always';
-  @property() spaceBehavior: 'always' | 'once' | 'none' = 'once';
 
   #spaceKeyDown = false;
   #pointerDown = false;
   #lastTime = 0;
 
-  #boundKeyDown = this.#handleKeyDown.bind(this);
-  #boundKeyUp = this.#handleKeyUp.bind(this);
-  #boundPointerEnter = this.#handlePointerEnter.bind(this);
-  #boundPointerLeave = this.#handlePointerLeave.bind(this);
-  #boundPointerDown = this.#handlePointerDown.bind(this);
-  #boundPointerUp = this.#handlePointerUp.bind(this);
-  #handleKeyDown(e: KeyboardEvent) {
+  #handleKeyDown = (e: KeyboardEvent) => {
     if (
       (e.key === 'Enter' && this.enterBehavior === 'always') ||
       (e.key === ' ' && this.spaceBehavior === 'always')
@@ -60,52 +59,57 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       if (!this.#spaceKeyDown) this.addRipple();
       this.#spaceKeyDown = true;
     }
-  }
-  #handleKeyUp(e: KeyboardEvent) {
+  };
+
+  #handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === ' ' && this.spaceBehavior === 'once') {
       this.#spaceKeyDown = false;
       this.removeRippleAll();
     }
-  }
-  #handlePointerEnter(e: PointerEvent) {
+  };
+
+  #handlePointerEnter = (e: PointerEvent) => {
     if (e.pointerType === 'touch') return;
     this[internals].states.add('hover');
     if (this.#pointerDown) this.addRipple(e);
-  }
-  #handlePointerLeave() {
+  };
+
+  #handlePointerLeave = () => {
     this[internals].states.delete('hover');
     if (this.#pointerDown) this.removeRippleAll();
-  }
-  #handlePointerDown(e: PointerEvent) {
+  };
+
+  #handlePointerDown = (e: PointerEvent) => {
     if (e.pointerType === 'mouse') this.#pointerDown = true;
-    document.addEventListener('pointerup', this.#boundPointerUp);
-    document.addEventListener('touchcancel', this.#boundPointerUp);
-    document.addEventListener('touchend', this.#boundPointerUp);
-    document.addEventListener('touchmove', this.#boundPointerUp);
+    document.addEventListener('pointerup', this.#handlePointerUp);
+    document.addEventListener('touchcancel', this.#handlePointerUp);
+    document.addEventListener('touchend', this.#handlePointerUp);
+    document.addEventListener('touchmove', this.#handlePointerUp);
 
     if (e.button === 2) return;
     this.addRipple(e);
-  }
-  #handlePointerUp() {
+  };
+
+  #handlePointerUp = () => {
     this.#pointerDown = false;
-    document.removeEventListener('pointerup', this.#boundPointerUp);
-    document.removeEventListener('touchcancel', this.#boundPointerUp);
-    document.removeEventListener('touchend', this.#boundPointerUp);
-    document.removeEventListener('touchmove', this.#boundPointerUp);
+    document.removeEventListener('pointerup', this.#handlePointerUp);
+    document.removeEventListener('touchcancel', this.#handlePointerUp);
+    document.removeEventListener('touchend', this.#handlePointerUp);
+    document.removeEventListener('touchmove', this.#handlePointerUp);
 
     this.removeRippleAll();
-  }
+  };
 
   override handleControlChange(
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {
     const eventHandlers = {
-      keydown: this.#boundKeyDown,
-      keyup: this.#boundKeyUp,
-      pointerenter: this.#boundPointerEnter,
-      pointerleave: this.#boundPointerLeave,
-      pointerdown: this.#boundPointerDown,
+      keydown: this.#handleKeyDown,
+      keyup: this.#handleKeyUp,
+      pointerenter: this.#handlePointerEnter,
+      pointerleave: this.#handlePointerLeave,
+      pointerdown: this.#handlePointerDown,
     };
 
     Object.keys(eventHandlers).forEach((eventName) => {

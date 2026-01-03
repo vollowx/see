@@ -27,13 +27,8 @@ export class ListController<
     host: ReactiveControllerHost,
     config: ListControllerConfig<Item>
   ) {
-    const {
-      isItem,
-      getPossibleItems,
-      blurItem,
-      focusItem,
-      wrapNavigation,
-    } = config;
+    const { isItem, getPossibleItems, blurItem, focusItem, wrapNavigation } =
+      config;
 
     (this.host = host).addController(this);
 

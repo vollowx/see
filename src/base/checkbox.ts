@@ -54,16 +54,17 @@ export class Checkbox extends Base {
   }
 
   private updateInternals() {
-    const prevAriaChecked = this[internals].ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
+    const prevAriaChecked = this[internals]
+      .ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
 
     this[internals].states.delete('was-unchecked');
     this[internals].states.delete('was-checked');
     this[internals].states.delete('was-indeterminate');
 
     if (prevAriaChecked && PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]) {
-        this[internals].states.add(
-            `was-${PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]}`
-        );
+      this[internals].states.add(
+        `was-${PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]}`
+      );
     }
 
     this[internals].ariaChecked = this.indeterminate
@@ -72,7 +73,8 @@ export class Checkbox extends Base {
         ? 'true'
         : 'false';
 
-    const currentAriaChecked = this[internals].ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
+    const currentAriaChecked = this[internals]
+      .ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
 
     this[internals].states.delete('unchecked');
     this[internals].states.delete('checked');

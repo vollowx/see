@@ -1,7 +1,7 @@
-import { LitElement, html, css } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { LitElement, html, css } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
-@customElement("sd-toolbar")
+@customElement('sd-toolbar')
 export class SdToolbar extends LitElement {
   static override styles = css`
     md-toolbar {
@@ -13,7 +13,7 @@ export class SdToolbar extends LitElement {
     }
     md-icon {
       display: inline-block;
-      font-family: "Material Symbols Rounded";
+      font-family: 'Material Symbols Rounded';
       font-style: normal;
       font-weight: normal;
       letter-spacing: normal;
@@ -24,13 +24,13 @@ export class SdToolbar extends LitElement {
     }
   `;
 
-  @property({ type: String }) githubUrl = "https://github.com/vollowx/see";
+  @property({ type: String }) githubUrl = 'https://github.com/vollowx/see';
   @property({ type: Boolean }) darkMode = true;
   @property({ type: Boolean }) rtl = false;
 
   @state() private tooltipTexts = {
-    dark: ["Turn off the light", "Turn on the light"],
-    rtl: ["Set direction to right-to-left", "Set direction to left-to-right"],
+    dark: ['Turn off the light', 'Turn on the light'],
+    rtl: ['Set direction to right-to-left', 'Set direction to left-to-right'],
   };
 
   override connectedCallback() {
@@ -39,30 +39,30 @@ export class SdToolbar extends LitElement {
   }
 
   private _initializeTheme() {
-    document.documentElement.dataset["mdTheme"] = this.darkMode
-      ? "dark"
-      : "light";
-    document.documentElement.dir = this.rtl ? "rtl" : "ltr";
+    document.documentElement.dataset['mdTheme'] = this.darkMode
+      ? 'dark'
+      : 'light';
+    document.documentElement.dir = this.rtl ? 'rtl' : 'ltr';
   }
 
-  private _getTooltipText(type: "dark" | "rtl", checked: boolean): string {
+  private _getTooltipText(type: 'dark' | 'rtl', checked: boolean): string {
     return this.tooltipTexts[type][checked ? 1 : 0];
   }
 
   private _handleTheme(e: CustomEvent) {
     this.darkMode = e.detail;
-    document.documentElement.dataset["mdTheme"] = this.darkMode
-      ? "dark"
-      : "light";
+    document.documentElement.dataset['mdTheme'] = this.darkMode
+      ? 'dark'
+      : 'light';
   }
 
   private _handleDir(e: CustomEvent) {
     this.rtl = e.detail;
-    document.documentElement.dir = this.rtl ? "rtl" : "ltr";
+    document.documentElement.dir = this.rtl ? 'rtl' : 'ltr';
   }
 
   private _handleBackToIndex() {
-    window.location.href = "./index.html";
+    window.location.href = './index.html';
   }
 
   override render() {
@@ -80,7 +80,7 @@ export class SdToolbar extends LitElement {
           </md-icon>
         </md-icon-button-toggle>
         <md-tooltip for="action-toggle-theme">
-          ${this._getTooltipText("dark", this.darkMode)}
+          ${this._getTooltipText('dark', this.darkMode)}
         </md-tooltip>
 
         <md-icon-button-toggle
@@ -97,7 +97,7 @@ export class SdToolbar extends LitElement {
           </md-icon>
         </md-icon-button-toggle>
         <md-tooltip for="action-toggle-direction">
-          ${this._getTooltipText("rtl", this.rtl)}
+          ${this._getTooltipText('rtl', this.rtl)}
         </md-tooltip>
 
         <md-fab
@@ -116,6 +116,6 @@ export class SdToolbar extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "sw-toolbar": SdToolbar;
+    'sw-toolbar': SdToolbar;
   }
 }

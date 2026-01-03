@@ -58,7 +58,7 @@ export class Tooltip extends Base {
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {
-    const eventHandlers: Record<string, EventListener> = {
+    const eventHandlers = {
       focusin: this.#handleFocusIn,
       focusout: this.#handleFocusOut,
       pointerenter: this.#handlePointerEnter,

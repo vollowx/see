@@ -11,19 +11,19 @@
   min-height: 24px;
   opacity: 0;
   padding: 4px 8px;
+  pointer-events: none;
   position: absolute;
   top: 0;
   width: max-content;
   z-index: 9999;
-  pointer-events: none;
 }
 :host(:state(closed)) {
   display: none;
 }
 :host(:state(opening)) {
   opacity: 1;
-  transition: opacity var(--md-sys-motion-duration-short1) linear;
   pointer-events: auto;
+  transition: opacity var(--md-sys-motion-duration-short1) linear;
 }
 :host(:state(opened)) {
   opacity: 1;
