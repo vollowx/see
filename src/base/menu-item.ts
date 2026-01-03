@@ -1,6 +1,5 @@
 import { ListItem } from './list-item.js';
 
-// FIXME: ID auto-generation still names menu-item-...
 export const MenuItemMixin = <T extends Constructor<ListItem>>(
   superClass: T
 ) => {

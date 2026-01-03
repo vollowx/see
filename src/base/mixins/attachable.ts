@@ -22,6 +22,10 @@ export const Attachable = <T extends Constructor<LitElement>>(
       super.disconnectedCallback();
     }
 
+    /**
+     * If has `for` attribute, use it to find the control element.
+     * Otherwise, use the parent element as the control.
+     */
     get $control() {
       if (this.hasAttribute('for')) {
         if (!this.htmlFor || !this.isConnected) {
@@ -46,24 +50,25 @@ export const Attachable = <T extends Constructor<LitElement>>(
     }
 
     private currentControl: HTMLElement | null = null;
-    // FIXME: Listen to changes, but shouldn't be triggered in first render
-    // attributeChangedCallback(
-    //   name: string,
-    //   oldValue: string | null,
-    //   newValue: string | null
-    // ) {
-    //   if (name === 'for') this.setCurrentControl(this.$control);
-    //   else super.attributeChangedCallback(name, oldValue, newValue);
-    // }
+
     @property({ attribute: 'for', type: String }) htmlFor: string | null;
 
+    override updated(changed: Map<string, any>) {
+      super.updated(changed);
+      if (changed.has('htmlFor')) {
+        // Will be triggered when first render using `for` attribute, will be
+        // prevented in setCurrentControl since it's unnecessary.
+        this.setCurrentControl(this.$control);
+      }
+    }
+
     private setCurrentControl(control: HTMLElement | null) {
+      if (control === this.currentControl) return;
       this.handleControlChange(this.currentControl, control);
       this.currentControl = control;
     }
 
     attach(control: HTMLElement) {
-      if (control === this.currentControl) return;
       this.setCurrentControl(control);
       this.removeAttribute('for');
     }
@@ -72,6 +77,9 @@ export const Attachable = <T extends Constructor<LitElement>>(
       this.setAttribute('for', '');
     }
 
+    /**
+     * Handles the first attaching and actual control element changing
+     */
     handleControlChange(
       prev: HTMLElement | null = null,
       next: HTMLElement | null = null
