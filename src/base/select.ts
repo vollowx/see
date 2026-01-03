@@ -3,8 +3,8 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { FormAssociated } from './mixins/form-associated.js';
 import { InternalsAttached } from './mixins/internals-attached.js';
-import { PopoverController } from './popover-controller.js';
-import { ListController } from './list-controller.js';
+import { PopoverController } from './controllers/popover-controller.js';
+import { ListController } from './controllers/list-controller.js';
 import { Option } from './option.js';
 import {
   MenuActions,
@@ -22,6 +22,8 @@ const Base = FormAssociated(InternalsAttached(LitElement));
  *
  * @fires {Event} change - Fired when the selected value has changed.
  * @fires {Event} input - Fired when the selected value has changed.
+ *
+ * TODO: Consider handle mouseover to focus items.
  */
 export class Select extends Base {
   readonly _possibleItemTags: string[] = [];

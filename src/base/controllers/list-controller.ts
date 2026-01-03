@@ -1,7 +1,7 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { getIndexByLetter } from './menu-utils.js';
-import { ListItem } from './list-item.js';
+import { getIndexByLetter } from '../menu-utils.js';
+import { ListItem } from '../list-item.js';
 
 // Action types for keyboard handling
 const SelectActions = {

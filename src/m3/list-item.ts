@@ -28,6 +28,7 @@ export class M3ListItem extends ListItem {
     super.updated(changed);
     if (changed.has('focused')) {
       if (this.focused) {
+    console.log('focus called on', this);
         this.focusRing.visualFocus();
       } else {
         this.focusRing.visualBlur();

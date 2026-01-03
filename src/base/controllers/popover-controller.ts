@@ -3,7 +3,7 @@ import { ReactiveController, ReactiveControllerHost } from 'lit';
 import {
   internals,
   InternalsAttachedInterface,
-} from './mixins/internals-attached.js';
+} from '../mixins/internals-attached.js';
 
 import {
   autoUpdate,

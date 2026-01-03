@@ -1,9 +1,12 @@
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { Attachable } from '../base/mixins/attachable.js';
-import { InternalsAttached, internals } from '../base/mixins/internals-attached.js';
 import { focusVisible } from '../core/focus-visible.js';
+import { Attachable } from '../base/mixins/attachable.js';
+import {
+  InternalsAttached,
+  internals,
+} from '../base/mixins/internals-attached.js';
 
 import { focusRingStyles } from './focus-ring-styles.css.js';
 
@@ -37,6 +40,7 @@ export class M3FocusRing extends Attachable(InternalsAttached(LitElement)) {
 
   #handleFocusIn() {
     if (focusVisible) this[internals].states.add('visible');
+    else this[internals].states.delete('visible');
   }
   #handleFocusOut() {
     this[internals].states.delete('visible');

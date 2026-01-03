@@ -1,6 +1,18 @@
 import { LitElement } from 'lit';
 import { internals } from './internals-attached.js';
 
+export declare class FormAssociatedInterface {
+  form: HTMLFormElement | null;
+  name: string | null;
+  // type: string;
+  validity: ValidityState;
+  validationMessage: string;
+  willValidate: boolean;
+
+  checkValidity(): boolean;
+  reportValidity(): boolean;
+}
+
 export const FormAssociated = <T extends Constructor<LitElement>>(
   superClass: T
 ) => {

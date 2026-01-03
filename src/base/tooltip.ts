@@ -4,7 +4,7 @@ import { property, query } from 'lit/decorators.js';
 import { focusVisible } from '../core/focus-visible.js';
 import { Attachable } from './mixins/attachable.js';
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
-import { PopoverController } from './popover-controller.js';
+import { PopoverController } from './controllers/popover-controller.js';
 
 let lastHidingTime = 0;
 

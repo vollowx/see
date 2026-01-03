@@ -2,11 +2,10 @@ import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { setFocusVisible } from '../core/focus-visible.js';
-
 import { Attachable } from './mixins/attachable.js';
 import { internals, InternalsAttached } from './mixins/internals-attached.js';
-import { PopoverController } from './popover-controller.js';
-import { ListController } from './list-controller.js';
+import { PopoverController } from './controllers/popover-controller.js';
+import { ListController } from './controllers/list-controller.js';
 import { MenuItem } from './menu-item.js';
 import {
   MenuActions,
