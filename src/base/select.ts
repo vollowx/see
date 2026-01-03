@@ -105,7 +105,7 @@ export class Select extends Base {
         <slot name="end-icon"></slot>
       </div>
       <div part="menu" id="menu" role="listbox" tabindex="-1">
-        <slot part="items"></slot>
+        <slot part="items" @slotchange=${this.#handleSlotChange}></slot>
       </div>
     `;
   }
@@ -257,14 +257,8 @@ export class Select extends Base {
     });
   }
 
-  // Observer for child list changes to update display value
-  private _observer = new MutationObserver(() => {
+  #handleSlotChange() {
     this.#updateDisplayValue();
     this.#updateSelection();
-  });
-
-  override firstUpdated() {
-    this._observer.observe(this, { childList: true, subtree: true });
-    this.#updateDisplayValue();
   }
 }
