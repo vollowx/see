@@ -29,13 +29,11 @@
   box-shadow: var(--md-sys-elevation-shadow-1);
 }
 :host([variant='text']) {
-  box-shadow: none !important;
   padding-inline: 12px; /* FIXME: No guideline to change with `[size]` */
 }
 
-
 @media (hover: hover) and (pointer: fine) {
-  :host(:hover:not(:active)) {
+  :host(:not([variant='text']):not([variant='outlined']):hover:not(:active)) {
     box-shadow: var(--md-sys-elevation-shadow-1);
   }
   :host([variant='elevated']:hover:not(:active)) {
@@ -56,7 +54,7 @@
   --_background-color: var(--md-sys-color-outline) !important;
 }
 
-[part~='icon' ] {
+[part~='icon'] {
   block-size: 1em;
   fill: currentcolor;
   font-size: var(--_icon-size);
