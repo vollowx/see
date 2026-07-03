@@ -1,6 +1,7 @@
 // TODO: export core, base elements, mixins and controllers
 
 export { M3Autocomplete }      from './m3/autocomplete/autocomplete.js';
+export { M3Badge }             from './m3/badge/badge.js';
 export { M3Button }            from './m3/button/common-button.js';
 export { M3ButtonToggle }      from './m3/button/common-button-toggle.js';
 export { M3IconButton }        from './m3/button/icon-button.js';

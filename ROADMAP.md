@@ -32,7 +32,7 @@ This roadmap outlines the current and future goals for SEELE
 | FAB menu                      |               |       |
 | Icon button                   | Done          | WIP   |
 | Segmented button              |               |       |
-| Badge                         |               |       |
+| Badge                         | Done          | WIP   |
 | Banner                        |               |       |
 | Bottom sheet                  |               |       |
 | Card                          |               |       |
