@@ -11,6 +11,7 @@
   padding: 0 16px;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+  text-wrap-mode: nowrap;
   user-select: none;
   -webkit-user-select-: none;
 }
