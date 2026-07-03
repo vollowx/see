@@ -1,5 +1,6 @@
 :host {
   --_tab-selected-color: var(--md-sys-color-primary);
+  --_tab-indicator-height: 3px;
   display: block;
   position: relative;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
@@ -17,7 +18,7 @@
 [part='indicator'] {
   position: absolute;
   bottom: 0;
-  height: 3px;
+  height: var(--_tab-indicator-height);
   border-radius: 3px 3px 0 0;
   background-color: var(--md-sys-color-primary);
   transition: var(--md-sys-motion-std-effects-slow-duration)
@@ -31,13 +32,14 @@
 
 :host([secondary]) {
   --_tab-selected-color: var(--md-sys-color-on-surface);
+  --_tab-indicator-height: 2px;
 }
 :host([secondary]) [part='indicator'] {
   border-radius: 0;
-  height: 2px;
 }
 
 :host([iconsabove]) {
   --_tab-flex-dir: column;
   --_tab-height: 64px;
+  --_tab-gap: 2px;
 }

@@ -1,5 +1,5 @@
 :host {
-  --md-focus-ring-shape: 8px;
+  --md-focus-ring-shape: 12px;
   box-sizing: border-box;
   color: var(--md-sys-color-on-surface-variant);
   cursor: pointer;
@@ -10,20 +10,22 @@
   outline: none;
   padding: 0 16px;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
   user-select: none;
+  -webkit-user-select-: none;
 }
 :host([selected]) {
   color: var(--_tab-selected-color);
 }
 :host([selected]) md-focus-ring {
-  margin-bottom: 4px;
+  margin-bottom: calc(var(--_tab-indicator-height) + 2px);
 }
 
 [part='content'] {
   align-items: center;
   display: inline-flex;
   flex-direction: var(--_tab-flex-dir, row);
-  gap: 8px;
+  gap: var(--_tab-gap, 8px);
   height: var(--_tab-height, 48px);
   justify-content: center;
 }
