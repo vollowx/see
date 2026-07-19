@@ -1,0 +1,266 @@
+<!doctypn html>
+<html lang="en" dir="ltr" data-md-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>button</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400;0,17..18,700;1,17..18,400;1,17..18,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.ts"></script>
+  </head>
+  <body>
+    <dev-configurator></dev-configurator>
+
+    <br />
+
+    <win98-button disabled>Look old?</win98-button>
+
+    <win98-button onclick="myDialog.showModal()">Login</win98-button>
+
+    <custom-dialog id="myDialog">
+      <h3>Confirm Action</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem dui,
+        tempus vitae mauris vel, ornare suscipit lectus. Nunc non viverra nisl,
+        eget blandit nisl. Aenean tempor finibus lectus, et pulvinar risus
+        ultricies non. Sed aliquam convallis ultrices. Sed non volutpat felis,
+        ut iaculis augue. Nulla consectetur, nibh vitae commodo bibendum, justo
+        tellus tempor odio, a fringilla ligula quam et urna. Donec laoreet, urna
+        eu rhoncus mollis, risus lorem vestibulum nisl, at consequat elit ex id
+        urna. Suspendisse risus enim, sollicitudin a iaculis vel, imperdiet in
+        metus. Sed massa nulla, fermentum vel arcu ac, condimentum efficitur
+        nulla. Cras rhoncus turpis non arcu feugiat, in consectetur erat
+        pretium. Aenean fermentum arcu nec turpis vehicula finibus. Nulla
+        ultrices dolor vel tortor bibendum rutrum. Morbi laoreet quam ipsum,
+        quis molestie arcu volutpat a. Integer et odio purus.
+      </p>
+
+      <div slot="actions">
+        <win98-button variant="text" onclick="myDialog.close()">
+          Cancel
+        </win98-button>
+        <win98-button variant="text" onclick="myDialog.close()" autofocus>
+          Confirm
+        </win98-button>
+      </div>
+    </custom-dialog>
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+    </style>
+
+    <script>
+      const CONFIG = {
+        openEase: 'cubic-bezier(0, 0, 0, 1)',
+        closeEase: 'cubic-bezier(0.3, 0, 1, 1)',
+        vertSlide: 32,
+        openDur: 500,
+        closeDur: 200,
+        innerFadeInDur: 200,
+        innerFadeOutDur: 100,
+      };
+
+      class CustomDialog extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: 'open' });
+          this._activeAnimations = [];
+        }
+
+        connectedCallback() {
+          this.shadowRoot.innerHTML = `
+            <style>
+              dialog {
+                padding: 0;
+                border: none;
+                background: transparent;
+                overflow: visible;
+              }
+
+              dialog::backdrop {
+                display: none;
+              }
+
+              #container {
+                box-sizing: border-box;
+                position: relative;
+                overflow: hidden;
+                min-width: 280px;
+                max-width: 420px;
+                will-change: height, transform, opacity;
+                background-color: var(--md-sys-color-tertiary-container);
+              }
+
+              #content-wrapper {
+                display: block;
+                will-change: transform, opacity;
+              }
+
+              #actions-wrapper {
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+              }
+            </style>
+
+            <dialog id="internal-dialog">
+              <div id="container">
+                <div id="content-wrapper">
+                  <slot></slot>
+                </div>
+                <div id="actions-wrapper">
+                  <slot name="actions"></slot>
+                </div>
+              </div>
+            </dialog>
+          `;
+
+          this.dialog = this.shadowRoot.getElementById('internal-dialog');
+          this.container = this.shadowRoot.getElementById('container');
+          this.contentWrapper =
+            this.shadowRoot.getElementById('content-wrapper');
+          this.actionsWrapper =
+            this.shadowRoot.getElementById('actions-wrapper');
+
+          this.dialog.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            this.close();
+          });
+        }
+
+        _clearAnimations() {
+          this._activeAnimations.forEach((anim) => anim.cancel());
+          this._activeAnimations = [];
+        }
+
+        showModal() {
+          this._clearAnimations();
+
+          // Reset margins to allow browser centering
+          this.dialog.style.marginTop = 'auto';
+          this.dialog.style.marginBottom = 'auto';
+
+          this.dialog.showModal();
+
+          const actionsHeight = this.actionsWrapper.offsetHeight;
+          this.container.style.paddingBottom = `${actionsHeight}px`;
+
+          this.container.style.height = 'auto';
+          const startHeight = 0;
+          const endHeight = this.container.offsetHeight;
+
+          // Lock the position to prevent auto-centering during animation
+          const rect = this.container.getBoundingClientRect();
+          this.dialog.style.marginTop = `${rect.top}px`;
+          this.dialog.style.marginBottom = 'auto';
+
+          const containerTransform = this.container.animate(
+            [
+              {
+                height: `${startHeight}px`,
+                transform: `translateY(-${CONFIG.vertSlide}px)`,
+              },
+              {
+                height: `${endHeight}px`,
+                transform: 'translateY(0px)',
+              },
+            ],
+            { duration: CONFIG.openDur, easing: CONFIG.openEase }
+          );
+
+          const contentFadeIn = this.contentWrapper.animate(
+            [{ opacity: 0.2 }, { opacity: 1 }],
+            {
+              duration: CONFIG.innerFadeInDur,
+              easing: 'linear',
+              fill: 'forwards',
+            }
+          );
+
+          const actionsFadeIn = this.actionsWrapper.animate(
+            [{ opacity: 0.5 }, { opacity: 1 }],
+            {
+              duration: CONFIG.innerFadeInDur,
+              easing: 'linear',
+              fill: 'forwards',
+            }
+          );
+
+          this._activeAnimations.push(
+            containerTransform,
+            contentFadeIn,
+            actionsFadeIn
+          );
+        }
+
+        close() {
+          this._clearAnimations();
+
+          const startHeight = this.container.offsetHeight;
+          const endHeight = startHeight * 0.35;
+          const actionsHeight = this.actionsWrapper.offsetHeight;
+
+          const containerTransform = this.container.animate(
+            [
+              { height: `${startHeight}px`, transform: 'translateY(0px)' },
+              { height: `${endHeight}px`, transform: `translateY(-${CONFIG.vertSlide}px)` },
+            ],
+            {
+              duration: CONFIG.closeDur,
+              easing: CONFIG.closeEase,
+            }
+          );
+
+          const contentFadeOut = this.contentWrapper.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            { duration: CONFIG.innerFadeOutDur, easing: 'linear', fill: 'forwards' }
+          );
+
+          const actionsFadeOut = this.actionsWrapper.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            { duration: CONFIG.innerFadeOutDur, easing: 'linear', fill: 'forwards' }
+          );
+
+          const containerFadeOut = this.container.animate(
+            [{ opacity: 1 }, { opacity: 0 }],
+            {
+              duration: CONFIG.closeDur - CONFIG.innerFadeOutDur,
+              delay: CONFIG.innerFadeOutDur,
+              easing: 'linear',
+              fill: 'forwards',
+            }
+          );
+
+          this._activeAnimations.push(
+            containerTransform,
+            contentFadeOut,
+            actionsFadeOut,
+            containerFadeOut
+          );
+
+          containerTransform.onfinish = () => {
+            this.dialog.close();
+            this._clearAnimations();
+          };
+        }
+      }
+
+      customElements.define('custom-dialog', CustomDialog);
+    </script>
+  </body>
+</html>
