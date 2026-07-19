@@ -28,3 +28,5 @@ export { M3FilledTextField }   from './m3/text-field/filled-text-field.js';
 export { M3OutlinedTextField } from './m3/text-field/outlined-text-field.js';
 export { M3Toolbar }           from './m3/toolbar/toolbar.js';
 export { M3Tooltip }           from './m3/tooltip/tooltip.js';
+
+export { Win98Button }         from './win98/button/button.js';

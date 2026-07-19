@@ -14,6 +14,7 @@ keyboard-control.
 It also provides styled components in the following design guideline(s):
 
 - [Material You Expressive](https://m3.material.io/)
+- Windows 98, most styles are from [98.css](https://jdan.github.io/98.css/)
 
 ![seele components screenshot](./preview.png)
 
@@ -53,6 +54,8 @@ import '@vollowx/seele';
 // They all follow such path: @/catagory/group/component.js
 import '@vollowx/seele/m3/button/common-button.js';
 import '@vollowx/seele/m3/checkbox/checkbox.js';
+
+import '@vollowx/seele/win98/button/button.js';
 ```
 
 ### Using
@@ -67,12 +70,14 @@ Once imported, the components can be used just like standard HTML elements.
   <md-checkbox checked></md-checkbox>
   Labelled Checkbox
 </label>
+
+<win98-button>Look old?</win98-button>
 ```
 
 ### Theming
 
-seele components use CSS variables for styling. To include the systems, add
-this to your style files.
+seele components use CSS variables for styling. To include the systems for
+Material You Expressive ones, add this to your style files.
 
 ```css
 @import '@vollowx/seele/m3/systems/base.css';
