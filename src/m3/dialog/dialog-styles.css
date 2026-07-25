@@ -1,0 +1,64 @@
+dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  max-height: min(560px, 100% - 48px);
+  max-width: min(560px, 100% - 48px);
+  min-height: 140px;
+  min-width: 280px;
+}
+
+dialog::backdrop {
+  display: none;
+}
+
+[part='container'] {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  max-height: inherit;
+  max-width: inherit;
+  min-height: inherit;
+  min-width: inherit;
+  will-change: height, transform, opacity;
+
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: 28px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+[part='content'] {
+  display: block;
+  color: var(--md-sys-color-on-surface-variant);
+  font: var(--md-sys-typography-body-medium);
+  will-change: transform, opacity;
+  padding: 24px 24px 0;
+}
+
+[part='actions'] {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+::slotted([slot='headline']) {
+  margin: 0;
+  padding: 24px 24px 0 24px;
+  font: var(--md-sys-typography-headline-small);
+  color: var(--md-sys-color-on-surface);
+}
+
+slot[name='actions']::slotted(*) {
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 24px;
+}

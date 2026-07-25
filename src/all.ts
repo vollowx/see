@@ -7,6 +7,7 @@ export { M3ButtonToggle }      from './m3/button/common-button-toggle.js';
 export { M3IconButton }        from './m3/button/icon-button.js';
 export { M3IconButtonToggle }  from './m3/button/icon-button-toggle.js';
 export { M3Checkbox }          from './m3/checkbox/checkbox.js';
+export { M3Dialog }            from './m3/dialog/dialog.js';
 export { M3Divider }           from './m3/divider/divider.js';
 export { M3Fab }               from './m3/fab/fab.js';
 export { M3FocusRing }         from './m3/focus-ring/focus-ring.js'
