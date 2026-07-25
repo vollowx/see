@@ -12,7 +12,7 @@ md-outlined-field {
   background: transparent;
   border: none;
   color: inherit;
-  font: inherit;
+  font: var(--md-sys-typography-body-large);
   height: 100%;
   margin: 0;
   outline: none;
