@@ -9,6 +9,7 @@ This roadmap outlines the current and future goals for SEELE
 | Autocomplete  | WIP           |
 | Button        | Done          |
 | Checkbox      | Done          |
+| Dialog        | Done          |
 | Input         | Done          |
 | List          | WIP           |
 | List item     | WIP           |
@@ -40,7 +41,7 @@ This roadmap outlines the current and future goals for SEELE
 | Chips                         |               |       |
 | Data table                    |               |       |
 | Date picker                   |               |       |
-| Dialog                        |               |       |
+| Dialog                        | WIP           | WIP   |
 | Divider                       | Done          | WIP   |
 | Icon                          |               |       |
 | List                          | WIP           | WIP   |
@@ -51,6 +52,7 @@ This roadmap outlines the current and future goals for SEELE
 | Navigation drawer             |               |       |
 | Navigation rail               |               |       |
 | Option                        | WIP           | WIP   |
+| Loading indicator             | Done          | Done  |
 | Progress indicator (circular) |               |       |
 | Progress indicator (linear)   |               |       |
 | Radio                         |               |       |

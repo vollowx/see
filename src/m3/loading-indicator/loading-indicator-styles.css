@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  width: 48px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  background-color: var(--md-sys-color-surface);
+  /* TODO: consider using svg to allow transparent background, though the
+           usecase is unknown */
+}
+
+:host([contained]) {
+  background-color: var(--md-sys-color-primary-container);
+}
+
+canvas {
+  width: 82%;
+  height: 82%;
+  display: block;
+}

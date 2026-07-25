@@ -14,6 +14,7 @@ export { M3FocusRing }         from './m3/focus-ring/focus-ring.js'
 export { M3Item }              from './m3/item/item.js';
 export { M3List }              from './m3/list/list.js';
 export { M3ListItem }          from './m3/list/list-item.js';
+export { M3LoadingIndicator }  from './m3/loading-indicator/loading-indicator.js';
 export { M3Menu }              from './m3/menu/menu.js';
 export { M3MenuItem }          from './m3/menu/menu-item.js';
 export { M3Ripple }            from './m3/ripple/ripple.js';
