@@ -14,8 +14,8 @@
       var(--_text-color) var(--_text-opacity, 100%),
       transparent
     );
-    transition: border-radius var(--md-sys-motion-std-effects-slow-duration)
-      var(--md-sys-motion-std-effects-slow);
+    transition: border-radius var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast);
     width: var(--_h);
   }
 

@@ -21,8 +21,13 @@
   height: var(--_tab-indicator-height);
   border-radius: 3px 3px 0 0;
   background-color: var(--md-sys-color-primary);
-  transition: var(--md-sys-motion-std-effects-slow-duration)
-    var(--md-sys-motion-std-effects-slow);
+  /* FIXME: get rid of floating-dom since it sets the position multiple times
+            and breaks the transition */
+  transition:
+    left var(--md-sys-motion-spatial-default-duration)
+      var(--md-sys-motion-spatial-default),
+    width var(--md-sys-motion-spatial-default-duration)
+      var(--md-sys-motion-spatial-default);
   will-change: left, width;
 }
 

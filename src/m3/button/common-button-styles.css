@@ -18,10 +18,10 @@
     min-width: 64px;
     padding-inline: var(--_padding);
     transition:
-      box-shadow var(--md-sys-motion-std-effects-slow-duration)
-        var(--md-sys-motion-std-effects-slow),
-      border-radius var(--md-sys-motion-std-effects-slow-duration)
-        var(--md-sys-motion-std-effects-slow);
+      box-shadow var(--md-sys-motion-effects-default-duration)
+        var(--md-sys-motion-effects-default),
+      border-radius var(--md-sys-motion-spatial-fast-duration)
+        var(--md-sys-motion-spatial-fast);
   }
 
   :host([size='xsmall']) {

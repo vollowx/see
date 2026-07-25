@@ -81,17 +81,20 @@ Material You Expressive ones, add this to your style files.
 
 ```css
 @import '@vollowx/seele/m3/systems/base.css';
-/* This includes basic system variables like motion system and typography system */
+/* This includes basic system variables including elevation system and
+   typography system */
 @import '@vollowx/seele/m3/systems/defaults.css';
 /* (Optional) This includes basic styling for body, selection and links */
-
-/*
- * Note that there is no default color system since the way you implement theme
- * switching and color changing varies.
- *
- * You can still find some references in dev/shared.css
- */
 ```
+
+Note that there is no default color system and motion physics system to
+have more flexibility and reduce redundant code.
+
+For the color system, you can use the official
+[Material Theme Builder](https://material-foundation.github.io/material-theme-builder/).
+You can also find some references in ./dev/shared.css.
+
+For the motion physics system, check [docs/05-Material_You_Expressive.md](./docs/05-Material_You_Expressive.md).
 
 ## Documentations
 

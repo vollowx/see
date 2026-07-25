@@ -56,10 +56,10 @@
   text-overflow: ellipsis;
   transform-origin: top left;
   transition:
-    margin-top var(--md-sys-motion-exp-effects-default-duration)
-      var(--md-sys-motion-exp-effects-default),
-    font-size var(--md-sys-motion-exp-effects-default-duration)
-      var(--md-sys-motion-exp-effects-default);
+    margin-top var(--md-sys-motion-effects-default-duration)
+      var(--md-sys-motion-effects-default),
+    font-size var(--md-sys-motion-effects-default-duration)
+      var(--md-sys-motion-effects-default);
   white-space: nowrap;
 }
 

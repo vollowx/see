@@ -189,8 +189,8 @@ md-focus-ring {
   width: var(--_handle-width-end);
   border-radius: var(--_handle-shape);
   background: var(--md-sys-color-primary);
-  transition: width var(--md-sys-motion-std-effects-fast-duration)
-    var(--md-sys-motion-std-effects-fast);
+  transition: width var(--md-sys-motion-effects-fast-duration)
+    var(--md-sys-motion-effects-fast);
 }
 
 .start .nub {

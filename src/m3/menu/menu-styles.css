@@ -63,8 +63,8 @@
     transform: scaleY(1);
     transition:
       opacity 67ms,
-      transform var(--md-sys-motion-exp-spatial-default-duration)
-        var(--md-sys-motion-exp-spatial-default);
+      transform var(--md-sys-motion-spatial-default-duration)
+        var(--md-sys-motion-spatial-default);
   }
 
   [part='items'] {
@@ -90,9 +90,9 @@
     opacity: 0;
     transform: scaleY(0.35);
     transition:
-      opacity var(--md-sys-motion-exp-effects-fast-duration),
-      transform var(--md-sys-motion-exp-effects-slow-duration)
-        var(--md-sys-motion-exp-effects-slow);
+      opacity var(--md-sys-motion-effects-fast-duration),
+      transform var(--md-sys-motion-spatial-default-duration)
+        var(--md-sys-motion-spatial-default);
   }
 
   [part='items'] {

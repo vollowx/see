@@ -1,14 +1,14 @@
 @layer shared-toggle {
   :host {
     transition:
-      box-shadow var(--md-sys-motion-std-effects-slow-duration)
-        var(--md-sys-motion-std-effects-slow),
-      border-radius var(--md-sys-motion-std-effects-slow-duration)
-        var(--md-sys-motion-std-effects-slow),
-      background-color var(--md-sys-motion-exp-effects-fast-duration)
-        var(--md-sys-motion-exp-effects-fast),
-      color var(--md-sys-motion-exp-effects-fast-duration)
-        var(--md-sys-motion-exp-effects-fast);
+      border-radius var(--md-sys-motion-spatial-fast-duration)
+        var(--md-sys-motion-spatial-fast),
+      box-shadow var(--md-sys-motion-effects-default-duration)
+        var(--md-sys-motion-effects-default),
+      background-color var(--md-sys-motion-effects-fast-duration)
+        var(--md-sys-motion-effects-fast),
+      color var(--md-sys-motion-effects-fast-duration)
+        var(--md-sys-motion-effects-fast);
   }
 
   :host(:state(checked)) {

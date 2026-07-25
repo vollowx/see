@@ -29,10 +29,10 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: none;
   transition:
-    background-color var(--md-sys-motion-exp-effects-fast-duration)
-      var(--md-sys-motion-exp-effects-fast),
-    border-color var(--md-sys-motion-exp-effects-fast-duration)
-      var(--md-sys-motion-exp-effects-fast);
+    background-color var(--md-sys-motion-effects-fast-duration)
+      var(--md-sys-motion-effects-fast),
+    border-color var(--md-sys-motion-effects-fast-duration)
+      var(--md-sys-motion-effects-fast);
   -webkit-user-select: none;
   user-select: none;
   vertical-align: top;
@@ -104,14 +104,14 @@
   place-items: center;
   position: absolute;
   transition:
-    background-color var(--md-sys-motion-exp-effects-fast-duration)
-      var(--md-sys-motion-exp-effects-fast),
-    width var(--md-sys-motion-exp-spatial-fast-duration)
-      var(--md-sys-motion-exp-spatial-fast),
-    height var(--md-sys-motion-exp-spatial-fast-duration)
-      var(--md-sys-motion-exp-spatial-fast),
-    margin var(--md-sys-motion-exp-spatial-fast-duration)
-      var(--md-sys-motion-exp-spatial-fast);
+    background-color var(--md-sys-motion-effects-fast-duration)
+      var(--md-sys-motion-effects-fast),
+    width var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast),
+    height var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast),
+    margin var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast);
   width: var(--_thumb-diameter);
   z-index: 1;
 }

@@ -30,8 +30,8 @@
   padding-inline: calc((var(--_size) - var(--_icon-size)) / 2);
   position: relative;
   -webkit-tap-highlight-color: transparent;
-  transition: box-shadow var(--md-sys-motion-std-effects-slow-duration)
-    var(--md-sys-motion-std-effects-slow);
+  transition: box-shadow var(--md-sys-motion-effects-default-duration)
+    var(--md-sys-motion-effects-default);
   -webkit-user-select: none;
   user-select: none;
   vertical-align: middle;
