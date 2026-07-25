@@ -3,15 +3,15 @@
 
   --md-sys-typography-display-large: 400 3.5625rem / 4rem
     var(--md-sys-typography-family);
-  --md-sys-typography-display-medium: 400 2.8125rem / 3.5rem
+  --md-sys-typography-display-medium: 400 2.8125rem / 3.25rem
     var(--md-sys-typography-family);
-  --md-sys-typography-display-small: 400 2.25rem / 3rem
+  --md-sys-typography-display-small: 400 2.25rem / 2.75rem
     var(--md-sys-typography-family);
-  --md-sys-typography-headline-large: 400 2.5rem / 3.125rem
+  --md-sys-typography-headline-large: 400 2rem / 2.5rem
     var(--md-sys-typography-family);
-  --md-sys-typography-headline-medium: 400 2.25rem / 2.75rem
+  --md-sys-typography-headline-medium: 400 1.75rem / 2.25rem
     var(--md-sys-typography-family);
-  --md-sys-typography-headline-small: 400 2rem / 2.5rem
+  --md-sys-typography-headline-small: 400 1.5rem / 2rem
     var(--md-sys-typography-family);
   --md-sys-typography-title-large: 400 1.375rem / 1.75rem
     var(--md-sys-typography-family);
