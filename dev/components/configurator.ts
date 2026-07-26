@@ -88,6 +88,7 @@ export class DevConfigurator extends LitElement {
       <md-tooltip for="toggle-theme">
         ${this._getTooltipText('theme', this.isDark)}
       </md-tooltip>
+      <br />
     `;
   }
 }

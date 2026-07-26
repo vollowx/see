@@ -28,7 +28,7 @@ This roadmap outlines the current and future goals for SEELE
 | ----------------------------- | ------------- | ----- |
 | Autocomplete                  | WIP           | WIP   |
 | Button                        | Done          | Done  |
-| Button group                  |               |       |
+| Button group                  | WIP           | WIP   |
 | FAB                           | Done          | Done  |
 | FAB menu                      |               |       |
 | Icon button                   | Done          | WIP   |

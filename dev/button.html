@@ -16,75 +16,62 @@
     />
     <link rel="stylesheet" href="./shared.css" />
     <script type="module" src="./shared.ts"></script>
+    <style>
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        height: 200px;
+        width: 400px;
+        background-color: var(--md-sys-color-surface-container-lowest);
+        border: 1px solid var(--md-sys-color-outline);
+        border-radius: 32px;
+      }
+    </style>
   </head>
   <body>
     <dev-configurator></dev-configurator>
 
-    <div style="width: 500px">
-      <md-tabs selected="2">
-        <md-tab value="1">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 1
-        </md-tab>
-        <md-tab value="2">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 2
-        </md-tab>
-        <md-tab value="3">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 3
-        </md-tab>
-        <md-tab value="4">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 4
-        </md-tab>
-      </md-tabs>
-      <md-tab-panel value="1">
-        <p>J. Clarkson</p>
-      </md-tab-panel>
-      <md-tab-panel value="2">
-        <p>J. Boar</p>
-      </md-tab-panel>
-      <md-tab-panel value="3">
-        <p>R. Ham</p>
-      </md-tab-panel>
-      <md-tab-panel value="4">
-        <p>Le William</p>
-      </md-tab-panel>
-    </div>
+    <win98-button id="disableAllBtn">Disable All</win98-button>
+    <win98-button id="enableAllBtn">Enable All</win98-button>
+    <win98-button id="checkAllBtn">Check All Toggles</win98-button>
+    <win98-button id="uncheckAllBtn">Uncheck All Toggles</win98-button>
 
-    <div>
-      <md-tabs secondary iconsabove switch="auto" selected="3">
-        <md-tab value="1">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 1
-        </md-tab>
-        <md-tab value="2">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 2
-        </md-tab>
-        <md-tab value="3">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 3
-        </md-tab>
-        <md-tab value="4">
-          <md-icon slot="icon">edit</md-icon>
-          Tab 4
-        </md-tab>
-      </md-tabs>
-      <md-tab-panel value="1">
-        <p>J. Clarkson</p>
-      </md-tab-panel>
-      <md-tab-panel value="2">
-        <p>J. Boar</p>
-      </md-tab-panel>
-      <md-tab-panel value="3">
-        <p>R. Ham</p>
-      </md-tab-panel>
-      <md-tab-panel value="4">
-        <p>Le William</p>
-      </md-tab-panel>
-    </div>
+    <script>
+      disableAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll(
+            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
+          )
+          .forEach((btn) => {
+            btn.disabled = true;
+          });
+      });
+      enableAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll(
+            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
+          )
+          .forEach((btn) => {
+            btn.disabled = false;
+          });
+      });
+      checkAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
+          .forEach((btn) => {
+            btn.checked = true;
+          });
+      });
+      uncheckAllBtn.addEventListener('click', () => {
+        document
+          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
+          .forEach((btn) => {
+            btn.checked = false;
+          });
+      });
+    </script>
 
     <h1>buttons</h1>
 
@@ -309,47 +296,56 @@
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
 
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        height: 200px;
-        width: 400px;
-        background-color: var(--md-sys-color-surface-container-lowest);
-        border: 1px solid var(--md-sys-color-outline);
-        border-radius: 32px;
-      "
-    >
-      <md-icon-button-toggle width="wide" size="medium" variant="filled">
-        <md-icon>wifi_off</md-icon>
-        <md-icon slot="checked">wifi</md-icon>
-      </md-icon-button-toggle>
-      <md-icon-button-toggle
-        width="narrow"
-        size="medium"
-        variant="filled"
-        checked
-      >
-        <md-icon>bluetooth_disabled</md-icon>
-        <md-icon slot="checked">bluetooth</md-icon>
-      </md-icon-button-toggle>
+    <div>
+      <md-button-group>
+        <md-icon-button-toggle size="medium" variant="filled">
+          <md-icon>bluetooth_disabled</md-icon>
+          <md-icon slot="checked">bluetooth</md-icon>
+        </md-icon-button-toggle>
+
+        <md-icon-button-toggle size="medium" variant="filled" width="wide">
+          <md-icon>alarm</md-icon>
+          <md-icon slot="checked">alarm</md-icon>
+        </md-icon-button-toggle>
+
+        <md-button-toggle size="medium">
+          <md-icon slot="icon">do_not_disturb_on</md-icon>
+          <md-icon slot="icon-checked">do_not_disturb_on</md-icon>
+          <span>Focus</span>
+          <span slot="checked">Focus</span>
+        </md-button-toggle>
+
+        <md-icon-button-toggle size="medium" variant="filled" width="narrow">
+          <md-icon>flashlight_off</md-icon>
+          <md-icon slot="checked">flashlight_on</md-icon>
+        </md-icon-button-toggle>
+
+        <md-icon-button-toggle size="medium" variant="filled" checked>
+          <md-icon>wifi_off</md-icon>
+          <md-icon slot="checked">wifi</md-icon>
+        </md-icon-button-toggle>
+      </md-button-group>
     </div>
 
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        height: 200px;
-        width: 400px;
-        background-color: var(--md-sys-color-surface-container-lowest);
-        border: 1px solid var(--md-sys-color-outline);
-        border-radius: 32px;
-      "
-    >
+    <div class="box">
+      <md-button-group>
+        <md-icon-button-toggle width="wide" size="medium" variant="filled">
+          <md-icon>wifi_off</md-icon>
+          <md-icon slot="checked">wifi</md-icon>
+        </md-icon-button-toggle>
+        <md-icon-button-toggle
+          width="narrow"
+          size="medium"
+          variant="filled"
+          checked
+        >
+          <md-icon>bluetooth_disabled</md-icon>
+          <md-icon slot="checked">bluetooth</md-icon>
+        </md-icon-button-toggle>
+      </md-button-group>
+    </div>
+
+    <div class="box">
       <md-icon-button
         width="narrow"
         size="small"
@@ -381,19 +377,7 @@
       <span slot="checked">Start</span>
     </md-button-toggle>
 
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        height: 200px;
-        width: 400px;
-        background-color: var(--md-sys-color-surface-container-lowest);
-        border: 1px solid var(--md-sys-color-outline);
-        border-radius: 32px;
-      "
-    >
+    <div class="box">
       <md-icon-button
         width="narrow"
         size="small"
@@ -416,50 +400,13 @@
       </md-icon-button>
     </div>
 
-    <a
-      href="https://m3.material.io/components/buttons/guidelines#cda2483b-52a1-484b-a428-a1be550fae18"
-      >Design source</a
-    >
-
-    <button id="disableAllBtn">Disable All</button>
-    <button id="enableAllBtn">Enable All</button>
-    <button id="checkAllBtn">Check All Toggles</button>
-    <button id="uncheckAllBtn">Uncheck All Toggles</button>
-
-    <script>
-      disableAllBtn.addEventListener('click', () => {
-        document
-          .querySelectorAll(
-            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
-          )
-          .forEach((btn) => {
-            btn.disabled = true;
-          });
-      });
-      enableAllBtn.addEventListener('click', () => {
-        document
-          .querySelectorAll(
-            'md-button, md-icon-button, md-button-toggle, md-icon-button-toggle'
-          )
-          .forEach((btn) => {
-            btn.disabled = false;
-          });
-      });
-      checkAllBtn.addEventListener('click', () => {
-        document
-          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
-          .forEach((btn) => {
-            btn.checked = true;
-          });
-      });
-      uncheckAllBtn.addEventListener('click', () => {
-        document
-          .querySelectorAll('md-button-toggle, md-icon-button-toggle')
-          .forEach((btn) => {
-            btn.checked = false;
-          });
-      });
-    </script>
+    <p>
+      <a
+        href="https://m3.material.io/components/buttons/guidelines#cda2483b-52a1-484b-a428-a1be550fae18"
+      >
+        Design source
+      </a>
+    </p>
 
     <md-fab color="primary" aria-label="Accessibility">
       <md-icon>accessible_forward</md-icon>
