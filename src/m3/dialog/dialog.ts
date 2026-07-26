@@ -1,13 +1,12 @@
 import { html } from 'lit';
-import { query } from 'lit/decorators.js';
-import { customElement } from '../../core/decorators';
+import { query, state, customElement } from 'lit/decorators.js';
 import { Dialog } from '../../base/dialog';
 import { dialogStyles } from './dialog-styles.css.js';
 
 /**
- * FIXME: frequently call `close()` will keep the dialog open
- * TODO: icon and centered title support
- * TODO: test if form actions `cancel` and other things related work
+ * TODO: test if form actions `cancel` and other things related work - no,
+ *       event listener needed
+ *
  * @tag md-dialog
  *
  * @csspart container
@@ -15,11 +14,12 @@ import { dialogStyles } from './dialog-styles.css.js';
  * @csspart content
  * @csspart actions
  *
+ * @slot icon
  * @slot headline
  * @slot - content
  * @slot actions
  */
-@customElement('md-dialog', false)
+@customElement('md-dialog')
 export class M3Dialog extends Dialog {
   _config = {
     openEase: 'cubic-bezier(0, 0, 0, 1)',
@@ -27,13 +27,14 @@ export class M3Dialog extends Dialog {
     vertSlide: 36,
     openDur: 500,
     closeDur: 200,
-    innerFadeInDur: 200,
-    innerFadeOutDur: 100,
+    bodyFadeInDur: 200,
+    bodyFadeOutDur: 100,
   }; /* Perhaps make them constants? I don't think that there will be anyone
         making classes inheriting this class... */
 
+  @state() private hasIcon = false;
   @query('[part=container]') $container: HTMLDivElement;
-  @query('[part=inner]') $inner: HTMLDivElement;
+  @query('[part=body]') $body: HTMLDivElement;
   @query('[part=actions]') $actions: HTMLDivElement;
   @query('.actions-placeholder') $actionsPlaceholder: HTMLDivElement;
   @query('[part=scrim]') $scrim: HTMLDivElement;
@@ -43,12 +44,16 @@ export class M3Dialog extends Dialog {
     return html`
       <dialog
         part="dialog"
-        @click="${this._handleClick}"
+        @click="${this.#handleClick}"
         @cancel="${this._handleCancel}"
       >
         <div part="container">
-          <div part="inner">
-            <div part="headline">
+          <div part="body">
+            <div part="headline" class=${this.hasIcon ? 'has-icon' : ''}>
+              <slot
+                name="icon"
+                @slotchange="${this.#handleIconSlotChange}"
+              ></slot>
               <slot name="headline"></slot>
             </div>
             <div part="content">
@@ -69,16 +74,25 @@ export class M3Dialog extends Dialog {
   #clearAnimations() {
     this.#activeAnimations.forEach((anim) => anim.cancel());
     this.#activeAnimations = [];
+    this.#opening = this.#closing = false;
   }
 
-  _handleClick = (e: MouseEvent) => {
+  #handleClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (!this.$container.contains(target) && !this.contains(target))
       this.close();
   };
+  #handleIconSlotChange = (e: Event) => {
+    const slot = e.target as HTMLSlotElement;
+    this.hasIcon = slot.assignedElements({ flatten: true }).length > 0;
+  }
 
+  #opening = false;
   override show() {
+    if (this.#opening) return;
+
     this.#clearAnimations();
+    this.#opening = true;
 
     // Reset margins to allow browser centering
     this.$dialog.style.marginTop = 'auto';
@@ -119,27 +133,31 @@ export class M3Dialog extends Dialog {
       fill: 'forwards',
     });
 
-    const inner = this.$inner.animate([{ opacity: 0.2 }, { opacity: 1 }], {
-      duration: this._config.innerFadeInDur,
+    const body = this.$body.animate([{ opacity: 0.2 }, { opacity: 1 }], {
+      duration: this._config.bodyFadeInDur,
       easing: 'linear',
       fill: 'forwards',
     });
 
     const actions = this.$actions.animate([{ opacity: 0.5 }, { opacity: 1 }], {
-      duration: this._config.innerFadeInDur,
+      duration: this._config.bodyFadeInDur,
       easing: 'linear',
       fill: 'forwards',
     });
 
-    this.#activeAnimations.push(container, scrim, inner, actions);
+    this.#activeAnimations.push(container, scrim, body, actions);
 
     container.onfinish = () => {
       this.$container.style.minHeight = '';
+      this.#clearAnimations();
     };
   }
 
+  #closing = false;
   override close() {
+    if (this.#closing) return;
     this.#clearAnimations();
+    this.#closing = true;
 
     const startHeight = this.$container.offsetHeight;
     const endHeight = startHeight * 0.35;
@@ -162,8 +180,8 @@ export class M3Dialog extends Dialog {
     const containerEffects = this.$container.animate(
       [{ opacity: 1 }, { opacity: 0 }],
       {
-        duration: this._config.closeDur - this._config.innerFadeOutDur,
-        delay: this._config.innerFadeOutDur,
+        duration: this._config.closeDur - this._config.bodyFadeOutDur,
+        delay: this._config.bodyFadeOutDur,
         easing: 'linear',
         fill: 'forwards',
       }
@@ -175,14 +193,14 @@ export class M3Dialog extends Dialog {
       fill: 'forwards',
     });
 
-    const inner = this.$inner.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: this._config.innerFadeOutDur,
+    const body = this.$body.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: this._config.bodyFadeOutDur,
       easing: 'linear',
       fill: 'forwards',
     });
 
     const actions = this.$actions.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: this._config.innerFadeOutDur,
+      duration: this._config.bodyFadeOutDur,
       easing: 'linear',
       fill: 'forwards',
     });
@@ -191,7 +209,7 @@ export class M3Dialog extends Dialog {
       containerSpatial,
       containerEffects,
       scrim,
-      inner,
+      body,
       actions
     );
 
