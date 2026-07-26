@@ -8,6 +8,12 @@ import '../ripple/ripple.js';
 import { targetStyles } from '../target-styles.css.js';
 import { tabStyles } from './tab-styles.css.js';
 
+/**
+ * @tag md-tab
+ *
+ * @slot icon - icon
+ * @slot - label
+ */
 @customElement('md-tab')
 export class M3Tab extends Tab {
   @query('[part="content"]') $content: HTMLDivElement;

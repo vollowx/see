@@ -10,8 +10,10 @@ import '../focus-ring/focus-ring.js';
 import { sliderStyles } from './slider-styles.css.js';
 
 /**
- * @TODO: Add size variants
- * @TODO: Add orientation: vertical
+ * TODO: Add size variants
+ * TODO: Add orientation: vertical
+ *
+ * @tag md-slider
  */
 @customElement('md-slider')
 export class M3Slider extends Slider {

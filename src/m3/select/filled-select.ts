@@ -7,6 +7,11 @@ import '../field/filled-field.js';
 
 import { selectStyles } from './select-styles.css.js';
 
+/**
+ * @tag md-filled-select
+ *
+ * @slot - options
+ */
 @customElement('md-filled-select')
 export class MdFilledSelect extends M3Select {
   static override styles = [selectStyles];

@@ -4,13 +4,21 @@ import { customElement } from '../../core/decorators';
 import { Dialog } from '../../base/dialog';
 import { dialogStyles } from './dialog-styles.css.js';
 
-// TODO: backdrop, close on backdrop clicks
-// TODO: icon and centered title support
-// TODO: test if form actions `cancel` and other things related work
-// @csspart container
-// @csspart headline
-// @csspart content
-// @csspart actions
+/**
+ * TODO: backdrop, close on backdrop clicks
+ * TODO: icon and centered title support
+ * TODO: test if form actions `cancel` and other things related work
+ * @tag md-dialog
+ *
+ * @csspart container
+ * @csspart headline
+ * @csspart content
+ * @csspart actions
+ *
+ * @slot headline
+ * @slot - content
+ * @slot actions
+ */
 @customElement('md-dialog', false)
 export class M3Dialog extends Dialog {
   _config = {

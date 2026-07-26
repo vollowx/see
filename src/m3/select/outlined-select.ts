@@ -7,6 +7,11 @@ import '../field/outlined-field.js';
 
 import { selectStyles } from './select-styles.css.js';
 
+/**
+ * @tag md-outlined-select
+ *
+ * @slot - options
+ */
 @customElement('md-outlined-select')
 export class MdOutlinedSelect extends M3Select {
   static override styles = [selectStyles];

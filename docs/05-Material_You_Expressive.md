@@ -4,11 +4,29 @@ Components and other assets live in `@/src/m3/`.
 
 ## Systems
 
-### Motion Physics System
+seele Material You Expressive components use CSS variables for styling. To
+include the systems for them, add this to your style files.
 
-There are no CSS files provided for this system, since you choose either
-standard or expressive "motion scheme", and the way you apply/switch between
-them varies.
+```css
+@import '@vollowx/seele/m3/systems/base.css';
+/* This includes basic system variables including elevation system and
+   typography system */
+@import '@vollowx/seele/m3/systems/defaults.css';
+/* (Optional) This includes basic styling for body, selection and links */
+```
+
+Note that there is **no** default color system and motion physics system to
+have more flexibility and reduce redundant code. Below is how you can add them.
+
+### Color
+
+You can use the official [Material Theme Builder](mat-theme-builder).
+Export with "Web (CSS)" option, the CSS files contains the desired CSS
+variables.
+
+You can also find some references in `@/dev/shared.css`.
+
+### Motion Physics
 
 Add either of them to where you want them to take effect, for example `:root`.
 
@@ -67,3 +85,5 @@ import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
 
 Loading indicators have their roles set to `progressbar` by default, you should
 write a `aria-label` to add semantic meaning to them.
+
+[mat-theme-builder]: https://material-foundation.github.io/material-theme-builder/

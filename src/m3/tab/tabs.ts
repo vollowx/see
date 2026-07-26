@@ -9,6 +9,12 @@ import { tabsStyles } from './tabs-styles.css.js';
 
 /**
  * TODO: vertical tabs, tablist placement
+ *
+ * @tag md-tabs
+ *
+ * @csspart indicator
+ *
+ * @slot - tabs
  */
 @customElement('md-tabs')
 export class M3Tabs extends Tabs {
