@@ -2,7 +2,9 @@
 
 Components and other assets live in `@/src/m3/`.
 
-## Motion Physics System
+## Systems
+
+### Motion Physics System
 
 There are no CSS files provided for this system, since you choose either
 standard or expressive "motion scheme", and the way you apply/switch between
@@ -49,3 +51,19 @@ Add either of them to where you want them to take effect, for example `:root`.
   --md-sys-motion-effects-slow-duration: 300ms;
 }
 ```
+
+## Components
+
+### Loading Indicator
+
+```typescript
+import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
+```
+
+```html
+<md-loading aria-label="Loading pictures"></md-loading>
+<md-loading aria-label="Loading pictures" contained style="width: 64px;"></md-loading>
+```
+
+Loading indicators have their roles set to `progressbar` by default, you should
+write a `aria-label` to add semantic meaning to them.

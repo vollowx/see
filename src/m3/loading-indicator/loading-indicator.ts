@@ -20,17 +20,6 @@ const CENTER = CANVAS_SIZE / 2;
  * NOTE: this component is not following them color system dynamically, but
  *       pulls the color once per second
  * NOTE: the pantagon is completely not following the shape system
- * NOTE: oval and the one before its appearing have their sizes wrong, like:
- *
- * Material Shapes / current
- *
- * +--------+        +--------+
- * | \\     |        |   /\   |
- * |  \\\\  |        |  |  |  |
- * |     \\ |        |   \/   |
- * +--------+        +--------+
- *
- * making their height / the original = 1 / sqrt(2)
  */
 @customElement('md-loading')
 export class M3LoadingIndicator extends InternalsAttached(LitElement) {
@@ -170,8 +159,8 @@ const sequence: ShapeDef[] = [
   [5, 0.85, 0.731, 0.45, 1],
   [2, 0.85, 0.67, 0.8, 0.95],
   [8, 0.85, 0.731, 0.6, 0.45],
-  [4, 0.875, 0.635, 1, 0.4],
-  [2, 0.85, 0.535, 0.8, 0.6],
+  [4, 0.925, 0.67, 1, 0.4],
+  [2, 0.9, 0.565, 0.8, 0.6],
 ].map(([points, outerRadius, innerRadius, outerRoundness, innerRoundness]) => ({
   points,
   outerRadius,
