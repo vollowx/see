@@ -72,6 +72,31 @@ Add either of them to where you want them to take effect, for example `:root`.
 
 ## Components
 
+### Dialog
+
+```typescript
+import '@vollow/seele/m3/dialog/dialog.js';
+```
+
+```html
+<md-button variant="filled" onclick="dialogDiscard.show()">
+  Discard Changes
+</md-button>
+
+<md-dialog id="dialogDiscard">
+  Discard draft?
+
+  <div slot="actions">
+    <md-button variant="text" onclick="dialogDiscard.close()">
+      Cancel
+    </md-button>
+    <md-button variant="text" onclick="dialogDiscard.close()">
+      Discard
+    </md-button>
+  </div>
+</md-dialog>
+```
+
 ### Loading Indicator
 
 ```typescript

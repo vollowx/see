@@ -22,7 +22,7 @@ export class Dialog extends LitElement {
     this.close();
   };
 
-  showModal() {
+  show() {
     this.$dialog.showModal();
   }
 
