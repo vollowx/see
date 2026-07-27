@@ -31,74 +31,14 @@ What's the differences comparing to other projects?
   meaning that its size is relatively small and the compatibility is not the
   best
 
-## Installation
+## Getting started
 
-seele is published on [npm](https://www.npmjs.com/package/@vollowx/seele),
-install with your preferred package manager like
-
-```sh
-npm install @vollowx/seele
-```
-
-## Quickstart
-
-### Importing
-
-You can import the entire library or import as needed.
-
-```javascript
-// Import all components
-import '@vollowx/seele';
-
-// Or import specific components (recommended)
-// They all follow such path: @/catagory/group/component.js
-import '@vollowx/seele/m3/button/common-button.js';
-import '@vollowx/seele/m3/checkbox/checkbox.js';
-
-import '@vollowx/seele/win98/button/button.js';
-```
-
-### Using
-
-Once imported, the components can be used just like standard HTML elements.
-
-```html
-<md-button variant="filled">Filled Button</md-button>
-<md-button variant="outlined">Outlined Button</md-button>
-
-<label>
-  <md-checkbox checked></md-checkbox>
-  Labelled Checkbox
-</label>
-
-<win98-button>Look old?</win98-button>
-```
-
-### Theming
-
-seele components use CSS variables for styling. To include the systems for
-Material You Expressive ones, add this to your style files.
-
-```css
-@import '@vollowx/seele/m3/systems/base.css';
-/* This includes basic system variables including elevation system and
-   typography system */
-@import '@vollowx/seele/m3/systems/defaults.css';
-/* (Optional) This includes basic styling for body, selection and links */
-```
-
-Note that there is no default color system and motion physics system to
-have more flexibility and reduce redundant code.
-
-For the color system, you can use the official
-[Material Theme Builder](https://material-foundation.github.io/material-theme-builder/).
-You can also find some references in ./dev/shared.css.
-
-For the motion physics system, check [docs/05-Material_You_Expressive.md](./docs/05-Material_You_Expressive.md).
+Check out [Overview](./docs/00-Overview.md).
 
 ## Documentations
 
-[Documentations and demos](https://tideover.cc/seele/docs/).
+- Online [documentations and demos](https://tideover.cc/seele/docs/), being replaced
+- [Documentations](./docs/00-Overview.md)
 
 ## Download
 
