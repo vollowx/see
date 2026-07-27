@@ -1,6 +1,6 @@
 # Material You Expressive
 
-Homepage: [m3.material.io][m3.material.io]
+Homepage: [m3.material.io](https://m3.material.io)
 
 Material You Expressive, also known as Material Design 3.
 

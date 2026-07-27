@@ -1,11 +1,11 @@
 # Roadmap
 
-This roadmap outlines the current and future goals for SEELE
+This roadmap outlines the current and future goals for seele.
 
-## Base (base)
+## Base (`base`)
 
 | Components    | Functionality |
-| ------------- | ------------- |
+| ---           | ---           |
 | Autocomplete  | WIP           |
 | Button        | Done          |
 | Checkbox      | Done          |
@@ -22,10 +22,10 @@ This roadmap outlines the current and future goals for SEELE
 | Toggle button | WIP           |
 | Tooltip       | WIP           |
 
-## Material You Expressive (m3)
+## Material You Expressive (`m3`)
 
-| Components                    | Functionality | Style |
-| ----------------------------- | ------------- | ----- |
+| Component                     | Functionality | Style |
+| ---                           | ---           | ---   |
 | Autocomplete                  | WIP           | WIP   |
 | Button                        | Done          | Done  |
 | Button group                  | WIP           | WIP   |
@@ -68,3 +68,10 @@ This roadmap outlines the current and future goals for SEELE
 | Time picker                   |               |       |
 | Toolbar                       | WIP           | WIP   |
 | Tooltip                       | WIP           | WIP   |
+
+## Windows 98 (`win98`)
+
+| Component                     | Functionality | Style |
+| ---                           | ---           | ---   |
+| Button                        | Done          | Done  |
+| Tabs                          |               |       |

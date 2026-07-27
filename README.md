@@ -37,7 +37,7 @@ Check out [Overview](./docs/00-Overview.md).
 
 ## Documentations
 
-- Online [documentations and demos](https://tideover.cc/seele/docs/), being replaced
+- Previous [documentations and demos](https://tideover.cc/seele/docs/), being replaced
 - [Documentations](./docs/00-Overview.md)
 
 ## Download
@@ -48,7 +48,7 @@ Check out [Overview](./docs/00-Overview.md).
 
 ## Browser Support
 
-seele relies on the folling modern web standards:
+seele relies on the following modern web standards:
 
 - [`ElementInternals`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals), Baseline 2023
 - [Constructable Stylesheets](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet), Baseline 2024, C[^1] 90, F 126
@@ -70,7 +70,7 @@ these following web features might be used and require higher browser versions:
 
 ## Other Information
 
-- [Roadmap](./ROADMAP.md)
+- [Roadmap](./docs/01-Roadmap.md)
 - [Contributing](./CONTRIBUTING.md)
 - [License (Apache-2.0)](./LICENSE)
 

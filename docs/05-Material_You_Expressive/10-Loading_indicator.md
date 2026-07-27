@@ -1,5 +1,7 @@
 # Loading indicator
 
+- [Material Design](overview)
+
 ```typescript
 import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
 ```
@@ -11,3 +13,14 @@ import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
 
 Loading indicators have their roles set to `progressbar` by default, you should
 write a `aria-label` to add semantic meaning to them.
+
+## `M3LoadingIndicator`
+
+### Properties
+
+| name        | description        |
+| ---         | ---                |
+| `contained` | Reflected boolean  |
+| `$canvas`   | `<canvas>` element |
+
+[overview]: https://m3.material.io/components/loading-indicator/overview

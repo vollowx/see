@@ -17,12 +17,27 @@ bun add @vollowx/seele
 ```
 
 To start using seele, you will need a bundlers and dev servers that resolves
-paths to Node packages, for example [web-dev-server] and [rollup]. Another
-option is to use [import maps], which is not suitable for actual deployment for
-its size and inconvenience.
+paths to Node packages, for example [web-dev-server](web-dev-server) and
+[esbuild](esbuild). You can take a look at [seele-example](seele-example), which
+contains a minimal setup for using seele (or actually any other Web Components
+library).
 
-You can take a look at [seele-example](seele-example), which contains a minimal
-setup for using seele (or actually any other Web Components library).
+You can also quickly try seele using [importmap](importmap) like below, note
+that styles required to properly show the components are not included.
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "@vollowx/seele/": "https://esm.run/@vollowx/seele/"
+    }
+  }
+</script>
+<script type="module">
+  import '@vollowx/seele/m3/button/common-button.js';
+</script>
+<md-button variant="outlined">Button</md-button>
+```
 
 ## Usage
 
@@ -39,7 +54,7 @@ import '@vollowx/seele/win98/button/button.js';
 ```
 
 The `<catagory>` can be `core`, `base` and design systems (see the next
-section),
+section).
 
 Each design system contains not only conponents, but also assets like styles.
 To check them out, see `00_Overview` for each design system.
@@ -48,9 +63,12 @@ To check them out, see `00_Overview` for each design system.
 
 The following design systems or styles are implemented:
 
-- [Material You Expressive](./05-Material_You_Expressive/00_Overview.md) as `m3`
-- [Windows 98](./06-Windows_98/00_Overview.md) as `win98`
+- [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) as `m3`
+- [Windows 98](./06-Windows_98/00-Overview.md) as `win98`
 
 [web-comps]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components
 [npm-package]: https://www.npmjs.com/package/@vollowx/seele
 [seele-example]: https://github.com/vollowx/seele-example/
+[web-dev-server]: https://modern-web.dev/docs/dev-server/overview/
+[esbuild]: https://esbuild.github.io/
+[importmap]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap

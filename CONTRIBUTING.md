@@ -28,7 +28,7 @@ For every component, the class should follow the structure below:
 inheriting. For example for an animated menu base component, there could be
 `_durations = { in: 100, out: 100 }`.
 
-All `@query`s and other element getters should be named lik `$something`.
+All `@query`s and other element getters should be named like `$something`.
 
 ### Functions
 

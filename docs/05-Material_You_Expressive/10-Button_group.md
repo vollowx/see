@@ -10,6 +10,8 @@ import '@vollow/seele/m3/button-group/standard-button-group.js';
 
 ## Stadard button group
 
+<!-- @show -->
+
 ```html
 <md-button-group>
   <md-icon-button-toggle variant="filled">
