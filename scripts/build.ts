@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { transformSync } from '@swc/core';
+import { minifyHTMLLiterals } from 'minify-html-literals';
 
 const projectRoot = path.resolve(import.meta.dir, '..');
 const srcDir = path.join(projectRoot, 'src');
@@ -17,7 +18,7 @@ async function buildLibrary() {
     const fileContent = await Bun.file(fullPath).text();
 
     try {
-      const { code } = transformSync(fileContent, {
+      let { code } = transformSync(fileContent, {
         filename: fullPath,
         jsc: {
           externalHelpers: true,
@@ -35,6 +36,9 @@ async function buildLibrary() {
           type: 'es6',
         },
       });
+      const minified = minifyHTMLLiterals(code);
+      if (minified !== null)
+        code = minified.code;
 
       const outPath = fullPath.replace(/\.ts$/, '.js');
       await Bun.write(outPath, code);
