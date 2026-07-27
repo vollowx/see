@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { query, state, customElement } from 'lit/decorators.js';
-import { Dialog } from '../../base/dialog';
+import { Dialog } from '../../base/dialog.js';
 import { dialogStyles } from './dialog-styles.css.js';
 
 /**

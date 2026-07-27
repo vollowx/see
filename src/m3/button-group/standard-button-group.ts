@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit';
-import { customElement } from '../../core/decorators';
-import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
+import { customElement } from '../../core/decorators.js';
 import { queryAssignedElements } from 'lit/decorators.js';
+import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
 
 const EXPAND_FACTOR = 1.15;
 
