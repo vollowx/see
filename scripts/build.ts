@@ -36,9 +36,10 @@ async function buildLibrary() {
           type: 'es6',
         },
       });
-      const minified = minifyHTMLLiterals(code);
-      if (minified !== null)
-        code = minified.code;
+      const minified = minifyHTMLLiterals(code, {
+        shouldMinifyCSS: () => false,
+      });
+      if (minified !== null) code = minified.code;
 
       const outPath = fullPath.replace(/\.ts$/, '.js');
       await Bun.write(outPath, code);
