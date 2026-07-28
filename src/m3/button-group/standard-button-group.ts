@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import { customElement } from '../../core/decorators.js';
-import { queryAssignedElements } from 'lit/decorators.js';
 import { getSpring } from '../system/motion.js';
 import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
 
@@ -15,6 +15,8 @@ const shapeAnimation = Symbol('shapeAnimation');
  */
 @customElement('md-button-group', false)
 export class M3StandardButtonGroup extends LitElement {
+  @property({ reflect: true })
+  size: 'xs' | 's' | '' = '';
   @queryAssignedElements()
   $buttons: Array<HTMLElement>;
 

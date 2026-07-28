@@ -84,15 +84,15 @@
     </style>
 
     <md-button
-      size="xsmall"
+      size="xs"
       style="
-        --_on-color: var(--md-sys-color-on-tertiary);
-        --_color: var(--md-sys-color-tertiary);
+        --_on-color: var(--md-sys-color-on-error-container);
+        --_color: var(--md-sys-color-error-container);
       "
       ><md-icon slot="icon">edit</md-icon>le bouton</md-button
     >
     <md-button
-      size="small"
+      size="s"
       style="
         --_on-color: var(--md-sys-color-on-tertiary);
         --_color: var(--md-sys-color-tertiary);
@@ -100,13 +100,11 @@
       disabled
       ><md-icon slot="icon">edit</md-icon>le bouton</md-button
     >
-    <md-button size="medium"
-      ><md-icon slot="icon">edit</md-icon>le bouton</md-button
-    >
-    <md-button size="large" variant="tonal" shape="square"
+    <md-button size="m"><md-icon slot="icon">edit</md-icon>le bouton</md-button>
+    <md-button size="l" variant="tonal" square
       ><md-icon slot="icon">edit</md-icon>Button</md-button
     >
-    <md-button size="xlarge" variant="outlined"
+    <md-button size="xl" variant="outlined"
       ><md-icon slot="icon">edit</md-icon>Button</md-button
     >
 
@@ -223,18 +221,23 @@
 
     <br />
 
-    <md-icon-button-toggle width="narrow" size="xsmall" variant="filled">
+    <md-icon-button-toggle width="narrow" size="xs" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle size="xsmall" variant="filled">
+    <md-icon-button-toggle size="xs" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle width="wide" size="xsmall" variant="filled">
+    <md-icon-button-toggle width="wide" size="xs" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
+
+    <md-button-toggle size="m" variant="outlined" checked>
+      <span>Stop</span>
+      <span slot="checked">Start</span>
+    </md-button-toggle>
 
     <br />
 
@@ -253,92 +256,116 @@
 
     <br />
 
-    <md-icon-button-toggle width="narrow" size="medium" variant="filled">
+    <md-icon-button-toggle width="narrow" size="m" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle size="medium" variant="filled">
+    <md-icon-button-toggle size="m" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle width="wide" size="medium" variant="filled">
-      <md-icon>wifi_off</md-icon>
-      <md-icon slot="checked">wifi</md-icon>
-    </md-icon-button-toggle>
-
-    <br />
-
-    <md-icon-button-toggle width="narrow" size="large" variant="filled">
-      <md-icon>wifi_off</md-icon>
-      <md-icon slot="checked">wifi</md-icon>
-    </md-icon-button-toggle>
-    <md-icon-button-toggle size="large" variant="filled">
-      <md-icon>wifi_off</md-icon>
-      <md-icon slot="checked">wifi</md-icon>
-    </md-icon-button-toggle>
-    <md-icon-button-toggle width="wide" size="large" variant="filled">
+    <md-icon-button-toggle width="wide" size="m" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
 
     <br />
 
-    <md-icon-button-toggle width="narrow" size="xlarge" variant="filled">
+    <md-icon-button-toggle width="narrow" size="l" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle size="xlarge" variant="filled">
+    <md-icon-button-toggle size="l" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
-    <md-icon-button-toggle width="wide" size="xlarge" variant="filled">
+    <md-icon-button-toggle width="wide" size="l" variant="filled">
       <md-icon>wifi_off</md-icon>
       <md-icon slot="checked">wifi</md-icon>
     </md-icon-button-toggle>
 
-    <div>
-      <md-button-group>
-        <md-icon-button-toggle size="medium" variant="filled">
-          <md-icon>bluetooth_disabled</md-icon>
-          <md-icon slot="checked">bluetooth</md-icon>
-        </md-icon-button-toggle>
+    <br />
 
-        <md-icon-button-toggle size="medium" variant="filled" width="wide">
-          <md-icon>alarm</md-icon>
-          <md-icon slot="checked">alarm</md-icon>
-        </md-icon-button-toggle>
+    <p>connected button group</p>
 
-        <md-button-toggle size="medium">
-          <md-icon slot="icon">do_not_disturb_on</md-icon>
-          <md-icon slot="icon-checked">do_not_disturb_on</md-icon>
-          <span>Focus</span>
-          <span slot="checked">Focus</span>
-        </md-button-toggle>
+    <md-connected-button-group>
+      <md-button-toggle variant="tonal" width="narrow" size="xl" square>
+        Connected
+        <span slot="checked">Connected</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" size="xl" square>
+        Connected
+        <span slot="checked">Connected</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" size="xl" square>
+        Connected
+        <span slot="checked">Connected</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" width="wide" size="xl" square>
+        Connected
+        <span slot="checked">Connected</span>
+      </md-button-toggle>
+    </md-connected-button-group>
 
-        <md-icon-button-toggle size="medium" variant="filled" width="narrow">
-          <md-icon>flashlight_off</md-icon>
-          <md-icon slot="checked">flashlight_on</md-icon>
-        </md-icon-button-toggle>
+    <p>multiple</p>
 
-        <md-icon-button-toggle size="medium" variant="filled" checked>
-          <md-icon>wifi_off</md-icon>
-          <md-icon slot="checked">wifi</md-icon>
-        </md-icon-button-toggle>
-      </md-button-group>
-    </div>
+    <md-connected-button-group multiple style="width: min(100%, 600px)">
+      <md-button-toggle variant="tonal" size="xs">
+        James May
+        <span slot="checked">James May</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" size="xs">
+        Richard Hammond
+        <span slot="checked">Richard Hammond</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" size="xs">
+        Jeremy Clarkson
+        <span slot="checked">Jeremy Clarkson</span>
+      </md-button-toggle>
+      <md-button-toggle variant="tonal" size="xs">
+        Mr. William
+        <span slot="checked">Mr. William</span>
+      </md-button-toggle>
+    </md-connected-button-group>
+
+    <p>standard!</p>
+
+    <md-button-group>
+      <md-icon-button-toggle size="m" variant="filled">
+        <md-icon>bluetooth_disabled</md-icon>
+        <md-icon slot="checked">bluetooth</md-icon>
+      </md-icon-button-toggle>
+
+      <md-icon-button-toggle size="m" variant="filled" width="wide">
+        <md-icon>alarm</md-icon>
+        <md-icon slot="checked">alarm</md-icon>
+      </md-icon-button-toggle>
+
+      <md-button-toggle size="m">
+        <md-icon slot="icon">do_not_disturb_on</md-icon>
+        <md-icon slot="icon-checked">do_not_disturb_on</md-icon>
+        <span>Focus</span>
+        <span slot="checked">Focus</span>
+      </md-button-toggle>
+
+      <md-icon-button-toggle size="m" variant="filled" width="narrow">
+        <md-icon>flashlight_off</md-icon>
+        <md-icon slot="checked">flashlight_on</md-icon>
+      </md-icon-button-toggle>
+
+      <md-icon-button-toggle size="m" variant="filled" checked>
+        <md-icon>wifi_off</md-icon>
+        <md-icon slot="checked">wifi</md-icon>
+      </md-icon-button-toggle>
+    </md-button-group>
 
     <div class="box">
       <md-button-group>
-        <md-icon-button-toggle width="wide" size="medium" variant="filled">
+        <md-icon-button-toggle width="wide" size="m" variant="filled">
           <md-icon>wifi_off</md-icon>
           <md-icon slot="checked">wifi</md-icon>
         </md-icon-button-toggle>
-        <md-icon-button-toggle
-          width="narrow"
-          size="medium"
-          variant="filled"
-          checked
-        >
+        <md-icon-button-toggle width="narrow" size="m" variant="filled" checked>
           <md-icon>bluetooth_disabled</md-icon>
           <md-icon slot="checked">bluetooth</md-icon>
         </md-icon-button-toggle>
@@ -348,51 +375,42 @@
     <div class="box">
       <md-icon-button
         width="narrow"
-        size="small"
+        size="s"
         variant="tonal"
         aria-label="Play previous"
       >
         <md-icon>chevron_backward</md-icon>
       </md-icon-button>
-      <md-icon-button-toggle
-        width="standard"
-        size="medium"
-        variant="filled"
-        checked
-      >
+      <md-icon-button-toggle width="standard" size="m" variant="filled" checked>
         <md-icon>pause</md-icon>
         <md-icon slot="checked">play_arrow</md-icon>
       </md-icon-button-toggle>
       <md-icon-button
         width="narrow"
-        size="small"
+        size="s"
         variant="tonal"
         aria-label="Play next"
       >
         <md-icon>chevron_forward</md-icon>
       </md-icon-button>
     </div>
-    <md-button-toggle size="medium" variant="outlined" checked>
-      <span>Stop</span>
-      <span slot="checked">Start</span>
-    </md-button-toggle>
 
     <div class="box">
       <md-icon-button
         width="narrow"
-        size="small"
+        size="s"
         variant="tonal"
         aria-label="Pause"
       >
         <md-icon>pause</md-icon>
       </md-icon-button>
-      <md-button-toggle size="medium" checked>
+      <md-button-toggle size="m" checked>
         <span>Stop</span>
         <span slot="checked">Start</span>
       </md-button-toggle>
       <md-icon-button
         width="narrow"
-        size="small"
+        size="s"
         variant="outlined"
         aria-label="Restart"
       >
@@ -411,10 +429,10 @@
     <md-fab color="primary" aria-label="Accessibility">
       <md-icon>accessible_forward</md-icon>
     </md-fab>
-    <md-fab size="medium" color="tertiary-container" aria-label="Edit">
+    <md-fab size="m" color="tertiary-container" aria-label="Edit">
       <md-icon>edit</md-icon>
     </md-fab>
-    <md-fab size="large" aria-label="Color palette">
+    <md-fab size="l" aria-label="Color palette">
       <md-icon>palette</md-icon>
     </md-fab>
 
@@ -443,10 +461,10 @@
     <md-fab color="primary-container" aria-label="Edit">
       <md-icon>edit</md-icon>
     </md-fab>
-    <md-fab size="medium" color="secondary-container" aria-label="Edit">
+    <md-fab size="m" color="secondary-container" aria-label="Edit">
       <md-icon>edit</md-icon>
     </md-fab>
-    <md-fab size="large" color="tertiary-container" aria-label="Edit">
+    <md-fab size="l" color="tertiary-container" aria-label="Edit">
       <md-icon>edit</md-icon>
     </md-fab>
   </body>

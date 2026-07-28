@@ -5,7 +5,7 @@ import './m3/button/common-button-toggle.js';
 import './m3/button/icon-button.js';
 import './m3/button/icon-button-toggle.js';
 import './m3/button-group/standard-button-group.js';
-// import './m3/button-group/connected-button-group.js';
+import './m3/button-group/connected-button-group.js';
 import './m3/checkbox/checkbox.js';
 import './m3/dialog/dialog.js';
 import './m3/divider/divider.js';

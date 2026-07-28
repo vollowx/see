@@ -2,3 +2,11 @@
   display: inline-flex;
   gap: 8px;
 }
+
+:host([size="s"]) {
+  gap: 12px;
+}
+
+:host([size="ss"]) {
+  gap: 18px;
+}

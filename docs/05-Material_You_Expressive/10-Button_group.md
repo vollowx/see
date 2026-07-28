@@ -4,8 +4,7 @@
 
 ```typescript
 import '@vollow/seele/m3/button-group/standard-button-group.js';
-// import '@vollow/seele/m3/button-group/connected-button-group.js';
-// TODO: will be md-connected-button-group
+import '@vollow/seele/m3/button-group/connected-button-group.js';
 ```
 
 ## Stadard button group
@@ -41,6 +40,31 @@ import '@vollow/seele/m3/button-group/standard-button-group.js';
     <md-icon slot="checked">wifi</md-icon>
   </md-icon-button-toggle>
 </md-button-group>
+```
+
+## Connected button group
+
+<!-- @show -->
+
+```html
+<md-connected-button-group multiple style="width: min(100%, 600px)">
+  <md-button-toggle variant="tonal" size="xs">
+    James May
+    <span slot="checked">James May</span>
+  </md-button-toggle>
+  <md-button-toggle variant="tonal" size="xs">
+    Richard Hammond
+    <span slot="checked">Richard Hammond</span>
+  </md-button-toggle>
+  <md-button-toggle variant="tonal" size="xs">
+    Jeremy Clarkson
+    <span slot="checked">Jeremy Clarkson</span>
+  </md-button-toggle>
+  <md-button-toggle variant="tonal" size="xs">
+    Mr. William
+    <span slot="checked">Mr. William</span>
+  </md-button-toggle>
+</md-connected-button-group>
 ```
 
 [overview]: https://m3.material.io/components/button-groups/overview

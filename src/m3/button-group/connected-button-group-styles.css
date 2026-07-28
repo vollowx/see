@@ -1,0 +1,51 @@
+:host {
+  display: inline-flex;
+  gap: 2px;
+}
+
+::slotted(*) {
+  flex: 1;
+}
+
+::slotted(:not(:first-child)[size='xs']) {
+  --_inner-left-radius: 4px;
+}
+
+::slotted(:not(:last-child)[size='xs']) {
+  --_inner-right-radius: 4px;
+}
+
+::slotted(:not(:first-child)) {
+  /* small and medium */
+  --_inner-left-radius: 8px;
+}
+
+::slotted(:not(:last-child)) {
+  --_inner-right-radius: 8px;
+}
+
+::slotted(:not(:first-child)[size='l']) {
+  --_inner-left-radius: 16px;
+}
+
+::slotted(:not(:last-child)[size='l']) {
+  --_inner-right-radius: 16px;
+}
+
+::slotted(:not(:first-child)[size='xl']) {
+  --_inner-left-radius: 20px;
+}
+
+::slotted(:not(:last-child)[size='xl']) {
+  --_inner-right-radius: 20px;
+}
+
+::slotted(:first-child:state(checked):not(:active, [square])) {
+  border-start-start-radius: calc(var(--_h) / 2);
+  border-end-start-radius: calc(var(--_h) / 2);
+}
+
+::slotted(:last-child:state(checked):not(:active, [square])) {
+  border-start-end-radius: calc(var(--_h) / 2);
+  border-end-end-radius: calc(var(--_h) / 2);
+}
