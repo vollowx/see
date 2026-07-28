@@ -20,6 +20,7 @@ import { targetStyles } from '../target-styles.css.js';
 @customElement('md-checkbox')
 export class M3Checkbox extends Checkbox {
   @property({ type: Boolean, reflect: true }) error = false;
+  @query('md-ripple') $ripple!: M3Ripple;
 
   static override styles = [...super.styles, targetStyles, checkboxStyles];
   override render() {
@@ -37,6 +38,14 @@ export class M3Checkbox extends Checkbox {
         <rect part="mark mark-long"></rect>
       </svg>
     `;
+  }
+
+  override connectedCallback() {
+    super.connectedCallback();
+    // SSR'd <md-checkbox> components don't have their labels set up on time
+    this.updateComplete.then(() => {
+      this.$ripple.attach(this, true);
+    });
   }
 }
 

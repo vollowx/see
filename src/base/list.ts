@@ -77,11 +77,11 @@ export class List extends Base {
 
   constructor() {
     super();
+    this[internals].role = 'listbox';
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
     if (!isServer) {
-      this[internals].role = 'listbox';
-      if (!this.hasAttribute('tabindex')) {
-        this.setAttribute('tabindex', '0');
-      }
       this.addEventListener('keydown', (e) => this.#handleKeyDown(e));
       this.addEventListener('focusin', () => this.#handleFocusIn());
       this.addEventListener('focusout', () => this.#handleFocusOut());

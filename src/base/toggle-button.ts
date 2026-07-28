@@ -1,4 +1,4 @@
-import { LitElement, isServer } from 'lit';
+import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
@@ -35,10 +35,8 @@ export class ToggleButton extends Base {
       label.addEventListener('click', this.#handleLabelClick);
     });
 
-    if (!isServer) {
-      this.setAttribute('notransition', '');
-      requestAnimationFrame(() => this.removeAttribute('notransition'));
-    }
+    this.setAttribute('notransition', '');
+    requestAnimationFrame(() => this.removeAttribute('notransition'));
   }
 
   override disconnectedCallback() {

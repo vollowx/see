@@ -36,10 +36,8 @@ export class Tabs extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
-    if (!isServer) {
-      this.addEventListener('keydown', this.#handleKeyDown.bind(this));
-      this.addEventListener('click', this.#handleClick.bind(this));
-    }
+    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
+    this.addEventListener('click', this.#handleClick.bind(this));
   }
 
   protected override updated(changed: Map<string, any>) {
