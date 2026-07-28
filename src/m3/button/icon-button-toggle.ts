@@ -38,7 +38,7 @@ export class M3IconButtonToggle extends ToggleButton {
     `;
   }
   @property({ reflect: true })
-  size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'small';
+  size: 'xs' | 's' | 'm' | 'l' | 'xl' = 's';
   @property({ reflect: true })
   color: 'primary' | 'secondary' | 'tertiary' = 'primary';
   @property({ reflect: true })

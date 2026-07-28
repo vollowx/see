@@ -1,14 +1,13 @@
 @layer icon-button {
   :host {
-    /* [size=small] */
-    --_wn: 32px; /* width for icon button only [width=narrow] */
-    --_ww: 52px; /* width for icon button only [width=wide] */
+    /* [size=s] */
+    --_wn: 32px; /* width for icon button with [width=narrow] */
+    --_ww: 52px; /* width for icon button with [width=wide] */
     background-color: color-mix(
       in srgb,
       var(--_background-color) var(--_background-opacity, 100%),
       transparent
     );
-    border-radius: calc(var(--_h) / 2);
     color: color-mix(
       in srgb,
       var(--_text-color) var(--_text-opacity, 100%),
@@ -19,19 +18,19 @@
     width: var(--_h);
   }
 
-  :host([size='xsmall']) {
+  :host([size='xs']) {
     --_wn: 28px;
     --_ww: 40px;
   }
-  :host([size='medium']) {
+  :host([size='m']) {
     --_wn: 48px;
     --_ww: 72px;
   }
-  :host([size='large']) {
+  :host([size='l']) {
     --_wn: 64px;
     --_ww: 128px;
   }
-  :host([size='xlarge']) {
+  :host([size='xl']) {
     --_wn: 104px;
     --_ww: 184px;
   }

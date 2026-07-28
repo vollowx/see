@@ -4,16 +4,20 @@
   :host {
     --_on-color: var(--md-sys-color-on-primary);
     --_color: var(--md-sys-color-primary);
-    /* [size=small] */
+    /* [size=s] */
     --_h: 40px; /* height */
     --_icon-size: 20px;
-    --_rad-sq: 12px; /* square-radius */
-    --_rad-pr: 8px; /* pressed-radius */
+    --_rs: 12px; /* square radius */
+    --_rp: 8px; /* pressed radius */
 
     --_text-color: var(--_on-color);
     --_background-color: var(--_color);
 
     align-items: center;
+    border-start-start-radius: var(--_inner-left-radius, calc(var(--_h) / 2));
+    border-end-start-radius: var(--_inner-left-radius, calc(var(--_h) / 2));
+    border-start-end-radius: var(--_inner-right-radius, calc(var(--_h) / 2));
+    border-end-end-radius: var(--_inner-right-radius, calc(var(--_h) / 2));
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
@@ -29,7 +33,7 @@
   }
 
   :host([notransition]) {
-    transition: none;
+    transition: none !important;
   }
   md-ripple,
   md-focus-ring {
@@ -37,26 +41,26 @@
   } /* Since they're not SSR'd and buttons use `gap`, it's necessary to write
        this to maintain the layout during SSR'd loading. */
 
-  :host([size='xsmall']) {
+  :host([size='xs']) {
     --_h: 32px;
   }
-  :host([size='medium']) {
+  :host([size='m']) {
     --_h: 56px;
     --_icon-size: 24px;
-    --_rad-sq: 16px;
-    --_rad-pr: 12px;
+    --_rs: 16px;
+    --_rp: 12px;
   }
-  :host([size='large']) {
+  :host([size='l']) {
     --_h: 96px;
     --_icon-size: 32px;
-    --_rad-sq: 28px;
-    --_rad-pr: 16px;
+    --_rs: 28px;
+    --_rp: 16px;
   }
-  :host([size='xlarge']) {
+  :host([size='xl']) {
     --_h: 136px;
     --_icon-size: 40px;
-    --_rad-sq: 28px;
-    --_rad-pr: 16px;
+    --_rs: 28px;
+    --_rp: 16px;
   }
 
   :host([color='secondary']) {
@@ -89,17 +93,17 @@
     --_text-color: var(--_color);
   }
 
-  :host([shape='square']) {
-    --md-focus-ring-shape: var(--_rad-sq);
-    border-radius: var(--_rad-sq);
+  :host([square]) {
+    --md-focus-ring-shape: var(--_rs);
+    border-radius: var(--_rs);
   }
 }
 
 @layer active {
   /* TODO: Space key pressed should also trigger active state */
   :host(:active) {
-    --md-focus-ring-shape: var(--_rad-pr);
-    border-radius: var(--_rad-pr);
+    --md-focus-ring-shape: var(--_rp);
+    border-radius: var(--_rp);
   }
 }
 

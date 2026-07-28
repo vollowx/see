@@ -12,13 +12,11 @@
   }
 
   :host(:state(checked)) {
-    --md-focus-ring-shape: var(--_rad-sq);
-    border-radius: var(--_rad-sq);
+    --md-focus-ring-shape: var(--_rs);
+    border-radius: var(--_rs);
   }
 
-  :host(:state(checked)) [part~='unchecked'] {
-    display: none;
-  }
+  :host(:state(checked)) [part~='unchecked'],
   :host(:not(:state(checked))) [part~='checked'] {
     display: none;
   }

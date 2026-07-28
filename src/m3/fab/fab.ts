@@ -20,7 +20,7 @@ import { targetStyles } from '../target-styles.css.js';
  */
 @customElement('md-fab')
 export class M3Fab extends Button {
-  @property({ reflect: true }) size: 'default' | 'medium' | 'large' = 'default';
+  @property({ reflect: true }) size: 's' | 'm' | 'l' = 's'; // s for default
   @property({ reflect: true }) color:
     | 'surface'
     | 'primary-container'

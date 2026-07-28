@@ -7,7 +7,6 @@
       var(--_background-color) var(--_background-opacity, 100%),
       transparent
     );
-    border-radius: calc(var(--_h) / 2);
     color: color-mix(
       in srgb,
       var(--_text-color) var(--_text-opacity, 100%),
@@ -24,21 +23,21 @@
         var(--md-sys-motion-spatial-fast);
   }
 
-  :host([size='xsmall']) {
+  :host([size='xs']) {
     --_padding: 12px;
     gap: 4px;
   }
-  :host([size='medium']) {
+  :host([size='m']) {
     --_padding: 24px;
     font: var(--md-sys-typography-title-medium);
     gap: 8px;
   }
-  :host([size='large']) {
+  :host([size='l']) {
     --_padding: 48px;
     font: var(--md-sys-typography-headline-small);
     gap: 12px;
   }
-  :host([size='xlarge']) {
+  :host([size='xl']) {
     --_padding: 64px;
     font: var(--md-sys-typography-headline-medium);
     gap: 16px;

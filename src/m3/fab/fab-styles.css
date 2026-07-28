@@ -43,12 +43,12 @@ md-focus-ring {
 } /* Since they're not SSR'd and buttons use `gap`, it's necessary to write
      this to maintain the layout during SSR'd loading. */
 
-:host([size='medium']) {
+:host([size='m']) {
   --_size: 80px;
   --_border-radius: 20px;
   --_icon-size: 28px;
 }
-:host([size='large']) {
+:host([size='l']) {
   --_size: 96px;
   --_border-radius: 28px;
   --_icon-size: 36px;

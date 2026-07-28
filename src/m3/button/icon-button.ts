@@ -20,7 +20,7 @@ import { iconButtonStyles } from './icon-button-styles.css.js';
 @customElement('md-icon-button')
 export class M3IconButton extends Button {
   @property({ reflect: true })
-  size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' = 'small';
+  size: 'xs' | 's' | 'm' | 'l' | 'xl' = 's';
   @property({ reflect: true })
   color: 'primary' | 'secondary' | 'tertiary' = 'primary';
   @property({ reflect: true })
