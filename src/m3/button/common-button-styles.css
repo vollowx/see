@@ -55,7 +55,8 @@
     padding-inline: calc(var(--_padding) / 4 * 3);
   }
 
-  [part~='icon'] {
+  ::slotted([slot='icon']),
+  ::slotted([slot='icon-checked']) {
     block-size: 1em;
     fill: currentcolor;
     font-size: var(--_icon-size);

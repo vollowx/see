@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement, isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
@@ -23,6 +23,13 @@ export class Button extends Base {
     this.addEventListener('keydown', this.#handleKeyDown);
     this.addEventListener('keyup', this.#handleKeyUp);
     this.addEventListener('click', this.#handleClick);
+
+    // This is set to prevent a first-paint-time transition for styles like
+    // `border-radius` on `:host`. Also in `ToggleButton`.
+    if (!isServer) {
+      this.setAttribute('notransition', '');
+      requestAnimationFrame(() => this.removeAttribute('notransition'));
+    }
   }
 
   override disconnectedCallback() {

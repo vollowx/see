@@ -12,7 +12,6 @@
 
     --_text-color: var(--_on-color);
     --_background-color: var(--_color);
-    --_outline-color: var(--md-sys-color-outline-variant);
 
     align-items: center;
     box-sizing: border-box;
@@ -28,6 +27,15 @@
     user-select: none;
     vertical-align: top;
   }
+
+  :host([notransition]) {
+    transition: none;
+  }
+  md-ripple,
+  md-focus-ring {
+    position: absolute;
+  } /* Since they're not SSR'd and buttons use `gap`, it's necessary to write
+       this to maintain the layout during SSR'd loading. */
 
   :host([size='xsmall']) {
     --_h: 32px;
@@ -70,12 +78,11 @@
     --md-focus-ring-offset: 3px;
     border-color: color-mix(
       in srgb,
-      var(--_outline-color) var(--_outline-opacity, 100%),
+      var(--md-sys-color-outline-variant) 100%,
       transparent
     );
     border-style: solid;
     border-width: 1px;
-    box-shadow: none;
   }
   :host([variant='text']) {
     --_background-color: transparent !important;
@@ -107,8 +114,11 @@
     --_background-opacity: 10%;
     --_text-color: var(--md-sys-color-on-surface);
     --_text-opacity: 38%;
-    --_outline-color: var(--md-sys-color-on-surface);
-    --_outline-opacity: 10%;
+    border-color: color-mix(
+      in srgb,
+      var(--md-sys-color-on-surface) 10%,
+      transparent
+    );
     box-shadow: none;
     pointer-events: none;
   }

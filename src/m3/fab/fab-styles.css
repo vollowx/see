@@ -37,6 +37,12 @@
   vertical-align: middle;
 }
 
+md-ripple,
+md-focus-ring {
+  position: absolute;
+} /* Since they're not SSR'd and buttons use `gap`, it's necessary to write
+     this to maintain the layout during SSR'd loading. */
+
 :host([size='medium']) {
   --_size: 80px;
   --_border-radius: 20px;
@@ -79,7 +85,6 @@
   --_text-color: var(--md-sys-color-on-surface);
   --_text-opacity: 38%;
   box-shadow: none;
-  cursor: default;
   pointer-events: none;
 }
 @media (hover: hover) and (pointer: fine) {
@@ -90,8 +95,7 @@
 
 ::slotted(:not([slot='label'])) {
   block-size: 1em;
-  display: inline-flex;
-  fill: currentcolor;
+  fill: currentColor;
   font-size: var(--_icon-size);
   inline-size: 1em;
 }
