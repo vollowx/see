@@ -37,13 +37,13 @@ export class ToggleButton extends Base {
   }
 
   override disconnectedCallback() {
-    super.disconnectedCallback();
     this.removeEventListener('click', this.#handleClick);
     this.removeEventListener('keydown', this.#handleKeyDown);
     this.removeEventListener('keyup', this.#handleKeyUp);
     this.labels.forEach((label) => {
       label.removeEventListener('click', this.#handleLabelClick);
     });
+    super.disconnectedCallback();
   }
 
   protected override updated(changed: Map<string, any>) {
@@ -67,18 +67,18 @@ export class ToggleButton extends Base {
   }
 
   /**
-   * **Drag-and-drop to the other side**
+   * --> Drag-and-drop to the other side
    *
-   * *`checked` is supposed to be changed once*
+   * `checked` is supposed to be changed once
    *
    * 1. `pointerdown`: _ignoreClick = false
    * 2. `pointermove`: _ignoreClick = true
    * 3. `pointerup`: `checked` changed
    * 4. `click`: ignored, _ignoreClick = false
    *
-   * **Drag-and-drop to the other side, then click**
+   * --> Drag-and-drop to the other side, then click
    *
-   * *`checked` is supposed to be changed twice*
+   * `checked` is supposed to be changed twice
    *
    * 1. `pointerdown`: _ignoreClick = false
    * 2. `pointermove`: _ignoreClick = true
@@ -86,9 +86,9 @@ export class ToggleButton extends Base {
    * 4. `click`: ignored, _ignoreClick = false
    * 5. `click`: `checked` changed(2)
    *
-   * **Drag-and-drop to the other side, then click the label**
+   * --> Drag-and-drop to the other side, then click the label
    *
-   * *`checked` is supposed to be changed twice*
+   * `checked` is supposed to be changed twice
    *
    * 1. `pointerdown`: _ignoreClick = false
    * 2. `pointermove`: _ignoreClick = true
@@ -138,5 +138,13 @@ export class ToggleButton extends Base {
         detail: this.checked,
       })
     );
+  }
+
+  formResetCallback() {
+    this.checked = this.hasAttribute('checked');
+  }
+
+  formStateRestoreCallback(state: string, _reason: string) {
+    this.checked = state === 'on';
   }
 }

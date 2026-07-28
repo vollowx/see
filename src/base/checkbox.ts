@@ -37,10 +37,10 @@ export class Checkbox extends Base {
   }
 
   override disconnectedCallback() {
-    super.disconnectedCallback();
     this.removeEventListener('click', this.#handleClick);
     this.removeEventListener('keydown', this.#handleKeyDown);
     this.removeEventListener('keyup', this.#handleKeyUp);
+    super.disconnectedCallback();
   }
 
   protected override updated(changed: Map<string, any>) {
@@ -133,5 +133,13 @@ export class Checkbox extends Base {
         detail: this.checked,
       })
     );
+  }
+
+  formResetCallback() {
+    this.checked = this.hasAttribute('checked');
+  }
+
+  formStateRestoreCallback(state: string, _reason: string) {
+    this.checked = state === 'on';
   }
 }
