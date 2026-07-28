@@ -1,6 +1,20 @@
 # `FormAssociated`
 
-Accepts only [`InternalsAttached`](./20-InternalsAttached.md) elements.
+- Accepts [`InternalsAttached`](./20-InternalsAttached.md) classes that are 
+  based on [`LitElement`](lit-ele)
+
+```typescript
+import { LitElement } from 'lit';
+import {
+  InternalsAttached,
+  internals
+} from '@vollowx/seele/base/mixins/internals-attached.js';
+import {
+  FormAssociated
+} from '@vollowx/seele/base/mixins/internals-attached.js';
+
+class Some extends FormAssociated(InternalsAttached(LitElement)) {}
+```
 
 ## Properties
 
@@ -30,4 +44,5 @@ For elements mixing this in, they should also call
 `formResetCallback()` and `formStateRestoreCallback(state: any, reason: string)`
 to handle form reset and restoration/auto-fills.
 
-[input-element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
+[lit-ele]: https://lit.dev/docs/api/LitElement/
+[input-element]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input
