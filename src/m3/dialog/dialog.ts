@@ -21,16 +21,17 @@ import { dialogStyles } from './dialog-styles.css.js';
  */
 @customElement('md-dialog')
 export class M3Dialog extends Dialog {
+  // Was based on https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration#e5b958f0-435d-4e84-aed4-8d1ea395fa5c
+  // TODO: use curves and durations from motion physics
   _config = {
     openEase: 'cubic-bezier(0, 0, 0, 1)',
     closeEase: 'cubic-bezier(0.3, 0, 1, 1)',
-    vertSlide: 36,
+    vertSlide: 40,
     openDur: 500,
     closeDur: 200,
     bodyFadeInDur: 200,
     bodyFadeOutDur: 100,
-  }; /* Perhaps make them constants? I don't think that there will be anyone
-        making classes inheriting this class... */
+  };
 
   @state() private hasIcon = false;
   @query('[part=container]') $container: HTMLDivElement;

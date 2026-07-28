@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement } from '../../core/decorators.js';
 import { queryAssignedElements } from 'lit/decorators.js';
+import { getSpring } from '../system/motion.js';
 import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
 
 const EXPAND_FACTOR = 1.15;
@@ -110,22 +111,14 @@ export class M3StandardButtonGroup extends LitElement {
         }
       }
 
-      const styles = getComputedStyle(this);
-      const rawDuration = styles.getPropertyValue(
-        '--md-sys-motion-spatial-fast-duration'
-      );
-      const rawEasing = styles.getPropertyValue('--md-sys-motion-spatial-fast');
-      const duration =
-        parseInt(rawDuration.substring(0, rawDuration.length - 2)) || 0;
-      const easing = rawEasing || 'ease';
+      const spring = getSpring(this, 'spatial', 'fast');
 
       if (btn[shapeAnimation]) btn[shapeAnimation].cancel();
 
       btn[shapeAnimation] = btn.animate(
         [{ width: `${currentWidth}px` }, { width: `${targetWidth}px` }],
         {
-          duration,
-          easing,
+          ...spring,
           fill: 'forwards',
         }
       );
