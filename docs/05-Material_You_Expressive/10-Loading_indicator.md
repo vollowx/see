@@ -6,6 +6,8 @@
 import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
 ```
 
+<!-- @show -->
+
 ```html
 <md-loading aria-label="Loading pictures"></md-loading>
 <md-loading aria-label="Loading pictures" contained style="width: 64px;"></md-loading>
