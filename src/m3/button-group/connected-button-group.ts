@@ -9,7 +9,7 @@ import { connectedButtonGroupStyles } from './connected-button-group-styles.css.
  *
  * @slot - toggle buttons
  */
-@customElement('md-connected-button-group', false)
+@customElement('md-connected-button-group')
 export class M3StandardButtonGroup extends LitElement {
   @property({ type: Boolean }) multiple = false;
   @queryAssignedElements() $buttons: Array<ToggleButton>;
