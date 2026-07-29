@@ -41,12 +41,12 @@ import '@vollow/seele/m3/button/common-button-toggle.js';
 
 ### Slots
 
-name           | description
----            | ---
-               | The label or unchecked label (only for `M3ButtonToggle`)
-`checked`      | The checked label (only for `M3ButtonToggle`)
-`icon`         | The icon or unchecked icon (only for `M3ButtonToggle`)
-`icon-checked` | The checked icon (only for `M3ButtonToggle`)
+| name           | description                                              |
+| ---            | ---                                                      |
+|                | The label or unchecked label (only for `M3ButtonToggle`) |
+| `checked`      | The checked label (only for `M3ButtonToggle`)            |
+| `icon`         | The icon or unchecked icon (only for `M3ButtonToggle`)   |
+| `icon-checked` | The checked icon (only for `M3ButtonToggle`)             |
 
 ### Parts
 
@@ -59,11 +59,12 @@ name        | description
 
 ### Properties
 
- name          | description
-`color`        | Reflected string; `primary`, `secondary` or `tertiary`; `primary` by default
-`square`       | Reflected boolean; `false` by default
-`size`         | Reflected string; `xs`, `s`, `m`, `l` or `xl`; `s` by default
-`trailingIcon` | Reflected boolean; `false` by default; `trailing-icon` as an attribute
-`variant`      | Reflected string; `filled`, `tonal`, `elevated`, `outlined` or `text`; `filled` by default
+|  name          | description                                                                                |
+| ---            | ---                                                                                        |
+| `color`        | Reflected string; `primary`, `secondary` or `tertiary`; `primary` by default               |
+| `square`       | Reflected boolean; `false` by default                                                      |
+| `size`         | Reflected string; `xs`, `s`, `m`, `l` or `xl`; `s` by default                              |
+| `trailingIcon` | Reflected boolean; `false` by default; `trailing-icon` as an attribute                     |
+| `variant`      | Reflected string; `filled`, `tonal`, `elevated`, `outlined` or `text`; `filled` by default |
 
 [overview]: https://m3.material.io/components/buttons/overview

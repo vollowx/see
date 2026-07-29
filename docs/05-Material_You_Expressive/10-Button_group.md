@@ -22,30 +22,30 @@ import '@vollow/seele/m3/button-group/connected-button-group.js';
 ```html
 <md-button-group>
   <md-icon-button-toggle variant="filled">
-    <md-icon>bluetooth_disabled</md-icon>
-    <md-icon slot="checked">bluetooth</md-icon>
+    <iconify-icon icon="material-symbols:bluetooth-disabled"></iconify-icon>
+    <iconify-icon icon="material-symbols:bluetooth" slot="checked"></iconify-icon>
   </md-icon-button-toggle>
 
   <md-icon-button-toggle variant="filled" width="wide">
-    <md-icon>alarm</md-icon>
-    <md-icon slot="checked">alarm</md-icon>
+    <iconify-icon icon="material-symbols:alarm-off"></iconify-icon>
+    <iconify-icon icon="material-symbols:alarm" slot="checked"></iconify-icon>
   </md-icon-button-toggle>
 
   <md-button-toggle>
-    <md-icon slot="icon">do_not_disturb_on</md-icon>
-    <md-icon slot="icon-checked">do_not_disturb_on</md-icon>
+    <iconify-icon icon="material-symbols:do-not-disturb-off-outline" slot="icon"></iconify-icon>
+    <iconify-icon icon="material-symbols:do-not-disturb-on-outline" slot="icon-checked"></iconify-icon>
     <span>Focus</span>
     <span slot="checked">Focus</span>
   </md-button-toggle>
 
   <md-icon-button-toggle variant="filled" width="narrow">
-    <md-icon>flashlight_off</md-icon>
-    <md-icon slot="checked">flashlight_on</md-icon>
+    <iconify-icon icon="material-symbols:flashlight-off-outline"></iconify-icon>
+    <iconify-icon icon="material-symbols:flashlight-on-outline" slot="checked"></iconify-icon>
   </md-icon-button-toggle>
 
   <md-icon-button-toggle variant="filled" checked>
-    <md-icon>wifi_off</md-icon>
-    <md-icon slot="checked">wifi</md-icon>
+    <iconify-icon icon="material-symbols:wifi-off"></iconify-icon>
+    <iconify-icon icon="material-symbols:wifi" slot="checked"></iconify-icon>
   </md-icon-button-toggle>
 </md-button-group>
 ```

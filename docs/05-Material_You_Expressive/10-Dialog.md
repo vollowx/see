@@ -39,7 +39,7 @@ import '@vollow/seele/m3/dialog/dialog.js';
 <md-button variant="filled" onclick="dialogDelete.show()">Delete All Media</md-button>
 
 <md-dialog id="dialogDelete">
-  <md-icon slot="icon">edit</md-icon>
+  <iconify-icon icon="material-symbols:delete-forever-outline" slot="icon"></iconify-icon>
   <h2 slot="headline">Confirm Deletion</h2>
   <p style="margin: 0">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem dui,

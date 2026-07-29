@@ -43,10 +43,10 @@ import '@vollow/seele/m3/button/icon-button-toggle.js';
 
 ### Slots
 
-name      | description
----       | ---
-          | The icon or unchecked icon (only for `M3IconButtonToggle`)
-`checked` | The checked icon (only for `M3IconButtonToggle`)
+| name      | description                                                |
+| ---       | ---                                                        |
+|           | The icon or unchecked icon (only for `M3IconButtonToggle`) |
+| `checked` | The checked icon (only for `M3IconButtonToggle`)           |
 
 ### Parts
 
@@ -58,10 +58,11 @@ name        | description
 
 ### Properties
 
- name     | description
-`color`   | Reflected string; `primary`, `secondary` or `tertiary`; `primary` by default
-`size`    | Reflected string; `xs`, `s`, `m`, `l` or `xl`; `s` by default
-`width`   | Reflected string; `narrow`, `standard` or `wide`; `standard` by default
-`variant` | Reflected string; `filled`, `tonal`, `outlined` or `text`; `text` by default
+| name      | description                                                                  |
+| ---       | ---                                                                          |
+| `color`   | Reflected string; `primary`, `secondary` or `tertiary`; `primary` by default |
+| `size`    | Reflected string; `xs`, `s`, `m`, `l` or `xl`; `s` by default                |
+| `width`   | Reflected string; `narrow`, `standard` or `wide`; `standard` by default      |
+| `variant` | Reflected string; `filled`, `tonal`, `outlined` or `text`; `text` by default |
 
 [overview]: https://m3.material.io/components/icon-buttons/overview
