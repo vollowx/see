@@ -1,3 +1,8 @@
+---
+components:
+  - m3/checkbox/checkbox
+---
+
 # Checkbox
 
 - [Material Design](overview)

@@ -1,3 +1,8 @@
+---
+components:
+  - win95/button/button
+---
+
 # Button
 
 ```typescript
@@ -12,3 +17,5 @@ import '@vollow/seele/win98/button/button.js';
 ```
 
 ## `Win98Button`
+
+- Inherits [`Button`](../04-Base/10-Button.md)

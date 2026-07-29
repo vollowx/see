@@ -1,3 +1,11 @@
+---
+components:
+  - m3/button/common-button-toggle
+  - m3/button/icon-button-toggle
+  - m3/button-group/standard-button-group
+  - m3/button-group/connected-button-group
+---
+
 # Button group
 
 - [Material Design](overview)

@@ -1,3 +1,9 @@
+---
+components:
+  - m3/button/common-button
+  - m3/dialog/dialog
+---
+
 # Dialog
 
 - [Material Design](overview)

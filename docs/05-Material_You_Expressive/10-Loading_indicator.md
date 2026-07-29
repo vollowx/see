@@ -1,3 +1,8 @@
+---
+components:
+  - m3/loading-indicator/loading-indicator
+---
+
 # Loading indicator
 
 - [Material Design](overview)
