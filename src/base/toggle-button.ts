@@ -24,6 +24,7 @@ export class ToggleButton extends Base {
 
     this.checked = this.hasAttribute('checked');
     this._updateInternals();
+    this.setAttribute('notransition', '');
   }
 
   override connectedCallback() {
@@ -35,8 +36,9 @@ export class ToggleButton extends Base {
       label.addEventListener('click', this.#handleLabelClick);
     });
 
-    this.setAttribute('notransition', '');
-    requestAnimationFrame(() => this.removeAttribute('notransition'));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => this.removeAttribute('notransition'))
+    );
   }
 
   override disconnectedCallback() {

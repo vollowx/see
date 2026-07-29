@@ -16,6 +16,12 @@ export class Button extends Base {
     super();
     this[internals].role = 'button';
     this.updateState();
+
+    // This is set to prevent a first-paint-time transition for styles like
+    // `border-radius` on `:host`. Also in `ToggleButton`.
+    // Double `requestAnimationFrame` is necessary since the callback inside is
+    // called before the nth frame is printed.
+    this.setAttribute('notransition', '');
   }
 
   override connectedCallback() {
@@ -23,11 +29,9 @@ export class Button extends Base {
     this.addEventListener('keydown', this.#handleKeyDown);
     this.addEventListener('keyup', this.#handleKeyUp);
     this.addEventListener('click', this.#handleClick);
-
-    // This is set to prevent a first-paint-time transition for styles like
-    // `border-radius` on `:host`. Also in `ToggleButton`.
-    this.setAttribute('notransition', '');
-    requestAnimationFrame(() => this.removeAttribute('notransition'));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => this.removeAttribute('notransition'))
+    );
   }
 
   override disconnectedCallback() {

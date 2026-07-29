@@ -13,7 +13,7 @@ const shapeAnimation = Symbol('shapeAnimation');
  *
  * @slot - buttons
  */
-@customElement('md-button-group', false)
+@customElement('md-button-group')
 export class M3StandardButtonGroup extends LitElement {
   @property({ reflect: true })
   size: 'xs' | 's' | '' = '';
