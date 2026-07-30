@@ -17,6 +17,7 @@ import './m3/list/list-item.js';
 import './m3/loading-indicator/loading-indicator.js';
 import './m3/menu/menu.js';
 import './m3/menu/menu-item.js';
+import './m3/radio/radio.js';
 import './m3/ripple/ripple.js';
 import './m3/select/filled-select.js';
 import './m3/select/outlined-select.js';

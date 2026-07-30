@@ -13,11 +13,12 @@ See [Styles](./05-Styles.md)
 
 ## Components
 
-- [Button](./10-Button.md)
-- [Icon button](./10-Icon_button.md)
-- [Button group](./10-Button_group.md)
+* [Button](./10-Button.md)
+* [Icon button](./10-Icon_button.md)
+* [Button group](./10-Button_group.md)
 
-- [Dialog](./10-Dialog.md)
-- [Loading indicator](./10-Loading_indicator.md)
+* [Dialog](./10-Dialog.md)
+* [Loading indicator](./10-Loading_indicator.md)
+* [Radio](./10-Radio.md)
 
 [iconify-icons]: https://iconify.design/
