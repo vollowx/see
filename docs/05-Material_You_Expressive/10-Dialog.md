@@ -95,6 +95,7 @@ import '@vollow/seele/m3/dialog/dialog.js';
 | ---                   | ---                                           |
 | `$container`          |                                               |
 | `$body`               |                                               |
+| `$icon`               | The slot for icon                             |
 | `$actions`            |                                               |
 | `$actionsPlaceholder` | Used to do layout calc in place of `$actions` |
 | `$scrim`              | Scrim behind the dialog                       |

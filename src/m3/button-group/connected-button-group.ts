@@ -20,7 +20,6 @@ export class M3ConnectedButtonGroup extends LitElement {
   }
 
   #handleChange = (e: Event) => {
-    console.log('Boom!', e);
     this.$buttons.forEach((btn, _) => {
       if (btn !== e.target && !this.multiple)
         // NOTE: there will not be an event dispatched and user should listen on

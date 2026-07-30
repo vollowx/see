@@ -47,6 +47,8 @@ export class M3StandardButtonGroup extends LitElement {
           if (currentWidth) target.style.width = currentWidth;
         }
       });
+
+      this.#handleSlotChange(); // Which is not called on a SSR'd element
     });
   }
   override disconnectedCallback() {

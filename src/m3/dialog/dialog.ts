@@ -36,6 +36,7 @@ export class M3Dialog extends Dialog {
   @state() private hasIcon = false;
   @query('[part=container]') $container: HTMLDivElement;
   @query('[part=body]') $body: HTMLDivElement;
+  @query('[name=icon]') $icon: HTMLSlotElement;
   @query('[part=actions]') $actions: HTMLDivElement;
   @query('.actions-placeholder') $actionsPlaceholder: HTMLDivElement;
   @query('[part=scrim]') $scrim: HTMLDivElement;
@@ -71,6 +72,11 @@ export class M3Dialog extends Dialog {
     `;
   }
 
+  override connectedCallback() {
+    super.connectedCallback();
+    this.#handleIconSlotChange(); // slotchange will not be called on SSR'd elements
+  }
+
   #activeAnimations: Animation[] = [];
   #clearAnimations() {
     this.#activeAnimations.forEach((anim) => anim.cancel());
@@ -83,10 +89,9 @@ export class M3Dialog extends Dialog {
     if (!this.$container.contains(target) && !this.contains(target))
       this.close();
   };
-  #handleIconSlotChange = (e: Event) => {
-    const slot = e.target as HTMLSlotElement;
-    this.hasIcon = slot.assignedElements({ flatten: true }).length > 0;
-  }
+  #handleIconSlotChange = () => {
+    this.hasIcon = this.$icon.assignedElements({ flatten: true }).length > 0;
+  };
 
   #opening = false;
   override show() {
