@@ -40,6 +40,8 @@
   border-radius: 9999px;
   background-color: var(--md-sys-color-surface);
   z-index: 2;
+  animation: uncheck-middle-2 var(--_slow)
+    var(--md-sys-motion-effects-default-duration);
 }
 :host::after {
   z-index: 3;
@@ -47,61 +49,12 @@
   width: 10px;
   background-color: var(--md-sys-color-primary);
   transform: scale(0);
-}
-
-:host([checked])::before {
-  background-color: var(--md-sys-color-primary);
-}
-:host([checked]) .middle {
-  /* NOTE: tried to mimic the animation from Android instead of m3.material.io */
-  animation:
-    check-middle-1 var(--_default),
-    check-middle-2 var(--_slow) var(--md-sys-motion-effects-default-duration);
-  animation-fill-mode: forwards;
-}
-:host([checked])::after {
-  animation: check-inner-2 var(--_slow)
-    var(--md-sys-motion-effects-default-duration);
-  animation-fill-mode: forwards;
-}
-
-.middle {
-  animation: uncheck-middle-2 var(--_slow)
-    var(--md-sys-motion-effects-default-duration);
-}
-:host::after {
   animation:
     uncheck-inner-1 var(--_default),
     uncheck-inner-2 var(--_slow) var(--md-sys-motion-effects-default-duration);
 }
 
-/* check, <type>-<part>-<stage>, unnecessary stages can be skipped */
-@keyframes check-middle-1 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-
-@keyframes check-middle-2 {
-  0% {
-    transform: scale(0.625);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes check-inner-2 {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* uncheck */
+/* uncheck, <type>-<part>-<stage>, unnecessary stages can be skipped */
 @keyframes uncheck-middle-2 {
   0% {
     transform: scale(0);
@@ -135,12 +88,55 @@
   }
 }
 
-:host(:disabled) {
+/* check */
+:host([checked])::before {
+  background-color: var(--md-sys-color-primary);
+}
+:host([checked]) .middle {
+  /* NOTE: tried to mimic the animation from Android instead of m3.material.io */
+  animation:
+    check-middle-1 var(--_default),
+    check-middle-2 var(--_slow) var(--md-sys-motion-effects-default-duration);
+  animation-fill-mode: forwards;
+}
+:host([checked])::after {
+  animation: check-inner-2 var(--_slow)
+    var(--md-sys-motion-effects-default-duration);
+  animation-fill-mode: forwards;
+}
+
+@keyframes check-middle-1 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes check-middle-2 {
+  0% {
+    transform: scale(0.625);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes check-inner-2 {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+:host([disabled]) {
   pointer-events: none;
 }
 
-:host(:disabled)::before,
-:host(:disabled)::after {
+:host([disabled])::before,
+:host([disabled])::after {
   background: color-mix(
     in srgb,
     var(--md-sys-color-on-surface) 38%,

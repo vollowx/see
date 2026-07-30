@@ -7,6 +7,12 @@ import { targetStyles } from '../target-styles.css.js';
 import '../focus-ring/focus-ring.js';
 import '../ripple/ripple.js';
 
+/**
+ * @tag md-radio
+ *
+ * FIXME: first-paint animation cannot be elimated by the same approach like
+ *        button and toggle button
+ */
 @customElement('md-radio')
 export class M3Radio extends Radio {
   static override styles = [targetStyles, radioStyles];
