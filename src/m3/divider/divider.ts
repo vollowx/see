@@ -16,3 +16,9 @@ export class M3Divider extends LitElement {
 
   static override styles = [dividerStyles];
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-divider': M3Divider;
+  }
+}

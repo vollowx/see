@@ -134,3 +134,9 @@ export class M3StandardButtonGroup extends LitElement {
     });
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-button-group': M3StandardButtonGroup;
+  }
+}

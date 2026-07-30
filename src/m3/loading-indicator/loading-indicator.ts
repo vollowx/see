@@ -134,6 +134,12 @@ export class M3LoadingIndicator extends InternalsAttached(LitElement) {
   };
 }
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-loading': M3LoadingIndicator;
+  }
+}
+
 type Point = { x: number; y: number; outer?: boolean };
 type ShapeDef = {
   points: number;

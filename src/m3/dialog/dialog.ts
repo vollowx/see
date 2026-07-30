@@ -221,3 +221,9 @@ export class M3Dialog extends Dialog {
     };
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-dialog': M3Dialog;
+  }
+}
