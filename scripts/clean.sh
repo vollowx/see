@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
-cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." || exit 1
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-shopt -s globstar
-rm ./src/**/*-styles.css.ts
-rm ./src/**/*.js
+if [ -d "./src" ]; then
+  find ./src -type f ! -path "./src/core/shared.d.ts" \( -name "*.js" -o -name "*.d.ts" \) -delete
+  echo "done"
+else
+  echo "src directory not found."
+fi

@@ -6,7 +6,7 @@ export const MenuItemMixin = <T extends Constructor<ListItem>>(
   class MenuItemElement extends superClass {
     override _role: string = 'menuitem';
   }
-  return MenuItemElement;
+  return MenuItemElement as T;
 };
 
 export class MenuItem extends MenuItemMixin(ListItem) {}

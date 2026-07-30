@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "TODO: Make base Autocomplete\nTODO: Check if manually dispatching input/change events on input is necessary",
+          "description": "TODO: Check if manually dispatching input/change events on input is necessary",
           "name": "M3Autocomplete",
           "members": [
             {
@@ -39,6 +39,141 @@
           "declaration": {
             "name": "M3Autocomplete",
             "module": "src/m3/autocomplete/autocomplete.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/badge/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3Badge",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "attribute": "max"
+            },
+            {
+              "kind": "field",
+              "name": "showZero",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "show-zero",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "left",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "left",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "bottom",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "bottom",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "$badge",
+              "type": {
+                "text": "HTMLSpanElement"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#getDisplayValue",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "fieldName": "value"
+            },
+            {
+              "name": "max",
+              "type": {
+                "text": "number"
+              },
+              "fieldName": "max"
+            },
+            {
+              "name": "show-zero",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "showZero"
+            },
+            {
+              "name": "left",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "left"
+            },
+            {
+              "name": "bottom",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "bottom"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "md-badge",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Badge",
+          "declaration": {
+            "name": "M3Badge",
+            "module": "src/m3/badge/badge.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-badge",
+          "declaration": {
+            "name": "M3Badge",
+            "module": "src/m3/badge/badge.ts"
           }
         }
       ]
@@ -82,20 +217,20 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "attribute": "size",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "shape",
+              "name": "square",
               "type": {
-                "text": "'rounded' | 'square'"
+                "text": "boolean"
               },
-              "default": "'rounded'",
-              "attribute": "shape",
+              "default": "false",
+              "attribute": "square",
               "reflects": true
             },
             {
@@ -134,18 +269,18 @@
             {
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "fieldName": "size"
             },
             {
-              "name": "shape",
+              "name": "square",
               "type": {
-                "text": "'rounded' | 'square'"
+                "text": "boolean"
               },
-              "default": "'rounded'",
-              "fieldName": "shape"
+              "default": "false",
+              "fieldName": "square"
             },
             {
               "name": "color",
@@ -231,20 +366,19 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "attribute": "size",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "shape",
+              "name": "square",
               "type": {
-                "text": "'rounded' | 'square'"
+                "text": "false"
               },
-              "default": "'rounded'",
-              "attribute": "shape",
+              "attribute": "square",
               "reflects": true
             },
             {
@@ -283,18 +417,17 @@
             {
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "fieldName": "size"
             },
             {
-              "name": "shape",
+              "name": "square",
               "type": {
-                "text": "'rounded' | 'square'"
+                "text": "false"
               },
-              "default": "'rounded'",
-              "fieldName": "shape"
+              "fieldName": "square"
             },
             {
               "name": "color",
@@ -377,9 +510,9 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "attribute": "size",
               "reflects": true
             },
@@ -418,9 +551,9 @@
             {
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "fieldName": "size"
             },
             {
@@ -499,9 +632,9 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "attribute": "size",
               "reflects": true
             },
@@ -540,9 +673,9 @@
             {
               "name": "size",
               "type": {
-                "text": "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'"
+                "text": "'xs' | 's' | 'm' | 'l' | 'xl'"
               },
-              "default": "'small'",
+              "default": "'s'",
               "fieldName": "size"
             },
             {
@@ -599,6 +732,210 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/m3/button-group/connected-button-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3ConnectedButtonGroup",
+          "slots": [
+            {
+              "description": "toggle buttons",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "multiple",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "multiple"
+            },
+            {
+              "kind": "field",
+              "name": "$buttons",
+              "type": {
+                "text": "Array<ToggleButton>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#handleChange",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "multiple",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "multiple"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "md-connected-button-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3ConnectedButtonGroup",
+          "declaration": {
+            "name": "M3ConnectedButtonGroup",
+            "module": "src/m3/button-group/connected-button-group.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-connected-button-group",
+          "declaration": {
+            "name": "M3ConnectedButtonGroup",
+            "module": "src/m3/button-group/connected-button-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/button-group/standard-button-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3StandardButtonGroup",
+          "slots": [
+            {
+              "description": "buttons",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'xs' | 's' | ''"
+              },
+              "default": "''",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "$buttons",
+              "type": {
+                "text": "Array<HTMLElement>"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#activeIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#baseWidths",
+              "privacy": "private",
+              "type": {
+                "text": "Array<number>"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "#handleSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handlePointerDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handleKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#reset",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "updateLayout",
+              "parameters": [
+                {
+                  "name": "target",
+                  "default": "null",
+                  "type": {
+                    "text": "HTMLElement | null"
+                  }
+                }
+              ],
+              "description": "Passing no element resets all shape changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "'xs' | 's' | ''"
+              },
+              "default": "''",
+              "fieldName": "size"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "md-button-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3StandardButtonGroup",
+          "declaration": {
+            "name": "M3StandardButtonGroup",
+            "module": "src/m3/button-group/standard-button-group.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-button-group",
+          "declaration": {
+            "name": "M3StandardButtonGroup",
+            "module": "src/m3/button-group/standard-button-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/m3/checkbox/checkbox.ts",
       "declarations": [
         {
@@ -621,10 +958,6 @@
           ],
           "members": [
             {
-              "kind": "method",
-              "name": "renderIcon"
-            },
-            {
               "kind": "field",
               "name": "error",
               "type": {
@@ -633,6 +966,17 @@
               "default": "false",
               "attribute": "error",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "$ripple",
+              "type": {
+                "text": "M3Ripple"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderIcon"
             }
           ],
           "attributes": [
@@ -668,6 +1012,347 @@
           "declaration": {
             "name": "M3Checkbox",
             "module": "src/m3/checkbox/checkbox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/dialog/dialog-spring.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "TODO: test if form actions `cancel` and other things related work - no,\n      event listener needed\n\nTo get an approximation of the \"not Expressive\" version like:\nhttps://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration#e5b958f0-435d-4e84-aed4-8d1ea395fa5c\n\n```css\n--md-sys-motion-spatial-default: cubic-bezier(0, 0, 0, 1);\n--md-sys-motion-spatial-default-duration: 500ms;\n--md-sys-motion-spatial-fast: cubic-bezier(0.3, 0, 1, 1);\n--md-sys-motion-spatial-fast-duration: 300ms;\n\n--md-sys-motion-effects-fast: linear;\n--md-sys-motion-effects-fast-duration: 200ms;\n--md-sys-motion-effects-default: linear;\n--md-sys-motion-effects-default-duration: 300ms;\n```",
+          "name": "M3Dialog",
+          "cssParts": [
+            {
+              "name": "container"
+            },
+            {
+              "name": "headline"
+            },
+            {
+              "name": "content"
+            },
+            {
+              "name": "actions"
+            }
+          ],
+          "slots": [
+            {
+              "name": "icon"
+            },
+            {
+              "name": "headline"
+            },
+            {
+              "description": "content",
+              "name": ""
+            },
+            {
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "hasIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "$container",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$body",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$actions",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$actionsPlaceholder",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$scrim",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#activeAnimations",
+              "privacy": "private",
+              "type": {
+                "text": "Animation[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "method",
+              "name": "#clearAnimations",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handleIconSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#springs",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#opening",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "field",
+              "name": "#closing",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "close"
+            }
+          ],
+          "superclass": {
+            "name": "Dialog",
+            "module": "/src/base/dialog.js"
+          },
+          "tagName": "md-dialog",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Dialog",
+          "declaration": {
+            "name": "M3Dialog",
+            "module": "src/m3/dialog/dialog-spring.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-dialog",
+          "declaration": {
+            "name": "M3Dialog",
+            "module": "src/m3/dialog/dialog-spring.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/dialog/dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "TODO: test if form actions `cancel` and other things related work - no,\n      event listener needed",
+          "name": "M3Dialog",
+          "cssParts": [
+            {
+              "name": "container"
+            },
+            {
+              "name": "headline"
+            },
+            {
+              "name": "content"
+            },
+            {
+              "name": "actions"
+            }
+          ],
+          "slots": [
+            {
+              "name": "icon"
+            },
+            {
+              "name": "headline"
+            },
+            {
+              "description": "content",
+              "name": ""
+            },
+            {
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "_config",
+              "type": {
+                "text": "object"
+              },
+              "default": "{ openEase: 'cubic-bezier(0, 0, 0, 1)', closeEase: 'cubic-bezier(0.3, 0, 1, 1)', vertSlide: 40, openDur: 500, closeDur: 200, bodyFadeInDur: 200, bodyFadeOutDur: 100, }"
+            },
+            {
+              "kind": "field",
+              "name": "hasIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "$container",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$body",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$icon",
+              "type": {
+                "text": "HTMLSlotElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$actions",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$actionsPlaceholder",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "$scrim",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#activeAnimations",
+              "privacy": "private",
+              "type": {
+                "text": "Animation[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "method",
+              "name": "#clearAnimations",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handleClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#handleIconSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#opening",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "field",
+              "name": "#closing",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "close"
+            }
+          ],
+          "superclass": {
+            "name": "Dialog",
+            "module": "/src/base/dialog.js"
+          },
+          "tagName": "md-dialog",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Dialog",
+          "declaration": {
+            "name": "M3Dialog",
+            "module": "src/m3/dialog/dialog.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-dialog",
+          "declaration": {
+            "name": "M3Dialog",
+            "module": "src/m3/dialog/dialog.ts"
           }
         }
       ]
@@ -810,9 +1495,9 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'default' | 'medium' | 'large'"
+                "text": "'s' | 'm' | 'l'"
               },
-              "default": "'default'",
+              "default": "'s'",
               "attribute": "size",
               "reflects": true
             },
@@ -831,9 +1516,9 @@
             {
               "name": "size",
               "type": {
-                "text": "'default' | 'medium' | 'large'"
+                "text": "'s' | 'm' | 'l'"
               },
-              "default": "'default'",
+              "default": "'s'",
               "fieldName": "size"
             },
             {
@@ -1815,31 +2500,16 @@
             },
             {
               "kind": "field",
-              "name": "#boundFocusIn",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#boundFocusOut",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#boundPointerDown",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
               "name": "#handleFocusIn",
               "privacy": "private"
             },
             {
-              "kind": "method",
+              "kind": "field",
               "name": "#handleFocusOut",
               "privacy": "private"
             },
             {
-              "kind": "method",
+              "kind": "field",
               "name": "#handlePointerDown",
               "privacy": "private"
             },
@@ -2108,15 +2778,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "_possibleItemTags",
-              "type": {
-                "text": "array"
-              },
-              "readonly": true,
-              "default": "[ 'md-list-item', 'md-list-item-checkbox', 'md-list-item-radio', ]"
-            },
-            {
-              "kind": "field",
               "name": "color",
               "type": {
                 "text": "'standard' | 'segmented'"
@@ -2159,6 +2820,182 @@
           "declaration": {
             "name": "M3List",
             "module": "src/m3/list/list.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/loading-indicator/loading-indicator.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3LoadingIndicator",
+          "members": [
+            {
+              "kind": "field",
+              "name": "contained",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "contained",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "$canvas",
+              "type": {
+                "text": "HTMLCanvasElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#ctx",
+              "privacy": "private",
+              "type": {
+                "text": "CanvasRenderingContext2D | null"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#animationFrame",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "#startTime",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "#color",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "'#ff0000'"
+            },
+            {
+              "kind": "method",
+              "name": "#cacheColors",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#draw",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "from",
+                  "type": {
+                    "text": "SampledShape"
+                  }
+                },
+                {
+                  "name": "to",
+                  "type": {
+                    "text": "SampledShape"
+                  }
+                },
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "rotation",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "scale",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#animate",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "string"
+              },
+              "default": "'progressbar'"
+            },
+            {
+              "kind": "field",
+              "name": "ariaValueMin",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0'"
+            },
+            {
+              "kind": "field",
+              "name": "ariaValueMax",
+              "type": {
+                "text": "string"
+              },
+              "default": "'1'"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "contained",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "contained"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "InternalsAttached",
+              "module": "/src/base/mixins/internals-attached.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "md-loading",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3LoadingIndicator",
+          "declaration": {
+            "name": "M3LoadingIndicator",
+            "module": "src/m3/loading-indicator/loading-indicator.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-loading",
+          "declaration": {
+            "name": "M3LoadingIndicator",
+            "module": "src/m3/loading-indicator/loading-indicator.ts"
           }
         }
       ]
@@ -2263,15 +3100,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "_possibleItemTags",
-              "type": {
-                "text": "array"
-              },
-              "readonly": true,
-              "default": "[ 'md-menu-item', 'md-menu-item-checkbox', 'md-menu-item-radio', 'md-option', ]"
-            },
-            {
-              "kind": "field",
               "name": "_durations",
               "type": {
                 "text": "object"
@@ -2323,6 +3151,42 @@
           "declaration": {
             "name": "M3Menu",
             "module": "src/m3/menu/menu.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/radio/radio.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3Radio",
+          "members": [],
+          "superclass": {
+            "name": "Radio",
+            "module": "/src/base/radio.js"
+          },
+          "tagName": "md-radio",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Radio",
+          "declaration": {
+            "name": "M3Radio",
+            "module": "src/m3/radio/radio.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-radio",
+          "declaration": {
+            "name": "M3Radio",
+            "module": "src/m3/radio/radio.ts"
           }
         }
       ]
@@ -2569,6 +3433,12 @@
           "kind": "class",
           "description": "",
           "name": "MdFilledSelect",
+          "slots": [
+            {
+              "description": "options",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -2796,6 +3666,12 @@
           "kind": "class",
           "description": "",
           "name": "MdOutlinedSelect",
+          "slots": [
+            {
+              "description": "options",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -3047,7 +3923,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "TODO: Add size variants\nTODO: Add orientation: vertical",
           "name": "M3Slider",
           "members": [
             {
@@ -3127,14 +4003,6 @@
           ],
           "members": [
             {
-              "kind": "method",
-              "name": "renderOnIcon"
-            },
-            {
-              "kind": "method",
-              "name": "renderOffIcon"
-            },
-            {
               "kind": "field",
               "name": "$ripple",
               "type": {
@@ -3147,6 +4015,14 @@
               "type": {
                 "text": "HTMLSpanElement"
               }
+            },
+            {
+              "kind": "method",
+              "name": "renderOnIcon"
+            },
+            {
+              "kind": "method",
+              "name": "renderOffIcon"
             },
             {
               "kind": "field",
@@ -3234,6 +4110,271 @@
           "declaration": {
             "name": "M3Switch",
             "module": "src/m3/switch/switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/system/motion.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "parseCSSNum",
+          "parameters": [
+            {
+              "name": "css",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Workaround for `CSSNumericValue.parse()` not being supported by Firefox\nhttps://developer.mozilla.org/en-US/docs/Web/API/CSSNumericValue/parse_static"
+        },
+        {
+          "kind": "function",
+          "name": "getSpring",
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "'spatial' | 'effects'"
+              }
+            },
+            {
+              "name": "duration",
+              "type": {
+                "text": "'fast' | 'default' | 'slow'"
+              }
+            }
+          ],
+          "description": "https://m3.material.io/styles/motion/overview/specs"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parseCSSNum",
+          "declaration": {
+            "name": "parseCSSNum",
+            "module": "src/m3/system/motion.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getSpring",
+          "declaration": {
+            "name": "getSpring",
+            "module": "src/m3/system/motion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/tab/tab-panel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3TabPanel",
+          "members": [],
+          "superclass": {
+            "name": "TabPanel",
+            "module": "/src/base/tab-panel.js"
+          },
+          "tagName": "md-tab-panel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3TabPanel",
+          "declaration": {
+            "name": "M3TabPanel",
+            "module": "src/m3/tab/tab-panel.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-tab-panel",
+          "declaration": {
+            "name": "M3TabPanel",
+            "module": "src/m3/tab/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/tab/tab.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "M3Tab",
+          "slots": [
+            {
+              "description": "icon",
+              "name": "icon"
+            },
+            {
+              "description": "label",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "$content",
+              "type": {
+                "text": "HTMLDivElement"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Tab",
+            "module": "/src/base/tab.js"
+          },
+          "tagName": "md-tab",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Tab",
+          "declaration": {
+            "name": "M3Tab",
+            "module": "src/m3/tab/tab.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-tab",
+          "declaration": {
+            "name": "M3Tab",
+            "module": "src/m3/tab/tab.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/m3/tab/tabs.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "TODO: vertical tabs, tablist placement",
+          "name": "M3Tabs",
+          "cssParts": [
+            {
+              "name": "indicator"
+            }
+          ],
+          "slots": [
+            {
+              "description": "tabs",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "$indicator",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "secondary",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "iconsAbove",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "iconsAbove",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "#cleanup",
+              "privacy": "private",
+              "type": {
+                "text": "Function"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectTab",
+              "parameters": [
+                {
+                  "name": "selectedTab",
+                  "type": {
+                    "text": "M3Tab"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "secondary",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "secondary"
+            },
+            {
+              "name": "iconsAbove",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "iconsAbove"
+            }
+          ],
+          "superclass": {
+            "name": "Tabs",
+            "module": "/src/base/tabs.js"
+          },
+          "tagName": "md-tabs",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "M3Tabs",
+          "declaration": {
+            "name": "M3Tabs",
+            "module": "src/m3/tab/tabs.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "md-tabs",
+          "declaration": {
+            "name": "M3Tabs",
+            "module": "src/m3/tab/tabs.ts"
           }
         }
       ]
