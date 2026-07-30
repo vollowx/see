@@ -1,6 +1,7 @@
 :host {
-  --_default: var(--md-sys-motion-effects-default-duration)
-    var(--md-sys-motion-effects-default);
+  /* To optimize the final code size only */
+  --_d: var(--md-sys-motion-effects-default-duration);
+  --_default: var(--_d) var(--md-sys-motion-effects-default);
   --_slow: var(--md-sys-motion-effects-slow-duration)
     var(--md-sys-motion-effects-slow);
   align-items: center;
@@ -18,11 +19,13 @@
 }
 
 :host::before,
+.middle,
 :host::after {
   content: '';
   box-sizing: border-box;
   position: absolute;
-  border-radius: 9999px;
+  border-radius: 50%;
+  animation-fill-mode: forwards !important;
 }
 
 /* outer, middle and inner */
@@ -31,17 +34,13 @@
   height: 20px;
   width: 20px;
   background-color: var(--md-sys-color-on-surface-variant);
-  transition: background var(--md-sys-motion-effects-fast-duration)
-    var(--md-sys-motion-effects-fast);
+  transition: background var(--_default);
 }
 .middle {
+  z-index: 2;
   height: 16px;
   width: 16px;
-  border-radius: 9999px;
   background-color: var(--md-sys-color-surface);
-  z-index: 2;
-  animation: uncheck-middle-2 var(--_slow)
-    var(--md-sys-motion-effects-default-duration);
 }
 :host::after {
   z-index: 3;
@@ -49,23 +48,47 @@
   width: 10px;
   background-color: var(--md-sys-color-primary);
   transform: scale(0);
-  animation:
-    uncheck-inner-1 var(--_default),
-    uncheck-inner-2 var(--_slow) var(--md-sys-motion-effects-default-duration);
 }
 
-/* uncheck, <type>-<part>-<stage>, unnecessary stages can be skipped */
-@keyframes uncheck-middle-2 {
+/* NOTE: tried to mimic the animation from Android instead of m3.material.io */
+:host(:state(unchecking)) .middle {
+  animation: uncheck-mid-2 var(--_slow) var(--_d);
+}
+:host(:state(unchecking))::after {
+  animation:
+    uncheck-inner-1 var(--_default),
+    uncheck-inner-2 var(--_slow) var(--_d);
+}
+
+:host([checked])::before {
+  background-color: var(--md-sys-color-primary);
+}
+:host([checked])::after {
+  transform: scale(1);
+}
+
+:host(:state(checking)) .middle {
+  animation:
+    check-mid-1 var(--_default),
+    check-mid-2 var(--_slow) var(--_d);
+}
+:host(:state(checking))::after {
+  animation:
+    check-inner-1 var(--_default),
+    check-inner-2 var(--_slow) var(--_d);
+}
+
+@keyframes uncheck-mid-2 {
+  0%, 100% {
+    z-index: 4;
+  }
   0% {
     transform: scale(0);
-    z-index: 4;
   }
   100% {
     transform: scale(1);
-    z-index: 4;
   }
 }
-
 @keyframes uncheck-inner-1 {
   0% {
     transform: scale(1);
@@ -76,60 +99,19 @@
     background-color: var(--md-sys-color-on-surface-variant);
   }
 }
-
 @keyframes uncheck-inner-2 {
   0% {
     transform: scale(1.6);
-    background-color: var(--md-sys-color-on-surface-variant);
   }
   100% {
     transform: scale(1.6);
-    background-color: var(--md-sys-color-on-surface-variant);
   }
 }
 
-/* check */
-:host([checked])::before {
-  background-color: var(--md-sys-color-primary);
-}
-:host([checked]) .middle {
-  /* NOTE: tried to mimic the animation from Android instead of m3.material.io */
-  animation:
-    check-middle-1 var(--_default),
-    check-middle-2 var(--_slow) var(--md-sys-motion-effects-default-duration);
-  animation-fill-mode: forwards;
-}
-:host([checked])::after {
-  animation: check-inner-2 var(--_slow)
-    var(--md-sys-motion-effects-default-duration);
-  animation-fill-mode: forwards;
-}
-
-@keyframes check-middle-1 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-
-@keyframes check-middle-2 {
-  0% {
-    transform: scale(0.625);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes check-inner-2 {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-}
-
+@keyframes check-mid-1 { 0% { transform: scale(1); }     100% { transform: scale(0); } }
+@keyframes check-mid-2 { 0% { transform: scale(0.625); } 100% { transform: scale(1); } }
+@keyframes check-inner-1 { 0%, 100% { transform: scale(0); } }
+@keyframes check-inner-2 { 0%, 100% { transform: scale(1); } }
 
 :host([disabled]) {
   pointer-events: none;

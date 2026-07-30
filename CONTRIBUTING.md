@@ -46,3 +46,13 @@ Use `[part~="name"]` inside a component, while only end users use
 
 Sort CSS properties alphabetically, CSS variables should be put before regular
 CSS properties.
+
+### Rare cases conventions
+
+`slotchange` will not be triggered on SSR'd elements, call the handler manually
+in `connectedCallback` with a `queueMicrotask` wrapping it;
+
+Transitions on the host like `border-radius` will be shown at first-paint, use
+`notransition` attribute to block that and use nested `requestAnimationFrame`
+in `connectedCallback` to remove that attribute. Only one `rAF` will not work
+since the callback is called before the painting.

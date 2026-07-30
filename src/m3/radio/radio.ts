@@ -1,6 +1,7 @@
-import { html } from 'lit';
+import { html, PropertyValues } from 'lit';
 import { Radio } from '../../base/radio.js';
 import { customElement } from '../../core/decorators.js';
+import { internals } from '../../base/mixins/internals-attached.js';
 import { radioStyles } from './radio-styles.css.js';
 
 import { targetStyles } from '../target-styles.css.js';
@@ -9,9 +10,6 @@ import '../ripple/ripple.js';
 
 /**
  * @tag md-radio
- *
- * FIXME: first-paint animation cannot be elimated by the same approach like
- *        button and toggle button
  */
 @customElement('md-radio')
 export class M3Radio extends Radio {
@@ -24,6 +22,19 @@ export class M3Radio extends Radio {
       <span part="target"></span>
       <span class="middle"></span>
     `;
+  }
+
+  override updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      const oldValue = changedProperties.get('checked');
+      if (oldValue === undefined) return;
+
+      this[internals].states.delete('checking');
+      this[internals].states.delete('unchecking');
+      this[internals].states.add(this.checked ? 'checking' : 'unchecking');
+    }
   }
 }
 

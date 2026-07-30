@@ -74,7 +74,8 @@ export class M3Dialog extends Dialog {
 
   override connectedCallback() {
     super.connectedCallback();
-    this.#handleIconSlotChange(); // slotchange will not be called on SSR'd elements
+    queueMicrotask(this.#handleIconSlotChange);
+    // Which is not called on a SSR'd element
   }
 
   #activeAnimations: Animation[] = [];
