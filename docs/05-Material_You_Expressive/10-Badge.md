@@ -17,7 +17,7 @@ import '@vollow/seele/m3/badge.js';
 ```html
 <md-badge value="4" circle>
   <md-icon-button aria-label="Mail, 3 notifications">
-    <iconify-icon icon="material-symbols:mail-outline" slot="acon"></iconify-icon>
+    <iconify-icon icon="material-symbols:mail-outline"></iconify-icon>
   </md-icon-button>
 </md-badge>
 ```
