@@ -4,8 +4,10 @@ import { customElement, query } from 'lit/decorators.js';
 import { ListItem } from '../../base/list-item.js';
 
 import '../item/item.js';
-import { M3Ripple } from '../ripple/ripple.js';
-import { M3FocusRing } from '../focus-ring/focus-ring.js';
+import '../ripple/ripple.js';
+import '../focus-ring/focus-ring.js';
+import type { M3Ripple } from '../ripple/ripple.js';
+import type { M3FocusRing } from '../focus-ring/focus-ring.js';
 
 import { listItemStyles } from './list-item-styles.css.js';
 

@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { Autocomplete } from '../../base/autocomplete.js';
+import '../menu/menu.js';
 
 import { autocompleteStyles } from './autocomplete-styles.css.js';
 
