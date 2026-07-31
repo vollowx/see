@@ -1,3 +1,4 @@
 node_modules
 src/**/*.d.ts
 src/**/*.js
+!src/core/shared.d.ts
