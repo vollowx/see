@@ -1,6 +1,6 @@
 ---
 components:
-  - win95/button/button
+  - win98/button/button
 ---
 
 # Button
