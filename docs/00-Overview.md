@@ -66,6 +66,20 @@ The following design systems or styles are implemented:
 - [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) as `m3`
 - [Windows 98](./06-Windows_98/00-Overview.md) as `win98`
 
+## Notes
+
+1. If a component gets some properties or parts by extending or mixing, the
+   properties and parts are only shown at the super class or mixins.
+
+2. The order you import components matters for now, for example `<md-menu>` looks
+   for `<md-menu-item>`s in its slot at `connectedCallback()`, and if they are not
+   registered at that moment, they will miss the chance of getting the events
+   added. Such case happens for autocomplete, menu and tabs, and is solved for
+   dialog and radio.
+
+   The easist solution is to do things like loading menu items before menu, and
+   such cases will be handled more flexibly in the future.
+
 [web-comps]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components
 [npm-package]: https://www.npmjs.com/package/@vollowx/seele
 [seele-example]: https://github.com/vollowx/seele-example/

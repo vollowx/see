@@ -4,6 +4,7 @@ import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import type { Placement, Strategy } from '@floating-ui/dom';
 import type { Input } from './input.js';
 import type { Menu, MenuSelectEvent } from './menu.js';
+import { ensureReady } from '../core/ensure-ready.js';
 
 import { InternalsAttached } from './mixins/internals-attached.js';
 import { FocusDelegated } from './mixins/focus-delegated.js';
@@ -14,6 +15,7 @@ type AutocompleteMode = 'none' | 'list' | 'both';
 
 /**
  * TODO: Check if manually dispatching input/change events on input is necessary
+ * TODO: handle slotchange
  */
 export class Autocomplete extends Base {
   @property({ type: Boolean }) open = false;
@@ -75,12 +77,12 @@ export class Autocomplete extends Base {
     return html``;
   }
 
+  // TODO: handle multiple calls on this function, currently double-call
+  //       disallowed
   private handleInputSlotChange() {
-    const input = this.$input;
-    if (!input) return;
+    ensureReady(this.$input).then((input) => {
+      const $realInput = (input as Input).$inputOrTextarea;
 
-    const $realInput = this.$input.$inputOrTextarea;
-    if ($realInput) {
       $realInput.role = 'combobox';
       $realInput.ariaExpanded = String(this.open);
       $realInput.ariaHasPopup = 'listbox';
@@ -92,7 +94,7 @@ export class Autocomplete extends Base {
       input.addEventListener('click', () => (this.open = !this.open));
 
       this.$menu.attach($realInput);
-    }
+    });
   }
 
   protected handleItemsSlotChange() {
