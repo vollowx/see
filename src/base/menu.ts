@@ -32,6 +32,8 @@ export type MenuItemFocusEvent = CustomEvent<ItemFocusDetail>;
  * @fires {Event} close - Fires when the menu is closed.
  * @fires {MenuSelectEvent} select - Fires when an item is selected.
  * @fires {MenuItemFocusEvent} item-focus - Fires when an item is focused
+ *
+ * TODO: handle slotchange
  */
 export class Menu extends Base {
   readonly _durations = { show: 0, hide: 0 };

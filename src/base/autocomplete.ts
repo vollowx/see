@@ -15,6 +15,7 @@ type AutocompleteMode = 'none' | 'list' | 'both';
 
 /**
  * TODO: Check if manually dispatching input/change events on input is necessary
+ * TODO: handle slotchange
  */
 export class Autocomplete extends Base {
   @property({ type: Boolean }) open = false;
