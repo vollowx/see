@@ -100,8 +100,8 @@
 }
 
 @layer active {
-  /* TODO: Space key pressed should also trigger active state */
-  :host(:active) {
+  :host(:active),
+  :host(:state(active)) {
     --md-focus-ring-shape: var(--_rp);
     border-radius: var(--_rp);
   }
