@@ -55,13 +55,14 @@ export class Button extends Base {
     e.preventDefault();
     e.stopPropagation();
     if (e.key === 'Enter') this.click();
-    this[internals].states.add('active');
+    else this[internals].states.add('active');
     // TODO: consider handle `pointerdown` and ditch native `:active` selector
+    // TODO: supporting `Enter` also requires listening on `focusout`
   };
 
   #handleKeyUp = (e: KeyboardEvent) => {
-    this[internals].states.delete('active');
     if (e.key === ' ') {
+      this[internals].states.delete('active');
       e.preventDefault();
       e.stopPropagation();
       this.click();
