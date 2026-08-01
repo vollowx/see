@@ -51,7 +51,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       (e.key === ' ' && this.spaceBehavior === 'always')
     ) {
       this.addRipple();
-      this.removeRippleAll();
+      this.keepLastRipple();
     } else if (e.key === ' ' && this.spaceBehavior === 'once') {
       if (!this.#spaceKeyDown) this.addRipple();
       this.#spaceKeyDown = true;
@@ -61,7 +61,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
   handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === ' ' && this.spaceBehavior === 'once') {
       this.#spaceKeyDown = false;
-      this.removeRippleAll();
+      this.keepLastRipple();
     }
   };
 
@@ -74,7 +74,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
   handlePointerLeave = () => {
     this[internals].states.delete('hover');
     if (this.#pointerDown && this.clickBehavior === 'always')
-      this.removeRippleAll();
+      this.keepLastRipple();
   };
 
   handlePointerDown = (e: PointerEvent) => {
@@ -84,7 +84,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     document.addEventListener('touchend', this.handlePointerUp);
     document.addEventListener('touchmove', this.handlePointerUp);
 
-    if (e.button === 2) return;
+    if (e.button !== 0) return;
     if (this.clickBehavior === 'always') this.addRipple(e);
   };
 
@@ -95,7 +95,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     document.removeEventListener('touchend', this.handlePointerUp);
     document.removeEventListener('touchmove', this.handlePointerUp);
 
-    this.removeRippleAll();
+    this.keepLastRipple();
   };
 
   override handleControlChange(
@@ -112,7 +112,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
 
     Object.keys(eventHandlers).forEach((eventName) => {
       // @ts-ignore
-      prev?.labels?.forEach((label) =>
+      prev?.labels?.forEach((label: HTMLLabelElement) =>
         label.removeEventListener(eventName, eventHandlers[eventName])
       );
       prev?.removeEventListener(eventName, eventHandlers[eventName]);
@@ -120,13 +120,13 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       // Check if control is nested in label, if so, only bind to label
       let isNestedInLabel = false;
       // @ts-ignore
-      next?.labels?.forEach((label) => {
+      next?.labels?.forEach((label: HTMLLabelElement) => {
         if (label.contains(next)) isNestedInLabel = true;
       });
 
       if (isNestedInLabel) {
         // @ts-ignore
-        next.labels?.forEach((label) =>
+        next.labels?.forEach((label: HTMLElement) =>
           label.addEventListener(eventName, eventHandlers[eventName])
         );
       } else {
@@ -134,7 +134,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       }
     });
   }
-  calculateRipple(e: MouseEvent | null = null) {
+  #calculateRipple(e: MouseEvent | null = null) {
     const containerRect = this.getBoundingClientRect();
     const containerMiddle = {
       x: containerRect.width / 2,
@@ -160,7 +160,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     return { startCenter, endCenter, radius };
   }
   addRipple(e: MouseEvent | null = null) {
-    const { startCenter, endCenter, radius } = this.calculateRipple(e);
+    const { startCenter, endCenter, radius } = this.#calculateRipple(e);
 
     const diameter = radius * 2 + 'px';
     const translateStart = `${startCenter.x - radius}px ${
@@ -192,7 +192,6 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       },
       {
         duration: PRESS_GROW_MS,
-        // TODO: Control by global variables
         easing: 'cubic-bezier(0.2, 0, 0, 1)',
         fill: 'forwards',
       }
@@ -218,7 +217,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
       Math.max(MINIMUM_PRESS_MS - (Date.now() - this.#lastTime), 0)
     );
   }
-  removeRippleAll() {
+  keepLastRipple() {
     for (const ripple of this.$ripples.splice(0)) this.removeRipple(ripple);
   }
 }

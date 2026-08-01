@@ -117,4 +117,18 @@ Or manually:
 - Mixes [`InternalsAttached`](../04-Base/20-InternalsAttached.md)
 - Mixes [`Attachable`](../04-Base/20-Attachable.md)
 
+### Properties
+
+| name       | description                                           |
+| ---        | ---                                                   |
+| `$ripples` | Dynamic array of `HTMLSpanElement`, all ripples shown |
+
+### Methods
+
+| signature                                       | description                                                  |
+| ---                                             | ---                                                          |
+| `addRipple(e: MouseEvent?) -> null`             | If e is not provided, the ripple will spread from the center |
+| `removeRipple(ripple: HTMLSpanElement) -> null` |                                                              |
+| `keepLastRipple() -> null`                      |                                                              |
+
 [lit-ele]: https://lit.dev/docs/api/LitElement/
