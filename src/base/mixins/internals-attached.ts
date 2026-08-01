@@ -3,8 +3,11 @@ import { LitElement } from 'lit';
 export const internals = Symbol('internals');
 const privateInternals = Symbol('privateInternals');
 
+export const replaceStates = Symbol('replaceStates');
+
 export declare class InternalsAttachedInterface {
   [internals]: ElementInternals;
+  [replaceStates](del: Array<string>, add: Array<string>): void;
 }
 
 export const InternalsAttached = <T extends Constructor<LitElement>>(
@@ -18,6 +21,11 @@ export const InternalsAttached = <T extends Constructor<LitElement>>(
       return this[privateInternals]!;
     }
     declare [privateInternals]?: ElementInternals;
+
+    [replaceStates](del: Array<string>, add: Array<string>): void {
+      del.forEach((state) => this[internals].states.delete(state));
+      add.forEach((state) => this[internals].states.add(state));
+    }
   }
   return InternalsAttachedElement as Constructor<InternalsAttachedInterface> &
     T;

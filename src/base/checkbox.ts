@@ -2,7 +2,11 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { FormAssociated } from './mixins/form-associated.js';
-import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import {
+  InternalsAttached,
+  internals,
+  replaceStates,
+} from './mixins/internals-attached.js';
 import { hiddenStyles } from './hidden-styles.css.js';
 
 const PROPERTY_FROM_ARIA_CHECKED = {
@@ -58,9 +62,10 @@ export class Checkbox extends Base {
     const prevAriaChecked = this[internals]
       .ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
 
-    this[internals].states.delete('was-unchecked');
-    this[internals].states.delete('was-checked');
-    this[internals].states.delete('was-indeterminate');
+    this[replaceStates](
+      ['was-unchecked', 'was-checked', 'was-indeterminate'],
+      []
+    );
 
     if (prevAriaChecked && PROPERTY_FROM_ARIA_CHECKED[prevAriaChecked]) {
       this[internals].states.add(
@@ -77,11 +82,9 @@ export class Checkbox extends Base {
     const currentAriaChecked = this[internals]
       .ariaChecked as keyof typeof PROPERTY_FROM_ARIA_CHECKED;
 
-    this[internals].states.delete('unchecked');
-    this[internals].states.delete('checked');
-    this[internals].states.delete('indeterminate');
-    this[internals].states.add(
-      `${PROPERTY_FROM_ARIA_CHECKED[currentAriaChecked]}`
+    this[replaceStates](
+      ['unchecked', 'checked', 'indeterminate'],
+      [PROPERTY_FROM_ARIA_CHECKED[currentAriaChecked]]
     );
 
     this.tabIndex = this.disabled ? -1 : 0;

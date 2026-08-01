@@ -1,7 +1,11 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import {
+  InternalsAttached,
+  internals,
+  replaceStates,
+} from './mixins/internals-attached.js';
 import { FormAssociated } from './mixins/form-associated.js';
 
 import { hiddenStyles } from './hidden-styles.css.js';
@@ -58,15 +62,14 @@ export class ToggleButton extends Base {
   }
 
   protected _updateInternals() {
-    this[internals].states.delete('unchecked');
-    this[internals].states.delete('checked');
-    this[internals].ariaPressed = this.checked ? 'true' : 'false';
-    this[internals].states.add(
-      `${PROPERTY_FROM_ARIA_PRESSED[this[internals].ariaPressed]}`
-    );
-
     this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     this[internals].ariaDisabled = this.disabled ? 'true' : 'false';
+
+    this[internals].ariaPressed = this.checked ? 'true' : 'false';
+    this[replaceStates](
+      ['unchecked', 'checked'],
+      [PROPERTY_FROM_ARIA_PRESSED[this[internals].ariaPressed]]
+    );
 
     this[internals].setFormValue(this.checked ? 'on' : null);
   }

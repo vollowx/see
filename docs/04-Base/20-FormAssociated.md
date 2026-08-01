@@ -35,9 +35,9 @@ name                | description
 
 signature                                         | description
 ---                                               | ---
-`formDisabledCallback(disabled: boolean) -> null` |
-`checkValidity() -> null`                         |
-`reportValidity() -> null`                        |
+`formDisabledCallback(disabled: boolean) -> void` |
+`checkValidity() -> void`                         |
+`reportValidity() -> void`                        |
 
 For elements mixing this in, they should also call
 `this[internals].setFormValue(value: any)` when they are in forms, and provide
