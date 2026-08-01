@@ -33,3 +33,6 @@ import './m3/toolbar/toolbar.js';
 import './m3/tooltip/tooltip.js';
 
 import './win98/button/button.js';
+
+import './base/experimental/popup.js';
+import './m3/experimental/popup.js';

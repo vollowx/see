@@ -1,0 +1,13 @@
+:host([notransition]) {
+  transition: none !important;
+}
+
+:host {
+  position: absolute;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: auto;
+  box-sizing: border-box;
+}

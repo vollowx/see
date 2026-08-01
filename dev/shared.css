@@ -108,7 +108,7 @@ a:not(:hover):not(:focus-visible) {
 
 body {
   font: var(--md-sys-typography-body-large);
-  margin: 0;
+  margin: 16px;
   min-height: 100dvh;
 }
 

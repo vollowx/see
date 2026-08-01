@@ -1,0 +1,47 @@
+:host {
+  background: var(--md-sys-color-surface-container);
+  border-radius: 16px;
+  box-shadow: var(--md-sys-elevation-shadow-2);
+  color: var(--md-sys-color-on-surface);
+
+  opacity: 0;
+  transform: scaleY(0.35);
+
+  transition:
+    opacity var(--md-sys-motion-effects-fast-duration),
+    transform var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast),
+    display var(--md-sys-motion-spatial-default-duration) allow-discrete,
+    overlay var(--md-sys-motion-spatial-default-duration) allow-discrete;
+}
+
+slot {
+  opacity: 0;
+  transition: opacity 67ms;
+}
+
+:host(:popover-open) {
+  opacity: 1;
+  transform: scaleY(1);
+
+  transition:
+    opacity 67ms linear,
+    transform var(--md-sys-motion-spatial-default-duration)
+      var(--md-sys-motion-spatial-default);
+
+  slot {
+    opacity: 1;
+    transition: opacity 67ms linear 67ms;
+  }
+}
+
+@starting-style {
+  :host(:popover-open) {
+    opacity: 0;
+    transform: scaleY(0.35);
+
+    slot {
+      opacity: 0;
+    }
+  }
+}

@@ -183,7 +183,7 @@ export class PopoverController implements ReactiveController {
   // TODO: Provide the ability to specify an arrow element.
   private _dummyArrow = isServer ? null : document.createElement('div');
 
-  reposition() {
+  async reposition() {
     const trigger = this.config.trigger();
     const popover = this.config.popover();
 
