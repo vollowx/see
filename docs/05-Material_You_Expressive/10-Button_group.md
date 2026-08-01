@@ -11,8 +11,8 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/button-group/standard-button-group.js';
-import '@vollow/seele/m3/button-group/connected-button-group.js';
+import '@vollowx/seele/m3/button-group/standard-button-group.js';
+import '@vollowx/seele/m3/button-group/connected-button-group.js';
 ```
 
 ## Stadard button group

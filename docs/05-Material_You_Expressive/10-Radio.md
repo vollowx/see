@@ -8,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/radio/radio.js';
+import '@vollowx/seele/m3/radio/radio.js';
 ```
 
 <!-- @show -->

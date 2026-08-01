@@ -5,8 +5,8 @@
 
 ## Properties
 
-name          | description
----           | ---
-`checked`     | Boolean
-`interminate` | Boolean
-`required`    | Boolean
+name            | description
+---             | ---
+`checked`       | Boolean
+`indeterminate` | Boolean
+`required`      | Boolean

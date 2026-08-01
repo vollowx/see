@@ -9,8 +9,8 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/button/icon-button.js';
-import '@vollow/seele/m3/button/icon-button-toggle.js';
+import '@vollowx/seele/m3/button/icon-button.js';
+import '@vollowx/seele/m3/button/icon-button-toggle.js';
 ```
 
 <!-- @show -->
@@ -48,7 +48,7 @@ import '@vollow/seele/m3/button/icon-button-toggle.js';
 |           | The icon or unchecked icon (only for `M3IconButtonToggle`) |
 | `checked` | The checked icon (only for `M3IconButtonToggle`)           |
 
-### Parts
+### CSS Parts
 
 name        | description
 ---         | ---

@@ -9,8 +9,8 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/list/list-item.js';
-import '@vollow/seele/m3/list/list.js';
+import '@vollowx/seele/m3/list/list-item.js';
+import '@vollowx/seele/m3/list/list.js';
 ```
 
 <!-- @show -->
@@ -32,24 +32,33 @@ import '@vollow/seele/m3/list/list.js';
 
 | name | description |
 | ---  | ---         |
-
-### Parts
-
-| name | description |
-| ---  | ---         |
+|      | List items  |
 
 ### Properties
 
-| name | description |
-| ---  | ---         |
-
-### Methods
-
-| signature | description |
-| ---       | ---         |
+| name  | description |
+| ---   | ---         |
+| `color` | Reflected string |
 
 ## `M3ListItem`
 
 - Inherits [`ListItem`](../04-Base/10-ListItem.md)
+
+### Slots
+
+| name            | description |
+| ---             | ---         |
+|                 | Content     |
+| `start`         |             |
+| `end`           |             |
+| `overline`      |             |
+| `supporting-text` |           |
+
+### Properties
+
+| name       | description       |
+| ---        | ---               |
+| `selected` | Reflected boolean |
+| `disabled` | Reflected boolean |
 
 [overview]: https://m3.material.io/components/lists/overview

@@ -6,7 +6,7 @@ components:
 # Ripple
 
 ```typescript
-import '@vollow/seele/m3/ripple/ripple.js';
+import '@vollowx/seele/m3/ripple/ripple.js';
 ```
 
 <!-- @show -->
@@ -110,3 +110,11 @@ Or manually:
   onload = () => ripple.attach(control);
 </script>
 ```
+
+## `M3Ripple`
+
+- Inherits [`LitElement`](lit-ele)
+- Mixes [`InternalsAttached`](../04-Base/20-InternalsAttached.md)
+- Mixes [`Attachable`](../04-Base/20-Attachable.md)
+
+[lit-ele]: https://lit.dev/docs/api/LitElement/

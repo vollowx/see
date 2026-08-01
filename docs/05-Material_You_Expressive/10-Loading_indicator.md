@@ -8,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/loading-indicator/loading-indicator.js';
+import '@vollowx/seele/m3/loading-indicator/loading-indicator.js';
 ```
 
 <!-- @show -->
@@ -23,11 +23,14 @@ write a `aria-label` to add semantic meaning to them.
 
 ## `M3LoadingIndicator`
 
+- Inherits [`LitElement`](lit-ele)
+
 ### Properties
 
-| name        | description        |
-| ---         | ---                |
-| `contained` | Reflected boolean  |
-| `$canvas`   | `<canvas>` element |
+| name        | description                  |
+| ---         | ---                          |
+| `contained` | Reflected boolean; `false` by default |
+| `$canvas`   | HTMLCanvasElement            |
 
 [overview]: https://m3.material.io/components/loading-indicator/overview
+[lit-ele]: https://lit.dev/docs/api/LitElement/

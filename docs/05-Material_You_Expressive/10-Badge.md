@@ -9,7 +9,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/badge.js';
+import '@vollowx/seele/m3/badge/badge.js';
 ```
 
 <!-- @show -->
@@ -32,7 +32,7 @@ import '@vollow/seele/m3/badge.js';
 | ---  | ---                         |
 |      | The element under the badge |
 
-### Parts
+### CSS Parts
 
 | name    | description |
 | ---     | ---         |

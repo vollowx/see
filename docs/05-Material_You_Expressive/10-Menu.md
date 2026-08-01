@@ -10,8 +10,8 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/menu/menu-item.js';
-import '@vollow/seele/m3/menu/menu.js';
+import '@vollowx/seele/m3/menu/menu-item.js';
+import '@vollowx/seele/m3/menu/menu.js';
 ```
 
 <!-- @show -->

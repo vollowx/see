@@ -8,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/slide/slider.js';
+import '@vollowx/seele/m3/slider/slider.js';
 ```
 
 <!-- @show -->

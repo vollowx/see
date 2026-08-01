@@ -8,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/fab/fab.js';
+import '@vollowx/seele/m3/fab/fab.js';
 ```
 
 <!-- @show -->
@@ -36,7 +36,7 @@ import '@vollow/seele/m3/fab/fab.js';
 |         | The icon    |
 | `label` |             |
 
-### Parts
+### CSS Parts
 
 | name        | description |
 | ---         | ---         |

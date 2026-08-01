@@ -9,7 +9,7 @@
 | name | description |
 | ---  | ---         |
 
-### Parts
+### CSS Parts
 
 | name | description |
 | ---  | ---         |

@@ -8,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/checkbox/checkbox.js';
+import '@vollowx/seele/m3/checkbox/checkbox.js';
 ```
 
 <!-- @show -->
@@ -39,7 +39,7 @@ always need an `aria-label`.
 
 - Inherits [`Checkbox`](../04-Base/10-Checkbox.md)
 
-### Parts
+### CSS Parts
 
 name         | description
 ---          | ---

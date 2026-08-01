@@ -5,13 +5,13 @@ components:
   - m3/select/outlined-select
 ---
 
-# Switch
+# Select
 
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/select/filled-select.js';
-import '@vollow/seele/m3/select/outlined-select.js';
+import '@vollowx/seele/m3/select/filled-select.js';
+import '@vollowx/seele/m3/select/outlined-select.js';
 ```
 
 <!-- @show -->
@@ -39,4 +39,4 @@ import '@vollow/seele/m3/select/outlined-select.js';
 
 - Inherits [`Option`](../04-Base/10-Option.md)
 
-[overview]: https://m3.material.io/components/menus/overview
+[overview]: https://m3.material.io/components/selects/overview

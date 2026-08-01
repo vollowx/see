@@ -13,8 +13,8 @@ components:
 - Inherits [`Input`](../04-Base/10-Input.md)
 
 ```typescript
-import '@vollow/seele/m3/text-field/filled-text-field.js';
-import '@vollow/seele/m3/text-field/outlined-text-field.js';
+import '@vollowx/seele/m3/text-field/filled-text-field.js';
+import '@vollowx/seele/m3/text-field/outlined-text-field.js';
 ```
 
 <!-- @show -->

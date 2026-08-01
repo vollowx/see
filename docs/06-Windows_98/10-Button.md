@@ -6,7 +6,7 @@ components:
 # Button
 
 ```typescript
-import '@vollow/seele/win98/button/button.js';
+import '@vollowx/seele/win98/button/button.js';
 ```
 
 <!-- @show -->

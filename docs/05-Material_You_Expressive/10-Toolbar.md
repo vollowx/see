@@ -13,7 +13,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/toolbar/toolbar.js';
+import '@vollowx/seele/m3/toolbar/toolbar.js';
 ```
 
 <!-- @show -->
@@ -103,7 +103,7 @@ import '@vollow/seele/m3/toolbar/toolbar.js';
 |       | All the common and icon buttons |
 | `fab` |                                 |
 
-### Parts
+### CSS Parts
 
 | name        | description                                    |
 | ---         | ---                                            |

@@ -9,8 +9,8 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/button/common-button.js';
-import '@vollow/seele/m3/button/common-button-toggle.js';
+import '@vollowx/seele/m3/button/common-button.js';
+import '@vollowx/seele/m3/button/common-button-toggle.js';
 ```
 
 <!-- @show -->
@@ -37,7 +37,7 @@ import '@vollow/seele/m3/button/common-button-toggle.js';
 ## `M3Button` and `M3ButtonToggle`
 
 - `M3Button` inherits [`Button`](../04-Base/10-Button.md)
-- `M3ButtonToggle` inherits [`ButtonButton`](../04-Base/10-ButtonToggle.md)
+- `M3ButtonToggle` inherits [`ToggleButton`](../04-Base/10-ToggleButton.md)
 
 ### Slots
 
@@ -48,7 +48,7 @@ import '@vollow/seele/m3/button/common-button-toggle.js';
 | `icon`         | The icon or unchecked icon (only for `M3ButtonToggle`)   |
 | `icon-checked` | The checked icon (only for `M3ButtonToggle`)             |
 
-### Parts
+### CSS Parts
 
 name        | description
 ---         | ---

@@ -1,7 +1,5 @@
 ---
 components:
-  - m3/list/list-item
-  - m3/list/list
   - m3/divider/divider
 ---
 
@@ -10,7 +8,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/divider/divider.js';
+import '@vollowx/seele/m3/divider/divider.js';
 ```
 
 <!-- @show -->
@@ -28,6 +26,15 @@ import '@vollow/seele/m3/divider/divider.js';
 ## `M3Divider`
 
 - Inherits [`LitElement`](lit-ele)
+
+### Properties
+
+| name        | description                                      |
+| ---         | ---                                              |
+| `vertical`  | Reflected boolean; `false` by default            |
+| `inset`     | Reflected boolean; `false` by default            |
+| `insetStart` | Reflected boolean; `inset-start` as an attribute; `false` by default |
+| `insetEnd`  | Reflected boolean; `inset-end` as an attribute; `false` by default |
 
 [overview]: https://m3.material.io/components/divider/overview
 [lit-ele]: https://lit.dev/docs/api/LitElement/

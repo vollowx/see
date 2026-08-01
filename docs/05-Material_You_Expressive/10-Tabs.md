@@ -10,9 +10,9 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/tab/tab.js';
-import '@vollow/seele/m3/tab/tab-panel.js';
-import '@vollow/seele/m3/tab/tabs.js';
+import '@vollowx/seele/m3/tab/tab.js';
+import '@vollowx/seele/m3/tab/tab-panel.js';
+import '@vollowx/seele/m3/tab/tabs.js';
 ```
 
 <!-- @show -->
@@ -89,8 +89,32 @@ import '@vollow/seele/m3/tab/tabs.js';
 </div>
 ```
 
-## `M3Tooltip`
+## `M3Tabs`
 
-- Inherits [`Tooltip`](../04-Base/10-Tooltip.md)
+- Inherits [`Tabs`](../04-Base/10-Tabs.md)
 
-[overview]: https://m3.material.io/components/tooltips/overview
+### Properties
+
+| name        | description                          |
+| ---         | ---                                  |
+| `switch`    | Reflected string; `auto` or `manual` |
+| `selected`  | Reflected string                     |
+| `secondary` | Reflected boolean                    |
+| `iconsAbove` | Reflected boolean; `icons-above` as an attribute |
+
+## `M3Tab`
+
+- Inherits [`Tab`](../04-Base/10-Tab.md)
+
+### Slots
+
+| name   | description |
+| ---    | ---         |
+|        | Label       |
+| `icon` |             |
+
+## `M3TabPanel`
+
+- Inherits [`TabPanel`](../04-Base/10-TabPanel.md)
+
+[overview]: https://m3.material.io/components/tabs/overview

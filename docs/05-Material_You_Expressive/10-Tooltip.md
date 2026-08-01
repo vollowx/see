@@ -10,7 +10,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/tooltip/tooltip.js';
+import '@vollowx/seele/m3/tooltip/tooltip.js';
 ```
 
 <!-- @show -->

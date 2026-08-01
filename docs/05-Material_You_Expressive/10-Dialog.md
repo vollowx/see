@@ -9,7 +9,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollow/seele/m3/dialog/dialog.js';
+import '@vollowx/seele/m3/dialog/dialog.js';
 ```
 
 <!-- @show -->
@@ -80,7 +80,7 @@ import '@vollow/seele/m3/dialog/dialog.js';
 |            | Content                                 |
 | `actions`  | Should be a `<div>` with buttons inside |
 
-### Parts
+### CSS Parts
 
 | name        | description |
 | ---         | ---         |
