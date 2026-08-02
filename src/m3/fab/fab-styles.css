@@ -102,3 +102,12 @@ md-focus-ring {
 ::slotted([slot='label']) {
   margin-inline: 4px;
 }
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonBorder;
+  }
+}

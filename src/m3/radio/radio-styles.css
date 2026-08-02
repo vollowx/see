@@ -125,3 +125,14 @@
     transparent
   );
 }
+
+@media (forced-colors: active) {
+  :host {
+    --md-sys-color-primary: SelectedItem;
+    --md-sys-color-on-surface-variant: CanvasText;
+  }
+  :host(:disabled)::before,
+  :host(:disabled)::after {
+    background: GrayText;
+  }
+}

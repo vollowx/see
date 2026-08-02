@@ -97,6 +97,15 @@
     --md-focus-ring-shape: var(--_rs);
     border-radius: var(--_rs);
   }
+
+  @media (forced-colors: active) {
+    :host {
+      forced-color-adjust: none;
+      background: ButtonFace;
+      color: ButtonText;
+      border: 1px solid ButtonBorder;
+    }
+  }
 }
 
 @layer active {
@@ -125,5 +134,12 @@
     );
     box-shadow: none;
     pointer-events: none;
+  }
+
+  @media (forced-colors: active) {
+    :host(:disabled) {
+      color: GrayText;
+      border-color: GrayText;
+    }
   }
 }

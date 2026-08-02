@@ -96,3 +96,9 @@ slot[name='actions']::slotted(*) {
 dialog[open] + [part='scrim'] {
   display: block;
 }
+
+@media (forced-colors: active) {
+  [part='container'] {
+    outline: 2px solid WindowText;
+  }
+}

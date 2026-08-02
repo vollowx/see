@@ -28,6 +28,35 @@
       <h1>form</h1>
     </header>
 
+    <form>
+      <div role="radiogroup" aria-label="Fruits">
+        <div>
+          <md-radio name="fruit" value="apple" id="radio-apple"></md-radio>
+          <label for="radio-apple">apple</label>
+        </div>
+        <div>
+          <md-radio name="fruit" value="banana" id="radio-banana" checked></md-radio>
+          <label for="radio-banana">banana</label>
+        </div>
+        <div>
+          <md-radio name="fruit" value="pear" id="radio-pear" disabled></md-radio>
+          <label for="radio-pear">pear</label>
+        </div>
+        <div>
+          <md-radio name="fruit" value="orange" id="radio-orange"></md-radio>
+          <label for="radio-orange">orange</label>
+        </div>
+      </div>
+    </form>
+
+    <style>
+      [role='radiogroup'] > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    </style>
+
     <main>
       <section>
         <h2>seletion controls</h2>

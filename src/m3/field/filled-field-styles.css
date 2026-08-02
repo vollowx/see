@@ -49,3 +49,13 @@
 :host([error][focused]) .container {
   --_indicator-color: var(--md-sys-color-error);
 }
+
+@media (forced-colors: active) {
+  :host {
+    --md-sys-color-primary: Highlight;
+    outline: 1px solid CanvasText;
+  }
+  :host([focused]) {
+    outline-color: Highlight;
+  }
+}

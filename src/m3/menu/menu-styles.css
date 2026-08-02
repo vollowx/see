@@ -105,3 +105,9 @@
   /* Which makes the gap between item and divider 8px */
   margin-block: 6px;
 }
+
+@media (forced-colors: active) {
+  [part='menu'] {
+    border: 1px solid CanvasText;
+  }
+}

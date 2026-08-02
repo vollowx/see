@@ -97,3 +97,9 @@
     animation: none;
   }
 }
+
+@media (forced-colors: active) {
+  :host {
+    color: Highlight;
+  }
+}

@@ -1,4 +1,5 @@
 :host {
+  --_color: var(--md-ripple-color, currentColor);
   border-radius: inherit;
   display: block;
   inset: 0;
@@ -10,7 +11,7 @@
 [part~='ripple'] {
   background-image: radial-gradient(
     closest-side,
-    var(--md-ripple-color, currentColor) max(calc(100% - 70px), 65%),
+    var(--_color) max(calc(100% - 70px), 65%),
     transparent 100%
   );
   left: 0;
@@ -19,7 +20,7 @@
 }
 
 :host::before {
-  background-color: var(--md-ripple-color, currentColor);
+  background-color: var(--_color);
   border-radius: inherit;
   content: '';
   display: block;
@@ -31,4 +32,10 @@
 
 :host(:state(hover))::before {
   opacity: 0.08;
+}
+
+@media (forced-colors: active) {
+  :host {
+    --_color: var(--md-ripple-color, Highlight);
+  }
 }

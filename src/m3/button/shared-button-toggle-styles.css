@@ -34,4 +34,11 @@
     --_text-color: var(--md-sys-color-inverse-on-surface);
     border-width: 0;
   }
+
+  @media (forced-colors: active) {
+    :host(:state(checked)) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
 }

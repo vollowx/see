@@ -165,3 +165,14 @@ md-ripple {
   inset: unset;
   width: 40px;
 }
+
+@media (forced-colors: active) {
+  :host {
+    --_outline-color: CanvasText;
+    --_ripple-color: CanvasText;
+  }
+  :host(:is(:state(checked), :state(indeterminate))) {
+    --md-sys-color-primary: SelectedItem;
+    --_mark-color: SelectedItemText;
+  }
+}

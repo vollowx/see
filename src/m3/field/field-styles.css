@@ -96,3 +96,10 @@
 :host([error]) .supporting-text {
   color: var(--md-sys-color-error);
 }
+
+@media (forced-colors: active) {
+  :host {
+    --md-sys-color-primary: Highlight;
+    --md-sys-color-error: VisitedText;
+  }
+}

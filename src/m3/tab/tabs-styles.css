@@ -48,3 +48,9 @@
   --_tab-height: 64px;
   --_tab-gap: 2px;
 }
+
+@media (forced-colors: active) {
+  [part='indicator'] {
+    background-color: Highlight;
+  }
+}

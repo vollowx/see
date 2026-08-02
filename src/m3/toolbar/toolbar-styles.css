@@ -104,3 +104,9 @@
     --_text-color: var(--md-sys-color-on-surface);
   }
 }
+
+@media (forced-colors: active) {
+  [part='container'] {
+    outline: 1px solid CanvasText;
+  }
+}

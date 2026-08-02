@@ -152,3 +152,11 @@ md-ripple {
   inset: unset;
   width: 40px;
 }
+
+@media (forced-colors: active) {
+  :host {
+    --md-sys-color-primary: SelectedItem;
+    --md-sys-color-primary-container: SelectedItemText;
+    --md-sys-color-on-primary: SelectedItemText;
+  }
+}

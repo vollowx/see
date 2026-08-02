@@ -35,3 +35,18 @@ md-item,
 md-item div[slot='container'] {
   border-radius: inherit;
 }
+
+@media (forced-colors: active) {
+  :host {
+    forced-color-adjust: none;
+    color: CanvasText;
+  }
+  :host(:hover) {
+    background: Highlight;
+    color: HighlightText;
+  }
+  :host(:state(selected)) {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
