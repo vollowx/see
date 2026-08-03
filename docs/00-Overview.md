@@ -9,9 +9,9 @@ This documentation is also available at:
 - as Markdown
   - [SourceHut](https://git.sr.ht/~lucaz/seele/tree/main/item/docs/00-Overview.md)
   - [GitHub](https://github.com/vollowx/seele/blob/main/docs/00-Overview.md)
-  - Cloned seele, `@/docs`
 - as website with demos rendered
-  - [https://lucaz.srht.site/](https://lucaz.srht.site/)
+  - [https://tideover.cc/seele/docs/](https://tideover.cc/seele/docs/)
+  - [https://lucaz.srht.site/](https://lucaz.srht.site/) (backup site)
 
 ## Installation
 

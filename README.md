@@ -33,13 +33,12 @@ What's the differences comparing to other projects?
 
 ## Getting started
 
-Check out [Overview](./docs/00-Overview.md).
+Check out [Installation](https://tideover.cc/seele/docs/#installation).
 
 ## Documentations
 
-- [Documentations](./docs/00-Overview.md) (Markdown)
-  - [lucaz.srht.site](https://lucaz.srht.site/) (components rendered)
-- Previous [documentations and demos](https://tideover.cc/seele/docs/), being replaced
+- [Documentations](https://tideover.cc/seele/docs/), ([source](./docs/00-Overview.md))
+- [Backup site](https://lucaz.srht.site/)
 
 ## Download
 
