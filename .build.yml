@@ -3,6 +3,8 @@ oauth: pages.sr.ht/PAGES:RW
 packages:
     - bun
     - hut
+environment:
+    site: lucaz.srht.site
 sources:
     - https://git.sr.ht/~lucaz/seele
     - https://github.com/vollowx/seele-docs-skeleton
@@ -29,7 +31,7 @@ tasks:
                    tar -C _site -cvz . > site.tar.gz
     - upload-docs: |
                    cd seele-docs-skeleton
-                   hut pages publish -d lucaz.srht.page site.tar.gz
+                   hut pages publish -d $site site.tar.gz
 submitter:
     git.sr.ht:
         enabled: true
