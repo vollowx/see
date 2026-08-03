@@ -87,6 +87,10 @@
     );
     border-style: solid;
     border-width: 1px;
+
+    md-ripple {
+      inset: -1px;
+    }
   }
   :host([variant='text']) {
     --_background-color: transparent !important;
