@@ -39,7 +39,8 @@ import '@vollowx/seele/m3/button/icon-button-toggle.js';
 ## `M3IconButton` and `M3IconButtonToggle`
 
 - `M3IconButton` inherits [`Button`](../04-Base/10-Button.md)
-- `M3IconButtonToggle` inherits [`ButtonButton`](../04-Base/10-ButtonToggle.md)
+- `M3IconButtonToggle` inherits `M3IconButton`
+- `M3IconButtonToggle` mixes [`ButtonToggleMixin`](../04-Base/20-ButtonToggleMixin.md)
 
 ### Slots
 

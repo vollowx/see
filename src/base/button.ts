@@ -5,6 +5,8 @@ import { InternalsAttached, internals } from './mixins/internals-attached.js';
 import { FormAssociated } from './mixins/form-associated.js';
 import { hiddenStyles } from './hidden-styles.css.js';
 
+export const updateInternals = Symbol('updateInternals');
+
 const Base = FormAssociated(InternalsAttached(LitElement));
 
 export class Button extends Base {
@@ -15,7 +17,7 @@ export class Button extends Base {
   constructor() {
     super();
     this[internals].role = 'button';
-    this.updateState();
+    this[updateInternals]();
 
     // This is set to prevent a first-paint-time transition for styles like
     // `border-radius` on `:host`. Also in `ToggleButton`.
@@ -28,7 +30,7 @@ export class Button extends Base {
     super.connectedCallback();
     this.addEventListener('keydown', this.#handleKeyDown);
     this.addEventListener('keyup', this.#handleKeyUp);
-    this.addEventListener('click', this.#handleClick);
+    this.addEventListener('click', this._handleClick.bind(this));
     requestAnimationFrame(() =>
       requestAnimationFrame(() => this.removeAttribute('notransition'))
     );
@@ -38,14 +40,14 @@ export class Button extends Base {
     super.disconnectedCallback();
     this.removeEventListener('keydown', this.#handleKeyDown);
     this.removeEventListener('keyup', this.#handleKeyUp);
-    this.removeEventListener('click', this.#handleClick);
+    this.removeEventListener('click', this._handleClick.bind(this));
   }
 
-  protected override updated(changed: Map<string, any>) {
-    if (changed.has('disabled')) this.updateState();
+  override updated(changed: Map<string, any>) {
+    if (changed.has('disabled')) this[updateInternals]();
   }
 
-  protected updateState() {
+  [updateInternals]() {
     this.tabIndex = this.disabled ? -1 : 0;
     this[internals].ariaDisabled = String(this.disabled);
   }
@@ -69,7 +71,7 @@ export class Button extends Base {
     }
   };
 
-  #handleClick = () => {
+  _handleClick(e: Event) {
     if (this.type !== 'button') this[internals].form?.[this.type]();
-  };
+  }
 }

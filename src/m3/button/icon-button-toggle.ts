@@ -1,15 +1,11 @@
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-
-import { ToggleButton } from '../../base/toggle-button.js';
-
 import '../focus-ring/focus-ring.js';
 import '../ripple/ripple.js';
 
-import { targetStyles } from '../target-styles.css.js';
-import { sharedButtonStyles } from './shared-button-styles.css.js';
+import { html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { M3IconButton } from './icon-button.js';
+import { ButtonToggleMixin } from '../../base/mixins/button-toggle-mixin.js';
 import { sharedButtonToggleStyles } from './shared-button-toggle-styles.css.js';
-import { iconButtonStyles } from './icon-button-styles.css.js';
 
 /**
  * @tag md-icon-button-toggle
@@ -20,14 +16,8 @@ import { iconButtonStyles } from './icon-button-styles.css.js';
  * @slot checked - icon when checked
  */
 @customElement('md-icon-button-toggle')
-export class M3IconButtonToggle extends ToggleButton {
-  static override styles = [
-    ...super.styles,
-    targetStyles,
-    sharedButtonStyles,
-    sharedButtonToggleStyles,
-    iconButtonStyles,
-  ];
+export class M3IconButtonToggle extends ButtonToggleMixin(M3IconButton) {
+  static override styles = [...super.styles, sharedButtonToggleStyles];
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
@@ -37,14 +27,6 @@ export class M3IconButtonToggle extends ToggleButton {
       <slot part="icon checked" name="checked"></slot>
     `;
   }
-  @property({ reflect: true })
-  size: 'xs' | 's' | 'm' | 'l' | 'xl' = 's';
-  @property({ reflect: true })
-  color: 'primary' | 'secondary' | 'tertiary' = 'primary';
-  @property({ reflect: true })
-  variant: 'text' | 'filled' | 'tonal' | 'outlined' = 'text';
-  @property({ reflect: true })
-  width: 'standard' | 'narrow' | 'wide' = 'standard';
 }
 
 declare global {

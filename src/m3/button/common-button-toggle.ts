@@ -1,15 +1,11 @@
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-
-import { ToggleButton } from '../../base/toggle-button.js';
-
 import '../focus-ring/focus-ring.js';
 import '../ripple/ripple.js';
 
-import { targetStyles } from '../target-styles.css.js';
-import { sharedButtonStyles } from './shared-button-styles.css.js';
+import { html } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { M3Button } from './common-button.js';
+import { ButtonToggleMixin } from '../../base/mixins/button-toggle-mixin.js';
 import { sharedButtonToggleStyles } from './shared-button-toggle-styles.css.js';
-import { commonButtonStyles } from './common-button-styles.css.js';
 
 /**
  * @tag md-button-toggle
@@ -23,28 +19,8 @@ import { commonButtonStyles } from './common-button-styles.css.js';
  * @slot icon - leading icon
  */
 @customElement('md-button-toggle')
-export class M3ButtonToggle extends ToggleButton {
-  @property({ reflect: true })
-  size: 'xs' | 's' | 'm' | 'l' | 'xl' = 's';
-  @property({ reflect: true, type: Boolean })
-  square = false;
-  @property({ reflect: true })
-  color: 'primary' | 'secondary' | 'tertiary' = 'primary';
-  @property({ reflect: true })
-  variant: 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' = 'filled';
-  /**
-   * Whether to show the icon at the end of the button.
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'trailing-icon' })
-  trailingIcon = false;
-
-  static override styles = [
-    ...super.styles,
-    targetStyles,
-    sharedButtonStyles,
-    sharedButtonToggleStyles,
-    commonButtonStyles,
-  ];
+export class M3ButtonToggle extends ButtonToggleMixin(M3Button) {
+  static override styles = [...super.styles, sharedButtonToggleStyles];
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>

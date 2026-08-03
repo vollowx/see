@@ -4,6 +4,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { ToggleButton } from '../../base/toggle-button.js';
 
 import '../focus-ring/focus-ring.js';
+import '../ripple/ripple.js';
 import { M3Ripple } from '../ripple/ripple.js';
 
 import { switchStyles } from './switch-styles.css.js';
@@ -21,6 +22,9 @@ function isRTL() {
  */
 @customElement('md-switch')
 export class M3Switch extends ToggleButton {
+  @property({ type: Boolean, reflect: true }) icons = false;
+  @property({ type: Boolean, reflect: true }) checkedIconOnly = false;
+
   @query('md-ripple') $ripple!: M3Ripple;
   @query('[part~="thumb"]') $thumb!: HTMLSpanElement;
 
@@ -29,7 +33,7 @@ export class M3Switch extends ToggleButton {
     return html`
       <md-focus-ring></md-focus-ring>
       <div part="thumb">
-        <md-ripple spacebehavior="always"></md-ripple>
+        <md-ripple></md-ripple>
         <span part="target"></span>
         ${this.renderOffIcon()}${this.renderOnIcon()}
       </div>
@@ -57,20 +61,17 @@ export class M3Switch extends ToggleButton {
   override connectedCallback() {
     super.connectedCallback();
     this.updateComplete.then(() => {
-      this.$ripple.attach(this);
+      this.$ripple.attach(this, true);
     });
     this.addEventListener('pointerdown', this.#handlePointerDown);
     this.addEventListener('pointerup', this.#handlePointerUp);
   }
 
   override disconnectedCallback() {
-    super.disconnectedCallback();
     this.removeEventListener('pointerdown', this.#handlePointerDown);
     this.removeEventListener('pointerup', this.#handlePointerUp);
+    super.disconnectedCallback();
   }
-
-  @property({ type: Boolean, reflect: true }) icons = false;
-  @property({ type: Boolean, reflect: true }) checkedIconOnly = false;
 
   #pointerDownX = 0;
 
@@ -117,7 +118,7 @@ export class M3Switch extends ToggleButton {
     this.$thumb.style.setProperty('--_thumb-diameter', '');
     this.$thumb.style.transitionDuration = '';
 
-    if (this.checked != shouldBeChecked) this.toggleChecked();
+    if (this.checked != shouldBeChecked) this._toggle();
   };
 }
 
