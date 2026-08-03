@@ -10,17 +10,19 @@ import {
 
 import { rippleStyles } from './ripple-styles.css.js';
 
+type Vector2D = { x: number; y: number };
+
 const PRESS_GROW_MS = 450;
 const MINIMUM_PRESS_MS = 225;
 const OPACITY_IN_MS = 105;
 const OPACITY_OUT_MS = 375;
 
-function distance(
-  { x: ax, y: ay }: { x: number; y: number },
-  { x: bx, y: by }: { x: number; y: number }
-): number {
+const distance = (
+  { x: ax, y: ay }: Vector2D,
+  { x: bx, y: by }: Vector2D
+): number => {
   return Math.sqrt((ax - bx) ** 2 + (ay - by) ** 2);
-}
+};
 
 /**
  * @tag md-ripple
@@ -142,7 +144,7 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     };
     const centered = !e;
     const endCenter = containerMiddle;
-    let startCenter: { x: number; y: number } = endCenter;
+    let startCenter: Vector2D = { ...endCenter };
     if (!centered) {
       startCenter.x = e.clientX - containerRect.left;
       startCenter.y = e.clientY - containerRect.top;
@@ -156,12 +158,10 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     const radius = Math.max(
       ...corners.map((corner) => distance(endCenter, corner))
     );
-
     return { startCenter, endCenter, radius };
   }
   addRipple(e: MouseEvent | null = null) {
     const { startCenter, endCenter, radius } = this.#calculateRipple(e);
-
     const diameter = radius * 2 + 'px';
     const translateStart = `${startCenter.x - radius}px ${
       startCenter.y - radius
