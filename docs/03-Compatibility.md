@@ -1,53 +1,4 @@
-# seele
-
-[![npm package](https://img.shields.io/npm/v/%40vollowx%2Fseele)](https://www.npmjs.com/package/@vollowx/seele)
-[![builds.sr.ht status](https://builds.sr.ht/~lucaz/seele.svg)](https://builds.sr.ht/~lucaz/seele?)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@vollowx/seele)
-
-[https://tideover.cc/seele/](https://tideover.cc/seele/)
-[docs/](https://tideover.cc/seele/docs/)
-
-seele (**S**tandard **E**xtensible **Ele**ments) is a extensible
-[Web Components][web-comps] library with a focus on accessibility and
-keyboard-control.
-
-It also provides styled components in the following design guideline(s):
-
-- [Material You Expressive](https://m3.material.io/)
-- Windows 98, most styles are from [98.css](https://jdan.github.io/98.css/)
-
-![seele components screenshot](./preview.png)
-
-## Features
-
-What's the differences comparing to other projects?
-
-- Accessible and keyboard-accessible - all components are based on the
-  [APG Patterns][apg-patterns]
-- Flexible - seele provides not only the styled components, but also the base
-  ones and the mix-ins that compose them, allowing you to write your components
-  easily
-- Up-to-date - seele uses new Web features as much as possible, (see the README),
-  meaning that its size is relatively small and the compatibility is not the
-  best
-
-## Getting started
-
-Check out [Overview](./docs/00-Overview.md).
-
-## Documentations
-
-- [Documentations](./docs/00-Overview.md) (Markdown)
-  - [lucaz.srht.site](https://lucaz.srht.site/) (components rendered)
-- Previous [documentations and demos](https://tideover.cc/seele/docs/), being replaced
-
-## Download
-
-- [npm package](https://www.npmjs.com/package/@vollowx/seele)
-- [The source at SourceHut](https://sr.ht/~lucaz/seele)
-- [The source at GitHub](https://github.com/vollowx/seele)
-
-## Browser Support
+# Compatibility
 
 seele relies on the following modern web standards:
 
@@ -80,15 +31,6 @@ versions:
 _* omitting a specific browser version means using that standard does not raise
 the minimum required version of seele_
 
-## Other Information
-
-- [Roadmap](./docs/01-Roadmap.md)
-- [Contributing](./CONTRIBUTING.md)
-- [License (Apache-2.0)](./LICENSE)
-
-[web-comps]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components
-[apg-patterns]: https://www.w3.org/WAI/ARIA/apg/patterns/
-[lit]: https://lit.dev/
 [element-internals]: https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals
 [:dir]: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:dir
 [constructable-stylesheets]: https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet

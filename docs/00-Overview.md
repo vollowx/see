@@ -4,6 +4,15 @@ seele (**S**tandard **E**xtensible **Ele**ments) is a extensible
 [Web Components][web-comps] library with a focus on accessibility and
 keyboard-control.
 
+This documentation is also available at:
+
+- as Markdown
+  - [SourceHut](https://git.sr.ht/~lucaz/seele/tree/main/item/docs/00-Overview.md)
+  - [GitHub](https://github.com/vollowx/seele/blob/main/docs/00-Overview.md)
+  - Cloned seele, `@/docs`
+- as website with demos rendered
+  - [https://lucaz.srht.site/](https://lucaz.srht.site/)
+
 ## Installation
 
 seele is published on npm at [`@vollowx/seele`](npm-package), therefore:
@@ -65,6 +74,10 @@ The following design systems or styles are implemented:
 
 - [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) as `m3`
 - [Windows 98](./06-Windows_98/00-Overview.md) as `win98`
+
+## Compatibility
+
+See [Compatibility](./03-Compatibility.md).
 
 ## Notes
 
