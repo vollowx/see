@@ -1,8 +1,10 @@
 image: archlinux
 packages:
     - bun
+    - hut
 sources:
     - https://git.sr.ht/~lucaz/seele
+    - https://github.com/vollowx/seele-docs-skeleton
 triggers:
     - action: email
       condition: failure
@@ -14,6 +16,19 @@ tasks:
     - build: |
              cd seele
              bun run build
+    - setup-docs:  |
+                   cd seele-docs-skeleton
+                   bun install
+                   cp -r ../seele/docs/ ./docs/
+    - build-docs:  |
+                   cd seele-docs-skeleton
+                   bun run build
+    - pack-docs:   |
+                   cd seele-docs-skeleton
+                   tar -C _site -cvz . > site.tar.gz
+    - upload-docs: |
+                   cd seele-docs-skeleton
+                   hut pages publish -d lucaz.srht.page site.tar.gz
 submitter:
     git.sr.ht:
         enabled: true
