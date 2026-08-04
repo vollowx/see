@@ -3,7 +3,6 @@
   --_indicator-height: 3px;
   display: block;
   position: relative;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
   overflow-x: auto;
   overflow-y: hidden;
   box-sizing: border-box;
@@ -13,9 +12,11 @@
 
 [part='tablist'] {
   display: flex;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
-::slotted(*) {
+::slotted(md-tab),
+::slotted(md-secondary-tab) {
   flex: 1;
 }
 

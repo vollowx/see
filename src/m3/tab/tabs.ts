@@ -18,9 +18,9 @@ export class M3Tabs extends Tabs {
 
   static override styles = [tabsStyles];
 
-  override selectTab(selectedTab: M3Tab) {
+  override _selectTab(selectedTab: M3Tab) {
     const previousTab = this.$tabs.find((t) => t.selected) as M3Tab | undefined;
-    super.selectTab(selectedTab);
+    super._selectTab(selectedTab);
 
     if (previousTab && previousTab !== selectedTab)
       selectedTab.animateIndicator(previousTab);

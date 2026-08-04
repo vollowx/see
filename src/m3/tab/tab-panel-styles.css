@@ -1,6 +1,6 @@
 :host {
   display: block;
 }
-:host([hidden]) {
-  display: none;
+:host(:not([selected])) {
+  display: none !important;
 }

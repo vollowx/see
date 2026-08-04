@@ -20,29 +20,27 @@ import '@vollowx/seele/m3/tab/tabs.js';
 <!-- @show -->
 
 ```html
-<div style="width: 100%">
-  <md-tabs iconsabove selected="2">
-    <md-tab value="1">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      J. Clarkson
-    </md-tab>
-    <md-tab value="2">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      J. Boar
-    </md-tab>
-    <md-tab value="3">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      R. Ham
-    </md-tab>
-    <md-tab value="4">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      Mr. William
-    </md-tab>
-  </md-tabs>
+<md-tabs iconsabove selected="2" style="width: 100%">
+  <md-tab value="1">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    J. Clarkson
+  </md-tab>
+  <md-tab value="2" selected>
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    J. Boar
+  </md-tab>
+  <md-tab value="3">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    R. Ham
+  </md-tab>
+  <md-tab value="4">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    Mr. William
+  </md-tab>
   <md-tab-panel value="1">
     <p>Jeremy Clarkson</p>
   </md-tab-panel>
-  <md-tab-panel value="2">
+  <md-tab-panel value="2" selected>
     <p>James May</p>
   </md-tab-panel>
   <md-tab-panel value="3">
@@ -51,45 +49,49 @@ import '@vollowx/seele/m3/tab/tabs.js';
   <md-tab-panel value="4">
     <p>Le William</p>
   </md-tab-panel>
-</div>
+</md-tabs>
 ```
 
 <!-- @show -->
 
 ```html
-<div style="width: 100%">
-  <md-tabs switch="auto" selected="3">
-    <md-secondary-tab value="1">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      Tab 1
-    </md-secondary-tab>
-    <md-secondary-tab value="2">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      Tab 2
-    </md-secondary-tab>
-    <md-secondary-tab value="3">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      Tab 3
-    </md-secondary-tab>
-    <md-secondary-tab value="4">
-      <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
-      Tab 4
-    </md-secondary-tab>
-  </md-tabs>
+<md-tabs switch="auto" selected="3" style="width: 100%">
+  <md-secondary-tab value="1">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    Tab 1
+  </md-secondary-tab>
+  <md-secondary-tab value="2">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    Tab 2
+  </md-secondary-tab>
+  <md-secondary-tab value="3" selected>
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    Tab 3
+  </md-secondary-tab>
+  <md-secondary-tab value="4">
+    <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
+    Tab 4
+  </md-secondary-tab>
   <md-tab-panel value="1">
     <p>J. Clarkson</p>
   </md-tab-panel>
   <md-tab-panel value="2">
     <p>J. Boar</p>
   </md-tab-panel>
-  <md-tab-panel value="3">
+  <md-tab-panel value="3" selected>
     <p>R. Ham</p>
   </md-tab-panel>
   <md-tab-panel value="4">
     <p>Le William</p>
   </md-tab-panel>
-</div>
+</md-tabs>
 ```
+
+The `selected` on `<md-tabs>` is the effective one, the ones on `<md-tab>` and
+`<md-tab-panel>` are for better server-side rendering, and can be removed if you
+do not use SSR at all. Without them, we cannot show the selected tab or tab
+panel before hydration, which is a Lit SSR limitation - you cannot query parent
+or child elements during SSR.
 
 ## `M3Tabs`
 

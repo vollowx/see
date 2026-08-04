@@ -50,7 +50,7 @@
   will-change: transform, opacity;
 }
 
-[part~='icon'] {
+::slotted([slot='icon']) {
   block-size: 1em;
   fill: currentcolor;
   font-size: 24px;

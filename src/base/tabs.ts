@@ -1,5 +1,5 @@
 import { LitElement, html, isServer } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { internals } from './mixins/internals-attached.js';
 import type { Tab } from './tab.js';
@@ -11,17 +11,14 @@ import type { TabPanel } from './tab-panel.js';
 export class Tabs extends LitElement {
   @property({ type: String }) switch: 'auto' | 'manual' = 'manual';
   @property({ type: String, reflect: true }) selected = '';
-  @queryAssignedElements({ flatten: true }) $slotItems!: Array<HTMLElement>;
 
-  get $tabs(): Tab[] {
-    return this.$slotItems.filter(
-      (item) => item[internals].role === 'tab'
-    ) as Tab[];
+  get $tabs(): Array<Tab> {
+    return [...(this.querySelectorAll('[seele-base=tab]') as NodeListOf<Tab>)];
   }
-  get $parent(): HTMLElement {
-    return this.parentNode instanceof ShadowRoot
-      ? ((this.parentNode as ShadowRoot).host as HTMLElement)
-      : this.parentElement;
+  get $panels(): Array<TabPanel> {
+    return [
+      ...(this.querySelectorAll('[seele-base=tabpanel]') as NodeListOf<Tab>),
+    ];
   }
 
   override render() {
@@ -29,6 +26,7 @@ export class Tabs extends LitElement {
       <div part="tablist" role="tablist">
         <slot @slotchange=${this.#handleSlotChange}></slot>
       </div>
+      <slot name="panels"></slot>
     `;
   }
 
@@ -48,24 +46,25 @@ export class Tabs extends LitElement {
   protected override updated(changed: Map<string, any>) {
     if (changed.has('selected') && this.selected) {
       const targetTab = this.$tabs.find((t) => t.value === this.selected);
-      if (targetTab && !targetTab.selected) {
-        this.selectTab(targetTab);
-      }
+      if (targetTab) this._selectTab(targetTab);
     }
   }
 
-  #handleSlotChange = () => {
-    const parent = this.$parent;
+  #handleSlotChange() {
     this.$tabs.forEach((tab) => {
-      const panel = parent.querySelector(
-        `[seele-base="tab"][value="${tab.value}"]`
-      ) as TabPanel;
-      if (!panel)
+      const panel = this.$panels.find((panel) => {
+        console.log(panel.value, tab.value)
+        return panel.value === tab.value;
+      });
+      if (!panel) {
         console.error('[seele] Cannot find a matching panel for tab ', tab);
-      tab[internals].ariaControlsElements = [panel];
-      panel[internals].ariaLabelledByElements = [tab];
+        console.log('---')
+      } else {
+        tab[internals].ariaControlsElements = [panel];
+        panel[internals].ariaLabelledByElements = [tab];
+      }
     });
-  };
+  }
 
   #handleKeyDown(event: KeyboardEvent) {
     const tabs = this.$tabs;
@@ -98,7 +97,7 @@ export class Tabs extends LitElement {
       case 'Enter':
       case ' ':
         if (currentIndex !== -1) {
-          this.selectTab(tabs[currentIndex]);
+          this._selectTab(tabs[currentIndex]);
         }
         handled = true;
         break;
@@ -110,7 +109,7 @@ export class Tabs extends LitElement {
 
       if (event.key !== 'Enter' && event.key !== ' ') {
         this.focusTab(tabs[nextIndex]);
-        if (this.switch === 'auto') this.selectTab(tabs[nextIndex]);
+        if (this.switch === 'auto') this._selectTab(tabs[nextIndex], true);
       }
     }
   }
@@ -121,7 +120,7 @@ export class Tabs extends LitElement {
 
     if (tab && this.$tabs.includes(tab)) {
       this.focusTab(tab);
-      this.selectTab(tab);
+      this._selectTab(tab, true);
     }
   }
 
@@ -134,12 +133,9 @@ export class Tabs extends LitElement {
     tab.focus();
   }
 
-  selectTab(selectedTab: Tab) {
+  protected _selectTab(selectedTab: Tab, dispatchEvent = false) {
     this.selected = selectedTab.value;
-    const parent = this.$parent;
-    const panels = Array.from(
-      parent.querySelectorAll('[seele-base=tabpanel]')
-    ) as TabPanel[];
+    const panels = this.$panels;
 
     this.$tabs.forEach((tab) => {
       tab.selected = tab === selectedTab;
@@ -147,16 +143,17 @@ export class Tabs extends LitElement {
     });
     panels.forEach((panel) => {
       if (panel.value && selectedTab.value) {
-        panel.hidden = panel.value !== selectedTab.value;
+        panel.selected = panel.value === selectedTab.value;
       }
     });
 
-    this.dispatchEvent(
-      new CustomEvent('select', {
-        detail: { tab: selectedTab, value: this.selected },
-        bubbles: true,
-        composed: true,
-      })
-    );
+    if (dispatchEvent)
+      this.dispatchEvent(
+        new CustomEvent('select', {
+          detail: { tab: selectedTab, value: this.selected },
+          bubbles: true,
+          composed: true,
+        })
+      );
   }
 }
