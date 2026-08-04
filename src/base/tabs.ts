@@ -6,11 +6,9 @@ import type { Tab } from './tab.js';
 import type { TabPanel } from './tab-panel.js';
 
 /**
- * @fires {CustomEvent} tab-select
+ * @fires {CustomEvent} select
  */
 export class Tabs extends LitElement {
-  protected _role: string = 'tablist';
-
   @property({ type: String }) switch: 'auto' | 'manual' = 'manual';
   @property({ type: String, reflect: true }) selected = '';
   @queryAssignedElements({ flatten: true }) $slotItems!: Array<HTMLElement>;
@@ -34,10 +32,17 @@ export class Tabs extends LitElement {
     `;
   }
 
+  constructor() {
+    super();
+    if (!isServer) {
+      this.addEventListener('keydown', this.#handleKeyDown.bind(this));
+      this.addEventListener('click', this.#handleClick.bind(this));
+    }
+  }
+
   override connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('keydown', this.#handleKeyDown.bind(this));
-    this.addEventListener('click', this.#handleClick.bind(this));
+    queueMicrotask(this.#handleSlotChange.bind(this));
   }
 
   protected override updated(changed: Map<string, any>) {
@@ -49,21 +54,20 @@ export class Tabs extends LitElement {
     }
   }
 
-  #handleSlotChange = (_: Event) => {
+  #handleSlotChange = () => {
     const parent = this.$parent;
     this.$tabs.forEach((tab) => {
       const panel = parent.querySelector(
         `[seele-base="tab"][value="${tab.value}"]`
       ) as TabPanel;
       if (!panel)
-        console.error('[seele] cannot find a matching panel for tab ', tab);
-      // TODO: ariaLabelledByElements
-      tab.setAttribute('aria-controls', panel.id);
-      panel.setAttribute('aria-labelledby', tab.id);
+        console.error('[seele] Cannot find a matching panel for tab ', tab);
+      tab[internals].ariaControlsElements = [panel];
+      panel[internals].ariaLabelledByElements = [tab];
     });
-  }
+  };
 
-  #handleKeyDown = (event: KeyboardEvent) => {
+  #handleKeyDown(event: KeyboardEvent) {
     const tabs = this.$tabs;
     if (!tabs.length) return;
 
@@ -113,9 +117,9 @@ export class Tabs extends LitElement {
     }
   }
 
-  #handleClick = (event: MouseEvent) => {
+  #handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const tab = target.closest('md-tab') as Tab;
+    const tab = target.closest('[seele-base=tab]') as Tab;
 
     if (tab && this.$tabs.includes(tab)) {
       this.focusTab(tab);
@@ -136,7 +140,7 @@ export class Tabs extends LitElement {
     this.selected = selectedTab.value;
     const parent = this.$parent;
     const panels = Array.from(
-      parent.querySelectorAll('[seele-base="tabpanel"]')
+      parent.querySelectorAll('[seele-base=tabpanel]')
     ) as TabPanel[];
 
     this.$tabs.forEach((tab) => {
@@ -150,7 +154,7 @@ export class Tabs extends LitElement {
     });
 
     this.dispatchEvent(
-      new CustomEvent('tab-select', {
+      new CustomEvent('select', {
         detail: { tab: selectedTab, value: this.selected },
         bubbles: true,
         composed: true,

@@ -5,13 +5,13 @@
 name       | description
 ---        | ---
 `switch`   | String; `auto` or `manual`; `manual` by default
-`selected` | Reflected string
+`selected` | Reflected string, the `value` of selected tab
 
 ## Events
 
-| name         | description |
-| ---          | ---         |
-| `tab-select` |             |
+| name     | description |
+| ---      | ---         |
+| `select` |             |
 
 ## CSS Parts
 

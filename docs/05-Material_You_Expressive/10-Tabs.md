@@ -1,6 +1,7 @@
 ---
 components:
   - m3/tab/tab
+  - m3/tab/secondary-tab
   - m3/tab/tab-panel
   - m3/tab/tabs
 ---
@@ -11,6 +12,7 @@ components:
 
 ```typescript
 import '@vollowx/seele/m3/tab/tab.js';
+import '@vollowx/seele/m3/tab/secondary-tab.js';
 import '@vollowx/seele/m3/tab/tab-panel.js';
 import '@vollowx/seele/m3/tab/tabs.js';
 ```
@@ -56,23 +58,23 @@ import '@vollowx/seele/m3/tab/tabs.js';
 
 ```html
 <div style="width: 100%">
-  <md-tabs secondary switch="auto" selected="3">
-    <md-tab value="1">
+  <md-tabs switch="auto" selected="3">
+    <md-secondary-tab value="1">
       <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
       Tab 1
-    </md-tab>
-    <md-tab value="2">
+    </md-secondary-tab>
+    <md-secondary-tab value="2">
       <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
       Tab 2
-    </md-tab>
-    <md-tab value="3">
+    </md-secondary-tab>
+    <md-secondary-tab value="3">
       <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
       Tab 3
-    </md-tab>
-    <md-tab value="4">
+    </md-secondary-tab>
+    <md-secondary-tab value="4">
       <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
       Tab 4
-    </md-tab>
+    </md-secondary-tab>
   </md-tabs>
   <md-tab-panel value="1">
     <p>J. Clarkson</p>
@@ -95,16 +97,16 @@ import '@vollowx/seele/m3/tab/tabs.js';
 
 ### Properties
 
-| name        | description                          |
-| ---         | ---                                  |
-| `switch`    | Reflected string; `auto` or `manual` |
-| `selected`  | Reflected string                     |
-| `secondary` | Reflected boolean                    |
+| name         | description                                      |
+| ---          | ---                                              |
+| `switch`     | Reflected string; `auto` or `manual`             |
+| `selected`   | Reflected string                                 |
 | `iconsAbove` | Reflected boolean; `icons-above` as an attribute |
 
-## `M3Tab`
+## `M3Tab` and `M3SecondaryTab`
 
-- Inherits [`Tab`](../04-Base/10-Tab.md)
+- `M3Tab` inherits [`Tab`](../04-Base/10-Tab.md)
+- `M3SecondaryTab` inherits `M3Tab`
 
 ### Slots
 

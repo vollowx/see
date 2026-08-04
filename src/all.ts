@@ -26,6 +26,7 @@ import './m3/slider/slider.js';
 import './m3/switch/switch.js';
 import './m3/tab/tabs.js';
 import './m3/tab/tab.js';
+import './m3/tab/secondary-tab.js';
 import './m3/tab/tab-panel.js';
 import './m3/text-field/filled-text-field.js';
 import './m3/text-field/outlined-text-field.js';

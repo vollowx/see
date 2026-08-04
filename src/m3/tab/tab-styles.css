@@ -17,9 +17,13 @@
 }
 :host([selected]) {
   color: var(--_tab-selected-color);
-}
-:host([selected]) md-focus-ring {
-  margin-bottom: calc(var(--_tab-indicator-height) + 2px);
+
+  md-focus-ring {
+    margin-bottom: calc(var(--_indicator-height) + 2px);
+  }
+  [part='indicator'] {
+    opacity: 1;
+  }
 }
 
 [part='content'] {
@@ -29,6 +33,21 @@
   gap: var(--_tab-gap, 8px);
   height: var(--_tab-height, 48px);
   justify-content: center;
+  position: relative;
+}
+
+[part='indicator'] {
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  right: 2px;
+  height: var(--_indicator-height);
+  border-radius: 3px 3px 0 0;
+  background-color: var(--md-sys-color-primary);
+  opacity: 0;
+  transform-origin: left;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
 [part~='icon'] {
