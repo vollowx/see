@@ -1,6 +1,7 @@
 image: archlinux
 oauth: pages.sr.ht/PAGES:RW
 packages:
+    - npm
     - bun
     - hut
 environment:
