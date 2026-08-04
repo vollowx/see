@@ -73,9 +73,7 @@ export class Tabs extends LitElement {
 
     const activeElement = (this.getRootNode() as Document | ShadowRoot)
       .activeElement;
-    const currentIndex = tabs.findIndex(
-      (t) => t === activeElement || t.focused
-    );
+    const currentIndex = tabs.findIndex((t) => t === activeElement);
     let nextIndex = currentIndex !== -1 ? currentIndex : 0;
 
     let handled = false;

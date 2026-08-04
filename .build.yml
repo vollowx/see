@@ -21,7 +21,7 @@ tasks:
              bun run build
     - setup-docs:  |
                    cd seele-docs-skeleton
-                   bun install
+                   bun add @vollowx/seele@file:../seele --save
                    cp -r ../seele/docs/ ./docs/
     - build-docs:  |
                    cd seele-docs-skeleton
