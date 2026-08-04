@@ -52,13 +52,9 @@ export class Tabs extends LitElement {
 
   #handleSlotChange() {
     this.$tabs.forEach((tab) => {
-      const panel = this.$panels.find((panel) => {
-        console.log(panel.value, tab.value)
-        return panel.value === tab.value;
-      });
+      const panel = this.$panels.find((panel) => panel.value === tab.value);
       if (!panel) {
         console.error('[seele] Cannot find a matching panel for tab ', tab);
-        console.log('---')
       } else {
         tab[internals].ariaControlsElements = [panel];
         panel[internals].ariaLabelledByElements = [tab];
@@ -67,7 +63,7 @@ export class Tabs extends LitElement {
   }
 
   #handleKeyDown(event: KeyboardEvent) {
-    const tabs = this.$tabs;
+    const tabs = this.$tabs.filter((t) => !t.disabled);
     if (!tabs.length) return;
 
     const activeElement = (this.getRootNode() as Document | ShadowRoot)
@@ -118,7 +114,7 @@ export class Tabs extends LitElement {
     const target = event.target as HTMLElement;
     const tab = target.closest('[seele-base=tab]') as Tab;
 
-    if (tab && this.$tabs.includes(tab)) {
+    if (tab && !tab.disabled && this.$tabs.includes(tab)) {
       this.focusTab(tab);
       this._selectTab(tab, true);
     }
@@ -130,7 +126,13 @@ export class Tabs extends LitElement {
       t.tabIndex = -1;
     });
     tab.tabIndex = 0;
-    tab.focus();
+    // TODO: prevent scrolling in other containers
+    tab.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
+      behavior: 'smooth',
+    });
+    tab.focus({ preventScroll: true });
   }
 
   protected _selectTab(selectedTab: Tab, dispatchEvent = false) {
@@ -139,7 +141,7 @@ export class Tabs extends LitElement {
 
     this.$tabs.forEach((tab) => {
       tab.selected = tab === selectedTab;
-      tab.tabIndex = tab === selectedTab ? 0 : -1;
+      tab.tabIndex = tab === selectedTab && !tab.disabled ? 0 : -1;
     });
     panels.forEach((panel) => {
       if (panel.value && selectedTab.value) {

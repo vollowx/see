@@ -6,10 +6,8 @@ import {
   replaceStates,
 } from './mixins/internals-attached.js';
 
-/**
- * TODO: disabled
- */
 export class Tab extends InternalsAttached(LitElement) {
+  @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) selected = false;
   @property({ type: String, reflect: true }) value = '';
 
@@ -26,13 +24,22 @@ export class Tab extends InternalsAttached(LitElement) {
 
   protected override updated(changed: Map<string, any>) {
     super.updated(changed);
-    if (changed.has('selected') || changed.has('focused')) {
+    if (
+      changed.has('selected') ||
+      changed.has('focused') ||
+      changed.has('disabled')
+    ) {
       this.#updateInternals();
     }
   }
 
   #updateInternals() {
+    this.tabIndex = this.disabled ? -1 : this.selected ? 0 : -1;
     this[internals].ariaSelected = String(this.selected);
-    this[replaceStates](['selected'], [this.selected ? 'selected' : null]);
+    this[internals].ariaDisabled = String(this.disabled);
+    this[replaceStates](
+      ['selected', 'disabled'],
+      [this.selected ? 'selected' : null, this.disabled ? 'disabled' : null]
+    );
   }
 }

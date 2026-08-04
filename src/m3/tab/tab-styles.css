@@ -25,6 +25,10 @@
     opacity: 1;
   }
 }
+:host([disabled]) {
+  pointer-events: none;
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
 
 [part='content'] {
   align-items: center;
@@ -42,6 +46,7 @@
   left: 2px;
   right: 2px;
   height: var(--_indicator-height);
+  min-width: 24px;
   border-radius: 3px 3px 0 0;
   background-color: var(--md-sys-color-primary);
   opacity: 0;

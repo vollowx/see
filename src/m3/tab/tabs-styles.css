@@ -1,18 +1,20 @@
 :host {
   --_tab-selected-color: var(--md-sys-color-primary);
   --_indicator-height: 3px;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
   box-sizing: border-box;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
 }
 
 [part='tablist'] {
-  display: flex;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  box-sizing: border-box;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 ::slotted(md-tab),

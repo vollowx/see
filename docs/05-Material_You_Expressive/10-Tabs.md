@@ -93,6 +93,9 @@ do not use SSR at all. Without them, we cannot show the selected tab or tab
 panel before hydration, which is a Lit SSR limitation - you cannot query parent
 or child elements during SSR.
 
+Note that `disabled` property is supported by the base class `Tab`, and styled
+as a `<md-tab>`, but not supported or documented by Material Design officially.
+
 ## `M3Tabs`
 
 - Inherits [`Tabs`](../04-Base/10-Tabs.md)
