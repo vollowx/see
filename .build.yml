@@ -19,9 +19,11 @@ tasks:
     - build: |
              cd seele
              bun run build
+             npm pack
     - setup-docs:  |
                    cd seele-docs-skeleton
-                   bun add @vollowx/seele@file:../seele --save
+                   bun remove @vollowx/seele
+                   bun add ../seele/*.tgz
                    cp -r ../seele/docs/ ./docs/
     - build-docs:  |
                    cd seele-docs-skeleton
