@@ -3,10 +3,11 @@ import { property } from 'lit/decorators.js';
 
 import { customElement } from '../../core/decorators.js';
 import { focusVisible } from '../../core/focus-visible.js';
-import { Attachable } from '../../base/mixins/attachable.js';
+import { Attachable, handleControlChange } from '../../base/mixins/attachable.js';
 import {
   InternalsAttached,
   internals,
+  replaceStates,
 } from '../../base/mixins/internals-attached.js';
 
 import { focusRingStyles } from './focus-ring-styles.css.js';
@@ -37,15 +38,14 @@ export class M3FocusRing extends Attachable(InternalsAttached(LitElement)) {
   }
 
   #handleFocusIn = () => {
-    if (focusVisible) this[internals].states.add('visible');
-    else this[internals].states.delete('visible');
-  }
+    this[replaceStates](['visible'], [focusVisible ? 'visible' : null]);
+  };
   #handleFocusOut = () => {
     this[internals].states.delete('visible');
-  }
+  };
   #handlePointerDown = () => {
     this[internals].states.delete('visible');
-  }
+  };
 
   visualFocus() {
     this.#handleFocusIn();
@@ -55,7 +55,7 @@ export class M3FocusRing extends Attachable(InternalsAttached(LitElement)) {
     this.#handleFocusOut();
   }
 
-  override handleControlChange(
+  override [handleControlChange](
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {

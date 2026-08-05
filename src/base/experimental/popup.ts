@@ -10,7 +10,7 @@
  * Design: TO BE ADDED
  */
 
-import { LitElement, html, css, PropertyValues, isServer } from 'lit';
+import { LitElement, html, PropertyValues, isServer } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import {
   autoUpdate,
@@ -24,7 +24,11 @@ import {
 } from '@floating-ui/dom';
 
 import { InternalsAttached } from '../mixins/internals-attached.js';
-import { Attachable } from '../mixins/attachable.js';
+import {
+  Attachable,
+  autoAttachToParent,
+  handleControlChange,
+} from '../mixins/attachable.js';
 import { transformOriginFromArrow } from '../controllers/popover-controller.js';
 
 import { popupStyles } from './popup-styles.css.js';
@@ -133,7 +137,8 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
     }
   }
 
-  override handleControlChange(
+  override [autoAttachToParent] = false;
+  override [handleControlChange](
     prev: HTMLElement | null,
     next: HTMLElement | null
   ): void {

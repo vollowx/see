@@ -2,7 +2,10 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { customElement } from '../../core/decorators.js';
-import { Attachable } from '../../base/mixins/attachable.js';
+import {
+  Attachable,
+  handleControlChange,
+} from '../../base/mixins/attachable.js';
 import {
   InternalsAttached,
   internals,
@@ -100,39 +103,37 @@ export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
     this.keepLastRipple();
   };
 
-  override handleControlChange(
+  override [handleControlChange](
     prev: HTMLElement | null = null,
-    next: HTMLElement | HTMLInputElement | null = null
+    next: HTMLElement | null = null
   ) {
-    const eventHandlers = {
-      keydown: this.handleKeyDown,
-      keyup: this.handleKeyUp,
-      pointerenter: this.handlePointerEnter,
-      pointerleave: this.handlePointerLeave,
-      pointerdown: this.handlePointerDown,
+    const eventHandlers: Record<string, { fn: any; kbd: boolean }> = {
+      keydown: { fn: this.handleKeyDown, kbd: true },
+      keyup: { fn: this.handleKeyUp, kbd: true },
+      pointerenter: { fn: this.handlePointerEnter, kbd: false },
+      pointerleave: { fn: this.handlePointerLeave, kbd: false },
+      pointerdown: { fn: this.handlePointerDown, kbd: false },
     };
 
-    Object.keys(eventHandlers).forEach((eventName) => {
-      // @ts-ignore
-      prev?.labels?.forEach((label: HTMLLabelElement) =>
-        label.removeEventListener(eventName, eventHandlers[eventName])
+    Object.entries(eventHandlers).forEach(([eventName, { fn, kbd }]) => {
+      (prev as HTMLInputElement)?.labels?.forEach((label: HTMLLabelElement) =>
+        label.removeEventListener(eventName, fn)
       );
-      prev?.removeEventListener(eventName, eventHandlers[eventName]);
+      prev?.removeEventListener(eventName, fn);
 
       // Check if control is nested in label, if so, only bind to label
       let isNestedInLabel = false;
-      // @ts-ignore
-      next?.labels?.forEach((label: HTMLLabelElement) => {
-        if (label.contains(next)) isNestedInLabel = true;
+      (next as HTMLInputElement)?.labels?.forEach((label: HTMLLabelElement) => {
+        if (label.contains(next)) {
+          isNestedInLabel = true;
+        }
+        if (!kbd) {
+          label.addEventListener(eventName, fn);
+        }
       });
 
-      if (isNestedInLabel) {
-        // @ts-ignore
-        next.labels?.forEach((label: HTMLElement) =>
-          label.addEventListener(eventName, eventHandlers[eventName])
-        );
-      } else {
-        next?.addEventListener(eventName, eventHandlers[eventName]);
+      if (!isNestedInLabel || kbd) {
+        next?.addEventListener(eventName, fn);
       }
     });
   }

@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
 import { focusVisible } from '../core/focus-visible.js';
-import { Attachable } from './mixins/attachable.js';
+import { Attachable, handleControlChange } from './mixins/attachable.js';
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
 import { PopoverController } from './controllers/popover-controller.js';
 
@@ -61,7 +61,7 @@ export class Tooltip extends Base {
     this[internals].role = 'tooltip';
   }
 
-  override handleControlChange(
+  override [handleControlChange](
     prev: HTMLElement | null = null,
     next: HTMLElement | null = null
   ) {
