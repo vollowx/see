@@ -75,4 +75,11 @@ import '@vollowx/seele/m3/button-group/connected-button-group.js';
 </md-connected-button-group>
 ```
 
+Why the `size` attribute on button groups is not automatically applied to?
+It's bacause that such feature, will not be able to run at SSR time, which
+turns out at the client side, will show a small->desired-size layout shift.
+You will need to set `size` for all buttons inside eventually to SSR properly.
+Vice versa, it will not work properly synchronizing this attribute from buttons
+to the group element.
+
 [overview]: https://m3.material.io/components/button-groups/overview

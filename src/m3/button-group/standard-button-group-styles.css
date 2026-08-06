@@ -7,6 +7,6 @@
   gap: 12px;
 }
 
-:host([size="ss"]) {
+:host([size="xs"]) {
   gap: 18px;
 }
