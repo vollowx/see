@@ -1,3 +1,8 @@
+---
+components:
+  - m3/button/common-button
+---
+
 # seele
 
 seele (**S**tandard **E**xtensible **Ele**ments) is a extensible
@@ -12,6 +17,15 @@ This documentation is also available at:
 - as website with demos rendered
   - [https://tideover.cc/seele/docs/](https://tideover.cc/seele/docs/)
   - [https://lucaz.srht.site/](https://lucaz.srht.site/) (backup site)
+
+<!-- @uncomment
+<md-button size="xl" style="width: 100%" onclick="navigation.navigate('./m3/playground/')">
+  <iconify-icon slot="icon" icon="material-symbols:category-outline"></iconify-icon>
+  Demonstration
+</md-button>
+<p><i>* As per experience from the Eleventy website, yes, this is probably necessary.</i></p>
+<p><i>* And yes, this button requires Firefox 147 and Safari 26.2 to be a working link.</i></p>
+-->
 
 ## Installation
 
@@ -68,9 +82,10 @@ section).
 Each design system contains not only conponents, but also assets like styles.
 To check them out, see `00_Overview` for each design system.
 
-## Design systems
+## Next
 
-The following design systems or styles are implemented:
+The following design systems or styles are implemented, you can read the
+corresponding documentations for their components.
 
 - [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) as `m3`
 - [Windows 98](./06-Windows_98/00-Overview.md) as `win98`
