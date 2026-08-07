@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { customElement } from '../../core/decorators.js';
+import { ensureSlottedReady } from '../../core/ensure-ready.js';
 import { getSpring } from '../system/motion.js';
 import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
 
@@ -48,9 +49,10 @@ export class M3StandardButtonGroup extends LitElement {
         }
       });
     });
-
-    queueMicrotask(this.#handleSlotChange);
-    // Which is not called on a SSR'd element
+  }
+  override async firstUpdated() {
+    await ensureSlottedReady(this, () => this.$buttons, true);
+    this.#handleSlotChange();
   }
   override disconnectedCallback() {
     window.removeEventListener('pointerup', this.#reset);

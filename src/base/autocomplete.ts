@@ -79,22 +79,23 @@ export class Autocomplete extends Base {
 
   // TODO: handle multiple calls on this function, currently double-call
   //       disallowed
-  private handleInputSlotChange() {
-    ensureReady(this.$input).then((input) => {
-      const $realInput = (input as Input).$inputOrTextarea;
+  private async handleInputSlotChange() {
+    await ensureReady(this.$input);
 
-      $realInput.role = 'combobox';
-      $realInput.ariaExpanded = String(this.open);
-      $realInput.ariaHasPopup = 'listbox';
-      $realInput.ariaAutoComplete = this.mode;
-      $realInput.ariaControlsElements = [this.$menu];
+    const input = this.$input;
+    const $realInput = (input as Input).$inputOrTextarea;
 
-      input.addEventListener('input', this.handleInput.bind(this));
-      input.addEventListener('keydown', this.handleInputKeydown.bind(this));
-      input.addEventListener('click', () => (this.open = !this.open));
+    $realInput.role = 'combobox';
+    $realInput.ariaExpanded = String(this.open);
+    $realInput.ariaHasPopup = 'listbox';
+    $realInput.ariaAutoComplete = this.mode;
+    $realInput.ariaControlsElements = [this.$menu];
 
-      this.$menu.attach($realInput);
-    });
+    input.addEventListener('input', this.handleInput.bind(this));
+    input.addEventListener('keydown', this.handleInputKeydown.bind(this));
+    input.addEventListener('click', () => (this.open = !this.open));
+
+    this.$menu.attach($realInput);
   }
 
   protected handleItemsSlotChange() {

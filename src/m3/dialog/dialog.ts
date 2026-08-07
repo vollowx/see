@@ -1,11 +1,14 @@
 import { html } from 'lit';
 import { query, state, customElement } from 'lit/decorators.js';
+import { ensureSlottedReady } from '../../core/ensure-ready.js';
 import { Dialog } from '../../base/dialog.js';
 import { dialogStyles } from './dialog-styles.css.js';
 
 /**
  * TODO: test if form actions `cancel` and other things related work - no,
  *       event listener needed
+ * FIXME: on Firefox, the focus is not autoatically set to the first tabbable
+ *        element
  *
  * @tag md-dialog
  *
@@ -72,10 +75,9 @@ export class M3Dialog extends Dialog {
     `;
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
-    queueMicrotask(this.#handleIconSlotChange);
-    // Which is not called on a SSR'd element
+  override async firstUpdated() {
+    await ensureSlottedReady(this);
+    this.#handleIconSlotChange();
   }
 
   #activeAnimations: Animation[] = [];

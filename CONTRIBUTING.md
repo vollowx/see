@@ -50,11 +50,12 @@ CSS properties.
 ### Rare cases conventions
 
 `slotchange` will not be triggered on SSR'd elements, call the handler manually
-in `connectedCallback` with a `queueMicrotask` wrapping it. If you want to
-access a custom element in such events that might not be registered yet, use
-`ensureReady(customElement).then(el => { el.$property })` from
-`src/core/ensure-ready.ts`, and don't use the `connectedCallback` in this case
-to avoid unnecessary calls.
+in `firstUpdated` with a `ensureSlottedReady` before it. If you want to access a
+custom element in such events that might not be registered yet, use
+`ensureReady(thatElement)`, and don't use the other one in this case to avoid
+unnecessary calls.
+
+_* Check out `src/core/ensure-ready.ts`._
 
 Transitions on the host like `border-radius` will be shown at first-paint, use
 `notransition` attribute to block that and use nested `requestAnimationFrame`
