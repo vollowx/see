@@ -1,7 +1,12 @@
 import { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FormAssociated } from './mixins/form-associated.js';
-import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import {
+  InternalsAttached,
+  internals,
+  replaceStates,
+  updateInternals,
+} from './mixins/internals-attached.js';
 
 export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
   // Static hidden registry: Scope (Form or RootNode) -> Name -> Set<Radio>
@@ -10,7 +15,7 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
   #currentName = '';
 
   @property({ type: String }) value: string;
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean }) checked = false;
 
   constructor() {
     super();
@@ -20,7 +25,7 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
     this.#registerToGroup();
-    this.#updateAriaState();
+    this[updateInternals]();
     this.addEventListener('click', this.#handleClick);
     this.addEventListener('keydown', this.#handleKeyDown);
   }
@@ -46,19 +51,17 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
       }
       this[internals].setFormValue(this.checked ? this.value : null);
       this.#updateGroupTabIndices();
-      this.dispatchEvent(
-        new Event('change', { bubbles: true, composed: true })
-      );
     }
 
     if (changedProperties.has('disabled') || changedProperties.has('checked'))
-      this.#updateAriaState();
+      this[updateInternals]();
   }
 
   #handleClick(): void {
     if (this.disabled || this.checked) return;
     this.checked = true;
     this.focus();
+    this.#dispatchEvents();
   }
 
   #handleKeyDown(event: KeyboardEvent): void {
@@ -67,7 +70,10 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
     switch (event.key) {
       case ' ':
         event.preventDefault();
-        if (!this.checked) this.checked = true;
+        if (!this.checked) {
+          this.checked = true;
+          this.#dispatchEvents();
+        }
         break;
       case 'ArrowDown':
       case 'ArrowRight':
@@ -123,19 +129,18 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
           this.#updateGroupTabIndices(group);
         }
       }
-      if (scopeMap.size === 0)
-        Radio.#registry.delete(this.#currentScope);
+      if (scopeMap.size === 0) Radio.#registry.delete(this.#currentScope);
     }
 
     this.#currentScope = null;
     this.#currentName = '';
   }
 
-  #getGroupRadios(): Radio[] {
-    if (!this.name) return [this];
-    const scope = this.#getScope();
-    const group = Radio.#registry.get(scope)?.get(this.name);
-    return group ? Array.from(group) : [this];
+  #getGroupRadios(): Iterable<Radio> {
+    if (!this.#currentName || !this.#currentScope) return [this];
+    return (
+      Radio.#registry.get(this.#currentScope)?.get(this.#currentName) ?? [this]
+    );
   }
 
   #uncheckSiblings(): void {
@@ -144,11 +149,17 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
       if (radio !== this && radio.checked) radio.checked = false;
   }
 
-  #updateGroupTabIndices(groupSet?: Set<Radio>): void {
-    const radios = groupSet ? Array.from(groupSet) : this.#getGroupRadios();
-    if (radios.length === 0) return;
+  #updateGroupTabIndices(groupSet?: Iterable<Radio>): void {
+    const radios = groupSet ?? this.#getGroupRadios();
 
-    const hasChecked = radios.some((r) => r.checked && !r.disabled);
+    let hasChecked = false;
+    for (const r of radios) {
+      if (r.checked && !r.disabled) {
+        hasChecked = true;
+        break;
+      }
+    }
+
     let enabledFound = false;
 
     for (const radio of radios) {
@@ -160,7 +171,9 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
   }
 
   #navigateGroup(direction: 1 | -1): void {
-    const radios = this.#getGroupRadios().filter((r) => !r.disabled);
+    const radios = Array.from(this.#getGroupRadios()).filter(
+      (r) => !r.disabled
+    );
 
     if (radios.length <= 1) return;
 
@@ -173,14 +186,22 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
     targetRadio.focus();
   }
 
-  #updateAriaState(): void {
+  override [updateInternals](): void {
     this[internals].ariaChecked = String(this.checked);
     this[internals].ariaDisabled = String(this.disabled);
+    this[replaceStates](['checked'], [this.checked ? 'checked' : null]);
+  }
+
+  #dispatchEvents() {
+    this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
   }
 
   formResetCallback(): void {
     this.checked = this.hasAttribute('checked');
   }
 
-  // TODO: formStateRestoreCallback
+  formStateRestoreCallback(state: string | null): void {
+    this.checked = state === this.value;
+  }
 }

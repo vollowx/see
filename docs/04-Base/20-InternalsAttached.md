@@ -7,6 +7,7 @@ import { LitElement } from 'lit';
 import {
   InternalsAttached,
   internals,
+  updateInternals,
   replaceStates
 } from '@vollowx/seele/base/mixins/internals-attached.js';
 
@@ -23,10 +24,8 @@ name          | description
 
 signature                                                         | description
 ---                                                               | ---
+`[updateInternals]() -> void`                                     | Helper function, implemented by subclasses
 `[replaceStates](del: Array<string>, add: Array<string>) -> void` | Helper function, replace `del` with `add`
-
-`internals` and `replaceStates` is a symbol that can be imported from the same
-file.
 
 [lit-ele]: https://lit.dev/docs/api/LitElement/
 [ele-internals]: https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals

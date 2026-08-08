@@ -3,10 +3,12 @@ import { LitElement } from 'lit';
 export const internals = Symbol('internals');
 const privateInternals = Symbol('privateInternals');
 
+export const updateInternals = Symbol('updateInternals');
 export const replaceStates = Symbol('replaceStates');
 
 export declare class InternalsAttachedInterface {
   [internals]: ElementInternals;
+  [updateInternals]?(): void;
   [replaceStates](del: Array<string>, add: Array<string>): void;
 }
 

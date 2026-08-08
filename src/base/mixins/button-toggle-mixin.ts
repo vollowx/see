@@ -1,6 +1,10 @@
 import { property } from 'lit/decorators.js';
-import { internals, replaceStates } from './internals-attached.js';
-import { Button, updateInternals } from '../button.js';
+import {
+  internals,
+  updateInternals,
+  replaceStates,
+} from './internals-attached.js';
+import { Button } from '../button.js';
 
 const PROPERTY_FROM_ARIA_PRESSED = {
   true: 'checked',

@@ -38,7 +38,7 @@
   will-change: r, stroke-width;
 }
 
-:host([checked]) .ring {
+:host(:state(checked)) .ring {
   stroke: var(--md-sys-color-primary);
 }
 
@@ -48,7 +48,7 @@
   will-change: r;
 }
 
-:host([checked]) .dot {
+:host(:state(checked)) .dot {
   r: 5px;
 }
 

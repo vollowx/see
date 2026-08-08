@@ -1,11 +1,13 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import {
+  InternalsAttached,
+  internals,
+  updateInternals,
+} from './mixins/internals-attached.js';
 import { FormAssociated } from './mixins/form-associated.js';
 import { hiddenStyles } from './hidden-styles.css.js';
-
-export const updateInternals = Symbol('updateInternals');
 
 const Base = FormAssociated(InternalsAttached(LitElement));
 
@@ -47,7 +49,7 @@ export class Button extends Base {
     if (changed.has('disabled')) this[updateInternals]();
   }
 
-  [updateInternals]() {
+  override [updateInternals]() {
     this.tabIndex = this.disabled ? -1 : 0;
     this[internals].ariaDisabled = String(this.disabled);
   }
