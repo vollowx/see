@@ -1,0 +1,74 @@
+:host {
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  justify-content: flex-start;
+  text-decoration: none;
+  width: max-content;
+}
+
+.pill {
+  color: var(--md-sys-color-on-surface-variant);
+  display: grid;
+  grid-template: '. start icon . label end .' 56px / 20px 16px 24px 8px 1fr 16px 20px;
+  grid-template-columns: 20px 16px 24px 0 0fr 16px 20px;
+  grid-template-rows: 32px;
+  place-self: center;
+  position: relative;
+}
+
+md-ripple {
+  border-radius: 9999px;
+  grid-column: start-start / end-end;
+  grid-row: 1;
+  position: relative;
+}
+
+::slotted(*) {
+  block-size: 1em;
+  fill: currentcolor;
+  font-size: 24px;
+  inline-size: 1em;
+  place-self: center;
+  position: absolute;
+}
+::slotted([slot='selected']) {
+  opacity: 0;
+}
+
+.label-inside {
+  font: var(--md-sys-typography-label-large);
+  display: none;
+}
+
+.label-outside {
+  display: block;
+  font: var(--md-sys-typography-label-medium);
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  pointer-events: none;
+  text-align: center;
+  width: 96px;
+  word-break: break-word;
+}
+
+:host([selected]) {
+  .pill {
+    color: var(--md-sys-color-on-secondary-container);
+  }
+  md-ripple {
+    background-color: var(--md-sys-color-secondary-container);
+  }
+
+  &::slotted([slot='selected']) {
+    opacity: 1;
+  }
+  &::slotted(:not([slot='selected'])) {
+    opacity: 0;
+  }
+
+  .label-outside {
+    color: var(--md-sys-color-secondary);
+  }
+}

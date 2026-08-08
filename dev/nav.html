@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-md-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navigation*</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400;0,17..18,700;1,17..18,400;1,17..18,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./shared.css" />
+    <script type="module" src="./shared.ts"></script>
+  </head>
+  <body style="margin: 0">
+    <dev-configurator></dev-configurator>
+
+    <md-nav-rail>
+      <md-icon-button slot="icon-button" size="m"><md-icon>menu</md-icon></md-icon-button>
+      <md-nav-rail-item label="All">
+        <md-icon>edit</md-icon>
+        <md-icon slot="selected">edit</md-icon>
+      </md-nav-rail-item>
+      <md-nav-rail-item label="Music" selected>
+        <md-icon>edit</md-icon>
+        <md-icon slot="selected">edit</md-icon>
+      </md-nav-rail-item>
+      <md-nav-rail-item label="Podcasts">
+        <md-icon>edit</md-icon>
+        <md-icon slot="selected">edit</md-icon>
+      </md-nav-rail-item>
+      <md-nav-rail-item label="Settings">
+        <md-icon>edit</md-icon>
+        <md-icon slot="selected">edit</md-icon>
+      </md-nav-rail-item>
+    </md-nav-rail>
+  </body>
+</html>

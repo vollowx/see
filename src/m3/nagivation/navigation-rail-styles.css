@@ -1,0 +1,39 @@
+:host {
+  background-color: var(--md-sys-color-surface-container);
+  height: 100%;
+  overflow: hidden auto;
+  padding-top: 44px;
+  width: 96px;
+  display: grid;
+  flex-shrink: 0;
+  gap: 8px;
+  grid-template-rows: min-content auto;
+  justify-content: space-between;
+  overflow: visible;
+  padding-bottom: 20px;
+  -webkit-user-select: none;
+  user-select: none;
+  z-index: 10;
+}
+
+::slotted([slot='icon-button']) {
+  position: sticky;
+  top: -44px;
+  z-index: 10;
+  place-self: center;
+}
+
+.items {
+  display: grid;
+  grid-template-areas: 'stack';
+}
+slot:not([name]) {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  grid-area: stack;
+  list-style: none;
+  padding: 0;
+  position: relative;
+  /* width: 360px; */
+}
