@@ -41,12 +41,9 @@ export class M3Checkbox extends Checkbox {
     `;
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
+  override firstUpdated() {
     // SSR'd <md-checkbox> components don't have their labels set up on time
-    this.updateComplete.then(() => {
-      this.$ripple.attach(this, true);
-    });
+    this.$ripple.attach(this, true);
   }
 }
 

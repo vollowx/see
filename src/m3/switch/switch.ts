@@ -60,9 +60,6 @@ export class M3Switch extends ToggleButton {
 
   override connectedCallback() {
     super.connectedCallback();
-    this.updateComplete.then(() => {
-      this.$ripple.attach(this, true);
-    });
     this.addEventListener('pointerdown', this.#handlePointerDown);
     this.addEventListener('pointerup', this.#handlePointerUp);
   }
@@ -71,6 +68,10 @@ export class M3Switch extends ToggleButton {
     this.removeEventListener('pointerdown', this.#handlePointerDown);
     this.removeEventListener('pointerup', this.#handlePointerUp);
     super.disconnectedCallback();
+  }
+  override firstUpdated() {
+    // SSR'd <md-switch> components don't have their labels set up on time
+    this.$ripple.attach(this, true);
   }
 
   #pointerDownX = 0;

@@ -1,3 +1,8 @@
+/**
+ * Reference:
+ * https://android.googlesource.com/platform/frameworks/base/+/HEAD/core/res/res/anim/btn_radio_to_on_mtrl_ring_outer_path_animation.xml
+ */
+
 :host {
   /* To optimize the final code size only */
   --_d: var(--md-sys-motion-effects-default-duration);
@@ -18,108 +23,144 @@
   width: 40px;
 }
 
-:host::before,
-.middle,
-:host::after {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  border-radius: 50%;
-  animation-fill-mode: forwards !important;
-}
-
-/* outer, middle and inner */
-:host::before {
-  z-index: 1;
+.icon {
   height: 20px;
   width: 20px;
-  background-color: var(--md-sys-color-on-surface-variant);
-  transition: background var(--_default);
-}
-.middle {
-  z-index: 2;
-  height: 16px;
-  width: 16px;
-  background-color: var(--md-sys-color-surface);
-}
-:host::after {
-  z-index: 3;
-  height: 10px;
-  width: 10px;
-  background-color: var(--md-sys-color-primary);
-  transform: scale(0);
+  z-index: 1;
 }
 
-/* NOTE: tried to mimic the animation from Android instead of m3.material.io */
-:host(:state(unchecking)) .middle {
-  animation: uncheck-mid-2 var(--_slow) var(--_d);
+.ring {
+  fill: none;
+  r: 9px;
+  stroke: var(--md-sys-color-on-surface-variant);
+  stroke-width: 2px;
+  transition: stroke var(--_default);
+  will-change: r, stroke-width;
 }
-:host(:state(unchecking))::after {
+
+:host([checked]) .ring {
+  stroke: var(--md-sys-color-primary);
+}
+
+.dot {
+  fill: var(--md-sys-color-primary);
+  r: 0px;
+  will-change: r;
+}
+
+:host([checked]) .dot {
+  r: 5px;
+}
+
+:host(:state(checking)) .ring {
   animation:
-    uncheck-inner-1 var(--_default),
-    uncheck-inner-2 var(--_slow) var(--_d);
+    check-ring-1 var(--_default),
+    check-ring-2 var(--_slow) var(--_d);
 }
 
-:host([checked])::before {
-  background-color: var(--md-sys-color-primary);
-}
-:host([checked])::after {
-  transform: scale(1);
-}
-
-:host(:state(checking)) .middle {
+:host(:state(checking)) .dot {
   animation:
-    check-mid-1 var(--_default),
-    check-mid-2 var(--_slow) var(--_d);
-}
-:host(:state(checking))::after {
-  animation:
-    check-inner-1 var(--_default),
-    check-inner-2 var(--_slow) var(--_d);
+    check-dot-1 var(--_default),
+    check-dot-2 var(--_slow) var(--_d);
 }
 
-@keyframes uncheck-mid-2 {
-  0%, 100% {
-    z-index: 4;
-  }
+@keyframes check-ring-1 {
   0% {
-    transform: scale(0);
+    r: 9px;
+    stroke-width: 2px;
   }
   100% {
-    transform: scale(1);
-  }
-}
-@keyframes uncheck-inner-1 {
-  0% {
-    transform: scale(1);
-    background-color: var(--md-sys-color-primary);
-  }
-  100% {
-    transform: scale(1.6);
-    background-color: var(--md-sys-color-on-surface-variant);
-  }
-}
-@keyframes uncheck-inner-2 {
-  0% {
-    transform: scale(1.6);
-  }
-  100% {
-    transform: scale(1.6);
+    r: 4.5px;
+    stroke-width: 9px;
   }
 }
 
-@keyframes check-mid-1 { 0% { transform: scale(1); }     100% { transform: scale(0); } }
-@keyframes check-mid-2 { 0% { transform: scale(0.625); } 100% { transform: scale(1); } }
-@keyframes check-inner-1 { 0%, 100% { transform: scale(0); } }
-@keyframes check-inner-2 { 0%, 100% { transform: scale(1); } }
+@keyframes check-ring-2 {
+  0% {
+    r: 8px;
+    stroke-width: 2px;
+  }
+  100% {
+    r: 9px;
+    stroke-width: 2px;
+  }
+}
+
+@keyframes check-dot-1 {
+  0%,
+  100% {
+    r: 0px;
+  }
+}
+
+@keyframes check-dot-2 {
+  0% {
+    r: 7px;
+  }
+  100% {
+    r: 5px;
+  }
+}
+
+:host(:state(unchecking)) .ring {
+  animation:
+    uncheck-ring-1 var(--_default),
+    uncheck-ring-2 var(--_slow) var(--_d);
+}
+
+:host(:state(unchecking)) .dot {
+  animation: uncheck-dot-1 var(--_default);
+}
+
+@keyframes uncheck-ring-1 {
+  0% {
+    r: 9px;
+    stroke: var(--md-sys-color-primary);
+    stroke-width: 2px;
+  }
+  100% {
+    r: 8px;
+    stroke: var(--md-sys-color-on-surface-variant);
+    stroke-width: 2px;
+  }
+}
+
+@keyframes uncheck-ring-2 {
+  0% {
+    r: 4.5px;
+    stroke-width: 9px;
+  }
+  100% {
+    r: 9px;
+    stroke-width: 2px;
+  }
+}
+
+@keyframes uncheck-dot-1 {
+  0% {
+    fill: var(--md-sys-color-primary);
+    r: 5px;
+  }
+  100% {
+    fill: var(--md-sys-color-on-surface-variant);
+    r: 7.5px;
+  }
+}
 
 :host([disabled]) {
   pointer-events: none;
 }
 
-:host([disabled])::before,
-:host([disabled])::after {
-  background: color-mix(
+:host([disabled]) .ring {
+  stroke: color-mix(
+    in srgb,
+    var(--md-sys-color-on-surface) 38%,
+    transparent
+  );
+}
+
+:host([disabled]) .dot {
+  fill: color-mix(
     in srgb,
     var(--md-sys-color-on-surface) 38%,
     transparent
@@ -131,8 +172,12 @@
     --md-sys-color-primary: SelectedItem;
     --md-sys-color-on-surface-variant: CanvasText;
   }
-  :host(:disabled)::before,
-  :host(:disabled)::after {
-    background: GrayText;
+
+  :host(:disabled) .ring {
+    stroke: GrayText;
+  }
+
+  :host(:disabled) .dot {
+    fill: GrayText;
   }
 }
