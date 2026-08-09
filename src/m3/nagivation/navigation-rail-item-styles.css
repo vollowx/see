@@ -4,21 +4,21 @@
   display: grid;
   grid-template-rows: 40px 1fr;
   justify-content: flex-start;
-  text-decoration: none;
+  outline: 0;
+  position: relative;
   width: max-content;
 }
 
-.pill {
-  color: var(--md-sys-color-on-surface-variant);
+.pill-root {
   display: grid;
-  grid-template: '. start icon . label end .' 56px / 20px 16px 24px 8px 1fr 16px 20px;
+  grid-template-areas: '. start icon . label end .';
   grid-template-columns: 20px 16px 24px 0 0fr 16px 20px;
   grid-template-rows: 32px;
   place-self: center;
   position: relative;
 }
 
-md-ripple {
+.pill {
   border-radius: 9999px;
   grid-column: start-start / end-end;
   grid-row: 1;
@@ -33,7 +33,7 @@ md-ripple {
   place-self: center;
   position: absolute;
 }
-::slotted([slot='selected']) {
+::slotted([slot='active']) {
   opacity: 0;
 }
 
@@ -53,7 +53,7 @@ md-ripple {
   word-break: break-word;
 }
 
-:host([selected]) {
+:host([active]) {
   .pill {
     color: var(--md-sys-color-on-secondary-container);
   }
@@ -61,10 +61,10 @@ md-ripple {
     background-color: var(--md-sys-color-secondary-container);
   }
 
-  &::slotted([slot='selected']) {
+  &::slotted([slot='active']) {
     opacity: 1;
   }
-  &::slotted(:not([slot='selected'])) {
+  &::slotted(:not([slot='active'])) {
     opacity: 0;
   }
 

@@ -6,7 +6,7 @@
   width: 96px;
   display: grid;
   flex-shrink: 0;
-  gap: 8px;
+  gap: 40px;
   grid-template-rows: min-content auto;
   justify-content: space-between;
   overflow: visible;
@@ -16,11 +16,15 @@
   z-index: 10;
 }
 
-::slotted([slot='icon-button']) {
+.actions {
+  display: grid;
   position: sticky;
   top: -44px;
   z-index: 10;
   place-self: center;
+}
+::slotted(md-fab) {
+  box-shadow: none;
 }
 
 .items {
@@ -35,5 +39,4 @@ slot:not([name]) {
   list-style: none;
   padding: 0;
   position: relative;
-  /* width: 360px; */
 }

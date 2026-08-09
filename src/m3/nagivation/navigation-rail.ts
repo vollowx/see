@@ -12,8 +12,10 @@ export class M3NavigationRail extends LitElement {
   static override styles = [navigationRailStyles];
   override render() {
     return html`
-      <slot name="icon-button"></slot>
-      <slot name="fab"></slot>
+      <div class="actions">
+        <slot name="menu"></slot>
+        <slot name="fab"></slot>
+      </div>
       <div class="items">
         <slot></slot>
       </div>
