@@ -1,5 +1,6 @@
 ---
 title: Material You Expressive - Playground
+active: playground
 components:
   - playground-m3
 ---
