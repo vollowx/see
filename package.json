@@ -20,7 +20,7 @@
   "files": [
     "src/**/*.js",
     "src/**/*.d.ts",
-    "src/m3/system/*.css",
+    "src/m3/styles/*.css",
     "custom-elements.json",
     "LICENSE",
     "README.md"
