@@ -1,5 +1,6 @@
-@import '../src/m3/system/base.css';
-@import '../src/m3/system/defaults.css';
+@import '../src/m3/styles/base.css';
+@import '../src/m3/styles/motion-expressive.css';
+@import '../src/m3/styles/defaults.css';
 
 :root[data-md-theme='light'] {
   --md-sys-color-background: #f8faf0;
@@ -85,21 +86,8 @@
 
 :root {
   --_icon-font-config: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  --md-sys-typography-family: 'Google Sans', sans-serif;
-
-  --md-sys-motion-spatial-fast: cubic-bezier(0.42, 1.67, 0.21, 0.9);
-  --md-sys-motion-spatial-fast-duration: 350ms;
-  --md-sys-motion-spatial-default: cubic-bezier(0.38, 1.21, 0.22, 1);
-  --md-sys-motion-spatial-default-duration: 500ms;
-  --md-sys-motion-spatial-slow: cubic-bezier(0.39, 1.29, 0.35, 0.98);
-  --md-sys-motion-spatial-slow-duration: 650ms;
-
-  --md-sys-motion-effects-fast: cubic-bezier(0.31, 0.94, 0.34, 1);
-  --md-sys-motion-effects-fast-duration: 150ms;
-  --md-sys-motion-effects-default: cubic-bezier(0.34, 0.8, 0.34, 1);
-  --md-sys-motion-effects-default-duration: 200ms;
-  --md-sys-motion-effects-slow: cubic-bezier(0.34, 0.88, 0.34, 1);
-  --md-sys-motion-effects-slow-duration: 300ms;
+  --md-ref-typeface-brand: serif;
+  --md-ref-typeface-plain: 'Google Sans', sans-serif;
 }
 
 a:not(:hover):not(:focus-visible) {
@@ -107,7 +95,6 @@ a:not(:hover):not(:focus-visible) {
 }
 
 body {
-  font: var(--md-sys-typography-body-large);
   margin: 16px;
   min-height: 100dvh;
 }

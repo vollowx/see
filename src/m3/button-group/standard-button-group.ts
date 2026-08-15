@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { customElement } from '../../core/decorators.js';
 import { ensureSlottedReady } from '../../core/ensure-ready.js';
-import { getSpring } from '../system/motion.js';
+import { getSpring } from '../styles/motion.js';
 import { standardButtonGroupStyles } from './standard-button-group-styles.css.js';
 
 const EXPAND_FACTOR = 1.15;

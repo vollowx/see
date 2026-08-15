@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 
 import { Tab } from '../../base/tab.js';
-import { getSpring } from '../system/motion.js';
+import { getSpring } from '../styles/motion.js';
 import '../focus-ring/focus-ring.js';
 import '../ripple/ripple.js';
 

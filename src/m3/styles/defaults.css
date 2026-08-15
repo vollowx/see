@@ -2,7 +2,7 @@ body {
   accent-color: var(--md-sys-color-primary);
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
-  font-family: var(--md-sys-typography-family);
+  font: var(--md-sys-typography-body-large);
 }
 
 ::selection {
