@@ -28,7 +28,7 @@ tasks:
                    cp -r ../seele/docs/ ./docs/
     - build-docs:  |
                    cd seele-docs-skeleton
-                   bun run build
+                   SK_SEELE_VERSION=HEAD SK_NOT_DIRTY=true bun run build
     - pack-docs:   |
                    cd seele-docs-skeleton
                    tar -C _site -cvz . > site.tar.gz
