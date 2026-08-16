@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, isServer } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { customElement } from '../../core/decorators.js';
 import { ensureSlottedReady } from '../../core/ensure-ready.js';
@@ -26,17 +26,26 @@ export class M3StandardButtonGroup extends LitElement {
     return html`<slot @slotchange="${this.#handleSlotChange}"></slot>`;
   }
 
+  constructor() {
+    super();
+    if (!isServer) {
+      this.addEventListener('pointerdown', this.#handlePointerDown);
+      this.addEventListener('keydown', this.#handleKeyDown, { capture: true });
+    }
+  }
   override connectedCallback() {
     super.connectedCallback();
 
-    this.addEventListener('pointerdown', this.#handlePointerDown);
-    this.addEventListener('keydown', this.#handleKeyDown, { capture: true });
+    const signal = (this.#abortController = new AbortController()).signal;
+    window.addEventListener('pointerup', this.#reset, { signal });
+    window.addEventListener('pointercancel', this.#reset, { signal });
+    window.addEventListener('keyup', this.#reset, { capture: true, signal });
 
-    window.addEventListener('pointerup', this.#reset);
-    window.addEventListener('pointercancel', this.#reset);
-    window.addEventListener('keyup', this.#reset, { capture: true });
     this.#resizeObserver = new ResizeObserver((entries) => {
-      if (this.#activeIndex !== -1) return; // Skip if animating
+      const isAnimating =
+        this.#activeIndex !== -1 ||
+        this.$buttons.some((btn) => btn[shapeAnimation]);
+      if (isAnimating) return; // Skip if animating
 
       entries.forEach((entry) => {
         const target = entry.target as HTMLElement;
@@ -44,7 +53,7 @@ export class M3StandardButtonGroup extends LitElement {
         if (index !== -1) {
           const currentWidth = target.style.width;
           target.style.width = '';
-          this.#baseWidths[index] = entry.target.getBoundingClientRect().width;
+          this.#baseWidths[index] = target.getBoundingClientRect().width;
           if (currentWidth) target.style.width = currentWidth;
         }
       });
@@ -55,14 +64,12 @@ export class M3StandardButtonGroup extends LitElement {
     this.#handleSlotChange();
   }
   override disconnectedCallback() {
-    window.removeEventListener('pointerup', this.#reset);
-    window.removeEventListener('pointercancel', this.#reset);
-    window.removeEventListener('keyup', this.#reset, { capture: true });
+    this.#abortController.abort();
     this.#resizeObserver.disconnect();
-
     super.disconnectedCallback();
   }
 
+  #abortController!: AbortController;
   #activeIndex = -1;
   #resizeObserver: ResizeObserver;
   #baseWidths: Array<number> = [];
@@ -100,42 +107,40 @@ export class M3StandardButtonGroup extends LitElement {
     const pressedBaseWidth =
       pressedIndex !== -1 ? this.#baseWidths[pressedIndex] : 0;
 
-    const expansionDelta = pressedBaseWidth * (EXPAND_FACTOR - 1);
     const isPressedAtEdge =
       pressedIndex === 0 || pressedIndex === this.$buttons.length - 1;
+    const delta =
+      (pressedBaseWidth * (EXPAND_FACTOR - 1)) / (isPressedAtEdge ? 1 : 2);
+    const spring = getSpring(this, 'spatial', 'fast');
 
     this.$buttons.forEach((btn, i) => {
       const currentWidth = btn.getBoundingClientRect().width;
       let targetWidth = this.#baseWidths[i];
 
       if (pressedIndex !== -1) {
-        if (i === pressedIndex) {
-          targetWidth = pressedBaseWidth * EXPAND_FACTOR;
-        } else if (Math.abs(i - pressedIndex) === 1) {
-          if (isPressedAtEdge)
-            targetWidth = this.#baseWidths[i] - expansionDelta;
-          else targetWidth = this.#baseWidths[i] - expansionDelta / 2;
-        }
+        if (i === pressedIndex) targetWidth = pressedBaseWidth * EXPAND_FACTOR;
+        else if (Math.abs(i - pressedIndex) === 1) targetWidth -= delta;
       }
 
-      const spring = getSpring(this, 'spatial', 'fast');
-
-      if (btn[shapeAnimation]) btn[shapeAnimation].cancel();
-
-      btn[shapeAnimation] = btn.animate(
+      btn[shapeAnimation]?.cancel();
+      const anim = (btn[shapeAnimation] = btn.animate(
         [{ width: `${currentWidth}px` }, { width: `${targetWidth}px` }],
         {
           ...spring,
           fill: 'forwards',
         }
-      );
-
-      btn[shapeAnimation].onfinish = () => {
-        if (pressedIndex === -1) {
-          btn.style.width = '';
-          btn[shapeAnimation].cancel();
-        }
-      };
+      ));
+      anim.finished
+        .then(() => {
+          if (btn[shapeAnimation] === anim) {
+            if (pressedIndex === -1) {
+              btn.style.width = '';
+              anim.cancel();
+            }
+            delete btn[shapeAnimation];
+          }
+        })
+        .catch(() => {});
     });
   }
 }
