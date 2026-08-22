@@ -1,8 +1,8 @@
 :host {
   background-color: var(--md-sys-color-surface-container);
+  box-sizing: border-box;
   height: 100%;
   overflow: hidden auto;
-  padding-top: 44px;
   width: 96px;
   display: grid;
   flex-shrink: 0;
@@ -10,7 +10,9 @@
   grid-template-rows: min-content auto;
   justify-content: space-between;
   overflow: visible;
-  padding-bottom: 20px;
+  /* padding-top: 44px; */
+  /* Documented as 44 but that includes the top app bar or system top bar */
+  padding-block: 20px;
   -webkit-user-select: none;
   user-select: none;
   z-index: 10;
@@ -39,4 +41,7 @@ slot:not([name]) {
   list-style: none;
   padding: 0;
   position: relative;
+}
+::slotted([end]) {
+  margin-block-start: auto;
 }

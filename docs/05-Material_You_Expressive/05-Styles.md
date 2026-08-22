@@ -1,3 +1,7 @@
+---
+title: Styles - seele/m3
+---
+
 # Styles
 
 "Styles" as per [m3.material.io/styles](https://m3.material.io/styles).

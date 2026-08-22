@@ -1,3 +1,7 @@
+---
+title: Compatibility - seele
+---
+
 # Compatibility
 
 seele relies on the following modern web standards:

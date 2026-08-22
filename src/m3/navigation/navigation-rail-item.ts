@@ -25,8 +25,8 @@ export class M3NavigationRailItem extends Button {
           <md-focus-ring></md-focus-ring>
           <md-ripple></md-ripple>
         </div>
-        <slot></slot>
-        <slot name="active"></slot>
+        <slot aria-hidden="true"></slot>
+        <slot aria-hidden="true" name="active"></slot>
         <span class="label-inside">${this.label}</span>
       </div>
       <span class="label-outside">${this.label}</span>

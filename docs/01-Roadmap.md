@@ -1,3 +1,7 @@
+---
+title: Roadmap - seele
+---
+
 # Roadmap
 
 This roadmap outlines the current and future goals for seele.

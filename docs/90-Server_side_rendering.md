@@ -1,3 +1,7 @@
+---
+title: SSR - seele
+---
+
 # Rendering seele server-side
 
 ## Astro

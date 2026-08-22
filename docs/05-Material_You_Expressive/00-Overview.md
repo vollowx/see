@@ -1,3 +1,7 @@
+---
+title: Overview - seele/m3
+---
+
 # Material You Expressive
 
 Homepage: [m3.material.io](https://m3.material.io)
@@ -39,7 +43,7 @@ Others:
 * Progress indicator
 * [Menu](./10-Menu.md)
 * Navigation drawer
-* Navigation rail
+* [Navigation rail](./10-Navigation_rail.md)
 * [Switch](./10-Switch.md)
 * [Tabs](./10-Tabs.md)
 * [Toolbar](./10-Toolbar.md)
