@@ -1,4 +1,5 @@
 ---
+title: Checkbox component - seele/m3
 components:
   - m3/checkbox/checkbox
 ---
@@ -27,9 +28,9 @@ import '@vollowx/seele/m3/checkbox/checkbox.js';
 <md-checkbox
   indeterminate
   aria-label="Agree to terms and conditions"
-  id="checkbox">
+  id="checkbox1">
 </md-checkbox>
-<label for="checkbox">Not recommended like this</label>
+<label for="checkbox1">Not recommended like this</label>
 ```
 
 Note that checkboxes are not automatically labelled by `<label>` elements and

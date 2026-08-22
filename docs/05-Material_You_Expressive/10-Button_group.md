@@ -1,5 +1,5 @@
 ---
-title: Button group - seele/m3
+title: Button group component - seele/m3
 components:
   - m3/button/common-button-toggle
   - m3/button/icon-button-toggle

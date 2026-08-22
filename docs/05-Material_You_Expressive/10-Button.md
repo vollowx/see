@@ -1,4 +1,5 @@
 ---
+title: Button component - seele/m3
 components:
   - m3/button/common-button
   - m3/button/common-button-toggle
@@ -7,6 +8,7 @@ components:
 # Button
 
 - [Material Design](overview)
+- [WAI-ARIA](wai-aria)
 
 ```typescript
 import '@vollowx/seele/m3/button/common-button.js';
@@ -69,3 +71,4 @@ name        | description
 | `variant`      | Reflected string; `filled`, `tonal`, `elevated`, `outlined` or `text`; `filled` by default |
 
 [overview]: https://m3.material.io/components/buttons/overview
+[wai-aria]: https://www.w3.org/WAI/ARIA/apg/patterns/button/

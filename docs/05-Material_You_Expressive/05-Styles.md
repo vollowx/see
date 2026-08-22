@@ -1,6 +1,6 @@
 # Styles
 
-Styles as per [m3.material.io/styles](https://m3.material.io/styles).
+"Styles" as per [m3.material.io/styles](https://m3.material.io/styles).
 
 seele/m3 components use CSS variables for styling. To include the styles for
 them, add this to your style files.
@@ -93,6 +93,8 @@ want them to take effect.
   --md-sys-motion-effects-slow-duration: 300ms;
 }
 ```
+
+To use these variables in JS, see [motion API](./20-Motion_API.md).
 
 ## Shape
 
