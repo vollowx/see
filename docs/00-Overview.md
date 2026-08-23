@@ -11,9 +11,13 @@ seele (**S**tandard **E**xtensible **Ele**ments) is a extensible
 keyboard-control.
 
 <!-- @uncomment
-<md-button size="xl" style="width: 100%" onclick="navigation.navigate('./m3/playground/')">
+<md-button size="xl" style="width: 100%; margin-block-start: 8px" onclick="navigation.navigate('./m3/playground/')">
   <iconify-icon slot="icon" icon="material-symbols:category-outline"></iconify-icon>
-  Demonstration
+  Playground
+</md-button>
+<md-button variant="tonal" size="l" style="width: 100%; margin-block-start: 8px" onclick="navigation.navigate('https://vollowx.github.io/timor/')">
+  <iconify-icon slot="icon" icon="material-symbols:globe-clock"></iconify-icon>
+  Demo app - Timor
 </md-button>
 <p><i>* As per experience from the Eleventy website, yes, this is probably necessary.</i></p>
 <p><i>* And yes, this button requires Firefox 147 and Safari 26.2 to be a working link.</i></p>
