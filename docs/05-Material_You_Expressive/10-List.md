@@ -46,19 +46,23 @@ import '@vollowx/seele/m3/list/list.js';
 
 ### Slots
 
-| name            | description |
-| ---             | ---         |
-|                 | Content     |
-| `start`         |             |
-| `end`           |             |
-| `overline`      |             |
-| `supporting-text` |           |
+| name                       | description     |
+| ---                        | ---             |
+|                            | Primary content |
+| `start`                    |                 |
+| `overline`                 |                 |
+| `headline`                 |                 |
+| `supporting-text`          |                 |
+| `trailing-supporting-text` |                 |
+| `end`                      |                 |
 
 ### Properties
 
-| name       | description       |
-| ---        | ---               |
-| `selected` | Reflected boolean |
-| `disabled` | Reflected boolean |
+TODO: prefix with $
+
+| name        | description |
+| ---         | ---         |
+| `ripple`    |             |
+| `focusRing` |             |
 
 [overview]: https://m3.material.io/components/lists/overview

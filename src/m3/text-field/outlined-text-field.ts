@@ -10,14 +10,15 @@ import { textFieldStyles } from './text-field-styles.css.js';
 @customElement('md-outlined-text-field')
 export class M3OutlinedTextField extends Input {
   @property({ reflect: true }) label = '';
-  @property({ reflect: true }) supportingText = '';
+  @property({ reflect: true, attribute: 'supporting-text' })
+  supportingText = '';
 
   static override styles = [textFieldStyles];
   override render() {
     return html`
       <md-outlined-field
         label=${this.label}
-        supportingtext=${this.supportingText}
+        supporting-text=${this.supportingText}
         ?populated=${!!this.value}
         ?disabled=${this.disabled}
         ?focused=${this.focused}

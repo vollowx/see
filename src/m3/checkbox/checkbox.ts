@@ -27,7 +27,7 @@ export class M3Checkbox extends Checkbox {
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
-      <md-ripple enterbehavior="none"></md-ripple>
+      <md-ripple enter-behavior="none"></md-ripple>
       <span part="target"></span>
       ${this.renderIcon()}
     `;

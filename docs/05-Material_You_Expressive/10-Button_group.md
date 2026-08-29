@@ -83,4 +83,27 @@ You will need to set `size` for all buttons inside eventually to SSR properly.
 Vice versa, it will not work properly synchronizing this attribute from buttons
 to the group element.
 
+## `M3StandardButtonGroup`
+
+- Inherits [`LitElement`](lit-ele)
+
+### Properties
+
+| name       | description                                                                  |
+| ---        | ---                                                                          |
+| `size`     | Reflected string; `xs`, `s`, or empty; should be the same as slotted buttons |
+| `$buttons` | All slotted button elements                                                  |
+
+## `M3ConnectedButtonGroup`
+
+- Inherits [`LitElement`](lit-ele)
+
+### Properties
+
+| name       | description                                                    |
+| ---        | ---                                                            |
+| `multiple` | Boolean; allow multiple buttons to be checked at the same time |
+| `$buttons` | All slotted toggle-button elements                             |
+
 [overview]: https://m3.material.io/components/button-groups/overview
+[lit-ele]: https://lit.dev/docs/api/LitElement/

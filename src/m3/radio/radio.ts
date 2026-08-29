@@ -21,7 +21,7 @@ export class M3Radio extends Radio {
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
-      <md-ripple enterbehavior="none"></md-ripple>
+      <md-ripple enter-behavior="none"></md-ripple>
       <span part="target"></span>
       <svg class="icon" viewBox="0 0 20 20" aria-hidden="true">
         <circle class="ring" cx="10" cy="10" r="9" />

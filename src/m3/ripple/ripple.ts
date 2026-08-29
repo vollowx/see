@@ -34,9 +34,9 @@ const distance = (
  */
 @customElement('md-ripple', false)
 export class M3Ripple extends Attachable(InternalsAttached(LitElement)) {
-  @property() clickBehavior: 'always' | 'none' = 'always';
-  @property() enterBehavior: 'always' | 'none' = 'always';
-  @property() spaceBehavior: 'always' | 'once' | 'none' = 'once';
+  @property({ attribute: 'click-behavior' }) clickBehavior: 'always' | 'none' = 'always';
+  @property({ attribute: 'enter-behavior' }) enterBehavior: 'always' | 'none' = 'always';
+  @property({ attribute: 'space-behavior' }) spaceBehavior: 'always' | 'once' | 'none' = 'once';
   $ripples: HTMLSpanElement[] = [];
 
   static override styles = [rippleStyles];

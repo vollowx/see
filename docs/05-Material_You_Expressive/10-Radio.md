@@ -56,4 +56,10 @@ instead of Material You guidelines.
 
 - Inherits [`Radio`](../04-Base/10-Radio.md)
 
+### Properties
+
+| name      | description |
+| ---       | ---         |
+| `$ripple` |             |
+
 [overview]: https://m3.material.io/components/radio/overview

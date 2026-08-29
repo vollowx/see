@@ -1,15 +1,22 @@
 # `Dialog`
 
+The dialog is always a modal dialog.
+
+## CSS Parts
+
+| name     | description                   |
+| ---      | ---                           |
+| `dialog` | The native `<dialog>` element |
+
 ## Properties
 
-| name      | description                          |
-| ---       | ---                                  |
-| `$dialog` | The native `<dialog>` element inside |
+| name      | description |
+| ---       | ---         |
+| `$dialog` |             |
 
 ## Methods
 
-| signature                      | description |
-| ---                            | ---         |
-| `open() -> null`               |             |
-| `close() -> null`              |             |
-| `_handleCancel(Event) -> null` |             |
+| signature         | description |
+| ---               | ---         |
+| `show() -> void`  |             |
+| `close() -> void` |             |

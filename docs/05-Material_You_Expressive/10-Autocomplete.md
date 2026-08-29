@@ -42,9 +42,3 @@ import '@vollowx/seele/m3/autocomplete/autocomplete.js';
 | ---     | ---               |
 | `input` | The input field   |
 |         | Options to select |
-
-### Properties
-
-| name    | description                 |
-| ---     | ---                         |
-| `quick` | Boolean; `false` by default |

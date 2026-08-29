@@ -13,7 +13,7 @@ import { selectStyles } from './select-styles.css.js';
  * @slot - options
  */
 @customElement('md-filled-select')
-export class MdFilledSelect extends M3Select {
+export class M3FilledSelect extends M3Select {
   static override styles = [selectStyles];
 
   protected override renderField() {
@@ -27,7 +27,7 @@ export class MdFilledSelect extends M3Select {
         .required=${this.required}
         .error=${this.error}
         .focused=${this.open || this.focused}
-        supportingtext=${this.supportingText}
+        supporting-text=${this.supportingText}
         @click=${this.toggle}
         @keydown=${this._handleFieldKeydown}
         @focus=${() => (this.focused = true)}
@@ -48,6 +48,6 @@ export class MdFilledSelect extends M3Select {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-filled-select': MdFilledSelect;
+    'md-filled-select': M3FilledSelect;
   }
 }

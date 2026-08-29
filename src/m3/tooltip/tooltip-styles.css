@@ -26,7 +26,7 @@
  * Should be added as a CSS variable in popoverController.
  * Should also update M3Menu and M3Select accordingly.
  */
-:host(:state(opening):not([forceinvisible])) {
+:host(:state(opening):not([force-invisible])) {
   color: var(--md-sys-color-inverse-on-surface);
   opacity: 1;
   pointer-events: auto;
@@ -38,13 +38,13 @@
     transform var(--md-sys-motion-spatial-fast-duration)
       var(--md-sys-motion-spatial-fast);
 }
-:host(:state(opened):not([forceinvisible])) {
+:host(:state(opened):not([force-invisible])) {
   color: var(--md-sys-color-inverse-on-surface);
   opacity: 1;
   pointer-events: auto;
   transform: scaleY(1);
 }
-:host(:state(closing):not([forceinvisible])) {
+:host(:state(closing):not([force-invisible])) {
   color: transparent;
   opacity: 0;
   transform: scaleY(0.35);

@@ -34,9 +34,9 @@ import '@vollowx/seele/m3/text-field/outlined-text-field.js';
 
 ### Properties
 
-| name             | description |
-| ---              | ---         |
-| `label`          |             |
-| `supportingText` |             |
+| name             | description                                         |
+| ---              | ---                                                 |
+| `label`          |                                                     |
+| `supportingText` | Reflected string; `supporting-text` as an attribute |
 
 [overview]: https://m3.material.io/components/text-fields/overview

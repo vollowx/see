@@ -45,15 +45,15 @@ always need an `aria-label`.
 name         | description
 ---          | ---
 `icon`       |
-`mark`       |
-`mark-short` |
-`mark-long`  |
+`mark`       | The checkmark container
+`mark-short` | Short leg of the mark
+`mark-long`  | Long leg of the mark
 
 ### Properties
 
 name      | description
 ---       | ---
-`error`   | Reflected boolean; Change its color to error only
+`error`   | Reflected boolean; changes color to error state
 `$ripple` |
 
 [overview]: https://m3.material.io/components/checkbox/overview

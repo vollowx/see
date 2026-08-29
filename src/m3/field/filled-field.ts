@@ -13,9 +13,9 @@ export class M3FilledField extends M3Field {
   protected override renderContainerContent() {
     return html`
       <md-ripple
-        clickbehavior="none"
-        enterbehavior="none"
-        spacebehavior="none"
+        click-behavior="none"
+        enter-behavior="none"
+        space-behavior="none"
       ></md-ripple>
       ${this.renderStart()}
       <div class="middle">

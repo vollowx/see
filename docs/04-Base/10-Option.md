@@ -1,8 +1,9 @@
 # `Option`
 
+- Inherits [`ListItem`](./10-ListItem.md)
+
 ## Properties
 
-name       | description
----        | ---
-`value`    | String
-`selected` | Boolean
+name    | description
+---     | ---
+`value` | Reflected string

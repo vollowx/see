@@ -12,7 +12,7 @@ import { M3Field } from '../field/field.js';
  */
 export abstract class M3Select extends Select {
   @property({ type: String }) label = '';
-  @property({ type: String }) supportingText = '';
+  @property({ type: String, attribute: 'supporting-text' }) supportingText = '';
 
   @state() protected focused = false;
 

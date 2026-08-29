@@ -20,7 +20,7 @@ import '@vollowx/seele/m3/tab/tabs.js';
 <!-- @show -->
 
 ```html
-<md-tabs iconsabove selected="2" style="width: 100%">
+<md-tabs icons-above selected="2" style="width: 100%">
   <md-tab value="1">
     <iconify-icon slot="icon" icon="material-symbols:search"></iconify-icon>
     J. Clarkson
@@ -104,8 +104,6 @@ as a `<md-tab>`, but not supported or documented by Material Design officially.
 
 | name         | description                                      |
 | ---          | ---                                              |
-| `switch`     | Reflected string; `auto` or `manual`             |
-| `selected`   | Reflected string                                 |
 | `iconsAbove` | Reflected boolean; `icons-above` as an attribute |
 
 ## `M3Tab` and `M3SecondaryTab`
@@ -119,6 +117,13 @@ as a `<md-tab>`, but not supported or documented by Material Design officially.
 | ---    | ---         |
 |        | Label       |
 | `icon` |             |
+
+### Properties
+
+| name         | description                                |
+| ---          | ---                                        |
+| `$content`   | The inner content container element        |
+| `$indicator` | The animated indicator element             |
 
 ## `M3TabPanel`
 

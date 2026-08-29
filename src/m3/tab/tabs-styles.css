@@ -22,7 +22,7 @@
   flex: 1;
 }
 
-:host([iconsabove]) {
+:host([icons-above]) {
   --_tab-flex-dir: column;
   --_tab-height: 64px;
   --_tab-gap: 2px;

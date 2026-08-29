@@ -98,7 +98,7 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: String }) placement: Placement = 'bottom-start';
   @property({ type: String }) strategy: Strategy = 'absolute';
   @property({ type: Number }) offset = 0;
-  @property({ type: Number }) windowPadding = 8;
+  @property({ type: Number, attribute: 'window-padding' }) windowPadding = 8;
 
   static override styles = [popupStyles];
   override render() {

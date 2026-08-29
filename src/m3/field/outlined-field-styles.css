@@ -55,7 +55,7 @@
   padding: 0 4px;
 }
 
-:host(:not([haslabel])) .outline-notch {
+:host(:not([has-label])) .outline-notch {
   display: none;
 }
 

@@ -29,12 +29,12 @@ import '@vollowx/seele/m3/divider/divider.js';
 
 ### Properties
 
-| name        | description                                      |
-| ---         | ---                                              |
-| `vertical`  | Reflected boolean; `false` by default            |
-| `inset`     | Reflected boolean; `false` by default            |
+| name         | description                                                          |
+| ---          | ---                                                                  |
+| `vertical`   | Reflected boolean; `false` by default                                |
+| `inset`      | Reflected boolean; `false` by default                                |
 | `insetStart` | Reflected boolean; `inset-start` as an attribute; `false` by default |
-| `insetEnd`  | Reflected boolean; `inset-end` as an attribute; `false` by default |
+| `insetEnd`   | Reflected boolean; `inset-end` as an attribute; `false` by default   |
 
 [overview]: https://m3.material.io/components/divider/overview
 [lit-ele]: https://lit.dev/docs/api/LitElement/

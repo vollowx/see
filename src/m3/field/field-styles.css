@@ -70,9 +70,9 @@
   padding-block: var(--_padding-top) var(--_padding-bottom);
 }
 
-:host([haslabel]:not([focused]):not([populated]))
+:host([has-label]:not([focused]):not([populated]))
   ::slotted(input:placeholder-shown),
-:host([haslabel]:not([focused]):not([populated]))
+:host([has-label]:not([focused]):not([populated]))
   ::slotted(textarea:placeholder-shown) {
   opacity: 0;
 }

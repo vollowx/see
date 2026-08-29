@@ -14,7 +14,8 @@ import { tabsStyles } from './tabs-styles.css.js';
  */
 @customElement('md-tabs')
 export class M3Tabs extends Tabs {
-  @property({ type: Boolean, reflect: true }) iconsAbove = false;
+  @property({ type: Boolean, reflect: true, attribute: 'icons-above' })
+  iconsAbove = false;
 
   static override styles = [tabsStyles];
 

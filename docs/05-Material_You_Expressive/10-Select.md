@@ -33,7 +33,14 @@ import '@vollowx/seele/m3/select/outlined-select.js';
 
 ## `M3FilledSelect` and `M3OutlinedSelect`
 
-- Inherits [`Select`](../04-Base/10-Select.md)
+- Inherits [`Select`](../04-Base/10-Select.md) (via `M3Select`)
+
+### Properties
+
+| name             | description                                         |
+| ---              | ---                                                 |
+| `label`          |                                                     |
+| `supportingText` | Reflected string; `supporting-text` as an attribute |
 
 ## `M3Option`
 

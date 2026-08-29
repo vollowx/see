@@ -23,7 +23,8 @@ function isRTL() {
 @customElement('md-switch')
 export class M3Switch extends ToggleButton {
   @property({ type: Boolean, reflect: true }) icons = false;
-  @property({ type: Boolean, reflect: true }) checkedIconOnly = false;
+  @property({ type: Boolean, reflect: true, attribute: 'checked-icon-only' })
+  checkedIconOnly = false;
 
   @query('md-ripple') $ripple!: M3Ripple;
   @query('[part~="thumb"]') $thumb!: HTMLSpanElement;

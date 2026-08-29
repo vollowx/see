@@ -11,7 +11,7 @@
     var(--md-sys-motion-effects-fast);
 }
 
-:host([haslabel]) {
+:host([has-label]) {
   --_padding-top: 24px;
   --_padding-bottom: 8px;
 }

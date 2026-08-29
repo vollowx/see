@@ -61,3 +61,14 @@ Transitions on the host like `border-radius` will be shown at first-paint, use
 `notransition` attribute to block that and use nested `requestAnimationFrame`
 in `connectedCallback` to remove that attribute. Only one `rAF` will not work
 since the callback is called before the painting.
+
+### Attributes and properties
+
+When a property contains multiple words, like `keepOpenOnBlur`, use kebab-case
+like `keep-open-on-blur` for its attribute binding.
+
+If it is native-like, e.g. `readonly`, `maxlength`, keep it as is as attributes.
+
+For `tabindex` that is supposed to by synchronized to a child element in the
+shadow root, use `data-tabindex`, and such case applies to `role` and `aria-*`,
+too.

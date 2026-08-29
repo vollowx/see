@@ -21,7 +21,7 @@ export class M3IconButtonToggle extends ButtonToggleMixin(M3IconButton) {
   override render() {
     return html`
       <md-focus-ring></md-focus-ring>
-      <md-ripple enterbehavior="always"></md-ripple>
+      <md-ripple enter-behavior="always"></md-ripple>
       <span part="target"></span>
       <slot part="icon unchecked"></slot>
       <slot part="icon checked" name="checked"></slot>

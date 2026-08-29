@@ -13,7 +13,7 @@ import { selectStyles } from './select-styles.css.js';
  * @slot - options
  */
 @customElement('md-outlined-select')
-export class MdOutlinedSelect extends M3Select {
+export class M3OutlinedSelect extends M3Select {
   static override styles = [selectStyles];
 
   protected override renderField() {
@@ -27,7 +27,7 @@ export class MdOutlinedSelect extends M3Select {
         .required=${this.required}
         .error=${this.error}
         .focused=${this.open || this.focused}
-        supportingtext=${this.supportingText}
+        supporting-text=${this.supportingText}
         @click=${this.toggle}
         @keydown=${this._handleFieldKeydown}
         @focus=${() => (this.focused = true)}
@@ -48,6 +48,6 @@ export class MdOutlinedSelect extends M3Select {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-outlined-select': MdOutlinedSelect;
+    'md-outlined-select': M3OutlinedSelect;
   }
 }

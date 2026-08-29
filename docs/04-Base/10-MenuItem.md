@@ -1,9 +1,6 @@
 # `MenuItem`
 
-## Properties
+- Inherits [`ListItem`](./10-ListItem.md)
 
-name         | description
----          | ---
-`value`      | String
-`selected`   | Boolean
-`disabled`   | Boolean
+`MenuItem` extends `ListItem` with ARIA role `menuitem` instead of `option`. No
+additional public API.

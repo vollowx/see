@@ -41,7 +41,7 @@
   }
 }
 
-:host([alignstrategy='fixed']) [part='menu'] {
+:host([align-strategy='fixed']) [part='menu'] {
   position: fixed;
 }
 

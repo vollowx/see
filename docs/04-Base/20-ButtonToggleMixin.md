@@ -14,8 +14,20 @@ class Some extends ButtonToggleMixin(Button) {}
 It is useful when the button and toggle button look identical in your design
 system.
 
+## Events
+
+| name     | description                       |
+| ---      | ---                               |
+| `change` | `detail` is the new boolean value |
+
 ## Properties
 
 name      | description
 ---       | ---
-`checked` | Boolean
+`checked` |
+
+## Methods
+
+| signature           | description                                                |
+| ---                 | ---                                                        |
+| `_toggle() -> void` | Toggles `checked` and dispatches `change`; override to customise |

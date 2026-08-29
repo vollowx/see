@@ -91,13 +91,13 @@ import '@vollowx/seele/m3/dialog/dialog.js';
 
 ### Properties
 
-| name                  | description                                   |
-| ---                   | ---                                           |
-| `$container`          |                                               |
-| `$body`               |                                               |
-| `$icon`               | The slot for icon                             |
-| `$actions`            |                                               |
-| `$actionsPlaceholder` | Used to do layout calc in place of `$actions` |
-| `$scrim`              | Scrim behind the dialog                       |
+| name                  | description                                        |
+| ---                   | ---                                                |
+| `$container`          |                                                    |
+| `$body`               |                                                    |
+| `$icon`               | The icon slot element                              |
+| `$actions`            |                                                    |
+| `$actionsPlaceholder` | Used for layout calculation in place of `$actions` |
+| `$scrim`              |                                                    |
 
 [overview]: https://m3.material.io/components/dialogs/overview

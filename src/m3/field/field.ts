@@ -10,13 +10,15 @@ import { fieldStyles } from './field-styles.css.js';
  */
 export abstract class M3Field extends Field {
   @property({ type: String, reflect: true }) label = '';
-  @property({ type: String, reflect: true }) supportingText = '';
+  @property({ type: String, reflect: true, attribute: 'supporting-text' })
+  supportingText = '';
   @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) error = false;
   @property({ type: Boolean, reflect: true }) focused = false;
   @property({ type: Boolean, reflect: true }) populated = false;
 
-  @property({ type: Boolean, reflect: true }) hasLabel = false;
+  @property({ type: Boolean, reflect: true, attribute: 'has-label' })
+  hasLabel = false;
 
   @state() hasStart = false;
   @state() hasEnd = false;

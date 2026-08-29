@@ -25,7 +25,8 @@ export class Tooltip extends Base {
   @property({ reflect: true }) align: import('@floating-ui/dom').Placement =
     'top';
   @property({ type: Number, reflect: true }) offset = 4;
-  @property({ type: Boolean, reflect: true }) forceInvisible = false;
+  @property({ type: Boolean, reflect: true, attribute: 'force-invisible' })
+  forceInvisible = false;
 
   @query('slot') $slot: HTMLSlotElement;
 
