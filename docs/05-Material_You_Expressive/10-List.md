@@ -58,11 +58,9 @@ import '@vollowx/seele/m3/list/list.js';
 
 ### Properties
 
-TODO: prefix with $
-
-| name        | description |
-| ---         | ---         |
-| `ripple`    |             |
-| `focusRing` |             |
+| name         | description |
+| ---          | ---         |
+| `$ripple`    |             |
+| `$focusRing` |             |
 
 [overview]: https://m3.material.io/components/lists/overview
