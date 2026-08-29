@@ -61,10 +61,10 @@
     background-color: var(--md-sys-color-secondary-container);
   }
 
-  &::slotted([slot='active']) {
+  ::slotted([slot='active']) {
     opacity: 1;
   }
-  &::slotted(:not([slot='active'])) {
+  ::slotted(:not([slot='active'])) {
     opacity: 0;
   }
 
