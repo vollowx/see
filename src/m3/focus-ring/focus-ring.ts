@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { customElement } from '../../core/decorators.js';
-import { focusVisible } from '../../core/focus-visible.js';
+import { focusVisible } from '../../core/focus.js';
 import { Attachable, handleControlChange } from '../../base/mixins/attachable.js';
 import {
   InternalsAttached,

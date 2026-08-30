@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-import { focusVisible } from '../core/focus-visible.js';
+import { focusVisible } from '../core/focus.js';
 import { Attachable, handleControlChange } from './mixins/attachable.js';
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
 import { PopoverController } from './controllers/popover-controller.js';

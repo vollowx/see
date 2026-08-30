@@ -97,7 +97,7 @@ export class M3Dialog extends Dialog {
   };
 
   #opening = false;
-  override show() {
+  override async show() {
     if (this.#opening) return;
 
     this.#clearAnimations();
@@ -163,7 +163,7 @@ export class M3Dialog extends Dialog {
   }
 
   #closing = false;
-  override close() {
+  override async close() {
     if (this.#closing) return;
     this.#clearAnimations();
     this.#closing = true;

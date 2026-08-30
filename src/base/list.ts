@@ -3,7 +3,7 @@ import { property, queryAssignedElements } from 'lit/decorators.js';
 
 import type { ListItem } from './list-item.js';
 
-import { setFocusVisible } from '../core/focus-visible.js';
+import { setFocusVisible } from '../core/focus.js';
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
 import { ListController } from './controllers/list-controller.js';
 

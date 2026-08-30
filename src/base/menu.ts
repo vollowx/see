@@ -4,7 +4,7 @@ import { property, query, queryAssignedElements } from 'lit/decorators.js';
 import type { Placement, Strategy } from '@floating-ui/dom';
 import type { MenuItem } from './menu-item.js';
 
-import { setFocusVisible } from '../core/focus-visible.js';
+import { setFocusVisible } from '../core/focus.js';
 import { Attachable } from './mixins/attachable.js';
 import { InternalsAttached } from './mixins/internals-attached.js';
 import { FocusDelegated } from './mixins/focus-delegated.js';

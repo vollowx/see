@@ -23,6 +23,7 @@ import {
   Strategy,
 } from '@floating-ui/dom';
 
+import { getFirstTabbable } from '../../core/focus.js';
 import { InternalsAttached } from '../mixins/internals-attached.js';
 import {
   Attachable,
@@ -33,59 +34,6 @@ import { transformOriginFromArrow } from '../controllers/popover-controller.js';
 
 import { popupStyles } from './popup-styles.css.js';
 
-// Returns the first tabbable element within an eleent
-//
-// TODO: reverse search?
-export function lookForTabbable(root: Node): HTMLElement | null {
-  const FOCUSABLE_SELECTOR = [
-    'a[href]',
-    'button',
-    'input',
-    'textarea',
-    'select',
-    'summary',
-    '[tabindex]',
-    '[contenteditable=true]',
-  ].join(',');
-
-  const isTabbable = (el: Element): boolean =>
-    el.matches(FOCUSABLE_SELECTOR) &&
-    !el.hasAttribute('disabled') &&
-    el.getAttribute('tabindex') !== '-1';
-
-  if ('shadowRoot' in root && (root as Element).shadowRoot) {
-    const shadowResult = lookForTabbable((root as Element).shadowRoot!);
-    if (shadowResult) return shadowResult;
-  }
-
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (node: Node) => {
-      const el = node as Element;
-      return isTabbable(el) || el.shadowRoot
-        ? NodeFilter.FILTER_ACCEPT
-        : NodeFilter.FILTER_SKIP;
-    },
-  });
-
-  let currentNode = walker.nextNode() as HTMLElement | null;
-
-  while (currentNode) {
-    if (isTabbable(currentNode)) {
-      return currentNode;
-    }
-
-    if (currentNode.shadowRoot) {
-      const shadowFocusable = lookForTabbable(currentNode.shadowRoot);
-      if (shadowFocusable) {
-        return shadowFocusable;
-      }
-    }
-
-    currentNode = walker.nextNode() as HTMLElement | null;
-  }
-
-  return null;
-}
 
 @customElement('complementary-popup')
 export class Popup extends Attachable(InternalsAttached(LitElement)) {
@@ -203,15 +151,12 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   #focusFirstInteractiveElement() {
     if (this.noFocusControl) return;
 
-    const autoFocusEl = this.querySelector('[autofocus]') as HTMLElement | null;
-    if (autoFocusEl) {
-      autoFocusEl.focus();
-      return;
-    }
-
-    const firstFocusable = lookForTabbable(this);
-    if (firstFocusable) {
-      firstFocusable.focus();
+    const autoFocus = this.querySelector<HTMLElement>('[autofocus]');
+    if (autoFocus) {
+      autoFocus.focus();
+    } else {
+      const firstTabbable = getFirstTabbable(this);
+      firstTabbable?.focus();
     }
   }
 

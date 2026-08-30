@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import { query } from 'lit/decorators.js';
+import { getFirstTabbable } from '../core/focus.js';
 
 /**
  * @csspart dialog
@@ -22,11 +23,18 @@ export class Dialog extends LitElement {
     this.close();
   };
 
-  show() {
+  async show() {
     this.$dialog.showModal();
+    const autoFocus = this.querySelector<HTMLElement>('[autofocus]');
+    if (autoFocus) {
+      autoFocus.focus();
+    } else {
+      const firstTabbable = getFirstTabbable(this);
+      firstTabbable?.focus();
+    }
   }
 
-  close() {
+  async close() {
     this.$dialog.close();
   }
 }
