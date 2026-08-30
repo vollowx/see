@@ -1,6 +1,6 @@
 :host {
   background: var(--md-sys-color-surface-container);
-  border-radius: 16px;
+  border-radius: 16px / 46px; /* roughly fixes border-radius being squished during transformation */
   box-shadow: var(--md-sys-elevation-shadow-2);
   color: var(--md-sys-color-on-surface);
 
@@ -11,22 +11,41 @@
     opacity var(--md-sys-motion-effects-fast-duration),
     transform var(--md-sys-motion-spatial-fast-duration)
       var(--md-sys-motion-spatial-fast),
+    border-radius var(--md-sys-motion-spatial-fast-duration)
+      var(--md-sys-motion-spatial-fast),
     display var(--md-sys-motion-spatial-default-duration) allow-discrete,
     overlay var(--md-sys-motion-spatial-default-duration) allow-discrete;
 }
 
+:host([vibrant]) {
+  --md-divider-color: var(--md-sys-color-tertiary);
+  --md-item-supporting-text-color: var(--md-sys-color-on-tertiary-container);
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+
+  ::slotted([selected]) {
+    --md-item-supporting-text-color: var(--md-sys-color-on-tertiary);
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
+  }
+}
+
 slot {
+  display: block;
   opacity: 0;
   transition: opacity 67ms;
 }
 
 :host(:popover-open) {
+  border-radius: 16px;
   opacity: 1;
   transform: scaleY(1);
 
   transition:
     opacity 67ms linear,
     transform var(--md-sys-motion-spatial-default-duration)
+      var(--md-sys-motion-spatial-default),
+    border-radius var(--md-sys-motion-spatial-default-duration)
       var(--md-sys-motion-spatial-default);
 
   slot {
@@ -37,6 +56,7 @@ slot {
 
 @starting-style {
   :host(:popover-open) {
+    border-radius: 16px / 46px;
     opacity: 0;
     transform: scaleY(0.35);
 

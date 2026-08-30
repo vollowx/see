@@ -1,7 +1,6 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { genUniqueId } from '../core/unique-id.js';
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
 import { FormAssociated } from './mixins/form-associated.js';
 
@@ -25,7 +24,6 @@ export class ListItem extends FormAssociated(InternalsAttached(LitElement)) {
     this[internals].role = this._role;
     this.setAttribute('tabindex', '-1');
     this.#updateInternals();
-    if (!this.id) this.id = genUniqueId('item');
   }
 
   protected override updated(changed: Map<string, any>) {
