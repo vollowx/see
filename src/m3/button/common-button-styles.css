@@ -1,7 +1,8 @@
-@layer common-button {
+@layer main {
   :host {
     --_padding: 16px;
     --md-focus-ring-shape: calc(var(--_h) / 2);
+    align-items: center;
     background-color: color-mix(
       in srgb,
       var(--_background-color) var(--_background-opacity, 100%),
@@ -12,9 +13,11 @@
       var(--_text-color) var(--_text-opacity, 100%),
       transparent
     );
+    display: inline-flex;
     font: var(--md-sys-typography-label-large);
     gap: 8px;
-    min-width: 64px;
+    justify-content: center;
+    min-inline-size: 64px;
     padding-inline: var(--_padding);
     transition:
       box-shadow var(--md-sys-motion-effects-default-duration)

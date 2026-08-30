@@ -1,4 +1,4 @@
-@layer icon-button {
+@layer main {
   :host {
     /* [size=s] */
     --_wn: 32px; /* width for icon button with [width=narrow] */
@@ -13,9 +13,11 @@
       var(--_text-color) var(--_text-opacity, 100%),
       transparent
     );
+    display: inline-grid;
+    place-items: center;
     transition: border-radius var(--md-sys-motion-spatial-fast-duration)
       var(--md-sys-motion-spatial-fast);
-    width: var(--_h);
+    inline-size: var(--_h);
   }
 
   :host([size='xs']) {
@@ -36,10 +38,10 @@
   }
 
   :host([width='narrow']) {
-    width: var(--_wn);
+    inline-size: var(--_wn);
   }
   :host([width='wide']) {
-    width: var(--_ww);
+    inline-size: var(--_ww);
   }
 
   ::slotted(*) {

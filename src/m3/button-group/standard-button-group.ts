@@ -50,7 +50,7 @@ export class M3StandardButtonGroup extends LitElement {
       entries.forEach((entry) => {
         const target = entry.target as HTMLElement;
         const index = this.$buttons.indexOf(target);
-        if (index !== -1) {
+        if (index !== -1) { // TODO: support for vertical languages?
           const currentWidth = target.style.width;
           target.style.width = '';
           this.#baseWidths[index] = target.getBoundingClientRect().width;

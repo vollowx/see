@@ -1,4 +1,11 @@
-@layer common-button, icon-button, shared, shared-toggle, override, active, disabled;
+@layer main, shared, shared-toggle, override, active, disabled;
+/* button or icon button; shared for all; shared for toggle button,
+   used in button or icon button files to override `shared` section,
+   active state, disabled state */
+
+/* Generally speaking such division is a trade off - if many properties are in
+   this file, then the SSR'd result will be giant; other way, the library file
+   will be */
 
 @layer shared {
   :host {
@@ -13,17 +20,14 @@
     --_text-color: var(--_on-color);
     --_background-color: var(--_color);
 
-    align-items: center;
     border-start-start-radius: var(--_inner-left-radius, calc(var(--_h) / 2));
     border-end-start-radius: var(--_inner-left-radius, calc(var(--_h) / 2));
     border-start-end-radius: var(--_inner-right-radius, calc(var(--_h) / 2));
     border-end-end-radius: var(--_inner-right-radius, calc(var(--_h) / 2));
     box-sizing: border-box;
     cursor: pointer;
-    display: inline-flex;
     flex-shrink: 0;
-    height: var(--_h);
-    justify-content: center;
+    block-size: var(--_h);
     outline: 0;
     position: relative;
     -webkit-tap-highlight-color: transparent;
