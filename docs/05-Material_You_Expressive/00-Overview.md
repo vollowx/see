@@ -52,6 +52,7 @@ Others:
 Parts:
 
 * [Focus ring](./10-Focus_ring.md)
+* [Popup](./10-Popup.md)
 * [Ripple](./10-Ripple.md)
 
 [iconify-icons]: https://iconify.design/

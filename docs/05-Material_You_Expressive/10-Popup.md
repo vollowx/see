@@ -1,5 +1,6 @@
 ---
 components:
+  - m3/button/common-button
   - m3/popup/popup
 ---
 
