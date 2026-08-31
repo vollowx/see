@@ -1,4 +1,4 @@
-import { LitElement, PropertyValues } from 'lit';
+import { isServer, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FormAssociated } from './mixins/form-associated.js';
 import {
@@ -20,19 +20,19 @@ export class Radio extends FormAssociated(InternalsAttached(LitElement)) {
   constructor() {
     super();
     this[internals].role = 'radio';
+    if (!isServer) {
+      this.addEventListener('click', this.#handleClick);
+      this.addEventListener('keydown', this.#handleKeyDown);
+    }
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.#registerToGroup();
     this[updateInternals]();
-    this.addEventListener('click', this.#handleClick);
-    this.addEventListener('keydown', this.#handleKeyDown);
   }
 
   override disconnectedCallback(): void {
-    this.removeEventListener('click', this.#handleClick);
-    this.removeEventListener('keydown', this.#handleKeyDown);
     this.#unregisterFromGroup();
     super.disconnectedCallback();
   }

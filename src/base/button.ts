@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { isServer, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
@@ -26,23 +26,19 @@ export class Button extends Base {
     // Double `requestAnimationFrame` is necessary since the callback inside is
     // called before the nth frame is printed.
     this.setAttribute('notransition', '');
+
+    if (!isServer) {
+      this.addEventListener('keydown', this.#handleKeyDown);
+      this.addEventListener('keyup', this.#handleKeyUp);
+      this.addEventListener('click', this._handleClick.bind(this));
+    }
   }
 
   override connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('keydown', this.#handleKeyDown);
-    this.addEventListener('keyup', this.#handleKeyUp);
-    this.addEventListener('click', this._handleClick.bind(this));
     requestAnimationFrame(() =>
       requestAnimationFrame(() => this.removeAttribute('notransition'))
     );
-  }
-
-  override disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('keydown', this.#handleKeyDown);
-    this.removeEventListener('keyup', this.#handleKeyUp);
-    this.removeEventListener('click', this._handleClick.bind(this));
   }
 
   override updated(changed: Map<string, any>) {

@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { isServer, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { FormAssociated } from './mixins/form-associated.js';
@@ -31,20 +31,12 @@ export class Checkbox extends Base {
     this.checked = this.hasAttribute('checked');
     this.indeterminate = this.hasAttribute('indeterminate');
     this.updateState();
-  }
 
-  override connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('click', this.#handleClick);
-    this.addEventListener('keydown', this.#handleKeyDown);
-    this.addEventListener('keyup', this.#handleKeyUp);
-  }
-
-  override disconnectedCallback() {
-    this.removeEventListener('click', this.#handleClick);
-    this.removeEventListener('keydown', this.#handleKeyDown);
-    this.removeEventListener('keyup', this.#handleKeyUp);
-    super.disconnectedCallback();
+    if (!isServer) {
+      this.addEventListener('click', this.#handleClick);
+      this.addEventListener('keydown', this.#handleKeyDown);
+      this.addEventListener('keyup', this.#handleKeyUp);
+    }
   }
 
   protected override updated(changed: Map<string, any>) {
