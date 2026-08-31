@@ -43,7 +43,7 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: Number }) offset = 0;
   @property({ type: Number, attribute: 'window-padding' }) windowPadding = 8;
 
-  @property({ type: HTMLElement }) $ariaControl: HTMLElement | null;
+  $ariaControl: HTMLElement | null;
 
   static override styles = [popupStyles];
   override render() {
