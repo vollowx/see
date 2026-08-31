@@ -83,8 +83,9 @@
       nisl, ac ullamcorper diam mollis vel.
     </p>
 
-    <button id="bn">open popup</button>
-    <complementary-popup for="bn">
+    <button>open popup</button>
+    <trigger-binder></trigger-binder>
+    <complementary-popup>
       <h2>really interesting</h2>
       <p>contents</p>
       <md-button>Inside a popup</md-button>
@@ -98,40 +99,8 @@
       </md-list>
     </complementary-popup>
 
-    <md-button
-      id="menu-button"
-      aria-haspopup="menu"
-      aria-controls="comp-menu"
-      variant="tonal"
-    >
-      Settings
-    </md-button>
-    <md-popup for="menu-button" role="presentation" vibrant>
-      <md-composable-menu
-        id="comp-menu"
-        aria-label="Whatever menu"
-        style="width: 200px"
-      >
-        <md-menu-item>Air</md-menu-item>
-        <md-menu-item>Alphabet</md-menu-item>
-        <md-menu-item>Apple</md-menu-item>
-        <md-menu-item>Blueprint</md-menu-item>
-        <md-menu-item>Crust</md-menu-item>
-        <md-menu-item>Introduction</md-menu-item>
-        <md-menu-item>Json</md-menu-item>
-        <md-menu-item>Klint</md-menu-item>
-        <md-menu-item>Linter</md-menu-item>
-        <md-menu-item>Market</md-menu-item>
-        <md-menu-item>Manifest</md-menu-item>
-        <md-menu-item>Zed</md-menu-item>
-      </md-composable-menu>
-    </md-popup>
-
-
-    <md-composable-menu
-      aria-label="Whatever menu"
-      style="width: 200px"
-    >
+    <md-button id="composed-menu-trig" variant="tonal">Auto-bond settings</md-button>
+    <md-composed-menu for="composed-menu-trig" vibrant style="width: 200px">
       <md-menu-item>Air</md-menu-item>
       <md-menu-item>Alphabet</md-menu-item>
       <md-menu-item>Apple</md-menu-item>
@@ -144,7 +113,47 @@
       <md-menu-item>Market</md-menu-item>
       <md-menu-item>Manifest</md-menu-item>
       <md-menu-item>Zed</md-menu-item>
-    </md-composable-menu>
+    </md-composed-menu>
+
+    <md-button
+      id="menu-button"
+      aria-haspopup="menu"
+      aria-controls="comp-menu"
+      variant="tonal"
+    >
+      Settings
+    </md-button>
+    <md-popup for="menu-button" role="application" vibrant>
+      <md-menu id="comp-menu" aria-label="Whatever menu" style="width: 200px">
+        <md-menu-item>Air</md-menu-item>
+        <md-menu-item>Alphabet</md-menu-item>
+        <md-menu-item>Apple</md-menu-item>
+        <md-menu-item>Blueprint</md-menu-item>
+        <md-menu-item>Crust</md-menu-item>
+        <md-menu-item>Introduction</md-menu-item>
+        <md-menu-item>Json</md-menu-item>
+        <md-menu-item>Klint</md-menu-item>
+        <md-menu-item>Linter</md-menu-item>
+        <md-menu-item>Market</md-menu-item>
+        <md-menu-item>Manifest</md-menu-item>
+        <md-menu-item>Zed</md-menu-item>
+      </md-menu>
+    </md-popup>
+
+    <md-menu aria-label="Whatever menu" style="width: 200px">
+      <md-menu-item>Air</md-menu-item>
+      <md-menu-item>Alphabet</md-menu-item>
+      <md-menu-item>Apple</md-menu-item>
+      <md-menu-item>Blueprint</md-menu-item>
+      <md-menu-item>Crust</md-menu-item>
+      <md-menu-item>Introduction</md-menu-item>
+      <md-menu-item>Json</md-menu-item>
+      <md-menu-item>Klint</md-menu-item>
+      <md-menu-item>Linter</md-menu-item>
+      <md-menu-item>Market</md-menu-item>
+      <md-menu-item>Manifest</md-menu-item>
+      <md-menu-item>Zed</md-menu-item>
+    </md-menu>
 
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam

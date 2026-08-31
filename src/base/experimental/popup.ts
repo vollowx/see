@@ -40,7 +40,7 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: Boolean, attribute: 'no-focus-control' })
   noFocusControl = false;
 
-  @property({ type: String }) placement: Placement = 'bottom-start';
+  @property({ type: String }) align: Placement = 'bottom-start';
   @property({ type: String }) strategy: Strategy = 'absolute';
   @property({ type: Number }) offset = 0;
   @property({ type: Number, attribute: 'window-padding' }) windowPadding = 8;
@@ -76,9 +76,9 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
 
   protected override updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('open')) {
+      this.#syncTriggerAria();
       if (this.open) this._show();
       else this._hide();
-      this.#syncTriggerAria();
     }
   }
 
@@ -97,7 +97,6 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
 
       if (!next.ariaHasPopup) next.ariaHasPopup = 'true';
       next.ariaExpanded = String(this.open);
-      // next.ariaControlsElements = [this];
     }
   }
 
@@ -143,7 +142,9 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   };
 
   #syncTriggerAria() {
-    this.$control?.setAttribute('aria-expanded', String(this.open));
+    if (this.$control) {
+      this.$control.ariaExpanded = String(this.open);
+    }
   }
   #focusFirstInteractiveElement() {
     if (this.noFocusControl) return;
@@ -212,7 +213,7 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
       trigger,
       this,
       {
-        placement: this.placement,
+        placement: this.align,
         strategy: this.strategy,
         middleware: [
           offset(this.offset),

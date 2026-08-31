@@ -20,14 +20,7 @@
 
     <h2>standard menu</h2>
 
-    <md-menu
-      style="width: 250px"
-      open
-      quick
-      keep-open-blur
-      keep-open-select
-      keep-open-click-away
-    >
+    <md-menu style="width: 250px">
       <md-menu-item>Menu Item 1</md-menu-item>
       <md-menu-item>Menu Item 2</md-menu-item>
       <md-menu-item selected>Menu Item 3</md-menu-item>
@@ -35,48 +28,35 @@
     </md-menu>
 
     <span style="position: relative; display: inline-block">
-      <md-button id="menu2-btn" onclick="menu2.open = !menu2.open"
-        >Menu with keepOpenBlur and keepOpenClickOutside</md-button
-      >
-      <md-menu keepopenblur keepopenclickoutside id="menu2" for="menu2-btn">
-        <md-menu-item>Menu Item 1</md-menu-item>
-        <md-menu-item>Menu Item 2</md-menu-item>
-        <md-menu-item selected>Menu Item 3</md-menu-item>
-        <md-menu-item disabled>Menu Item 4</md-menu-item>
-      </md-menu>
-    </span>
-
-    <span style="position: relative; display: inline-block">
       <md-button id="menu-with-item-ids-btn"
         >Menu with Item IDs Empty</md-button
       >
-      <md-menu id="menu-with-item-ids-empty" for="menu-with-item-ids-btn">
+      <md-composed-menu for="menu-with-item-ids-btn">
         <md-menu-item>Menu Item 1</md-menu-item>
         <md-menu-item>Menu Item 2</md-menu-item>
         <md-menu-item selected>Menu Item 3</md-menu-item>
         <md-menu-item disabled>Menu Item 4</md-menu-item>
-      </md-menu>
+      </md-composed-menu>
     </span>
 
     <span style="position: relative; display: inline-block">
       <md-button id="fixed-align-menu-btn">alignstrategy=fixed</md-button>
-      <md-menu
-        id="fixed-align-menu"
+      <md-composed-menu
         for="fixed-align-menu-btn"
-        alignstrategy="fixed"
+        strategy="fixed"
         quick
       >
         <md-menu-item>Menu Item 1</md-menu-item>
         <md-menu-item>Menu Item 2</md-menu-item>
         <md-menu-item selected>Menu Item 3</md-menu-item>
         <md-menu-item disabled>Menu Item 4</md-menu-item>
-      </md-menu>
+      </md-composed-menu>
       <md-tooltip for="fixed-align-menu-btn">Align Reference</md-tooltip>
     </span>
 
     <span style="position: relative; display: inline-block">
       <md-button id="some-menu-btn">Menu with Anchor Set</md-button>
-      <md-menu id="some-menu" for="some-menu-btn" color="vibrant">
+      <md-composed-menu for="some-menu-btn" color="vibrant">
         <md-menu-item id="item-new-text-file">New Text File</md-menu-item>
         <md-menu-item id="item-new-file">
           New File...
@@ -93,13 +73,8 @@
         <md-divider inset></md-divider>
         <md-menu-item id="item-save" selected>Save</md-menu-item>
         <md-menu-item id="item-save-as">Save As...</md-menu-item>
-      </md-menu>
+      </md-composed-menu>
     </span>
-
-    <label style="display: block"
-      >event:
-      <input type="text" readonly id="some-menu-fires" />
-    </label>
 
     <h2>context menu</h2>
 
@@ -125,52 +100,25 @@
       style="position: fixed; pointer-events: none"
     ></div>
     <!-- You definitely can position the menu without using anchor element, but you will need to deal with other cases like flipping -->
-    <md-menu id="context-menu" for="context-menu-anchor" align-strategy="fixed">
+    <md-composed-menu id="context-menu" for="context-menu-anchor" strategy="fixed">
       <md-menu-item>Edit</md-menu-item>
       <md-menu-item>Copy</md-menu-item>
       <md-menu-item>Cut</md-menu-item>
       <md-menu-item>Delete</md-menu-item>
-    </md-menu>
+    </md-composed-menu>
 
     <script type="module">
-      // Standard Menus
-      const menuWithItemIdsBtn = document.getElementById(
-        'menu-with-item-ids-btn'
-      );
-      const menuWithItemIds = document.getElementById(
-        'menu-with-item-ids-empty'
-      );
-      menuWithItemIdsBtn.onclick = () =>
-        (menuWithItemIds.open = !menuWithItemIds.open);
-
-      const fixedAlignMenuBtn = document.getElementById('fixed-align-menu-btn');
-      const fixedAlignMenu = document.getElementById('fixed-align-menu');
-      fixedAlignMenuBtn.onclick = () =>
-        (fixedAlignMenu.open = !fixedAlignMenu.open);
-
-      const menuButton = document.getElementById('some-menu-btn');
-      const menuOutput = document.getElementById('some-menu-fires');
-      const menu = document.getElementById('some-menu');
-
-      menuButton.addEventListener('click', () => {
-        menu.open = !menu.open;
-      });
-
-      menu.addEventListener('select', (e) => {
-        menuOutput.value = `select: { index: ${e.detail.index}, item: #${e.detail.item.id}\n}`;
-      });
-
       // Context Menu
-      const area = document.getElementById('context-menu-area');
-      const anchor = document.getElementById('context-menu-anchor');
-      const contextMenu = document.getElementById('context-menu');
-
-      area.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        anchor.style.left = `${e.clientX}px`;
-        anchor.style.top = `${e.clientY}px`;
-        contextMenu.open = true;
-      });
+      // const area = document.getElementById('context-menu-area');
+      // const anchor = document.getElementById('context-menu-anchor');
+      // const contextMenu = document.getElementById('context-menu');
+      //
+      // area.addEventListener('contextmenu', (e) => {
+      //   e.preventDefault();
+      //   anchor.style.left = `${e.clientX}px`;
+      //   anchor.style.top = `${e.clientY}px`;
+      //   contextMenu.open = true;
+      // });
     </script>
 
     <label for="native-select">Native select:</label>
@@ -293,7 +241,7 @@
 
     <p>List stolen from mui.com.</p>
 
-    <md-autocomplete mode="both" quick style="width: 300px">
+    <!-- <md-autocomplete mode="both" quick style="width: 300px"> -->
       <md-outlined-text-field
         slot="input"
         label="Best Movies"
@@ -403,11 +351,11 @@
       <md-option>Snatch</md-option>
       <md-option>3 Idiots</md-option>
       <md-option>Monty Python and the Holy Grail</md-option>
-    </md-autocomplete>
+    <!-- </md-autocomplete> -->
 
     <p>Now goes list mode</p>
 
-    <md-autocomplete mode="list" quick style="width: 300px">
+    <!-- <md-autocomplete mode="list" quick style="width: 300px"> -->
       <md-outlined-text-field
         slot="input"
         label="Best Movies"
@@ -517,11 +465,11 @@
       <md-option>Snatch</md-option>
       <md-option>3 Idiots</md-option>
       <md-option>Monty Python and the Holy Grail</md-option>
-    </md-autocomplete>
+    <!-- </md-autocomplete> -->
 
     <p>keepOpenSelect</p>
 
-    <md-autocomplete mode="list" quick style="width: 300px" keep-open-select>
+    <!-- <md-autocomplete mode="list" quick style="width: 300px" keep-open-select> -->
       <md-outlined-text-field
         slot="input"
         label="Best Movies"
@@ -631,6 +579,6 @@
       <md-option>Snatch</md-option>
       <md-option>3 Idiots</md-option>
       <md-option>Monty Python and the Holy Grail</md-option>
-    </md-autocomplete>
+    <!-- </md-autocomplete> -->
   </body>
 </html>

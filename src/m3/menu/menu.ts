@@ -12,7 +12,7 @@ import { menuStyles } from './menu-styles.css.js';
  *
  * @slot - menu items
  */
-@customElement('md-menu')
+@customElement('md-menu-deprecated')
 export class M3Menu extends Menu {
   override readonly _durations = { show: 300, hide: 150 };
   // FIXME: Might cause a long list to scroll more than expected
@@ -25,6 +25,6 @@ export class M3Menu extends Menu {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-menu': M3Menu;
+    'md-menu-deprecated': M3Menu;
   }
 }

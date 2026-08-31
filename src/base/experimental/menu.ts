@@ -7,16 +7,18 @@ import { ListController } from '../controllers/list-controller.js';
 
 import type { MenuItem } from '../menu-item.js';
 
-export interface MenuActionDetail {
+export interface MenuEventDetail {
   item: MenuItem;
   index: number;
 }
-export type MenuActionEvent = CustomEvent<MenuActionDetail>;
+export type MenuActionEvent = CustomEvent<MenuEventDetail>;
+export type MenuItemFocusEvent = CustomEvent<MenuEventDetail>;
 
 /**
  * @csspart items
  * @slot - menu items
  * @fires {MenuActionEvent} action - Fires when an item is activated.
+ * @fires {MenuItemFocusEvent} item-focus - Fires when an item is focused.
  * @fires {Event} request-popup-hide - Fires when menu should be hidden.
  */
 export class Menu extends InternalsAttached(LitElement) {
@@ -62,7 +64,7 @@ export class Menu extends InternalsAttached(LitElement) {
       this.setAttribute('tabindex', '0');
     }
     if (!isServer) {
-      this.addEventListener('keydown', this.#handleKeyDown.bind(this));
+      this.addEventListener('keydown', this.handleKeyDown.bind(this));
       this.addEventListener('focusin', this.#handleFocusIn.bind(this));
       this.addEventListener('focusout', this.#handleFocusOut.bind(this));
       this.addEventListener('mouseover', this.#handleMouseOver.bind(this));
@@ -83,6 +85,13 @@ export class Menu extends InternalsAttached(LitElement) {
       item.focused = true;
       if (!this.bare) this[internals].ariaActiveDescendantElement = item;
       if (focusVisible) item.scrollIntoView({ block: 'nearest' });
+      this.dispatchEvent(
+        new CustomEvent('item-focus', {
+          detail: { item, index: this.$items.indexOf(item) },
+          bubbles: true,
+          composed: true,
+        })
+      );
     },
     wrapNavigation: () => false,
   });
@@ -97,7 +106,7 @@ export class Menu extends InternalsAttached(LitElement) {
     this.listController._blurItem(this.listController._focusedItem);
   }
 
-  #handleKeyDown(event: KeyboardEvent) {
+  handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
 
     const action = getActionFromKey(event);
@@ -179,11 +188,11 @@ export class Menu extends InternalsAttached(LitElement) {
     const item = (event.target as HTMLElement).closest<MenuItem>(
       '[seele-base=option]'
     );
-    if (!item || !this.listController.items.includes(item)) return null;
-    return { item, index: this.listController.items.indexOf(item) };
+    if (!item || !this.$items.includes(item)) return null;
+    return { item, index: this.$items.indexOf(item) };
   }
 
-  #dispatchAction(detail: MenuActionDetail) {
+  #dispatchAction(detail: MenuEventDetail) {
     this.dispatchEvent(
       new CustomEvent('action', {
         detail: detail,
@@ -202,17 +211,17 @@ export class Menu extends InternalsAttached(LitElement) {
 // Might as well be used in listbox, so let's keep it for now
 // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 export enum MenuAction {
-  Close = 'close',
-  CloseSelect = 'closeSelect',
-  First = 'first',
-  Last = 'last',
-  Next = 'next',
-  Open = 'open',
-  PageDown = 'pageDown',
-  PageUp = 'pageUp',
-  Previous = 'previous',
-  Select = 'select',
-  Type = 'type',
+  Close = -11,
+  CloseSelect = -10,
+  First = 1,
+  Last,
+  Next,
+  Open,
+  PageDown,
+  PageUp,
+  Previous,
+  Select,
+  Type,
 }
 
 export function getActionFromKey(event: KeyboardEvent): MenuAction | null {

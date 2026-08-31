@@ -10,13 +10,13 @@ import { menuStyles } from './menu-styles.css.js';
  *
  * @slot - menu items
  */
-@customElement('md-composable-menu')
-export class M3ComposableMenu extends Menu {
+@customElement('md-menu')
+export class M3Menu extends Menu {
   static override styles = [menuStyles];
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-composable-menu': M3ComposableMenu;
+    'md-menu': M3Menu;
   }
 }
