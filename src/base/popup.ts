@@ -1,8 +1,6 @@
 /**
  * NOTE: demos at dev/pending.html
  * TODO: hijack all `hidePopover()`s to allow more complex JS animations
- *
- * Design: TO BE ADDED
  */
 
 import { LitElement, html, PropertyValues, isServer } from 'lit';
@@ -18,14 +16,14 @@ import {
   Strategy,
 } from '@floating-ui/dom';
 
-import { getFirstTabbable } from '../../core/focus.js';
-import { internals, InternalsAttached } from '../mixins/internals-attached.js';
+import { getFirstTabbable } from '../core/focus.js';
+import { InternalsAttached } from './mixins/internals-attached.js';
 import {
   Attachable,
   autoAttachToParent,
   handleControlChange,
-} from '../mixins/attachable.js';
-import { transformOriginFromArrow } from '../controllers/popover-controller.js';
+} from './mixins/attachable.js';
+import { transformOriginFromArrow } from './controllers/popover-controller.js';
 
 import { popupStyles } from './popup-styles.css.js';
 

@@ -1,5 +1,5 @@
 import { property, customElement } from 'lit/decorators.js';
-import { Popup } from '../../base/experimental/popup.js';
+import { Popup } from '../../base/popup.js';
 import { popupStyles } from './popup-styles.css.js';
 
 @customElement('md-popup')

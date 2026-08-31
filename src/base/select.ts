@@ -7,13 +7,13 @@ import { FormAssociated } from './mixins/form-associated.js';
 
 import type { Field } from './field.js';
 import type { Option } from './option.js';
-import type { Popup } from './experimental/popup.js';
+import type { Popup } from './popup.js';
 import type {
   Menu,
   MenuItemFocusEvent,
   MenuActionEvent,
-} from './experimental/menu.js';
-import { getActionFromKey, MenuAction } from './experimental/menu.js';
+} from './menu.js';
+import { getActionFromKey, MenuAction } from './menu.js';
 
 const VALUE = Symbol('value');
 

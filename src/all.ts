@@ -17,8 +17,10 @@ import './m3/list/list-item.js';
 import './m3/loading-indicator/loading-indicator.js';
 import './m3/menu/menu.js';
 import './m3/menu/menu-item.js';
+import './m3/menu/composed-menu.js';
 import './m3/navigation/navigation-rail.js';
 import './m3/navigation/navigation-rail-item.js';
+import './m3/popup/popup.js';
 import './m3/radio/radio.js';
 import './m3/ripple/ripple.js';
 import './m3/select/filled-select.js';
@@ -36,8 +38,3 @@ import './m3/toolbar/toolbar.js';
 import './m3/tooltip/tooltip.js';
 
 import './win98/button/button.js';
-
-import './base/experimental/popup.js';
-import './m3/experimental/menu.js';
-import './m3/experimental/composed-menu.js';
-import './m3/experimental/popup.js';

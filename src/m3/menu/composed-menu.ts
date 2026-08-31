@@ -4,10 +4,10 @@ import { property, customElement, query } from 'lit/decorators.js';
 import { ensureReady } from '../../core/ensure-ready.js';
 import { internals } from '../../base/mixins/internals-attached.js';
 import { handleControlChange } from '../../base/mixins/attachable.js';
-import { Popup } from '../../base/experimental/popup.js';
+import { Popup } from '../../base/popup.js';
 
 import { M3Menu } from './menu.js';
-import { popupStyles } from './popup-styles.css.js';
+import { popupStyles } from '../popup/popup-styles.css.js';
 
 /**
  * TODO: consider adding ariaLabel that is passed to the menu

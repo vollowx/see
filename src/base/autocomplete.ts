@@ -6,8 +6,8 @@ import { InternalsAttached } from './mixins/internals-attached.js';
 import { FocusDelegated } from './mixins/focus-delegated.js';
 
 import type { Input } from './input.js';
-import type { Popup } from './experimental/popup.js';
-import type { Menu, MenuActionEvent } from './experimental/menu.js';
+import type { Popup } from './popup.js';
+import type { Menu, MenuActionEvent } from './menu.js';
 
 const Base = FocusDelegated(InternalsAttached(LitElement));
 

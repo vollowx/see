@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
-import '../experimental/popup.js';
-import '../experimental/menu.js';
+import '../popup/popup.js';
+import '../menu/menu.js';
 
 import { Select } from '../../base/select.js';
 import type { M3Field } from '../field/field.js';
