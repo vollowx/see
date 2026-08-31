@@ -4,8 +4,8 @@
 
 ## CSS Parts
 
-| name    | description     |
-| ---     | ---             |
+| name    | description        |
+| ---     | ---                |
 | `items` | The slot container |
 
 ## Events
@@ -13,7 +13,7 @@
 | name         | description               |
 | ---          | ---                       |
 | `select`     | `detail: { item, index }` |
-| `item-focus` | `detail: { item }`        |
+| `item-focus` | `detail: { item, index }` |
 
 ## Properties
 
@@ -25,8 +25,8 @@
 
 ## Methods
 
-| signature                           | description              |
-| ---                                 | ---                      |
-| `focusFirstItem() -> void`          |                          |
-| `focusLastItem() -> void`           |                          |
-| `focusItem(item: ListItem) -> void` |                          |
+| signature                           | description |
+| ---                                 | ---         |
+| `focusFirstItem() -> void`          |             |
+| `focusLastItem() -> void`           |             |
+| `focusItem(item: ListItem) -> void` |             |

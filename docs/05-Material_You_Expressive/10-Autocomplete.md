@@ -1,4 +1,5 @@
 ---
+title: Autocomplete component - seele/m3
 components:
   - m3/select/option
   - m3/text-field/outlined-text-field
@@ -16,7 +17,7 @@ import '@vollowx/seele/m3/autocomplete/autocomplete.js';
 <!-- @show -->
 
 ```html
-<md-autocomplete mode="both" quick style="width: 300px">
+<md-autocomplete mode="both" style="width: 300px">
   <md-outlined-text-field slot="input" label="Le Movies"
                           placeholder="What d'you wanna watch?"></md-outlined-text-field>
   <md-option>The Shawshank Redemption</md-option>

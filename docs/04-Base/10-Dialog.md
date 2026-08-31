@@ -1,6 +1,7 @@
 # `Dialog`
 
-The dialog is always a modal dialog.
+The dialog is always a modal dialog. Calling `show()` auto-focuses the first
+element with `[autofocus]` or the first tabbable element inside.
 
 ## CSS Parts
 
@@ -16,7 +17,7 @@ The dialog is always a modal dialog.
 
 ## Methods
 
-| signature         | description |
-| ---               | ---         |
-| `show() -> void`  |             |
-| `close() -> void` |             |
+| signature                  | description |
+| ---                        | ---         |
+| `show() -> Promise<void>`  |             |
+| `close() -> Promise<void>` |             |
