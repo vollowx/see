@@ -1,106 +1,76 @@
-import { LitElement, html } from 'lit';
-import { property, query, queryAssignedElements } from 'lit/decorators.js';
+import { LitElement, html, isServer } from 'lit';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 
-import type { Placement, Strategy } from '@floating-ui/dom';
-import type { MenuItem } from './menu-item.js';
-
-import { setFocusVisible } from '../core/focus.js';
-import { Attachable } from './mixins/attachable.js';
-import { InternalsAttached } from './mixins/internals-attached.js';
-import { FocusDelegated } from './mixins/focus-delegated.js';
-import { PopoverController } from './controllers/popover-controller.js';
+import { focusVisible, setFocusVisible } from '../core/focus.js';
+import { internals, InternalsAttached } from './mixins/internals-attached.js';
 import { ListController } from './controllers/list-controller.js';
 
-const Base = FocusDelegated(InternalsAttached(Attachable(LitElement)));
+import type { MenuItem } from './menu-item.js';
 
-interface MenuSelectDetail {
+export interface MenuEventDetail {
   item: MenuItem;
   index: number;
 }
-export type MenuSelectEvent = CustomEvent<MenuSelectDetail>;
-
-interface ItemFocusDetail {
-  item: MenuItem;
-}
-export type MenuItemFocusEvent = CustomEvent<ItemFocusDetail>;
+export type MenuActionEvent = CustomEvent<MenuEventDetail>;
+export type MenuItemFocusEvent = CustomEvent<MenuEventDetail>;
 
 /**
- * @csspart menu
  * @csspart items
- *
- * @fires {Event} open - Fires when the menu is opened.
- * @fires {Event} close - Fires when the menu is closed.
- * @fires {MenuSelectEvent} select - Fires when an item is selected.
- * @fires {MenuItemFocusEvent} item-focus - Fires when an item is focused
- *
- * TODO: handle slotchange
+ * @slot - menu items
+ * @fires {MenuActionEvent} action - Fires when an item is activated.
+ * @fires {MenuItemFocusEvent} item-focus - Fires when an item is focused.
+ * @fires {Event} request-popup-hide - Fires when menu should be hidden.
  */
-export class Menu extends Base {
-  readonly _durations = { show: 0, hide: 0 };
-  readonly _scrollPadding: number = 0;
+export class Menu extends InternalsAttached(LitElement) {
+  /**
+   * When true, emits `request-popup-hide` on `action`
+   */
+  @property({ type: Boolean, attribute: 'keep-open-action' })
+  keepOpenAction = false;
 
-  @property() type: string = 'menu';
-  @property({ type: Boolean, reflect: true }) open = false;
-  @property({ type: Boolean }) quick = false;
-  @property({ type: Number }) offset = 0;
-  @property({ reflect: true })
-  align: Placement = 'bottom-start';
-  @property({ type: String, reflect: true, attribute: 'align-strategy' })
-  alignStrategy: Strategy = 'absolute';
-  @property({ type: Boolean, attribute: 'keep-open-blur' })
-  keepOpenBlur = false;
-  @property({ type: Boolean, attribute: 'keep-open-select' })
-  keepOpenSelect = false;
-  @property({ type: Boolean, attribute: 'keep-open-click-away' })
-  keepOpenClickAway = false;
-  @property({ type: Boolean, attribute: 'no-focus-control' })
-  noFocusControl = false;
+  /**
+   * When true, removes the default focus management and `aria-activedescendant`
+   * on the host.
+   */
+  @property({ type: Boolean, reflect: true })
+  bare = false;
 
-  @property({ type: Number, attribute: 'data-tabindex' })
-  override tabIndex = 0;
-
-  @query('[part="menu"]') $menu!: HTMLElement;
-  @queryAssignedElements({ flatten: true }) slotItems!: Array<
-    MenuItem | HTMLElement
-  >;
+  @queryAssignedElements({ flatten: true }) slotItems!: Array<MenuItem>;
   get $items() {
     return this.listController.items || [];
   }
-  private $lastFocused: HTMLElement | null = null;
 
-  override render() {
-    return html`<div
-      part="menu"
-      role="${this.type}"
-      tabindex="${this.tabIndex}"
-      @keydown=${this.#handleKeyDown.bind(this)}
-      @focusout=${this.#handleFocusOut.bind(this)}
-    >
-      ${this.renderItemSlot()}
-    </div>`;
+  get currentIndex() {
+    return this.listController?.currentIndex;
+  }
+  focusFirstItem() {
+    this.listController.focusFirstItem();
+  }
+  focusLastItem() {
+    this.listController.focusLastItem();
+  }
+  focusItem(item: MenuItem) {
+    this.listController._focusItem(item);
   }
 
-  renderItemSlot() {
+  override render() {
     return html`<slot part="items"></slot>`;
   }
 
-  private readonly popoverController = new PopoverController(this, {
-    popover: () => this.$menu,
-    trigger: () => this.$control,
-    positioning: {
-      placement: () => this.align,
-      strategy: () => this.alignStrategy,
-      offset: () => this.offset,
-      windowPadding: () => 16,
-    },
-    durations: {
-      open: () => (this.quick ? 0 : this._durations.show),
-      close: () => (this.quick ? 0 : this._durations.hide),
-    },
-    onClickAway: () => {
-      if (!this.keepOpenClickAway) this.open = false;
-    },
-  });
+  constructor() {
+    super();
+    this[internals].role = 'menu';
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
+    if (!isServer) {
+      this.addEventListener('keydown', this.handleKeyDown.bind(this));
+      this.addEventListener('focusin', this.#handleFocusIn.bind(this));
+      this.addEventListener('focusout', this.#handleFocusOut.bind(this));
+      this.addEventListener('mouseover', this.#handleMouseOver.bind(this));
+      this.addEventListener('click', this.#handleClick.bind(this));
+    }
+  }
 
   private readonly listController = new ListController<MenuItem>(this, {
     isItem: (item: HTMLElement): item is MenuItem =>
@@ -113,13 +83,11 @@ export class Menu extends Base {
     },
     focusItem: (item: MenuItem) => {
       item.focused = true;
-      if (!this.noFocusControl) {
-        this.$menu.ariaActiveDescendantElement = item;
-      }
-      scrollItemIntoView(this.$menu, item, this._scrollPadding);
+      if (!this.bare) this[internals].ariaActiveDescendantElement = item;
+      if (focusVisible) item.scrollIntoView({ block: 'nearest' });
       this.dispatchEvent(
         new CustomEvent('item-focus', {
-          detail: { item: item },
+          detail: { item, index: this.$items.indexOf(item) },
           bubbles: true,
           composed: true,
         })
@@ -128,301 +96,189 @@ export class Menu extends Base {
     wrapNavigation: () => false,
   });
 
-  override connectedCallback() {
-    super.connectedCallback();
-    if (this.$control) {
-      // TODO: Manage $control ARIA attributes
-      // TODO: Handle $control change
-      this.$control.addEventListener(
-        'focusout',
-        this.#handleFocusOut.bind(this)
-      );
-    }
-    this.updateComplete.then(() => {
-      this.$items.forEach((item) => {
-        item.addEventListener(
-          'mouseover',
-          this.#handleItemMouseOver.bind(this)
-        );
-        item.addEventListener('click', this.#handleItemClick.bind(this));
-      });
-    });
+  #handleFocusIn() {
+    if (this.bare) return;
+    // TODO: support focusing first selected
+    this.listController.focusFirstItem();
   }
 
-  override disconnectedCallback() {
-    super.disconnectedCallback();
-    if (this.$control) {
-      this.$control.removeEventListener(
-        'focusout',
-        this.#handleFocusOut.bind(this)
-      );
-    }
+  #handleFocusOut() {
+    this.listController._blurItem(this.listController._focusedItem);
   }
 
-  protected override updated(changed: Map<string, any>) {
-    if (changed.has('open')) {
-      if (this.open) {
-        this.dispatchEvent(
-          new Event('open', { bubbles: true, composed: true })
-        );
-
-        this.$lastFocused = document.activeElement as HTMLElement;
-        if (this.$control) {
-          this.$control.ariaExpanded = 'true';
-        }
-
-        this.popoverController.animateOpen().then(() => {
-          if (!this.noFocusControl) {
-            this.$menu.focus();
-            this.listController.focusFirstItem();
-          }
-        });
-      } else {
-        if (!this.noFocusControl) {
-          this.$menu.ariaActiveDescendantElement = null;
-        }
-
-        this.dispatchEvent(
-          new Event('close', { bubbles: true, composed: true })
-        );
-
-        this.listController.clearSearch();
-
-        if (this.$control) {
-          this.$control.ariaExpanded = 'false';
-        }
-
-        this.popoverController.animateClose().then(() => {
-          if (this.$lastFocused) {
-            if (!this.noFocusControl) this.$lastFocused.focus();
-            this.$lastFocused = null;
-          }
-        });
-      }
-    }
-  }
-
-  #handleKeyDown(event: KeyboardEvent) {
+  handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
 
-    const action = getActionFromKey(event, this.open);
+    const action = getActionFromKey(event);
     const items = this.$items;
     const currentIndex = this.listController.currentIndex;
     const maxIndex = items.length - 1;
 
     switch (action) {
-      case MenuActions.Last:
-      case MenuActions.First:
-        this.open = true;
-      // intentional fallthrough
-      case MenuActions.Next:
-      case MenuActions.Previous:
-      case MenuActions.PageUp:
-      case MenuActions.PageDown:
+      case MenuAction.First:
         event.preventDefault();
-        const nextIndex = getUpdatedIndex(currentIndex, maxIndex, action!);
-        this.listController._focusItem(items[nextIndex]);
+        this.listController.focusFirstItem();
         return;
-      case MenuActions.CloseSelect:
+      case MenuAction.Last:
+        event.preventDefault();
+        this.listController.focusLastItem();
+        return;
+      case MenuAction.PageUp:
+      case MenuAction.PageDown: {
+        event.preventDefault();
+        const { first, last, pageSize } = getVisibleItems(this, items);
+        const isDown = action === MenuAction.PageDown;
+
+        const boundary = isDown ? last : first;
+        const atBoundary = isDown
+          ? currentIndex >= last
+          : currentIndex <= first;
+        const step = isDown ? pageSize : -pageSize;
+
+        const nextIndex = atBoundary ? currentIndex + step : boundary;
+
+        this.listController._focusItem(
+          items[Math.max(0, Math.min(maxIndex, nextIndex))]
+        );
+        return;
+      }
+      case MenuAction.Next:
+        event.preventDefault();
+        this.listController.focusNextItem();
+        return;
+      case MenuAction.Previous:
+        event.preventDefault();
+        this.listController.focusPreviousItem();
+        return;
+      case MenuAction.CloseSelect:
         event.preventDefault();
         if (currentIndex >= 0) {
           items[currentIndex].focused = false;
-          this.dispatchEvent(
-            new CustomEvent('select', {
-              detail: {
-                item: items[currentIndex],
-                index: currentIndex,
-              },
-              bubbles: true,
-              composed: true,
-            })
-          );
-          if (this.keepOpenSelect) return;
-          this.open = false;
+          this.#dispatchAction({
+            item: items[currentIndex],
+            index: currentIndex,
+          });
+          if (this.keepOpenAction) return;
+          this.#dispatchHide();
         }
         return;
-      case MenuActions.Close:
-        event.preventDefault();
-        this.open = false;
-        return;
-      case MenuActions.Type:
-        this.open = true;
+      case MenuAction.Type:
         this.listController.handleType(event.key);
         return;
-      case MenuActions.Open:
-        event.preventDefault();
-        this.open = true;
-        return;
     }
   }
 
-  #handleFocusOut(event: FocusEvent) {
-    if (this.keepOpenBlur) return;
-    const newFocus = event.relatedTarget as Node;
-    const isInside =
-      this.contains(newFocus) ||
-      this.shadowRoot?.contains(newFocus) ||
-      this.$control?.contains(newFocus);
-    if (!isInside) {
-      this.open = false;
-    }
-  }
-
-  #handleItemMouseOver(event: Event) {
+  #handleMouseOver(event: MouseEvent) {
     setFocusVisible(false);
-    const hoveredItem = event.currentTarget as MenuItem;
-    this.listController._focusItem(hoveredItem);
+    const item = this.#getItemFromEvent(event);
+    if (item && this.currentIndex !== item.index)
+      this.listController._focusItem(item.item);
   }
 
-  #handleItemClick(event: Event) {
-    const clickedItem = event.currentTarget as MenuItem;
-    const index = this.listController.items.indexOf(clickedItem);
+  #handleClick(event: MouseEvent) {
+    const item = this.#getItemFromEvent(event);
+    if (!item) return;
 
-    this.listController.items[index].focused = false;
+    item.item.focused = false;
+    this.#dispatchAction({ ...item });
+    if (!this.keepOpenAction) this.#dispatchHide();
+  }
+
+  #getItemFromEvent(event: Event) {
+    const item = (event.target as HTMLElement).closest<MenuItem>(
+      '[seele-base=option]'
+    );
+    if (!item || !this.$items.includes(item)) return null;
+    return { item, index: this.$items.indexOf(item) };
+  }
+
+  #dispatchAction(detail: MenuEventDetail) {
     this.dispatchEvent(
-      new CustomEvent('select', {
-        detail: {
-          item: clickedItem,
-          index: index,
-        },
+      new CustomEvent('action', {
+        detail: detail,
         bubbles: true,
         composed: true,
       })
     );
-
-    if (!this.keepOpenSelect) this.open = false;
   }
-
-  get currentIndex() {
-    return this.listController?.currentIndex;
-  }
-
-  focusFirstItem() {
-    this.listController.focusFirstItem();
-  }
-  focusLastItem() {
-    this.listController.focusLastItem();
-  }
-  focusItem(item: MenuItem) {
-    this.listController._focusItem(item);
-  }
-
-  show() {
-    this.open = true;
-  }
-  close() {
-    this.open = false;
+  #dispatchHide() {
+    this.dispatchEvent(
+      new Event('request-popup-hide', { bubbles: true, composed: true })
+    );
   }
 }
 
+// Might as well be used in listbox, so let's keep it for now
 // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
-export const MenuActions = {
-  Close: 0,
-  CloseSelect: 1,
-  First: 2,
-  Last: 3,
-  Next: 4,
-  Open: 5,
-  PageDown: 6,
-  PageUp: 7,
-  Previous: 8,
-  Select: 9,
-  Type: 10,
-};
-
-export function filterOptions(
-  options: string[] = [],
-  filter: string,
-  exclude: string[] = []
-) {
-  return options.filter((option) => {
-    const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
-    return matches && exclude.indexOf(option) < 0;
-  });
+export enum MenuAction {
+  Close = -11,
+  CloseSelect = -10,
+  First = 1,
+  Last,
+  Next,
+  Open,
+  PageDown,
+  PageUp,
+  Previous,
+  Select,
+  Type,
 }
 
-export function getActionFromKey(event: KeyboardEvent, menuOpen: boolean) {
+export function getActionFromKey(event: KeyboardEvent): MenuAction | null {
   const { key, altKey, ctrlKey, metaKey } = event;
-  const openKeys = ['ArrowDown', 'ArrowUp', 'Enter', ' '];
 
-  if (!menuOpen && openKeys.includes(key)) {
-    return MenuActions.Open;
-  }
+  if (key === 'Escape') return MenuAction.Close;
+  if (key === 'Enter' || key === ' ') return MenuAction.CloseSelect;
 
-  if (key === 'Home') {
-    return MenuActions.First;
-  }
-  if (key === 'End') {
-    return MenuActions.Last;
-  }
+  if (key === 'Home') return MenuAction.First;
+  if (key === 'End') return MenuAction.Last;
+  if (key === 'PageUp') return MenuAction.PageUp;
+  if (key === 'PageDown') return MenuAction.PageDown;
+
+  if (key === 'ArrowUp' && altKey) return MenuAction.CloseSelect;
+  if (key === 'ArrowDown' && !altKey) return MenuAction.Next;
+  if (key === 'ArrowUp' && !altKey) return MenuAction.Previous;
 
   if (
     key === 'Backspace' ||
     key === 'Clear' ||
     (key.length === 1 && key !== ' ' && !altKey && !ctrlKey && !metaKey)
   ) {
-    return MenuActions.Type;
+    return MenuAction.Type;
   }
 
-  if (menuOpen) {
-    if (key === 'ArrowUp' && altKey) {
-      return MenuActions.CloseSelect;
-    } else if (key === 'ArrowDown' && !altKey) {
-      return MenuActions.Next;
-    } else if (key === 'ArrowUp') {
-      return MenuActions.Previous;
-    } else if (key === 'PageUp') {
-      return MenuActions.PageUp;
-    } else if (key === 'PageDown') {
-      return MenuActions.PageDown;
-    } else if (key === 'Escape') {
-      return MenuActions.Close;
-    } else if (key === 'Enter' || key === ' ') {
-      return MenuActions.CloseSelect;
+  return null;
+}
+
+export function getVisibleItems(container: HTMLElement, items: HTMLElement[]) {
+  if (!items.length) return { first: 0, last: 0, pageSize: 1 };
+
+  const containerRect = container.getBoundingClientRect();
+  const style = window.getComputedStyle(container);
+
+  const paddingTop = parseFloat(style.scrollPaddingTop) || 0;
+  const paddingBottom = parseFloat(style.scrollPaddingBottom) || 0;
+  const top = containerRect.top + container.clientTop + paddingTop;
+  const bottom = top + container.clientHeight - paddingTop - paddingBottom;
+
+  let first = -1;
+  let last = -1;
+
+  for (let i = 0; i < items.length; i++) {
+    const itemRect = items[i].getBoundingClientRect();
+
+    if (itemRect.top < bottom && itemRect.bottom > top) {
+      if (first === -1) first = i;
+      last = i;
+    } else if (first !== -1) {
+      break;
     }
   }
-  return undefined;
-}
 
-export function getUpdatedIndex(
-  currentIndex: number,
-  maxIndex: number,
-  action: number
-) {
-  const pageSize = 10;
-
-  switch (action) {
-    case MenuActions.First:
-      return 0;
-    case MenuActions.Last:
-      return maxIndex;
-    case MenuActions.Previous:
-      return Math.max(0, currentIndex - 1);
-    case MenuActions.Next:
-      return Math.min(maxIndex, currentIndex + 1);
-    case MenuActions.PageUp:
-      return Math.max(0, currentIndex - pageSize);
-    case MenuActions.PageDown:
-      return Math.min(maxIndex, currentIndex + pageSize);
-    default:
-      return currentIndex;
+  if (first === -1) {
+    return { first: 0, last: 0, pageSize: 1 };
   }
-}
 
-export function scrollItemIntoView(
-  menu: HTMLElement,
-  item: HTMLElement,
-  paddingY: number = 0
-) {
-  if (!menu) return;
-
-  // Basic scroll into view logic
-  const menuRect = menu.getBoundingClientRect();
-  const itemRect = item.getBoundingClientRect();
-
-  if (itemRect.bottom + paddingY > menuRect.bottom) {
-    menu.scrollTop += itemRect.bottom - menuRect.bottom + paddingY;
-  } else if (itemRect.top - paddingY < menuRect.top) {
-    menu.scrollTop -= menuRect.top - itemRect.top + paddingY;
-  }
+  // pageSize is the span of visible items
+  return { first, last, pageSize: Math.max(1, last - first + 1) };
 }

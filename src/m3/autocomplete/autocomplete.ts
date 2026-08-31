@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { Autocomplete } from '../../base/autocomplete.js';
+import '../popup/popup.js';
 import '../menu/menu.js';
 
 import { autocompleteStyles } from './autocomplete-styles.css.js';
@@ -15,24 +16,24 @@ export class M3Autocomplete extends Autocomplete {
 
   override renderMenu() {
     return html`
-      <md-menu
-        part="menu"
-        id="menu"
-        type="listbox"
-        data-tabindex="-1"
-        ?quick="${this.quick}"
-        .offset=${this.offset}
-        .align=${this.align}
-        .alignStrategy=${this.alignStrategy}
-        ?keep-open-select=${this.keepOpenSelect}
+      <md-popup
+        part="popup"
+        role="presentation"
         no-focus-control
-        ?open=${this.open}
-        @open="${() => (this.open = true)}"
-        @close="${() => (this.open = false)}"
-        @select=${this.handleMenuSelect}
+        quick
+        .open=${this.open}
+        @toggle=${(e: ToggleEvent) => (this.open = e.newState === 'open')}
       >
-        <slot @slotchange=${this.handleItemsSlotChange}></slot>
-      </md-menu>
+        <md-menu
+          part="menu"
+          id="menu"
+          type="listbox"
+          tabindex="-1"
+          @action=${this.handleMenuAction}
+        >
+          <slot @slotchange=${this.handleItemsSlotChange}></slot>
+        </md-menu>
+      </md-popup>
     `;
   }
 }

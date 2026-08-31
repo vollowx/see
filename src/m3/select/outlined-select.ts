@@ -28,14 +28,12 @@ export class M3OutlinedSelect extends M3Select {
         .error=${this.error}
         .focused=${this.open || this.focused}
         supporting-text=${this.supportingText}
-        @click=${this.toggle}
         @keydown=${this._handleFieldKeydown}
         @focus=${() => (this.focused = true)}
         @blur=${() => (this.focused = false)}
         tabindex=${this.disabled ? '-1' : '0'}
         role="combobox"
         aria-haspopup="listbox"
-        aria-expanded=${this.open}
         aria-controls="menu"
         aria-disabled=${this.disabled}
         aria-required=${this.required}

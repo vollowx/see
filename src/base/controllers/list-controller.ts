@@ -1,7 +1,6 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import type { ListItem } from '../list-item.js';
-import { filterOptions } from '../menu.js';
 
 export interface ListControllerConfig<Item extends ListItem> {
   isItem: (item: HTMLElement) => item is Item;
@@ -142,6 +141,17 @@ export class ListController<
     const index = this.currentIndex;
     this._focusedItem = index >= 0 ? items[index] : null;
   }
+}
+
+export function filterOptions(
+  options: string[] = [],
+  filter: string,
+  exclude: string[] = []
+) {
+  return options.filter((option) => {
+    const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
+    return matches && exclude.indexOf(option) < 0;
+  });
 }
 
 export function getIndexByLetter(

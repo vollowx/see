@@ -1,14 +1,19 @@
 import { LitElement, isServer, html, PropertyValues } from 'lit';
 import { property, query } from 'lit/decorators.js';
 
-import type { Placement, Strategy } from '@floating-ui/dom';
-import type { Field } from './field.js';
-import type { Menu, MenuItemFocusEvent, MenuSelectEvent } from './menu.js';
-import type { Option } from './option.js';
-
 import { InternalsAttached } from './mixins/internals-attached.js';
 import { FocusDelegated } from './mixins/focus-delegated.js';
 import { FormAssociated } from './mixins/form-associated.js';
+
+import type { Field } from './field.js';
+import type { Option } from './option.js';
+import type { Popup } from './popup.js';
+import type {
+  Menu,
+  MenuItemFocusEvent,
+  MenuActionEvent,
+} from './menu.js';
+import { getActionFromKey, MenuAction } from './menu.js';
 
 const VALUE = Symbol('value');
 
@@ -16,30 +21,17 @@ const Base = FormAssociated(FocusDelegated(InternalsAttached(LitElement)));
 
 /**
  * @csspart field
+ * @csspart popup
  * @csspart menu
- * @csspart items
  *
  * @fires {Event} change - Fires when the value is changed.
  * @fires {Event} input - Fires when the value is changed.
  *
  * TODO: Render multiple values
- * FIXME: `aria-expanded` set twice by both Lit and Menu
  */
 export class Select extends Base {
-  // Form-related
   @property({ type: Boolean, reflect: true }) required = false;
-
-  // Passed to field
   @property({ type: Boolean }) error = false;
-
-  // Passed to menu
-  @property({ type: Boolean }) quick = false;
-  @property({ type: Number }) offset = 0;
-  @property({ reflect: true })
-  align: Placement = 'bottom-start';
-  @property({ type: String, reflect: true, attribute: 'align-strategy' })
-  alignStrategy: Strategy = 'absolute';
-
   @property({ type: Boolean }) open = false;
 
   /**
@@ -81,8 +73,9 @@ export class Select extends Base {
     return (this.getSelectedOptions() ?? []).map(([option]) => option);
   }
 
-  @query('[part="field"]') $field!: Field;
-  @query('[part="menu"]') $menu!: Menu;
+  @query('[part=field]') $field!: Field;
+  @query('[part=popup]') $popup!: Popup;
+  @query('[part=menu]') $menu!: Menu;
 
   private lastUserSetValue: string | null = null;
   private lastUserSetSelectedIndex: number | null = null;
@@ -94,52 +87,14 @@ export class Select extends Base {
   }
 
   /**
-   * Example content:
-   *
-   * ```html
-   * <your-field
-   *   id="field"
-   *   part="field"
-   *   @click=${this.toggle}
-   *   @keydown=${this.handleFieldKeydown}
-   *   tabindex=${this.disabled ? '-1' : '0'}
-   *   role="combobox"
-   *   aria-haspopup="listbox"
-   *   aria-expanded=${this.open}
-   *   aria-controls="menu"
-   *   aria-disabled=${this.disabled}
-   *   aria-required=${this.required}
-   * >
-   *   ${this.renderFieldContent()}
-   * </your-field>
-   * ```
+   * Check example content from the m3 implementation
    */
   protected renderField() {
     return html``;
   }
 
   /**
-   * Example content:
-   *
-   * ```html
-   * <your-menu
-   *   id="menu"
-   *   for="field"
-   *   type="listbox"
-   *   data-tabindex="-1"
-   *   ?quick="${this.quick}"
-   *   offset="${this.offset}"
-   *   align="${this.align}"
-   *   align-strategy="${this.alignStrategy}"
-   *   keep-open-blur
-   *   no-focus-control
-   *   ?open="${this.open}"
-   *   @item-focus="${this.handleMenuItemFocus}"
-   *   @select="${this.handleMenuSelect}"
-   * >
-   *   <slot part="items" @slotchange=${this.handleSlotChange}></slot>
-   * </your-menu>
-   * ```
+   * Check example content from the m3 implementation
    */
   protected renderMenu() {
     return html``;
@@ -151,9 +106,8 @@ export class Select extends Base {
 
   constructor() {
     super();
-
     if (!isServer) {
-      this.addEventListener('focusout', this._handleFocusOut);
+      this.addEventListener('focusout', this.#handleFocusOut.bind(this));
     }
   }
 
@@ -193,39 +147,60 @@ export class Select extends Base {
       if (this.open) {
         this.#focusSelectedItemOrFirst();
       } else {
-        this.$field.setAttribute('aria-activedescendant', '');
+        this.$field.ariaActiveDescendantElement = null;
       }
     }
   }
 
-  /**
-   * TODO: Handle clear action
-   */
   protected _handleFieldKeydown(event: KeyboardEvent) {
     if (this.disabled) return;
 
-    const eventClone = new KeyboardEvent(event.type, event);
-    eventClone.preventDefault = () => event.preventDefault();
-    eventClone.stopPropagation = () => event.stopPropagation();
-    this.$menu.$menu.dispatchEvent(eventClone);
+    if (!this.open) {
+      if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+        event.preventDefault();
+        this.open = true;
+        return;
+      }
+      const action = getActionFromKey(event);
+      if (action === MenuAction.Type) {
+        this.open = true;
+      } else {
+        return;
+      }
+    }
+
+    if (this.open) this.$menu.handleKeyDown(event);
   }
 
-  protected _handleMenuSelect(event: MenuSelectEvent) {
+  protected _handleMenuAction(event: MenuActionEvent) {
     if (this.selectItem(event.detail.item as Option)) {
       this.#dispatchChangeEvent();
+      this.$field.focus();
+      // For Narrator, activating an option moves focus the document then
     }
-    this.open = false;
   }
 
   protected _handleMenuItemFocus(event: MenuItemFocusEvent) {
-    this.$field.setAttribute('aria-activedescendant', event.detail.item.id);
+    this.$field.ariaActiveDescendantElement = event.detail.item;
   }
 
-  protected _handleFocusOut(event: FocusEvent) {
-    const relatedTarget = event.relatedTarget as Node;
-    if (!this.contains(relatedTarget) && !this.$menu.contains(relatedTarget)) {
-      this.open = false;
+  #handleFocusOut(event: FocusEvent) {
+    if (!this.open) return;
+
+    const target = event.relatedTarget as Node | null;
+
+    if (target && this.contains(target)) {
+      return;
     }
+
+    if (target) {
+      this.$popup.hide();
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      if (!document.hasFocus()) this.$popup.hide();
+    });
   }
 
   protected _handleSlotChange() {

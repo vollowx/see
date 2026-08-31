@@ -1,15 +1,12 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
+import '../popup/popup.js';
 import '../menu/menu.js';
 
 import { Select } from '../../base/select.js';
-import { M3Field } from '../field/field.js';
+import type { M3Field } from '../field/field.js';
 
-/**
- * @fires {Event} change - Fired when the selected value has changed.
- * @fires {Event} input - Fired when the selected value has changed.
- */
 export abstract class M3Select extends Select {
   @property({ type: String }) label = '';
   @property({ type: String, attribute: 'supporting-text' }) supportingText = '';
@@ -20,26 +17,26 @@ export abstract class M3Select extends Select {
 
   protected override renderMenu() {
     return html`
-      <md-menu
-        part="menu"
-        id="menu"
+      <md-popup
+        part="popup"
+        role="presentation"
         for="field"
-        type="listbox"
-        data-tabindex="-1"
-        ?quick="${this.quick}"
-        offset="${this.offset}"
-        align="${this.align}"
-        align-strategy="${this.alignStrategy}"
-        keep-open-blur
         no-focus-control
-        ?open="${this.open}"
-        @open="${() => (this.open = true)}"
-        @close="${() => (this.open = false)}"
-        @item-focus="${this._handleMenuItemFocus}"
-        @select="${this._handleMenuSelect}"
+        .open="${this.open}"
+        @toggle=${(e: ToggleEvent) => (this.open = e.newState === 'open')}
       >
-        <slot part="items" @slotchange=${this._handleSlotChange}></slot>
-      </md-menu>
+        <md-menu
+          id="menu"
+          part="menu"
+          role="listbox"
+          tabindex="-1"
+          bare
+          @item-focus="${this._handleMenuItemFocus}"
+          @action="${this._handleMenuAction}"
+        >
+          <slot @slotchange=${this._handleSlotChange}></slot>
+        </md-menu>
+      </md-popup>
     `;
   }
 }

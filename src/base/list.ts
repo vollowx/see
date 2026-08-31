@@ -1,51 +1,62 @@
+/**
+ * TODO: currently list and menu has too much in common, should be split into
+ *       menu, listbox and a LinearFocusController for tabs/toolbars
+ */
+
 import { LitElement, html, isServer } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-
 import type { ListItem } from './list-item.js';
-
-import { setFocusVisible } from '../core/focus.js';
-import { InternalsAttached, internals } from './mixins/internals-attached.js';
+import { focusVisible, setFocusVisible } from '../core/focus.js';
+import { internals, InternalsAttached } from './mixins/internals-attached.js';
 import { ListController } from './controllers/list-controller.js';
+import { MenuAction, getActionFromKey, getVisibleItems } from './menu.js';
 
-const Base = InternalsAttached(LitElement);
-
-interface ListSelectDetail {
+export interface ListboxSelectDetail {
   item: ListItem;
   index: number;
 }
-export type ListSelectEvent = CustomEvent<ListSelectDetail>;
 
-interface ItemFocusDetail {
+export type ListboxSelectEvent = CustomEvent<ListboxSelectDetail>;
+
+export interface ItemFocusDetail {
   item: ListItem;
+  index: number;
 }
+
 export type ListItemFocusEvent = CustomEvent<ItemFocusDetail>;
 
 /**
  * @csspart items
- *
- * @fires {Event} open - Fires when the menu is opened.
- * @fires {Event} close - Fires when the menu is closed.
- * @fires {ListSelectEvent} select - Fires when an item is selected.
+ * @fires {ListboxSelectEvent} select - Fires when an item is selected.
  * @fires {ListItemFocusEvent} item-focus - Fires when an item is focused
  */
-export class List extends Base {
-  readonly _scrollPadding: number = 0;
-
+export class List extends InternalsAttached(LitElement) {
   @property({ type: Boolean, attribute: 'no-focus-control' })
   noFocusControl = false;
 
-  @queryAssignedElements({ flatten: true }) slotItems!: Array<
-    ListItem | HTMLElement
-  >;
+  @queryAssignedElements({ flatten: true }) slotItems!: Array<ListItem>;
+
   get $items() {
     return this.listController.items || [];
   }
 
-  override render() {
-    return html` ${this.renderItemSlot()} `;
+  get currentIndex() {
+    return this.listController?.currentIndex;
   }
 
-  renderItemSlot() {
+  focusFirstItem() {
+    this.listController.focusFirstItem();
+  }
+
+  focusLastItem() {
+    this.listController.focusLastItem();
+  }
+
+  focusItem(item: ListItem) {
+    this.listController._focusItem(item);
+  }
+
+  override render() {
     return html`<slot part="items"></slot>`;
   }
 
@@ -55,6 +66,7 @@ export class List extends Base {
       !item.hasAttribute('disabled') &&
       !item.hidden,
     getPossibleItems: () => this.slotItems,
+
     blurItem: (item: ListItem) => {
       item.focused = false;
     },
@@ -63,10 +75,10 @@ export class List extends Base {
       if (!this.noFocusControl) {
         this[internals].ariaActiveDescendantElement = item;
       }
-      scrollItemIntoView(this, item, this._scrollPadding);
+      if (focusVisible) item.scrollIntoView({ block: 'nearest' });
       this.dispatchEvent(
         new CustomEvent('item-focus', {
-          detail: { item: item },
+          detail: { item, index: this.$items.indexOf(item) },
           bubbles: true,
           composed: true,
         })
@@ -82,230 +94,115 @@ export class List extends Base {
       this.setAttribute('tabindex', '0');
     }
     if (!isServer) {
-      this.addEventListener('keydown', (e) => this.#handleKeyDown(e));
-      this.addEventListener('focusin', () => this.#handleFocusIn());
-      this.addEventListener('focusout', () => this.#handleFocusOut());
-      this.addEventListener('pointerdown', (e) => this.#handlePointerDown(e));
-      this.addEventListener('click', (e) => this.#handleClick(e));
-      this.addEventListener('mouseover', (e) => this.#handleMouseOver(e));
+      this.addEventListener('keydown', this.handleKeyDown.bind(this));
+      this.addEventListener('focusin', this.#handleFocusIn.bind(this));
+      this.addEventListener('focusout', this.#handleFocusOut.bind(this));
+      this.addEventListener('mouseover', this.#handleMouseOver.bind(this));
+      this.addEventListener('click', this.#handleClick.bind(this));
     }
   }
 
-  protected override updated(changed: Map<string, any>) {
-    // TODO: Find somewhere to put this
-    // this.listController.clearSearch();
+  #handleFocusIn() {
+    if (this.currentIndex === -1) {
+      this.listController.focusFirstItem();
+    } else {
+      this.listController._focusItem(this.$items[this.currentIndex]);
+    }
   }
 
-  #handleKeyDown(event: KeyboardEvent) {
-    if (event.defaultPrevented) return;
+  #handleFocusOut() {
+    if (this.listController._focusedItem) {
+      this.listController._blurItem(this.listController._focusedItem);
+    }
+  }
 
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.defaultPrevented) return;
     const action = getActionFromKey(event);
     const items = this.$items;
     const currentIndex = this.listController.currentIndex;
     const maxIndex = items.length - 1;
 
     switch (action) {
-      case MenuActions.Last:
-      case MenuActions.First:
-      case MenuActions.Next:
-      case MenuActions.Previous:
-      case MenuActions.PageUp:
-      case MenuActions.PageDown:
+      case MenuAction.First:
         event.preventDefault();
-        const nextIndex = getUpdatedIndex(currentIndex, maxIndex, action!);
-        this.listController._focusItem(items[nextIndex]);
+        this.listController.focusFirstItem();
         return;
-      case MenuActions.CloseSelect:
+      case MenuAction.Last:
+        event.preventDefault();
+        this.listController.focusLastItem();
+        return;
+      case MenuAction.PageUp:
+      case MenuAction.PageDown: {
+        event.preventDefault();
+        const { first, last, pageSize } = getVisibleItems(this, items);
+
+        const isDown = action === MenuAction.PageDown;
+        const boundary = isDown ? last : first;
+        const atBoundary = isDown
+          ? currentIndex >= last
+          : currentIndex <= first;
+        const step = isDown ? pageSize : -pageSize;
+        const nextIndex = atBoundary ? currentIndex + step : boundary;
+        this.listController._focusItem(
+          items[Math.max(0, Math.min(maxIndex, nextIndex))]
+        );
+        return;
+      }
+      case MenuAction.Next:
+        event.preventDefault();
+        this.listController.focusNextItem();
+        return;
+      case MenuAction.Previous:
+        event.preventDefault();
+        this.listController.focusPreviousItem();
+        return;
+      case MenuAction.CloseSelect:
         event.preventDefault();
         if (currentIndex >= 0) {
-          items[currentIndex].focused = false;
-          this.dispatchEvent(
-            new CustomEvent('select', {
-              detail: {
-                item: items[currentIndex],
-                index: currentIndex,
-              },
-              bubbles: true,
-              composed: true,
-            })
-          );
+          this.#dispatchSelect({
+            item: items[currentIndex],
+            index: currentIndex,
+          });
         }
         return;
-      case MenuActions.Type:
+      case MenuAction.Type:
         this.listController.handleType(event.key);
         return;
     }
   }
 
-  #handleFocusIn() {
-    if (this.currentIndex == -1) this.listController.focusFirstItem();
-    else this.$items[this.currentIndex].focused = true;
-  }
-
-  #handleFocusOut() {
-    this.$items[this.currentIndex].focused = false;
-  }
-
   #handleMouseOver(event: MouseEvent) {
     setFocusVisible(false);
-    const item = (event.target as HTMLElement).closest(
-      '[seele-base="option"]'
-    ) as ListItem;
-    if (item && this.listController.items.includes(item)) {
-      this.listController._focusItem(item);
+    const item = this.#getItemFromEvent(event);
+    if (item && this.currentIndex !== item.index) {
+      this.listController._focusItem(item.item);
     }
   }
 
-  #handlePointerDown(event: PointerEvent) {
-    event.preventDefault(); // This makes sure that the container is focused
-    this.focus();
+  #handleClick(event: MouseEvent) {
+    const item = this.#getItemFromEvent(event);
+    if (!item) return;
 
-    const item = this.#getEventItem(event);
-    if (!item || !this.listController.items.includes(item)) return;
-
-    this.listController._focusItem(item);
+    this.#dispatchSelect({ ...item });
   }
 
-  #handleClick(event: MouseEvent) {
-    this.focus();
+  #getItemFromEvent(event: Event) {
+    const item = (event.target as HTMLElement).closest<ListItem>(
+      '[seele-base=option]'
+    );
 
-    const item = this.#getEventItem(event);
-    if (!item || !this.listController.items.includes(item)) return;
+    if (!item || !this.$items.includes(item)) return null;
+    return { item, index: this.$items.indexOf(item) };
+  }
 
+  #dispatchSelect(detail: ListboxSelectDetail) {
     this.dispatchEvent(
       new CustomEvent('select', {
-        detail: {
-          item: item,
-          index: this.listController.items.indexOf(item),
-        },
+        detail: detail,
         bubbles: true,
         composed: true,
       })
     );
-  }
-
-  #getEventItem(event: Event) {
-    return (event.target as HTMLElement).closest(
-      '[seele-base="option"]'
-    ) as ListItem;
-  }
-
-  get currentIndex() {
-    return this.listController?.currentIndex;
-  }
-
-  focusFirstItem() {
-    this.listController.focusFirstItem();
-  }
-  focusLastItem() {
-    this.listController.focusLastItem();
-  }
-  focusItem(item: ListItem) {
-    this.listController._focusItem(item);
-  }
-}
-
-// Reference: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
-export const MenuActions = {
-  Close: 0,
-  CloseSelect: 1,
-  First: 2,
-  Last: 3,
-  Next: 4,
-  Open: 5,
-  PageDown: 6,
-  PageUp: 7,
-  Previous: 8,
-  Select: 9,
-  Type: 10,
-};
-
-export function filterOptions(
-  options: string[] = [],
-  filter: string,
-  exclude: string[] = []
-) {
-  return options.filter((option) => {
-    const matches = option.toLowerCase().indexOf(filter.toLowerCase()) === 0;
-    return matches && exclude.indexOf(option) < 0;
-  });
-}
-
-export function getActionFromKey(event: KeyboardEvent) {
-  const { key, altKey, ctrlKey, metaKey } = event;
-
-  if (key === 'Home') {
-    return MenuActions.First;
-  }
-  if (key === 'End') {
-    return MenuActions.Last;
-  }
-
-  if (
-    key === 'Backspace' ||
-    key === 'Clear' ||
-    (key.length === 1 && key !== ' ' && !altKey && !ctrlKey && !metaKey)
-  ) {
-    return MenuActions.Type;
-  }
-
-  if (key === 'ArrowUp' && altKey) {
-    return MenuActions.CloseSelect;
-  } else if (key === 'ArrowDown' && !altKey) {
-    return MenuActions.Next;
-  } else if (key === 'ArrowUp') {
-    return MenuActions.Previous;
-  } else if (key === 'PageUp') {
-    return MenuActions.PageUp;
-  } else if (key === 'PageDown') {
-    return MenuActions.PageDown;
-  } else if (key === 'Escape') {
-    return MenuActions.Close;
-  } else if (key === 'Enter' || key === ' ') {
-    return MenuActions.CloseSelect;
-  }
-  return undefined;
-}
-
-export function getUpdatedIndex(
-  currentIndex: number,
-  maxIndex: number,
-  action: number
-) {
-  const pageSize = 10;
-
-  switch (action) {
-    case MenuActions.First:
-      return 0;
-    case MenuActions.Last:
-      return maxIndex;
-    case MenuActions.Previous:
-      return Math.max(0, currentIndex - 1);
-    case MenuActions.Next:
-      return Math.min(maxIndex, currentIndex + 1);
-    case MenuActions.PageUp:
-      return Math.max(0, currentIndex - pageSize);
-    case MenuActions.PageDown:
-      return Math.min(maxIndex, currentIndex + pageSize);
-    default:
-      return currentIndex;
-  }
-}
-
-export function scrollItemIntoView(
-  list: HTMLElement,
-  item: HTMLElement,
-  paddingY: number = 0
-) {
-  if (!list) return;
-
-  // Basic scroll into view logic
-  const menuRect = list.getBoundingClientRect();
-  const itemRect = item.getBoundingClientRect();
-
-  if (itemRect.bottom + paddingY > menuRect.bottom) {
-    list.scrollTop += itemRect.bottom - menuRect.bottom + paddingY;
-  } else if (itemRect.top - paddingY < menuRect.top) {
-    list.scrollTop -= menuRect.top - itemRect.top + paddingY;
   }
 }

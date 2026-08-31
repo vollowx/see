@@ -1,13 +1,6 @@
 /**
  * NOTE: demos at dev/pending.html
- * NOTE: should apply writing style on event listeners to other files
- * TODO: consider removing popoverController, but in case of tooltip, reserve
- *       for now
  * TODO: hijack all `hidePopover()`s to allow more complex JS animations
- * TODO: simpler Menu that just inherits List - do we really need a separated
- *       Menu? Why not just `<md-list role="presentation">`?
- *
- * Design: TO BE ADDED
  */
 
 import { LitElement, html, PropertyValues, isServer } from 'lit';
@@ -23,18 +16,20 @@ import {
   Strategy,
 } from '@floating-ui/dom';
 
-import { getFirstTabbable } from '../../core/focus.js';
-import { InternalsAttached } from '../mixins/internals-attached.js';
+import { getFirstTabbable } from '../core/focus.js';
+import { InternalsAttached } from './mixins/internals-attached.js';
 import {
   Attachable,
   autoAttachToParent,
   handleControlChange,
-} from '../mixins/attachable.js';
-import { transformOriginFromArrow } from '../controllers/popover-controller.js';
+} from './mixins/attachable.js';
+import { transformOriginFromArrow } from './controllers/popover-controller.js';
 
 import { popupStyles } from './popup-styles.css.js';
 
-
+/**
+ * When using popup with menu, you need to manually bind them using `aria-controls`
+ */
 @customElement('complementary-popup')
 export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: Boolean, reflect: true })
@@ -43,10 +38,12 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: Boolean, attribute: 'no-focus-control' })
   noFocusControl = false;
 
-  @property({ type: String }) placement: Placement = 'bottom-start';
+  @property({ type: String }) align: Placement = 'bottom-start';
   @property({ type: String }) strategy: Strategy = 'absolute';
   @property({ type: Number }) offset = 0;
   @property({ type: Number, attribute: 'window-padding' }) windowPadding = 8;
+
+  @property({ type: HTMLElement }) $ariaControl: HTMLElement | null;
 
   static override styles = [popupStyles];
   override render() {
@@ -55,14 +52,14 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
 
   constructor() {
     super();
+    this.setAttribute('notransition', '');
     if (!this.hasAttribute('popover')) this.setAttribute('popover', 'auto');
     if (!isServer) {
-      this.addEventListener('request-popup-hide', this.#onRequestHide);
-      // this.addEventListener('beforetoggle', this.#onBeforeToggle);
-      this.addEventListener('toggle', this.#onToggle);
-      this.addEventListener('focusout', this.#onFocusOut);
+      this.addEventListener('request-popup-hide', this.#handleRequestHide);
+      // this.addEventListener('beforetoggle', this.#handleBeforeToggle);
+      this.addEventListener('toggle', this.#handleToggle);
+      this.addEventListener('focusout', this.#handleFocusOut);
     }
-    this.setAttribute('notransition', '');
   }
 
   override connectedCallback() {
@@ -79,9 +76,9 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
 
   protected override updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('open')) {
+      this.#syncTriggerAria();
       if (this.open) this._show();
       else this._hide();
-      this.#syncTriggerAria();
     }
   }
 
@@ -91,24 +88,24 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
     next: HTMLElement | null
   ): void {
     if (prev) {
-      prev.removeEventListener('click', this.#onTriggerClick);
-      prev.removeEventListener('focusout', this.#onFocusOut);
+      prev.removeEventListener('click', this.#handleTriggerClick);
+      prev.removeEventListener('focusout', this.#handleFocusOut);
     }
     if (next) {
-      next.addEventListener('click', this.#onTriggerClick);
-      next.addEventListener('focusout', this.#onFocusOut);
+      next.addEventListener('click', this.#handleTriggerClick);
+      next.addEventListener('focusout', this.#handleFocusOut);
 
-      next.ariaHasPopup = 'true';
-      next.ariaExpanded = String(this.open);
-      next.ariaControlsElements = [this];
+      const ariaNext = this.$ariaControl ? this.$ariaControl : next;
+      if (!next.ariaHasPopup) ariaNext.ariaHasPopup = 'true';
+      ariaNext.ariaExpanded = String(this.open);
     }
   }
 
-  #onRequestHide = () => {
+  #handleRequestHide = () => {
     this.hide();
   };
   // #allowHidePopover = false;
-  // #onBeforeToggle = (e: ToggleEvent) => {
+  // #handleBeforeToggle = (e: ToggleEvent) => {
   //   // Intercept browser light-dismiss (ESC, click outside) or external hidePopover() calls
   //   if (e.newState === 'closed' && !this.#allowHidePopover) {
   //     e.preventDefault();
@@ -117,11 +114,11 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   //     }
   //   }
   // };
-  #onToggle = (e: ToggleEvent) => {
+  #handleToggle = (e: ToggleEvent) => {
     e.preventDefault();
     if (e.newState === 'closed' && this.open) this.hide();
   };
-  #onFocusOut = (e: FocusEvent) => {
+  #handleFocusOut = (e: FocusEvent) => {
     // for `this` and `this.$control`
     if (this.noFocusControl || !this.open) return;
 
@@ -140,13 +137,14 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
       if (!document.hasFocus()) this.hide();
     });
   };
-  #onTriggerClick = (e: MouseEvent) => {
+  #handleTriggerClick = (e: MouseEvent) => {
     e.preventDefault();
     this.toggle();
   };
 
   #syncTriggerAria() {
-    this.$control?.setAttribute('aria-expanded', String(this.open));
+    if (this.$ariaControl) this.$ariaControl.ariaExpanded = String(this.open);
+    else if (this.$control) this.$control.ariaExpanded = String(this.open);
   }
   #focusFirstInteractiveElement() {
     if (this.noFocusControl) return;
@@ -215,7 +213,7 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
       trigger,
       this,
       {
-        placement: this.placement,
+        placement: this.align,
         strategy: this.strategy,
         middleware: [
           offset(this.offset),

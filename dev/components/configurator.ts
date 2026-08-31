@@ -4,7 +4,7 @@ import { customElement, state } from 'lit/decorators.js';
 @customElement('dev-configurator')
 export class DevConfigurator extends LitElement {
   @state() private isRtl = false;
-  @state() private isDark = true;
+  @state() private isDark = false;
 
   @state() private tooltipTexts = {
     dir: ['Set direction to right-to-left', 'Set direction to left-to-right'],
@@ -13,6 +13,7 @@ export class DevConfigurator extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
+    this.isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     this._applyDir();
     this._applyTheme();
   }
@@ -46,6 +47,7 @@ export class DevConfigurator extends LitElement {
       <md-icon-button-toggle
         id="toggle-dir"
         variant="outlined"
+        width="narrow"
         ?checked=${this.isRtl}
         @change=${this._handleDirToggle}
       >
@@ -69,6 +71,7 @@ export class DevConfigurator extends LitElement {
       <md-icon-button-toggle
         id="toggle-theme"
         variant="filled"
+        width="wide"
         ?checked=${this.isDark}
         @change=${this._handleThemeToggle}
       >

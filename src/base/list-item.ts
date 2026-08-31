@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { isServer, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { InternalsAttached, internals } from './mixins/internals-attached.js';
@@ -18,12 +18,16 @@ export class ListItem extends FormAssociated(InternalsAttached(LitElement)) {
     return this.innerText.trim();
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
+  // Accessibility tools, particularly Narrator, only fires `click` event on
+  // elements that have listeners for them.
+  #handleDummy() {}
+  constructor() {
+    super();
     this.setAttribute('seele-base', 'option');
     this[internals].role = this._role;
     this.setAttribute('tabindex', '-1');
     this.#updateInternals();
+    if (!isServer) this.addEventListener('click', this.#handleDummy);
   }
 
   protected override updated(changed: Map<string, any>) {

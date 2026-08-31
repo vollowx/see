@@ -9,8 +9,9 @@
 | name    | description               |
 | ---     | ---                       |
 | `field` | The field trigger element |
-| `menu`  | The dropdown menu         |
-| `items` | The slot inside the menu  |
+| `popup` | The dropdown              |
+| `menu`  | The menu inside           |
+| `value` | The displayed value text  |
 
 ## Events
 
@@ -21,23 +22,25 @@
 
 ## Properties
 
-name            | description
----             | ---
-`required`      | Reflected boolean
-`error`         | Boolean
-`quick`         | Boolean; skip open animation
-`offset`        | Number; pixel distance from anchor; `0` by default
-`align`         | Reflected string; floating-ui placement; `bottom-start` by default
-`alignStrategy` | Reflected string; `absolute` or `fixed`; `absolute` by default; `align-strategy` as an attribute
-`open`          | Boolean
-`displayText`   | String; text shown in the field before options load (SSR)
-`value`         | String; getting/setting also selects the matching option
-`selectedIndex` | Number; getter/setter; index of the selected option; `-1` if none
-`$field`        | The field element
-`$menu`         | The dropdown menu element
+| name              | description                                                                       |
+| ---               | ---                                                                               |
+| `required`        | Reflected boolean                                                                 |
+| `error`           |                                                                                   |
+| `open`            |                                                                                   |
+| `displayText`     | String; text shown in the field before options load (SSR); `display-text` as attr |
+| `value`           | String; getting/setting also selects the matching option                          |
+| `selectedIndex`   | Number; index of the selected option; `-1` if none; `selected-index` as attr      |
+| `$field`          |                                                                                   |
+| `$popup`          |                                                                                   |
+| `$menu`           |                                                                                   |
+| `$options`        | Array of `Option` elements inside the menu                                        |
+| `selectedOptions` | Array of currently selected `Option` elements                                     |
 
 ## Methods
 
-| signature                       | description                                 |
-| ---                             | ---                                         |
-| `select(value: string) -> void` | Selects the option matching the given value |
+| signature                            | description                                 |
+| ---                                  | ---                                         |
+| `select(value: string) -> void`      | Selects the option matching the given value |
+| `selectIndex(index: number) -> void` | Selects the option at the given index       |
+| `reset() -> void`                    |                                             |
+| `toggle() -> void`                   | Toggle the dropdown open/closed             |
