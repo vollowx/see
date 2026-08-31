@@ -1,38 +1,27 @@
-import { LitElement, html, PropertyValues } from 'lit';
+import { LitElement, html, PropertyValues, isServer } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
 
-import type { Placement, Strategy } from '@floating-ui/dom';
-import type { Input } from './input.js';
-import type { Menu, MenuSelectEvent } from './menu.js';
 import { ensureReady } from '../core/ensure-ready.js';
-
 import { InternalsAttached } from './mixins/internals-attached.js';
 import { FocusDelegated } from './mixins/focus-delegated.js';
 
+import type { Input } from './input.js';
+import type { Popup } from './experimental/popup.js';
+import type { Menu, MenuActionEvent } from './experimental/menu.js';
+
 const Base = FocusDelegated(InternalsAttached(LitElement));
 
-type AutocompleteMode = 'none' | 'list' | 'both';
+export type AutocompleteMode = 'none' | 'list' | 'both';
 
 /**
  * TODO: Check if manually dispatching input/change events on input is necessary
- * TODO: handle slotchange
  */
 export class Autocomplete extends Base {
   @property({ type: Boolean }) open = false;
-
-  // Passed to menu
-  @property({ type: Boolean }) quick = false;
-  @property({ type: Number }) offset = 0;
-  @property({ reflect: true })
-  align: Placement = 'bottom-start';
-  @property({ type: String, reflect: true, attribute: 'align-strategy' })
-  alignStrategy: Strategy = 'absolute';
-  @property({ type: Boolean, attribute: 'keep-open-select' })
-  keepOpenSelect = false;
-
   @property() mode: AutocompleteMode = 'none';
 
-  @query('[part="menu"]') $menu!: Menu;
+  @query('[part=popup]') $popup!: Popup;
+  @query('[part=menu]') $menu!: Menu;
   @queryAssignedElements({ slot: 'input', flatten: true })
   inputSlotElements!: HTMLElement[];
   @queryAssignedElements({ flatten: true })
@@ -50,31 +39,36 @@ export class Autocomplete extends Base {
   }
 
   /**
-   * Example content:
-   *
-   * ```html
-   * <your-menu
-   *   part="menu"
-   *   id="menu"
-   *   type="listbox"
-   *   data-tabindex="-1"
-   *   ?quick="${this.quick}"
-   *   .offset=${this.offset}
-   *   .align=${this.align}
-   *   .alignStrategy=${this.alignStrategy}
-   *   ?keep-open-select=${this.keepOpenSelect}
-   *   no-focus-control
-   *   ?open=${this.open}
-   *   @open="${() => (this.open = true)}"
-   *   @close="${() => (this.open = false)}"
-   *   @select=${this.handleMenuSelect}
-   * >
-   *   <slot @slotchange=${this.handleItemsSlotChange}></slot>
-   * </your-menu>
-   * ```
+   * Check example content from the m3 implementation
    */
   renderMenu() {
     return html``;
+  }
+
+  constructor() {
+    super();
+    if (!isServer) {
+      this.addEventListener('focusout', this.#handleFocusOut.bind(this));
+    }
+  }
+
+  #handleFocusOut(event: FocusEvent) {
+    if (!this.open) return;
+
+    const target = event.relatedTarget as Node | null;
+
+    if (target && this.contains(target)) {
+      return;
+    }
+
+    if (target) {
+      this.$popup.hide();
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      if (!document.hasFocus()) this.$popup.hide();
+    });
   }
 
   // TODO: handle multiple calls on this function, currently double-call
@@ -86,19 +80,18 @@ export class Autocomplete extends Base {
     const $realInput = (input as Input).$inputOrTextarea;
 
     $realInput.role = 'combobox';
-    $realInput.ariaExpanded = String(this.open);
     $realInput.ariaHasPopup = 'listbox';
     $realInput.ariaAutoComplete = this.mode;
     $realInput.ariaControlsElements = [this.$menu];
 
     input.addEventListener('input', this.handleInput.bind(this));
     input.addEventListener('keydown', this.handleInputKeydown.bind(this));
-    input.addEventListener('click', () => (this.open = !this.open));
 
-    this.$menu.attach($realInput);
+    this.$popup.$ariaControl = $realInput;
+    this.$popup.attach(input);
   }
 
-  protected handleItemsSlotChange() {
+  protected async handleItemsSlotChange() {
     // Initial filter based on current input value (if any)
     this.filterOptions(this.$input?.value || '');
   }
@@ -156,16 +149,18 @@ export class Autocomplete extends Base {
     if (this.$input?.disabled) return;
 
     if (['Enter', 'Escape', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
-      const eventClone = new KeyboardEvent(event.type, event);
-      eventClone.preventDefault = () => event.preventDefault();
-      eventClone.stopPropagation = () => event.stopPropagation();
-      this.$menu.$menu.dispatchEvent(eventClone);
-
-      if (event.key === 'Enter' && !this.keepOpenSelect) this.open = false;
+      if (!this.open && ['ArrowUp', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault();
+        this.open = true;
+        return;
+      }
+      if (this.open) {
+        this.$menu.handleKeyDown(event);
+      }
     }
   }
 
-  protected handleMenuSelect(event: MenuSelectEvent) {
+  protected handleMenuAction(event: MenuActionEvent) {
     const selectedItem = event.detail.item;
     const newValue =
       selectedItem.getAttribute('value') ||
@@ -174,10 +169,6 @@ export class Autocomplete extends Base {
 
     if (this.$input) {
       this.$input.value = newValue;
-    }
-
-    if (!this.keepOpenSelect) {
-      this.open = false;
     }
   }
 

@@ -1,10 +1,11 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 
-import '../menu/menu.js';
+import '../experimental/popup.js';
+import '../experimental/menu.js';
 
 import { Select } from '../../base/select.js';
-import { M3Field } from '../field/field.js';
+import type { M3Field } from '../field/field.js';
 
 export abstract class M3Select extends Select {
   @property({ type: String }) label = '';
@@ -22,7 +23,7 @@ export abstract class M3Select extends Select {
         for="field"
         no-focus-control
         .open="${this.open}"
-        @toggle="${(e: Event) => (this.open = (e as any).newState === 'open')}"
+        @toggle=${(e: ToggleEvent) => (this.open = e.newState === 'open')}
       >
         <md-menu
           id="menu"

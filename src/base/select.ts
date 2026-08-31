@@ -185,7 +185,6 @@ export class Select extends Base {
   }
 
   #handleFocusOut(event: FocusEvent) {
-    // for `this` and `this.$control`
     if (!this.open) return;
 
     const target = event.relatedTarget as Node | null;

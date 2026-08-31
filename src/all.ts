@@ -39,4 +39,5 @@ import './win98/button/button.js';
 
 import './base/experimental/popup.js';
 import './m3/experimental/menu.js';
+import './m3/experimental/composed-menu.js';
 import './m3/experimental/popup.js';

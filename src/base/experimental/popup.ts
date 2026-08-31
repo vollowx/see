@@ -45,6 +45,8 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   @property({ type: Number }) offset = 0;
   @property({ type: Number, attribute: 'window-padding' }) windowPadding = 8;
 
+  @property({ type: HTMLElement }) $ariaControl: HTMLElement | null;
+
   static override styles = [popupStyles];
   override render() {
     return html`<slot></slot>`;
@@ -95,8 +97,9 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
       next.addEventListener('click', this.#handleTriggerClick);
       next.addEventListener('focusout', this.#handleFocusOut);
 
-      if (!next.ariaHasPopup) next.ariaHasPopup = 'true';
-      next.ariaExpanded = String(this.open);
+      const ariaNext = this.$ariaControl ? this.$ariaControl : next;
+      if (!next.ariaHasPopup) ariaNext.ariaHasPopup = 'true';
+      ariaNext.ariaExpanded = String(this.open);
     }
   }
 
@@ -142,9 +145,8 @@ export class Popup extends Attachable(InternalsAttached(LitElement)) {
   };
 
   #syncTriggerAria() {
-    if (this.$control) {
-      this.$control.ariaExpanded = String(this.open);
-    }
+    if (this.$ariaControl) this.$ariaControl.ariaExpanded = String(this.open);
+    else if (this.$control) this.$control.ariaExpanded = String(this.open);
   }
   #focusFirstInteractiveElement() {
     if (this.noFocusControl) return;

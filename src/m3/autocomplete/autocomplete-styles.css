@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-[part='menu'] {
+[part='popup'] {
   --md-menu-max-height: 300px;
-  min-width: 100%;
+  min-width: inherit;
 }
