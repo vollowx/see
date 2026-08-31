@@ -65,7 +65,7 @@ export class Button extends Base {
   };
 
   #handleKeyUp = (e: KeyboardEvent) => {
-    if (e.key === ' ') {
+    if (e.key === ' ' && this[internals].states.has('active')) {
       this[internals].states.delete('active');
       e.preventDefault();
       e.stopPropagation();
