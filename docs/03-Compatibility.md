@@ -12,7 +12,9 @@ seele relies on the following modern web standards:
 | [`:dir()`][:dir]                                       | 2023     | 120      | -       | -      |
 | [Constructable Stylesheets][constructable-stylesheets] | 2024     | -        | 126     | -      |
 | [`:state()`][:state]                                   | 2024     | 125      | 126     | -      |
+| [`@starting-style`][starting-style]                    | 2024     | -        | -       | 17.5   |
 | [`aria*Element`][aria-active] and similar              | 2025     | 135      | 136     | 16.4   |
+| [Popover API][popover-api]                             | 2025     | -        | -       | 17     |
 | [`CSSNumericValue`][css-numeric-value]                 | not yet  | -        | Nightly | -      |
 
 _* `CSSNumericValue` is worked around currently so it does not raise the minimum
@@ -22,15 +24,13 @@ All of the above result in the following minimum requirements:
 
 - Chromium: >= 135
 - Firefox: >= 136
-- Safari: >= 16.4
+- Safari: >= 17.5
 
 It is 2026 now, so you don't really need to worry about this. However, in the
 future, the following web features might be used and require higher browser
 versions:
 
-- [Popover API][popover-api] — Baseline 2025, Safari 17, _will improve menu, popup, and combobox_
-- [`@starting-style`][starting-style] — Baseline 2025, Safari 17.5
-- [`anchor()`][anchor] — Baseline 2026, Firefox 147, Safari 26, _will remove the dependency `floating-dom`_
+- [`anchor()`][anchor], Baseline 2026, Firefox 147, Safari 26, _will remove the dependency `floating-dom`_
 
 _* omitting a specific browser version means using that standard does not raise
 the minimum required version of seele_
