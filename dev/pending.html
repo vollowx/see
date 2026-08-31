@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-md-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -98,9 +98,20 @@
       </md-list>
     </complementary-popup>
 
-    <button id="bn2">open menu-like thingy?</button>
-    <md-popup role="menu" for="bn2">
-      <md-aria-menu role="presentation" style="width: 300px">
+    <md-button
+      id="menu-button"
+      aria-haspopup="menu"
+      aria-controls="comp-menu"
+      variant="tonal"
+    >
+      Settings
+    </md-button>
+    <md-popup for="menu-button" role="presentation" vibrant>
+      <md-composable-menu
+        id="comp-menu"
+        aria-label="Whatever menu"
+        style="width: 200px"
+      >
         <md-menu-item>Air</md-menu-item>
         <md-menu-item>Alphabet</md-menu-item>
         <md-menu-item>Apple</md-menu-item>
@@ -113,8 +124,27 @@
         <md-menu-item>Market</md-menu-item>
         <md-menu-item>Manifest</md-menu-item>
         <md-menu-item>Zed</md-menu-item>
-      </md-aria-menu>
+      </md-composable-menu>
     </md-popup>
+
+
+    <md-composable-menu
+      aria-label="Whatever menu"
+      style="width: 200px"
+    >
+      <md-menu-item>Air</md-menu-item>
+      <md-menu-item>Alphabet</md-menu-item>
+      <md-menu-item>Apple</md-menu-item>
+      <md-menu-item>Blueprint</md-menu-item>
+      <md-menu-item>Crust</md-menu-item>
+      <md-menu-item>Introduction</md-menu-item>
+      <md-menu-item>Json</md-menu-item>
+      <md-menu-item>Klint</md-menu-item>
+      <md-menu-item>Linter</md-menu-item>
+      <md-menu-item>Market</md-menu-item>
+      <md-menu-item>Manifest</md-menu-item>
+      <md-menu-item>Zed</md-menu-item>
+    </md-composable-menu>
 
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam

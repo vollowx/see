@@ -118,7 +118,6 @@ export class List extends Base {
       case MenuActions.CloseSelect:
         event.preventDefault();
         if (currentIndex >= 0) {
-          items[currentIndex].focused = false;
           this.dispatchEvent(
             new CustomEvent('select', {
               detail: {

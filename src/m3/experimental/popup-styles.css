@@ -1,4 +1,9 @@
 :host {
+  --_fast: var(--md-sys-motion-spatial-fast-duration)
+    var(--md-sys-motion-spatial-fast);
+  --_d: var(--md-sys-motion-spatial-default-duration);
+  --_default: var(--_d) var(--md-sys-motion-spatial-default);
+
   background: var(--md-sys-color-surface-container);
   border-radius: 16px / 46px; /* roughly fixes border-radius being squished during transformation */
   box-shadow: var(--md-sys-elevation-shadow-2);
@@ -9,12 +14,10 @@
 
   transition:
     opacity var(--md-sys-motion-effects-fast-duration),
-    transform var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast),
-    border-radius var(--md-sys-motion-spatial-fast-duration)
-      var(--md-sys-motion-spatial-fast),
-    display var(--md-sys-motion-spatial-default-duration) allow-discrete,
-    overlay var(--md-sys-motion-spatial-default-duration) allow-discrete;
+    transform var(--_fast),
+    border-radius var(--_fast),
+    display var(--_d) allow-discrete,
+    overlay var(--_d) allow-discrete;
 }
 
 :host([vibrant]) {
@@ -43,10 +46,8 @@ slot {
 
   transition:
     opacity 67ms linear,
-    transform var(--md-sys-motion-spatial-default-duration)
-      var(--md-sys-motion-spatial-default),
-    border-radius var(--md-sys-motion-spatial-default-duration)
-      var(--md-sys-motion-spatial-default);
+    transform var(--_default),
+    border-radius var(--_default);
 
   slot {
     opacity: 1;

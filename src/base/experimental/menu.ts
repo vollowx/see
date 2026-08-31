@@ -15,15 +15,17 @@ export type MenuActionEvent = CustomEvent<MenuActionDetail>;
 
 /**
  * @csspart items
- *
+ * @slot - menu items
  * @fires {MenuActionEvent} action - Fires when an item is activated.
  * @fires {Event} request-popup-hide - Fires when menu should be hidden.
- *
- * TODO: handle slotchange
  */
 export class Menu extends InternalsAttached(LitElement) {
+  /**
+   * When true, emits `request-popup-hide` on `action`
+   */
   @property({ type: Boolean, attribute: 'keep-open-action' })
   keepOpenAction = false;
+
   /**
    * When true, removes the default focus management and `aria-activedescendant`
    * on the host.
@@ -31,11 +33,22 @@ export class Menu extends InternalsAttached(LitElement) {
   @property({ type: Boolean, reflect: true })
   bare = false;
 
-  @queryAssignedElements({ flatten: true }) slotItems!: Array<
-    MenuItem | HTMLElement
-  >;
+  @queryAssignedElements({ flatten: true }) slotItems!: Array<MenuItem>;
   get $items() {
     return this.listController.items || [];
+  }
+
+  get currentIndex() {
+    return this.listController?.currentIndex;
+  }
+  focusFirstItem() {
+    this.listController.focusFirstItem();
+  }
+  focusLastItem() {
+    this.listController.focusLastItem();
+  }
+  focusItem(item: MenuItem) {
+    this.listController._focusItem(item);
   }
 
   override render() {
@@ -51,6 +64,7 @@ export class Menu extends InternalsAttached(LitElement) {
     if (!isServer) {
       this.addEventListener('keydown', this.#handleKeyDown.bind(this));
       this.addEventListener('focusin', this.#handleFocusIn.bind(this));
+      this.addEventListener('focusout', this.#handleFocusOut.bind(this));
       this.addEventListener('mouseover', this.#handleMouseOver.bind(this));
       this.addEventListener('click', this.#handleClick.bind(this));
     }
@@ -79,10 +93,14 @@ export class Menu extends InternalsAttached(LitElement) {
     this.listController.focusFirstItem();
   }
 
+  #handleFocusOut() {
+    this.listController._blurItem(this.listController._focusedItem);
+  }
+
   #handleKeyDown(event: KeyboardEvent) {
     if (event.defaultPrevented) return;
 
-    const action = getActionFromKey(event, true);
+    const action = getActionFromKey(event);
     const items = this.$items;
     const currentIndex = this.listController.currentIndex;
     const maxIndex = items.length - 1;
@@ -96,6 +114,25 @@ export class Menu extends InternalsAttached(LitElement) {
         event.preventDefault();
         this.listController.focusLastItem();
         return;
+      case MenuAction.PageUp:
+      case MenuAction.PageDown: {
+        event.preventDefault();
+        const { first, last, pageSize } = getVisibleItems(this, items);
+        const isDown = action === MenuAction.PageDown;
+
+        const boundary = isDown ? last : first;
+        const atBoundary = isDown
+          ? currentIndex >= last
+          : currentIndex <= first;
+        const step = isDown ? pageSize : -pageSize;
+
+        const nextIndex = atBoundary ? currentIndex + step : boundary;
+
+        this.listController._focusItem(
+          items[Math.max(0, Math.min(maxIndex, nextIndex))]
+        );
+        return;
+      }
       case MenuAction.Next:
         event.preventDefault();
         this.listController.focusNextItem();
@@ -104,18 +141,6 @@ export class Menu extends InternalsAttached(LitElement) {
         event.preventDefault();
         this.listController.focusPreviousItem();
         return;
-      case MenuAction.PageUp:
-      case MenuAction.PageDown: {
-        event.preventDefault();
-        const { pageSize } = getVisibleItems(this, items);
-        const direction = action === MenuAction.PageDown ? 1 : -1;
-        const nextIndex = Math.max(
-          0,
-          Math.min(maxIndex, currentIndex + pageSize * direction)
-        );
-        this.listController._focusItem(items[nextIndex]);
-        return;
-      }
       case MenuAction.CloseSelect:
         event.preventDefault();
         if (currentIndex >= 0) {
@@ -128,10 +153,6 @@ export class Menu extends InternalsAttached(LitElement) {
           this.#dispatchHide();
         }
         return;
-      case MenuAction.Close:
-        event.preventDefault();
-        this.#dispatchHide();
-        return;
       case MenuAction.Type:
         this.listController.handleType(event.key);
         return;
@@ -140,32 +161,26 @@ export class Menu extends InternalsAttached(LitElement) {
 
   #handleMouseOver(event: MouseEvent) {
     setFocusVisible(false);
-    const item = (event.target as HTMLElement).closest(
-      '[seele-base="option"]'
-    ) as MenuItem;
-    if (
-      item &&
-      this.listController.items.includes(item) &&
-      this.currentIndex !== this.listController.items.indexOf(item)
-    ) {
-      this.listController._focusItem(item);
-    }
+    const item = this.#getItemFromEvent(event);
+    if (item && this.currentIndex !== item.index)
+      this.listController._focusItem(item.item);
   }
 
   #handleClick(event: MouseEvent) {
-    const item = (event.target as HTMLElement).closest(
-      '[seele-base="option"]'
-    ) as MenuItem;
-    if (!item || !this.listController.items.includes(item)) return;
+    const item = this.#getItemFromEvent(event);
+    if (!item) return;
 
-    const index = this.listController.items.indexOf(item);
-    this.listController.items[index].focused = false;
-
-    this.#dispatchAction({
-      item: item,
-      index: index,
-    });
+    item.item.focused = false;
+    this.#dispatchAction({ ...item });
     if (!this.keepOpenAction) this.#dispatchHide();
+  }
+
+  #getItemFromEvent(event: Event) {
+    const item = (event.target as HTMLElement).closest<MenuItem>(
+      '[seele-base=option]'
+    );
+    if (!item || !this.listController.items.includes(item)) return null;
+    return { item, index: this.listController.items.indexOf(item) };
   }
 
   #dispatchAction(detail: MenuActionDetail) {
@@ -182,22 +197,9 @@ export class Menu extends InternalsAttached(LitElement) {
       new Event('request-popup-hide', { bubbles: true, composed: true })
     );
   }
-
-  get currentIndex() {
-    return this.listController?.currentIndex;
-  }
-
-  focusFirstItem() {
-    this.listController.focusFirstItem();
-  }
-  focusLastItem() {
-    this.listController.focusLastItem();
-  }
-  focusItem(item: MenuItem) {
-    this.listController._focusItem(item);
-  }
 }
 
+// Might as well be used in listbox, so let's keep it for now
 // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 export enum MenuAction {
   Close = 'close',
@@ -213,42 +215,20 @@ export enum MenuAction {
   Type = 'type',
 }
 
-export function filterOptions(
-  options: string[] = [],
-  filter: string,
-  exclude: string[] = []
-) {
-  const lowerFilter = filter.toLowerCase();
-  return options.filter((option) => {
-    return (
-      option.toLowerCase().startsWith(lowerFilter) && !exclude.includes(option)
-    );
-  });
-}
-
-export function getActionFromKey(
-  event: KeyboardEvent,
-  menuOpen: boolean
-): MenuAction | undefined {
+export function getActionFromKey(event: KeyboardEvent): MenuAction | null {
   const { key, altKey, ctrlKey, metaKey } = event;
-  const openKeys = ['ArrowDown', 'ArrowUp', 'Enter', ' '];
 
-  if (!menuOpen && openKeys.includes(key)) {
-    return MenuAction.Open;
-  }
+  if (key === 'Escape') return MenuAction.Close;
+  if (key === 'Enter' || key === ' ') return MenuAction.CloseSelect;
 
   if (key === 'Home') return MenuAction.First;
   if (key === 'End') return MenuAction.Last;
+  if (key === 'PageUp') return MenuAction.PageUp;
+  if (key === 'PageDown') return MenuAction.PageDown;
 
-  if (menuOpen) {
-    if (key === 'ArrowUp' && altKey) return MenuAction.CloseSelect;
-    if (key === 'ArrowDown' && !altKey) return MenuAction.Next;
-    if (key === 'ArrowUp' && !altKey) return MenuAction.Previous;
-    if (key === 'PageUp') return MenuAction.PageUp;
-    if (key === 'PageDown') return MenuAction.PageDown;
-    if (key === 'Escape') return MenuAction.Close;
-    if (key === 'Enter' || key === ' ') return MenuAction.CloseSelect;
-  }
+  if (key === 'ArrowUp' && altKey) return MenuAction.CloseSelect;
+  if (key === 'ArrowDown' && !altKey) return MenuAction.Next;
+  if (key === 'ArrowUp' && !altKey) return MenuAction.Previous;
 
   if (
     key === 'Backspace' ||
@@ -258,15 +238,19 @@ export function getActionFromKey(
     return MenuAction.Type;
   }
 
-  return undefined;
+  return null;
 }
 
 export function getVisibleItems(container: HTMLElement, items: HTMLElement[]) {
   if (!items.length) return { first: 0, last: 0, pageSize: 1 };
 
   const containerRect = container.getBoundingClientRect();
-  const clientTop = containerRect.top + container.clientTop;
-  const clientBottom = clientTop + container.clientHeight;
+  const style = window.getComputedStyle(container);
+
+  const paddingTop = parseFloat(style.scrollPaddingTop) || 0;
+  const paddingBottom = parseFloat(style.scrollPaddingBottom) || 0;
+  const top = containerRect.top + container.clientTop + paddingTop;
+  const bottom = top + container.clientHeight - paddingTop - paddingBottom;
 
   let first = -1;
   let last = -1;
@@ -274,16 +258,18 @@ export function getVisibleItems(container: HTMLElement, items: HTMLElement[]) {
   for (let i = 0; i < items.length; i++) {
     const itemRect = items[i].getBoundingClientRect();
 
-    // Item is visible if its top is above the container's bottom AND its bottom is below the container's top
-    if (itemRect.top < clientBottom && itemRect.bottom > clientTop) {
+    if (itemRect.top < bottom && itemRect.bottom > top) {
       if (first === -1) first = i;
       last = i;
+    } else if (first !== -1) {
+      break;
     }
   }
 
-  first = Math.max(0, first);
-  last = Math.max(0, last);
+  if (first === -1) {
+    return { first: 0, last: 0, pageSize: 1 };
+  }
 
   // pageSize is the span of visible items
-  return { first, last, pageSize: Math.max(1, last - first) };
+  return { first, last, pageSize: Math.max(1, last - first + 1) };
 }
