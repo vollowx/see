@@ -23,8 +23,8 @@ keyboard-control.
 <p><i>* And yes, this button requires Firefox 147 and Safari 26.2 to be a working link.</i></p>
 -->
 
-To try seele it without installing it, you can use [importmap](importmap) like
-below, note that styles required to properly show the components are not
+To try it without installing it, you can use [importmap](importmap) like below.
+Note that styles required to properly show the components are not
 included.
 
 ```html
@@ -49,8 +49,8 @@ seele is published on npm at [`@vollowx/seele`](npm-package), therefore:
 npm i @vollowx/seele
 ```
 
-To start using seele, you will need a bundlers and dev servers that resolves
-paths to Node packages, for example [web-dev-server](web-dev-server) and
+To start using seele, you will need a bundler and dev server that resolves paths
+to Node packages, for example [web-dev-server](web-dev-server) and
 [esbuild](esbuild). You can take a look at [seele-example](seele-example), which
 contains a minimal setup for using seele (or actually any other Web Components
 library).
