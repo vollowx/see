@@ -1,4 +1,5 @@
 ---
+title: Text field component - seele/m3
 components:
   - m3/text-field/filled-text-field
   - m3/text-field/outlined-text-field

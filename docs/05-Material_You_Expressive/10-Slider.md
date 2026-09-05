@@ -1,4 +1,5 @@
 ---
+title: Slider component - seele/m3
 components:
   - m3/slider/slider
 ---

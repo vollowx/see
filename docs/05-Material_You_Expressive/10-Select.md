@@ -1,4 +1,5 @@
 ---
+title: Select component - seele/m3
 components:
   - m3/select/option
   - m3/select/filled-select

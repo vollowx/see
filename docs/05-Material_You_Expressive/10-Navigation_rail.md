@@ -1,4 +1,5 @@
 ---
+title: Navigation rail component - seele/m3
 components:
   - m3/navigation/navigation-rail-item
   - m3/navigation/navigation-rail

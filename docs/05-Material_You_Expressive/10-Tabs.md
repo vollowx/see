@@ -1,4 +1,5 @@
 ---
+title: Tabs component - seele/m3
 components:
   - m3/tab/tab
   - m3/tab/secondary-tab

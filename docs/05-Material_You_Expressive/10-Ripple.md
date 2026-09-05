@@ -1,4 +1,5 @@
 ---
+title: Ripple component - seele/m3
 components:
   - m3/ripple/ripple
 ---

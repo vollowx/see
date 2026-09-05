@@ -1,4 +1,5 @@
 ---
+title: Icon button component - seele/m3
 components:
   - m3/button/icon-button
   - m3/button/icon-button-toggle
