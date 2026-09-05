@@ -3,7 +3,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { InternalsAttached, internals } from '../../base/mixins/internals-attached.js';
-import { loadingIndicatorStyles } from './loading-indicator-styles.css.js';
+import { loadingStyles } from './loading-styles.css.js';
 
 const STEP_MS = 650;
 const FULL_ROTATION_MS = 4666;
@@ -22,11 +22,11 @@ const CENTER = CANVAS_SIZE / 2;
  * NOTE: the pantagon is completely not following the shape system
  */
 @customElement('md-loading')
-export class M3LoadingIndicator extends InternalsAttached(LitElement) {
+export class M3Loading extends InternalsAttached(LitElement) {
   @property({ type: Boolean, reflect: true }) contained = false;
   @query('canvas') $canvas!: HTMLCanvasElement;
 
-  static override styles = [loadingIndicatorStyles];
+  static override styles = [loadingStyles];
   override render() {
     return html`<canvas
       width="${CANVAS_SIZE}"
@@ -136,7 +136,7 @@ export class M3LoadingIndicator extends InternalsAttached(LitElement) {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'md-loading': M3LoadingIndicator;
+    'md-loading': M3Loading;
   }
 }
 

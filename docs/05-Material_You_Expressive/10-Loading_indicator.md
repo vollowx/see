@@ -1,7 +1,7 @@
 ---
 title: Loading indicator component - seele/m3
 components:
-  - m3/loading-indicator/loading-indicator
+  - m3/loading/loading
 ---
 
 # Loading indicator
@@ -9,7 +9,7 @@ components:
 - [Material Design](overview)
 
 ```typescript
-import '@vollowx/seele/m3/loading-indicator/loading-indicator.js';
+import '@vollowx/seele/m3/loading/loading.js';
 ```
 
 <!-- @show -->

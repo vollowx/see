@@ -105,9 +105,8 @@ import '@vollowx/seele/win98/button/button.js';
 
 The `<category>` is one of `core`, `base`, `m3` or `win98` (see
 [Design systems](#design-systems) above). The `<component>` does not
-necessarily match the name of the component, for example `<md-loading>` is
-imported from `@vollowx/seele/m3/loading-indicator/loading-indicator.js`. Such
-relationship is documented on the page of each component.
+necessarily match the name of the component. Such relationship is documented on
+the page of each component.
 
 To see all components you can import directly, see [all.ts](all).
 
