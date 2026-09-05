@@ -25,9 +25,20 @@ keyboard navigation.
 
 To try seele without installing it, you can use [importmap](importmap) like
 below.
-Note that styles required to properly display the components are not included.
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/base.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/motion-expressive.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-light.css"
+  media="screen and (prefers-color-scheme: light)"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-dark.css"
+  media="screen and (prefers-color-scheme: dark)"
+/>
 <script type="importmap">
   {
     "imports": {
@@ -40,6 +51,29 @@ Note that styles required to properly display the components are not included.
 </script>
 <md-button variant="outlined">Button</md-button>
 ```
+
+## Design systems
+
+seele has component behaviors in `base` and visuals in design systems that extend
+it. Most users only need to pick one design system below and import from it,
+`base` and `core` are lower-level parts the design systems rely on.
+
+| overview page                                                          | path prefix | origin                                       |
+| ---------------------------------------------------------------------- | ----------- | -------------------------------------------- |
+| [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) | `m3`        | Google's [Material Design 3][m3-home] system |
+| [Windows 98](./06-Windows_98/00-Overview.md)                           | `win98`     | Retro Windows 98 look                        |
+
+Each design system contains not only components, but also assets like styles
+and helper utils. See `00-Overview.md` for each design system for its full
+component list.
+
+### Foundations
+
+- [`base`](./04-Base/00-Overview.md) implements behavior and accessibility
+  without visuals, and design systems extend it. Import from it directly if you
+  are writing components in your own design system.
+- `core` includes decorators and utilities like focus control. It has no
+  components of its own.
 
 ## Installation
 
@@ -71,28 +105,24 @@ import '@vollowx/seele/m3/checkbox/checkbox.js';
 import '@vollowx/seele/win98/button/button.js';
 ```
 
-The `<catagory>` can be `core`, `base` or a design system (see the next
-section). The path to one component does not necessarily match the name of it,
-for example `<md-loading>` is imported from
-`@vollowx/seele/m3/loading-indicator/loading-indicator.js`. Such relationship
-is documented on each component's page.
 
-## Design systems
-
-This library implements the following design systems (each identified by a
-prefix):
-
-- [Material You Expressive](./05-Material_You_Expressive/00-Overview.md), prefixed as `m3`
-- [Windows 98](./06-Windows_98/00-Overview.md), prefixed as `win98`
-
-Each design system contains not only conponents, but also assets like styles
-and helper utils. Refer to the overview page of each system for more details.
+The `<category>` is one of `core`, `base`, `m3` or `win98` (see
+[Design systems](#design-systems) above). The `<component>` does not
+necessarily match the name of the component, for example `<md-loading>` is
+imported from `@vollowx/seele/m3/loading-indicator/loading-indicator.js`. Such
+relationship is documented on the page of each component.
 
 To see all components you can import directly, see [all.ts](all).
 
 ## Compatibility
 
+In short, Chromium: >= 135, Firefox: >= 136 and Safari: >= 17.5.
+
 See [Compatibility](./03-Compatibility.md).
+
+## Roadmap
+
+See [Roadmap](./01-Roadmap.md).
 
 ## Notes
 
@@ -102,22 +132,23 @@ See [Compatibility](./03-Compatibility.md).
 2. The order you import components matters for now, for example `<md-menu>` looks
    for `<md-menu-item>`s in its slot at `connectedCallback()`, and if they are not
    registered at that moment, they will miss the chance of getting the events
-   added. Such case happens for autocomplete, menu and tabs, and is solved for
-   dialog and radio.
+   added. Such case happens for autocomplete and tabs, and is solved for dialog,
+   menu and radio.
 
-   The easist solution is to do things like loading menu items before menu, and
+   The easiest solution is to do things like loading menu items before menu, and
    such cases will be handled more flexibly in the future.
 
 This documentation is also available at:
 
+- as a website with demos rendered
+  - [tideover.cc/seele/docs/](https://tideover.cc/seele/docs/)
+  - [lucaz.srht.site](https://lucaz.srht.site/) (auto-built site, external resources like icons cannot be loaded)
 - as Markdown
   - [SourceHut](https://git.sr.ht/~lucaz/seele/tree/main/item/docs/00-Overview.md)
   - [GitHub](https://github.com/vollowx/seele/blob/main/docs/00-Overview.md)
-- as website with demos rendered
-  - [https://tideover.cc/seele/docs/](https://tideover.cc/seele/docs/)
-  - [https://lucaz.srht.site/](https://lucaz.srht.site/) (backup site)
 
 [web-comps]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components
+[m3-home]: https://m3.material.io/
 [npm-package]: https://www.npmjs.com/package/@vollowx/seele
 [seele-example]: https://github.com/vollowx/seele-example/
 [web-dev-server]: https://modern-web.dev/docs/dev-server/overview/
