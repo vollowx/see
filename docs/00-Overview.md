@@ -29,16 +29,10 @@ below.
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/base.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/motion-expressive.css" />
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-light.css"
-  media="screen and (prefers-color-scheme: light)"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-dark.css"
-  media="screen and (prefers-color-scheme: dark)"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/defaults.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-light.css" media="screen and (prefers-color-scheme: light)" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vollowx/seele/src/m3/styles/color-default-dark.css" media="screen and (prefers-color-scheme: dark)" />
+
 <script type="importmap">
   {
     "imports": {
@@ -47,21 +41,24 @@ below.
   }
 </script>
 <script type="module">
-  import '@vollowx/seele/m3/button/common-button.js';
+  import '@vollowx/seele/all.js';
 </script>
-<md-button variant="outlined">Button</md-button>
+
+<md-button>Filled button</md-button>
+<md-switch checked aria-label="draggable switch"></md-switch>
+<md-loading contained aria-label="loading nothing"></md-loading>
 ```
 
 ## Design systems
 
-seele has component behaviors in `base` and visuals in design systems that extend
-it. Most users only need to pick one design system below and import from it,
-`base` and `core` are lower-level parts the design systems rely on.
+seele has component behaviors in `base` and visuals in design systems that
+extend it. Most users only need to pick one design system below and import from
+it, `base` and `core` are lower-level parts the design systems rely on.
 
-| overview page                                                          | path prefix | origin                                       |
-| ---------------------------------------------------------------------- | ----------- | -------------------------------------------- |
-| [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) | `m3`        | Google's [Material Design 3][m3-home] system |
-| [Windows 98](./06-Windows_98/00-Overview.md)                           | `win98`     | Retro Windows 98 look                        |
+| overview page                                                          | path prefix | origin                                |
+| ---------------------------------------------------------------------- | ----------- | ------------------------------------- |
+| [Material You Expressive](./05-Material_You_Expressive/00-Overview.md) | `m3`        | Google's [Material Design 3][m3-home] |
+| [Windows 98](./06-Windows_98/00-Overview.md)                           | `win98`     | Windows 98 look                       |
 
 Each design system contains not only components, but also assets like styles
 and helper utils. See `00-Overview.md` for each design system for its full
