@@ -1,4 +1,5 @@
 ---
+title: Toolbar component - seele/m3
 components:
   - m3/button/common-button
   - m3/button/icon-button

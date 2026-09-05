@@ -1,4 +1,5 @@
 ---
+title: List component - seele/m3
 components:
   - m3/list/list-item
   - m3/list/list

@@ -12,25 +12,32 @@ them, add this to your style files.
 ```css
 @import '@vollowx/seele/m3/styles/base.css';
 /* Elevation system and typography system */
+
+@import '@vollowx/seele/m3/styles/color-default-light.css' screen and (prefers-color-scheme: light);
+@import '@vollowx/seele/m3/styles/color-default-dark.css' screen and (prefers-color-scheme: dark);
+/* Color system, use your own when you are tired of the purple */
+
 @import '@vollowx/seele/m3/styles/motion-expressive.css';
 /* Motion physics system, you can also use `standard` instead of `expressive` */
+
 
 @import '@vollowx/seele/m3/styles/defaults.css';
 /* (Optional) Basic styling for body, selections and links */
 ```
 
 If your CSS bundler does not support resolving Node packages or you are not
-using one, importing like this is also fine.
+using one, importing like this.
 
 ```css
 @import 'path/to/node_modules/@vollowx/seele/src/m3/styles/base.css';
+@import 'path/to/node_modules/@vollowx/seele/src/m3/styles/color-default-light.css' screen and (prefers-color-scheme: light);
+@import 'path/to/node_modules/@vollowx/seele/src/m3/styles/color-default-dark.css' screen and (prefers-color-scheme: dark);
 @import 'path/to/node_modules/@vollowx/seele/src/m3/styles/motion-expressive.css';
 @import 'path/to/node_modules/@vollowx/seele/src/m3/styles/defaults.css';
 ```
 
-Note that there is **no** default color system, in order to reduce redundant
-code. Below is how you can add one. Also, all these style files apply CSS
-variables to `:root`, effectively the `<html>` element.
+Note that all these style files apply CSS variables to `:root`, effectively the
+`<html>` element.
 
 You can also find some references in [seele-example](seele-example-css).
 
@@ -39,6 +46,16 @@ You can also find some references in [seele-example](seele-example-css).
 You can use the official [Material Theme Builder](mat-theme-builder).
 Export with "Web (CSS)" option, the CSS files contains the desired CSS
 variables.
+
+Though not recommended to use, there are default color themes provided for
+demos. They can be used like:
+
+```css
+@import '@vollowx/seele/m3/styles/color-default-light.css' screen and (prefers-color-scheme: light);
+@import '@vollowx/seele/m3/styles/color-default-dark.css' screen and (prefers-color-scheme: dark);
+```
+
+Again, there is no point using them.
 
 ## Elevation
 

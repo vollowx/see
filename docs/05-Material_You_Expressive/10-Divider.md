@@ -1,4 +1,5 @@
 ---
+title: Divider component - seele/m3
 components:
   - m3/divider/divider
 ---

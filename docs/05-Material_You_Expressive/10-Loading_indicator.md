@@ -1,4 +1,5 @@
 ---
+title: Loading indicator component - seele/m3
 components:
   - m3/loading-indicator/loading-indicator
 ---

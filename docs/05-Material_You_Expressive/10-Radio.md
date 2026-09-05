@@ -1,4 +1,5 @@
 ---
+title: Radio component - seele/m3
 components:
   - m3/radio/radio
 ---

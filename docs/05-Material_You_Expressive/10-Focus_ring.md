@@ -1,4 +1,5 @@
 ---
+title: Focus ring component - seele/m3
 components:
   - m3/focus-ring/focus-ring
 ---

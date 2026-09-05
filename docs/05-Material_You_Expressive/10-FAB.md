@@ -1,4 +1,5 @@
 ---
+title: FAB component - seele/m3
 components:
   - m3/fab/fab
 ---

@@ -1,4 +1,5 @@
 ---
+title: Switch component - seele/m3
 components:
   - m3/switch/switch
 ---
