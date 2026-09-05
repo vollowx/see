@@ -1,0 +1,124 @@
+:host {
+  align-items: flex-start;
+  display: flex;
+  height: var(--md-linear-progress-height, 4px);
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+[part~='gap'] {
+  position: relative;
+  max-width: 4px;
+  height: 4px;
+}
+[part~='gap'][part~='after'] {
+  width: 4px;
+  flex-shrink: 1;
+}
+
+[part~='inactive'] {
+  background-color: var(--md-sys-color-secondary-container);
+  height: 4px;
+  border-radius: 9999px;
+}
+[part~='inactive'][part~='before'] {
+  flex-shrink: 0;
+  width: 0;
+}
+[part~='inactive'][part~='after'] {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+[part='active'] {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 0;
+  display: inline-block;
+  background-color: var(--md-sys-color-primary);
+  height: 4px;
+  border-radius: 9999px;
+  width: 0;
+  position: relative;
+  margin: auto 0;
+  animation: none;
+  transform-origin: top left;
+  transition: min-width 0.25s cubic-bezier(0.4, 0, 0.6, 1) 0s;
+  inset-block: 0;
+}
+
+:host([indeterminate]) {
+  [part~='gap'][part~='before'] {
+    animation: 1.3s linear infinite gap-before;
+    width: 4px;
+  }
+  [part~='gap'][part~='after'] {
+    width: 4px;
+    flex-shrink: 1;
+    animation: 1.3s linear infinite gap-after;
+  }
+
+  [part~='inactive'][part~='before'] {
+    animation: 1.3s linear infinite track-before;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.15);
+  }
+  [part~='inactive'][part~='after'] {
+    animation: 1.3s linear infinite track-after;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.15);
+  }
+}
+
+@keyframes gap-before {
+  0% {
+    width: 0;
+  }
+  9.8% {
+    width: 0;
+  }
+  20% {
+    width: 4px;
+  }
+  100% {
+    width: 4px;
+  }
+}
+@keyframes gap-after {
+  61.5385% {
+    width: 4px;
+  }
+  61.6385% {
+    width: 0;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes track-before {
+  0% {
+    width: 0;
+  }
+  18% {
+    width: 0;
+  }
+  61.5385% {
+    width: calc(50% - 4px);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes track-after {
+  0% {
+    width: 100%;
+  }
+
+  61.5385% {
+    width: 0;
+  }
+  100% {
+    width: 0;
+  }
+}
