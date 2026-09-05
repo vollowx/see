@@ -1,4 +1,5 @@
 ---
+title: Button component - seele/win98
 components:
   - win98/button/button
 ---
