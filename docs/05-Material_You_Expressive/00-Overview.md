@@ -42,7 +42,7 @@ Others:
 - [Loading indicator](./10-Loading_indicator.md)
 - [Progress indicators](./10-Progress_indicators.md)
 - [Menu](./10-Menu.md)
-- Navigation drawer
+- Navigation bar
 - [Navigation rail](./10-Navigation_rail.md)
 - [Switch](./10-Switch.md)
 - [Tabs](./10-Tabs.md)

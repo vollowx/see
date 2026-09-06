@@ -33,6 +33,7 @@ Others:
 - [Dialog](./10-Dialog.md)
 - [List](./10-List.md), with [ListItem](./10-ListItem.md)
 - [Popup](./10-Popup.md)
+- [ProgressBar](./10-ProgressBar.md)
 - [Tooltip](./10-Tooltip.md)
 
 ## Mixins

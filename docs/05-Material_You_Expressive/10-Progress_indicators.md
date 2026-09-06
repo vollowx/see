@@ -14,9 +14,9 @@ import '@vollowx/seele/m3/progress/linear-progress.js';
 
 <!-- @uncomment
 <div class="demo">
-  <md-linear-progress value="25"></md-linear-progress>
-  <md-linear-progress value="75" style="--md-linear-progress-thickness: 8px"></md-linear-progress>
-  <md-linear-progress indeterminate></md-linear-progress>
+  <md-linear-progress aria-label="Loading pictures" value="25"></md-linear-progress>
+  <md-linear-progress aria-label="Loading pictures" value="75" style="--md-linear-progress-thickness: 8px"></md-linear-progress>
+  <md-linear-progress aria-label="Loading pictures" indeterminate></md-linear-progress>
 </div>
 
 <style>
@@ -30,9 +30,9 @@ import '@vollowx/seele/m3/progress/linear-progress.js';
 -->
 
 ```html
-<md-linear-progress value="25"></md-linear-progress>
-<md-linear-progress value="75" style="--md-linear-progress-thickness: 8px"></md-linear-progress>
-<md-linear-progress indeterminate></md-linear-progress>
+<md-linear-progress aria-label="Loading pictures" value="25"></md-linear-progress>
+<md-linear-progress aria-label="Loading pictures" value="75" style="--md-linear-progress-thickness: 8px"></md-linear-progress>
+<md-linear-progress aria-label="Loading pictures" indeterminate></md-linear-progress>
 ```
 
 ## `M3LinearProgress`
