@@ -9,15 +9,10 @@ components:
 
 - [Material Design](overview)
 
-## `M3FilledTextField` and `M3OutlinedTextField`
-
-- Inherits [`Input`](../04-Base/10-Input.md)
-
 ```typescript
 import '@vollowx/seele/m3/text-field/filled-text-field.js';
 import '@vollowx/seele/m3/text-field/outlined-text-field.js';
 ```
-
 <!-- @show -->
 
 ```html
@@ -32,6 +27,11 @@ import '@vollowx/seele/m3/text-field/outlined-text-field.js';
   supportingtext="You have to say something">
 </md-outlined-text-field>
 ```
+
+## `M3FilledTextField` and `M3OutlinedTextField`
+
+- Inherits [`Input`](../04-Base/10-Input.md)
+
 
 ### Properties
 

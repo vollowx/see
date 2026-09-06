@@ -23,8 +23,32 @@
     <md-loading aria-label="Loading episodes" style="width: 100px"></md-loading>
     <md-loading aria-label="Loading episodes" contained></md-loading>
 
-    <md-linear-progress value="0.5"></md-linear-progress>
-    <br>
+    <md-linear-progress
+      value="50"
+      style="width: 300px"
+      id="bar"
+    ></md-linear-progress>
+    <br />
+    <md-linear-progress
+      value="50"
+      style="width: 300px; --md-linear-progress-thickness: 8px"
+      id="thickBar"
+    ></md-linear-progress>
+    <br />
     <md-linear-progress indeterminate style="width: 300px"></md-linear-progress>
+    <br />
+    <md-linear-progress
+      indeterminate
+      style="width: 300px; --md-linear-progress-thickness: 8px"
+    ></md-linear-progress>
+
+    <md-slider id="slider"></md-slider>
+
+    <script>
+      slider.addEventListener('input', (e) => {
+        bar.value = e.target.value;
+        thickBar.value = e.target.value;
+      });
+    </script>
   </body>
 </html>

@@ -1,49 +1,47 @@
-import { LitElement, html, PropertyValues } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { customElement } from '../../core/decorators.js';
-import {
-  InternalsAttached,
-  internals,
-} from '../../base/mixins/internals-attached.js';
+import { ProgressBar } from '../../base/progressbar.js';
 
 import { linearProgressStyles } from './linear-progress-styles.css.js';
 
 /**
- * TODO: ProgressBar as a base component
- * TODO: buffering
+ * TODO: wavy?
+ * NOTE: buffering progress indicator is no longer documented in MD3
+ *
+ * @tag md-linear-progress
+ *
+ * @csspart track
+ * @csspart gap
+ * @csspart active
+ * @csspart before
+ * @csspart after
  */
 @customElement('md-linear-progress')
-export class M3LinearProgress extends InternalsAttached(LitElement) {
-  @property({ type: Number }) value = 0;
-  @property({ type: Boolean, reflect: true }) indeterminate = false;
-
+export class M3LinearProgress extends ProgressBar {
   static override styles = [linearProgressStyles];
   override render() {
-    const progress = Math.min(Math.max(this.value, 0), 1);
-    const inactiveAfterStyle = {
-      width: this.indeterminate ? '' : `${(1 - progress) * 100}%`,
+    const progress = Math.min(Math.max(this.value, 0), 100);
+    const gapAfterStyle = {
+      width: this.indeterminate || (progress > 0 && progress < 100) ? '' : '0',
+    };
+    const trackAfterStyle = {
+      width: this.indeterminate ? '' : `${100 - progress}%`,
     };
 
     return html`
-      <div part="inactive before"></div>
+      <div part="track before"></div>
       <div part="gap before"></div>
       <div part="active"></div>
-      <div part="gap after"></div>
-      <div part="inactive after" style=${styleMap(inactiveAfterStyle)}></div>
+      <div part="gap after" style=${styleMap(gapAfterStyle)}></div>
+      <div part="track after" style=${styleMap(trackAfterStyle)}></div>
+      <div part="stop"></div>
     `;
   }
+}
 
-  constructor() {
-    super();
-    this[internals].role = 'progressbar';
-    this[internals].ariaValueMin = '0';
-    this[internals].ariaValueMax = '1';
-  }
-  override updated(changedProperties: PropertyValues) {
-    if (changedProperties.has('value')) {
-      if (this.indeterminate) this[internals].ariaValueNow = null;
-      else this[internals].ariaValueNow = String(this.value);
-    }
+declare global {
+  interface HTMLElementTagNameMap {
+    'md-linear-progress': M3LinearProgress;
   }
 }

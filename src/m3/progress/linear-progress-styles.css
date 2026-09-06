@@ -1,7 +1,8 @@
 :host {
-  align-items: flex-start;
+  --_thickness: var(--md-linear-progress-thickness, 4px);
+  align-items: center;
   display: flex;
-  height: var(--md-linear-progress-height, 4px);
+  height: var(--_thickness);
   overflow-x: hidden;
   position: relative;
   width: 100%;
@@ -14,38 +15,45 @@
 }
 [part~='gap'][part~='after'] {
   width: 4px;
-  flex-shrink: 1;
+  flex-shrink: 0;
 }
 
-[part~='inactive'] {
+[part~='track'] {
   background-color: var(--md-sys-color-secondary-container);
-  height: 4px;
+  height: var(--_thickness);
   border-radius: 9999px;
 }
-[part~='inactive'][part~='before'] {
+[part~='track'][part~='before'] {
   flex-shrink: 0;
   width: 0;
 }
-[part~='inactive'][part~='after'] {
+[part~='track'][part~='after'] {
   flex-shrink: 0;
   width: 100%;
 }
 
 [part='active'] {
+  border-radius: 9999px;
+  background-color: var(--md-sys-color-primary);
   flex-grow: 1;
   flex-shrink: 1;
-  width: 0;
-  display: inline-block;
-  background-color: var(--md-sys-color-primary);
-  height: 4px;
-  border-radius: 9999px;
-  width: 0;
-  position: relative;
+  height: var(--_thickness);
+  inset-block: 0;
   margin: auto 0;
-  animation: none;
   transform-origin: top left;
   transition: min-width 0.25s cubic-bezier(0.4, 0, 0.6, 1) 0s;
-  inset-block: 0;
+  width: 0;
+}
+
+[part='stop'] {
+  background-color: var(--md-sys-color-primary);
+  border-radius: 9999px;
+  height: 4px;
+  inset-inline-end: calc(
+    2px * clamp(0, (var(--_thickness) - 4px) / 1px * 1000000, 1)
+  ); /* thickness <= 4 --> 0px, thickness > 4 --> 2px */
+  position: absolute;
+  width: 4px;
 }
 
 :host([indeterminate]) {
@@ -54,18 +62,21 @@
     width: 4px;
   }
   [part~='gap'][part~='after'] {
-    width: 4px;
     flex-shrink: 1;
     animation: 1.3s linear infinite gap-after;
   }
 
-  [part~='inactive'][part~='before'] {
+  [part~='track'][part~='before'] {
     animation: 1.3s linear infinite track-before;
     animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.15);
   }
-  [part~='inactive'][part~='after'] {
+  [part~='track'][part~='after'] {
     animation: 1.3s linear infinite track-after;
     animation-timing-function: cubic-bezier(0.3, 0, 0.8, 0.15);
+  }
+
+  [part='stop'] {
+    display: none;
   }
 }
 
@@ -114,7 +125,6 @@
   0% {
     width: 100%;
   }
-
   61.5385% {
     width: 0;
   }

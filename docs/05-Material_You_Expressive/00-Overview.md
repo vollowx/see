@@ -40,7 +40,7 @@ Others:
 - [Divider](./10-Divider.md)
 - [List](./10-List.md)
 - [Loading indicator](./10-Loading_indicator.md)
-- Progress indicator
+- [Progress indicators](./10-Progress_indicators.md)
 - [Menu](./10-Menu.md)
 - Navigation drawer
 - [Navigation rail](./10-Navigation_rail.md)
